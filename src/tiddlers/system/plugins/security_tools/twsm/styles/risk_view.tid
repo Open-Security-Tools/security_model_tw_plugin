@@ -1,0 +1,105 @@
+created: 20210719230559781
+creator: paul
+modified: 20210930190529234
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/risk_view
+type: text/css
+
+table.risk_table {
+  width: 100%;
+}
+
+span.risk-id {
+	font-size: 24px;
+	line-height: 34px;
+}
+
+span.themes {
+	line-height: 28px;
+}
+
+span.impact {
+	font-size: 16px;
+	line-height: 20px;
+}
+
+span.likelihood {
+	font-size: 16px;
+	line-height: 20px;
+}
+
+span.mitigation_percent {
+	font-size: 16px;
+	line-height: 20px;
+}
+
+div.risk-header {
+    display: flex;
+    width: 100%;
+}
+
+div.risk-header div.scores div.score {
+  width: 120px;
+	height: 120px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-right: 10px;
+	font-weight: bolder;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 10px;
+	padding-left: 0px;
+}
+
+div.risk-header div.scores div.score.twsm_risk_high {
+  background-color: #fb2c08; 
+}
+
+div.risk-header div.scores div.score.twsm_risk_medium {
+  background-color: #fd9309;
+}
+
+div.risk-header div.scores div.score.twsm_risk_low {
+  background-color: #FFFF0c;
+}
+
+div.risk-header div.scores div.score.twsm_risk_unknown {
+  background-color: #a0a0a0;
+}
+
+
+span.risk_ref.twsm_risk_high i {
+  color: #fb2c08; 
+}
+
+span.risk_ref.twsm_risk_medium i {
+  color: #fd9309;
+}
+
+span.risk_ref.twsm_risk_low i {
+  color: #cccc00;
+}
+
+span.risk_ref.twsm_risk_unknown i {
+  color: #a0a0a0;
+}
+
+
+div.risk-header div.scores div.score span {
+  display: block;
+	font-size: 30px;
+	font-weight: 400;
+	box-sizing: border-box;
+}
+
+div.risk-header div.scores {
+    display: flex;
+		height: 120px;
+		box-sizing: border-box;
+		line-height: 1.6;
+}
+
+div.risk-header div.details {
+    width: 100%;
+}

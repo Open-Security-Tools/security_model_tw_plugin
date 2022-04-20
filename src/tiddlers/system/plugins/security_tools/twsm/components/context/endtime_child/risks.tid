@@ -1,0 +1,41 @@
+caption: Mitigation
+created: 20210729064643060
+modified: 20220216220758250
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/endtime_child/risks
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tags[]twsm_class[risk]first[]]" variable="ignore02">
+
+!! Risks
+
+<table class="risk_table">
+<tr>
+<th class="risk_id">Risk ID #</th>
+<th class="risk_description">Description</th>
+<th class="store">Inherent Score</th>
+<th>Mitigation</th>
+<th class="store">Residual Score</th>
+<th>Vulnerable Because</th>
+<th>Mitigated By</th>
+</tr>
+<$list filter="[all[current]tags[]twsm_class[risk]] +[!nsort[twsm_residual_score]]" emptyMessage="<tr><td colspan=6>No risks!</td></tr>">
+<tr>
+<td class="risk_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<td data-score="yes" class={{!!twsm_inherent_class}}>{{!!twsm_inherent_name}} ({{!!twsm_inherent_score}})</td>
+<td>{{!!twsm_mitigation_percent}}%</td>
+<td data-score="yes" class={{!!twsm_residual_class}}>{{!!twsm_residual_name}} ({{!!twsm_residual_score}})</td>
+<td>
+<$list filter="[all[current]tags[]twsm_class[vulnerability]sort[]first[]]"><$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list><$list filter="[all[current]tags[]twsm_class[vulnerability]sort[]butfirst[]]">, <$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list>
+</td>
+<td>
+<$list filter="[all[current]tags[]twsm_class[vulnerability]tags[]twsm_class[control]] [all[current]tags[]twsm_class[control]] +[sort[]first[]]"><$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list><$list filter="[all[current]tags[]twsm_class[vulnerability]tags[]twsm_class[control]] [all[current]tags[]twsm_class[control]] +[sort[]butfirst[]]">, <$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list>
+</td>
+</tr>
+</$list>
+</table>
+
+</$list>

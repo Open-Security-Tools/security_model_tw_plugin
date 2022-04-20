@@ -1,0 +1,114 @@
+created: 20210813231824581
+creator: Tobias Beer
+modified: 20210930190708133
+modifier: Tobias Beer
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/risk_pop_class
+type: text/css
+
+div.risk-entity-header {
+    display: flex;
+    width: 100%;
+}
+
+div.risk-entity-header > button {
+    width: 100%;
+		max-width: 200px;
+  	height: 85px;
+		position: relative;
+		display: block;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    font-weight: bolder;
+    padding-top: 10px;
+    padding-right: 0px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    border-radius: 10px;
+    overflow: hidden;
+		background-color: #FFFFFF !important;
+		box-shadow: 0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);
+}
+
+div.risk-entity-header > button div.icon {
+		position: absolute;
+		right: 12px;
+    z-index: 0;
+		top: 13px;
+}
+
+div.risk-entity-header > button div.inner {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+   padding: 10px;
+	 padding-left: 20px;
+	 padding-top: 2px;
+	 font-size: 1rem;
+font-weight: 400;
+line-height: 1.0;
+color: #212529;
+text-align: left;
+z-index: 1;
+}
+
+div.risk-entity-header > button div.inner h3 {
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  padding: 0;
+  white-space: nowrap;
+	font-size: 1.9rem;
+	line-height: 1.0;
+	color: #000;
+	z-index: 200;
+
+}
+
+div.risk-entity-header > button div.inner p {
+  font-weight: 700;
+  font-size: 1.0rem;
+	color: #000;
+	padding: 0;
+	margin-top: 0;
+  margin-bottom: 1rem;
+	z-index: 200;
+}
+
+div.risk-entity-header > button div.icon i {
+	font-size: 40px;
+	top: 20px;
+	transition: all .3s linear;
+	color: rgba(0,0,0,.15);
+		z-index: 0;
+
+}
+
+
+div.risk-entity-header > button {
+  width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    font-weight: bolder;
+    padding-top: 10px;
+    padding-right: 0px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+		border-radius: 20px;
+		overflow: hidden;
+}
+
+div.risk-entity-header > button {
+  background-color: #FFFFFF;
+    border-style: solid;
+		    font-size: 30px;
+    font-weight: 400;
+
+}
+
+
+
+div.risk-entity-header > button.twsm-entity-btn-selected {
+   background-color: #FFEE45;
+}

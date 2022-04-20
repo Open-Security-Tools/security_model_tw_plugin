@@ -1,0 +1,38 @@
+created: 20211006123840305
+modified: 20220210120744598
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/twsm_highlights
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define _twsm_highlights()
+<$list filter="[twsm_class<class>has<highlight>]">
+<li>
+<$view field=$(highlight)$/>
+(see 
+<$macrocall $name=twsmid title=<<currentTiddler>>/>)
+</li>
+<$list filter="[<currentTiddler>tags[]has[twsm_class]!twsm_class<class>has<highlight>first[]]" variable="ignoreme123">
+<ul>
+<$list filter="[<currentTiddler>tags[]has[twsm_class]!twsm_class<class>has<highlight>]">
+<li>
+<$view field=$(highlight)$/>
+(see 
+<$macrocall $name=twsmid title=<<currentTiddler>>/>)
+</li>
+</$list>
+</ul>
+</$list>
+</$list>
+\end
+
+\define twsm_highlights(class: "assurance_activity" highlight)
+<$set name="highlight" value="$highlight$">
+<$set name="class" value="$class$">
+<ul>
+<<_twsm_highlights>>
+</ul>
+</$set>
+</$set>
+\end

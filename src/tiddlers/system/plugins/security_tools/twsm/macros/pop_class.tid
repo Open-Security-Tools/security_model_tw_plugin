@@ -1,0 +1,33 @@
+created: 20210808094725096
+modified: 20210928140223738
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/pop_class
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define pop_class(class, countFilter, prefix)
+<$set name="state" value=<<qualify """$:/state/popclass-$class$""">>>
+<$set name="tooltip" tiddler="$prefix$$class$" field="tooltip">
+<$button popup=<<state>> class="pop-btn tc-btn-invisible twsm-pop-class" tooltip=<<tooltip>> selectedClass="pop-btn-selected twsm-entity-btn-selected">
+<div class="inner">
+<$list filter="$countFilter$" variable="count">
+<h3><<count>></h3>
+</$list>
+<p>
+<$list filter="$countFilter$ +[compare:integer:eq[1]then[pop_singular]else[pop_plural]]" variable="pop_name_field">
+<$view tiddler="$prefix$$class$" field=<<pop_name_field>>></$view>
+</$list>
+</p>
+</div>
+<div class="icon">
+{{$:/plugins/security_tools/twsm/defs/twsm_class/$class$||$:/plugins/security_tools/twsm/templates/class_inline_icon}}
+</div>
+</$button>
+</$set>
+<$reveal type="popup" state=<<state>> animate="$animate$" position="belowleft" class="tc-popup pop-popup pretty pop-tiddler" style="$pop-style$">
+
+{{||$prefix$$class$}}
+</$reveal>
+</$set>
+\end

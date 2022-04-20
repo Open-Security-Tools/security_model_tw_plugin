@@ -1,0 +1,8 @@
+created: 20220217214026995
+list-after: $:/core/ui/ViewTemplate/body
+modified: 20220217214038227
+tags: 
+title: $:/plugins/security_tools/twsm/integrations/actions/show_all_vulnerabilities
+type: text/vnd.tiddlywiki
+
+<$action-navigate $to="$:/plugins/security_tools/twsm/components/context/none/model_summary/Vulnerabilities"/>

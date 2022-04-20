@@ -1,0 +1,44 @@
+caption: Syntax
+created: 20210805211811349
+modified: 20211113160847552
+tags: 
+title: $:/plugins/security_tools/twsm/syntax
+type: text/vnd.tiddlywiki
+
+! Helpful Macros
+
+To create a todo item:
+
+```
+<<twsmtodo "something important">>
+```
+
+To create an alert box:
+
+```
+<<alert info/danger/warning "''Note'': Something to note?">>
+```
+
+! Cross Referencing
+
+X-referencing is done using tiddler title. This is because the text is self-explanitory (if something goes wrong) and because the relink plugin is configured to automagically rename macro references.
+
+To reference an entity with identifier (risk, control, attack tree, assurance activity):
+
+```
+<<twsmid "Entity Description">>
+```
+
+To reference a theme:
+
+```
+<<twsmtheme "Theme name">>
+```
+
+! Entry Points
+
+Entry point page transclusions:
+
+* [[$:/plugins/security_tools/twsm/components/context/none/dashboard_tabs]]
+* [[$:/plugins/security_tools/twsm/components/context/none/todo_list]]
+

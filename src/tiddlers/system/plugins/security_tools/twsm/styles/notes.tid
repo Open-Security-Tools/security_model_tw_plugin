@@ -1,0 +1,14 @@
+created: 20210806221813893
+creator: paul
+modified: 20210806221821349
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/notes
+type: text/css
+
+.note {
+padding: 10px;
+background: #fcfcfc;
+border-radius: 15px;
+border: 1px solid #ccc;
+}

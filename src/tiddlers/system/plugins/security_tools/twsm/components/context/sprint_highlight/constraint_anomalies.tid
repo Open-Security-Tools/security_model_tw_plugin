@@ -1,0 +1,18 @@
+caption: All Risks
+created: 20220210120449173
+modified: 20220210211121558
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/sprint_highlight/constraint_anomalies
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tagging[]has[twsm_class]!twsm_class[assurance_activity]]">
+WARNING: Link from non-assurance activity {{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}!<br>
+</$list>
+<$set name=sprint_name value=<<currentTiddler>>>
+<$list filter="[all[current]tagging[]twsm_class[assurance_activity]!has<sprint_name>]">
+WARNING: Missing '<<sprint_name>>' field for assurance activity {{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}!<br>
+</$list>
+<$list filter="[all[]has<sprint_name>] -[all[current]tagging[]]">
+WARNING: Missing tag '<<sprint_name>>' for assurance activity {{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}!<br>
+</$list>
+</$set>

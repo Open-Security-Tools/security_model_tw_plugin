@@ -1,0 +1,18 @@
+class_name: Meeting
+class_name_plural: Meetings
+created: 20220214163158059
+family: fas
+glyph: fa-handshake
+has_endtime: yes
+modified: 20220216085644319
+prefix: 
+provides_assurance: yes
+tags: 
+tags_controls: yes
+tags_risks: yes
+tags_sprints: yes
+tags_vulnerabilities: yes
+title: $:/plugins/security_tools/twsm/defs/twsm_class/meeting
+twsm_hue: 270
+type: text/vnd.tiddlywiki
+

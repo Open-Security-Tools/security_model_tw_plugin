@@ -1,0 +1,10 @@
+created: 20210801172426382
+list-after: $:/core/ui/ViewTemplate/body
+modified: 20211113155851943
+tags: $:/tags/ViewTemplate
+title: $:/plugins/security_tools/twsm/integrations/view/todo
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]!prefix[$:]search:text,twsm_assessment_description,twsm_mitigation_description:[<<twsmtodo ]]" variable="flipper45">
+<div class="doing-ribbon">Doing</div>
+</$list>

@@ -1,0 +1,19 @@
+created: 20220224114142429
+list-after: $:/core/ui/ViewTemplate/body
+modified: 20220224114258308
+tags: $:/tags/PageControls
+title: $:/plugins/security_tools/twsm/integrations/pagebuttons/controls
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\define showAllControlsButton()
+<$button tooltip="Show all controls" aria-label="Show all controls" class=<<tv-config-toolbar-class>> actions={{$:/plugins/security_tools/twsm/integrations/actions/show_all_controls}}>
+<$list filter="[<tv-config-toolbar-icons>match[yes]]">
+<small>{{$:/plugins/security_tools/twsm/defs/twsm_class/control||$:/plugins/security_tools/twsm/templates/class_inline_icon}}</small>
+</$list>
+<$list filter="[<tv-config-toolbar-text>match[yes]]">
+<span class="tc-btn-text"><$text text="Show all controls"/></span>
+</$list>
+</$button>
+\end
+<<showAllControlsButton>>

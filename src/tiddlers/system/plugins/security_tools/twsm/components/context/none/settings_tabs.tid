@@ -1,0 +1,7 @@
+created: 20211113181827643
+modified: 20211207183028157
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/settings_tabs
+type: text/vnd.tiddlywiki
+
+<<tabs "[all[tiddlers+shadows]prefix[$:/plugins/security_tools/twsm/components/context/none/settings_tabs/]]" "$:/plugins/security_tools/twsm/components/context/none/settings_tabs/model" "$:/state/twsm_settings_tab">>

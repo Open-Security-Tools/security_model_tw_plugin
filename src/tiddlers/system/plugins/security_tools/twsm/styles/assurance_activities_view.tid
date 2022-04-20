@@ -1,0 +1,46 @@
+created: 20210729070134664
+creator: paul
+modified: 20210807143713771
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/assurance_activities_view
+type: text/css
+
+table.assurance_activity_table {
+  width: 100%;
+}
+
+table.assurance_activity_table tr td.assurance_activity_id,th.assurance_activity_id {
+  text-align: right;
+    font-family: monospace;
+      position: relative;
+    top: 1px;
+  white-space:nowrap;
+}
+
+
+table.assurance_activity_table tr td[data-control-count="0"] {
+  color: transparent;
+}
+
+table.assurance_activity_table tr td.assurance_activity_description,th.control_description {
+  text-align: left;
+}
+
+table.assurance_activity_table tr td.assurance_activity_control_count,th.assurance_activity_control_count {
+  text-align: center;
+}
+
+table.assurance_activity_table tr td.assurance_activity_risk_count,th.assurance_activity_risk_count {
+  text-align: center;
+}
+
+
+table.assurance_activity_table tr td.assurance_activity_status,th.assurance_activity_status {
+  text-align: center;
+}
+
+span.assurance-activity-id {
+	font-size: 24px;
+	line-height: 34px;
+}

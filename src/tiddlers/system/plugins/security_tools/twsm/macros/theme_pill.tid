@@ -1,0 +1,20 @@
+created: 20210728134431027
+modified: 20210807225451773
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/theme_pill
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define goto-theme-actions()
+<$action-navigate $to="$(theme)$"/>
+\end
+
+\define theme-pill()
+<span data-theme-name="$(theme)$" class="theme-pill $(bigtheme)$">
+<$button actions=<<goto-theme-actions>> class="tc-btn-invisible">
+{{$:/plugins/security_tools/twsm/defs/twsm_class/theme||$:/plugins/security_tools/twsm/templates/class_inline_icon}} <$view tiddler="$(theme)$" field="title" format="text"/>
+</$button>
+</span>
+\end
+

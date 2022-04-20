@@ -1,0 +1,60 @@
+created: 20220214162049359
+modified: 20220215203240457
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/class_behaviours
+type: text/vnd.tiddlywiki
+
+\define class_row(class)
+<$set name="currentTiddler" value="$:/plugins/security_tools/twsm/defs/twsm_class/$class$">
+<td><$link>$class$</$link></td>
+
+<td>
+{{||$:/plugins/security_tools/twsm/templates/class_inline_icon}}
+</td>
+<td>
+<$edit field=twsm_hue/>
+</td>
+<td>
+<$checkbox field="tags_controls" checked="yes" unchecked="" default=""></$checkbox>
+</td>
+<td>
+<$checkbox field="tags_risks" checked="yes" unchecked="" default=""></$checkbox>
+</td>
+<td>
+<$checkbox field="tags_vulnerabilities" checked="yes" unchecked="" default=""></$checkbox>
+</td>
+<td>
+<$checkbox field="has_endtime" checked="yes" unchecked="" default=""></$checkbox>
+</td>
+<td>
+<$checkbox field="provides_assurance" checked="yes" unchecked="" default=""></$checkbox>
+</td>
+<td>
+<$checkbox field="is_theme" checked="yes" unchecked="" default=""></$checkbox>
+</td>
+<td>
+<$checkbox field="to_deprecate" checked="yes" unchecked="" default=""></$checkbox>
+</td>
+</$set>
+\end
+
+<table>
+<tr>
+<th>Class</th>
+<th>Icon</th>
+<th>Hue</th>
+<th>Link 2 Controls?</th>
+<th>Link 2 Risks?</th>
+<th>Link 2 Vulnerabilities?</th>
+<th>Has endtime?</th>
+<th>Provides assurance?</th>
+<th>Is theme?</th>
+<th>To Deprecate?</th>
+</tr>
+
+<$list filter="[all[shadows+tiddlers]prefix[$:/plugins/security_tools/twsm/defs/twsm_class/]removeprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]sort[]]" variable="class">
+<tr>
+<$macrocall $name="class_row" class=<<class>>/>
+</tr>
+</$list>
+</table>

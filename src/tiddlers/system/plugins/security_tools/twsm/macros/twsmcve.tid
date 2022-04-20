@@ -1,0 +1,15 @@
+created: 20220220124601849
+modified: 20220220124724184
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/twsmcve
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define _twsmcve()
+<$list filter="[twsm_cve<cveid>twsm_class[vulnerability]first[]]" emptyMessage="ERROR_INVALID_CVE_REFERENCE!">{{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}</$list>
+\end
+
+\define twsmcve(cveid)
+<$set name="cveid" value="$cveid$"><<_twsmcve>></$set>
+\end

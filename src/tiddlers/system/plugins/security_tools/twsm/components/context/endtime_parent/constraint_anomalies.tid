@@ -1,0 +1,15 @@
+caption: All Risks
+created: 20220214221336792
+modified: 20220215024253979
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/endtime_parent/constraint_anomalies
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tagging[]has[twsm_class]!filter<endtime_child>]">
+WARNING: Link from non-endtime child {{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}!<br>
+</$list>
+<$set name=sprint_name value=<<currentTiddler>>>
+<$list filter="[all[current]tagging[]filter<endtime_child>!has<sprint_name>]">
+WARNING: Missing '<<sprint_name>>' field for assurance activity {{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}!<br>
+</$list>
+</$set>

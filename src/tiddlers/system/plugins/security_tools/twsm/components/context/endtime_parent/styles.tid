@@ -1,0 +1,59 @@
+created: 20220214221227706
+modified: 20220215151312810
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/components/context/endtime_parent/styles
+type: text/css
+
+.endtime_child_pill {
+    background-color: #000;
+  border: none;
+  color: #fff;
+  padding: 4px 9px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+table.sprint_assurance_activities tr td span.incomplete {
+    background-color: red;
+  border: none;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  padding: 4px;
+  border-radius: 4px;
+	font-size: 6px;
+	margin: 3px;
+}
+
+table.sprint_assurance_activities tr td span.missing_label {
+    background-color: orange;
+  border: none;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  padding: 4px;
+  border-radius: 4px;
+	font-size: 6px;
+	margin: 3px;
+}
+
+
+table.sprint_assurance_activities tr td.controls {
+  text-align: center;
+}
+
+table.sprint_assurance_activities tr td.vulnerabilities {
+  text-align: center;
+}
+
+table.sprint_assurance_activities tr td.risks {
+  text-align: center;
+}
+
+div.sprint_description {
+  margin: auto;
+}

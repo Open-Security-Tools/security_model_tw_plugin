@@ -1,0 +1,17 @@
+created: 20220313093356827
+modified: 20220313094731003
+tags: $:/tags/Stylesheet
+title: Demo Styles
+type: text/css
+
+div.versionblock {
+  border-radius: 25px;
+	border: 1px solid blue;
+  background: #DDDDFE;
+  padding: 20px;
+  width: 100%;
+}
+
+div.versionblock span.versionnumber {
+  font-weight: bold;
+}

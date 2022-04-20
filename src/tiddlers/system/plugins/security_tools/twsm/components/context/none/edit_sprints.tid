@@ -1,0 +1,22 @@
+created: 20220216201934629
+modified: 20220216202156364
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/edit_sprints
+type: text/vnd.tiddlywiki
+
+<table>
+<tr>
+<th>Sprint</th>
+<th>Description</th>
+<th>Previous Sprint</th>
+</tr>
+<$list filter="[all[]twsm_class[sprint]sort[]]">
+<tr>
+<td>
+{{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}
+</td>
+<td><$edit field="sprint_description"></$edit></td>
+<td><$edit field="previous_sprint"></$edit></td>
+</tr>
+</$list>
+</table>

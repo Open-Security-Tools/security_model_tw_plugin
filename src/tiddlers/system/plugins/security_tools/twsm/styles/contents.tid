@@ -1,0 +1,14 @@
+created: 20211006103229232
+modified: 20211006130942748
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/contents
+type: text/css
+
+ol.numeric {
+list-style-type: decimal;
+}
+
+ol.alpha {
+list-style-type: lower-alpha;
+}
+

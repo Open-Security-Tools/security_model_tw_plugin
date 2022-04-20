@@ -1,0 +1,38 @@
+created: 20210727094836370
+creator: paul
+modified: 20210727204330076
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/theme_pill_base
+type: text/css
+
+/* Extracted from bootstrap 4.1.3 */
+.theme-pill button {
+  position: relative;
+	top: -2px;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+	font-weight: 700;
+  font-size: 60%;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 0.5em;
+  text-decoration: none;
+}
+
+.large-theme-pill button {
+  font-size: 90%;
+}
+
+.theme-pill button:empty {
+  display: none;
+}
+
+.theme-pill button:hover, .theme-pill button:focus {
+  text-decoration: none;
+}

@@ -1,0 +1,15 @@
+created: 20210728140334648
+modified: 20210728144126166
+tags: 
+title: $:/plugins/security_tools/twsm/templates/relatedlargethemes
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<$set name="bigtheme" value="large-theme-pill">
+<$list filter="[all[current]tags[]twsm_class[theme]sort[]]">
+<$set name="theme" value=<<currentTiddler>>>
+<<theme-pill>>
+</$set>
+</$list>
+</$set>

@@ -1,0 +1,10 @@
+created: 20220214221633408
+list-before: $:/core/ui/ViewTemplate/body
+modified: 20220214222244836
+tags: $:/tags/ViewTemplate
+title: $:/plugins/security_tools/twsm/integrations/view/endtime_parent
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]filter<endtime_parent>]">
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/endtime_parent/header" mode="block"/>
+</$list>

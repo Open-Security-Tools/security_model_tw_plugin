@@ -1,0 +1,12 @@
+created: 20211116105607871
+list-before: $:/core/ui/EditTemplate/body
+modified: 20211116110803536
+tags: $:/tags/EditTemplate
+title: $:/plugins/security_tools/twsm/integrations/edit/theme
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]field:twsm_class[theme]]">
+<$list filter="[all[current]is_subsystem_theme[yes]]">
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/subsystem/edit_header" mode="block"/>
+</$list>
+</$list>

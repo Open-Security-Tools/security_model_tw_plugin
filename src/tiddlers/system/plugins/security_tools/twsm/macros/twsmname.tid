@@ -1,0 +1,15 @@
+created: 20220210095903080
+modified: 20220210100231596
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/twsmname
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define _twsmname()
+<$list filter="[title<title>has[twsm_class]]" emptyMessage="ERROR_INVALID_REFERENCE!">{{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}</$list>
+\end
+
+\define twsmname(title)
+<$set name="title" value="$title$"><<_twsmname>></$set>
+\end

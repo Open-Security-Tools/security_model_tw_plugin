@@ -1,0 +1,18 @@
+created: 20210807222708946
+modified: 20210807224556668
+tags: 
+title: $:/plugins/security_tools/twsm/templates/tab_icon_caption
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define get_twsm_class_tiddler() 
+$:/plugins/security_tools/twsm/defs/twsm_class/$(twsm_class)$
+\end
+
+<$set name="twsm_class" tiddler=<<currentTab>> field="twsm_icon_class">
+<$tiddler tiddler=<<get_twsm_class_tiddler>>>
+<$transclude tiddler="$:/plugins/security_tools/twsm/templates/class_inline_icon"/>
+</$tiddler>
+<$view tiddler=<<currentTab>> field="caption"></$view>
+</$set>

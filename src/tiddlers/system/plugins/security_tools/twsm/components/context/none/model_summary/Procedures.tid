@@ -1,0 +1,31 @@
+class: control
+count_filter: [twsm_class[control]twsm_characteristic_class[Procedural]count[]]
+created: 20210928131400970
+creator: paul
+modified: 20211113213231073
+modifier: paul
+pop_plural: Procedures
+pop_singular: Procedure
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/model_summary/Procedures
+tooltip: Procedural controls
+type: text/vnd.tiddlywiki
+
+<table class="control_table">
+<tr><th class="control_id">ID #</th><th class="control_description">Description</th><th class="control_temporal">Temporal</th><th class="control_status">Status</th><th class="control_risk_count">Risks</th></tr>
+<$list filter="[twsm_class[control]twsm_characteristic_class[Procedural]sort[]]">
+<tr>
+<td class="control_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="control_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<td class="control_temporal">{{!!twsm_temporal_class}}</td>
+<td class="control_status">{{!!twsm_control_status}}</td>
+<$list filter="[all[current]tagging[]twsm_class[risk]count[]]">
+<td data-risk-count=<<currentTiddler>> class="control_risk_count">
+<<currentTiddler>>
+</td>
+</$list>
+</tr>
+</$list>
+</table>

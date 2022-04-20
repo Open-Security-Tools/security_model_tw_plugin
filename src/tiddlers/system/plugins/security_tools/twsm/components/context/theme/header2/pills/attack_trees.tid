@@ -1,0 +1,26 @@
+class: attack_tree
+count_filter: [title<theme>tagging[]twsm_class[attack_tree]] +[count[]]
+created: 20211207180231253
+creator: paul
+disabled: yes
+modified: 20220130065351495
+modifier: paul
+pop_plural: Attack Trees
+pop_singular: Attack Tree
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/theme/header2/pills/attack_trees
+tooltip: All attack trees.
+type: text/vnd.tiddlywiki
+
+<table class="attack_tree_table">
+<tr>
+<th class="attack_tree_description">Description</th>
+</tr>
+<$list filter="[title<theme>tagging[]twsm_class[attack_tree]sort[]]">
+<tr>
+<td class="attack_tree_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+</tr>
+</$list>
+</table>

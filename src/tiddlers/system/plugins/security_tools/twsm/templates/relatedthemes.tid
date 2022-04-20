@@ -1,0 +1,17 @@
+created: 20210728143720090
+modified: 20210730131931815
+tags: 
+title: $:/plugins/security_tools/twsm/templates/relatedthemes
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<$list filter="[all[current]tags[]twsm_class[theme]!match<skip_theme>sort[]]">
+<$set name="theme" value=<<currentTiddler>>>
+<<theme-pill>>
+</$set>
+</$list>
+<$list filter="[all[current]search:text,twsm_assessment_description,twsm_mitigation_description:[||$:/plugins/security_tools/twsm/templates/todo]first[]]"><span class="todo-pill">
+<i class="fas fa-user-edit"></i>...
+</span>
+</$list>

@@ -1,0 +1,64 @@
+created: 20211116125324850
+modified: 20211116125513471
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/calculate_edit_security_score
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define calculateEditSecurityScore(template)
+<$list filter="
+
+[all[current]get[draft.of]tagging[]twsm_class[risk]!twsm_residual_class[twsm_risk_unknown]get[twsm_residual_score]]
+
+[all[current]get[draft.of]tagging[]twsm_class[risk]twsm_residual_class[twsm_risk_unknown]then[10]]
+
+[all[current]get[draft.of]tagging[]twsm_class[control]tagging[]twsm_class[risk]!twsm_residual_class[twsm_risk_unknown]get[twsm_residual_score]]
+
+[all[current]get[draft.of]tagging[]twsm_class[control]tagging[]twsm_class[risk]twsm_residual_class[twsm_risk_unknown]then[10]]
+
++[maxall[]!compare:number:eq[-Infinity]else[10]divide[10]negate[]add[1]multiply[25]trunc[]]
+
+" 
+variable="securityScoreMaxRisk"><$list filter="[all[current]get[risk_coverage_assessment]else[0]] +[divide[100]multiply[25]trunc[]]" variable="securityScoreRiskCoverage"><$list filter="[all[current]get[control_coverage_assessment]else[0]] +[divide[100]multiply[25]trunc[]]" variable="securityScoreControlCoverage"><$list filter="
+
+[all[current]get[draft.of]tagging[]twsm_class[control]!twsm_control_status[Back of Napkin]]
+
+[all[current]get[draft.of]tagging[]twsm_class[risk]tags[]twsm_class[control]!twsm_control_status[Back of Napkin]]
+
++[count[]]
+
+"
+variable="securityScoreAppliedControlCount"
+><$list filter="
+0
++[add<securityScoreAppliedControlCount>compare:number:gt[0]else[1]]
+"
+variable="_fixedAppliedControlCount"
+><$list filter="
+
+[all[current]get[draft.of]tagging[]twsm_class[control]twsm_control_status[Verified]]
+
+[all[current]get[draft.of]tagging[]twsm_class[risk]tags[]twsm_class[control]twsm_control_status[Verified]]
+
++[count[]]
+
+"
+variable="securityScoreVerifiedControlCount"
+><$list filter="
+0
++[add<securityScoreVerifiedControlCount>divide<_fixedAppliedControlCount>multiply[25]trunc[]]
+"
+variable="securityScoreVerifiedControls"
+><$list filter="
+0 +[add<securityScoreMaxRisk>add<securityScoreVerifiedControls>add<securityScoreRiskCoverage>add<securityScoreControlCoverage>]
+" 
+variable="securityScore"><$transclude tiddler="$template$" mode="block"/></$list>
+</$list>
+</$list>
+</$list>
+</$list>
+</$list>
+</$list>
+</$list>
+\end

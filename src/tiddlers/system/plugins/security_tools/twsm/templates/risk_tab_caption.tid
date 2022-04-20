@@ -1,0 +1,10 @@
+created: 20210813220007776
+modified: 20210813221422409
+tags: 
+title: $:/plugins/security_tools/twsm/templates/risk_tab_caption
+type: text/vnd.tiddlywiki
+
+\define renderCaption()
+<$transclude tiddler="$(currentTab)$" field="caption_template"/>
+\end
+<<renderCaption>>

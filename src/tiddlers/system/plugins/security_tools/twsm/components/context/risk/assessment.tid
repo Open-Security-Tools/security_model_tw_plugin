@@ -1,0 +1,15 @@
+caption_template: Untreated Assessment ({{!!twsm_impact}}/{{!!twsm_likelihood}})
+created: 20210719223723972
+modified: 20220216193432161
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/risk/assessment
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tags[]twsm_class[vulnerability]first[]]" variable="ignore01">
+{{||$:/plugins/security_tools/twsm/components/context/risk/header/pops/vulnerability}}
+</$list>
+
+<$list filter="[all[current]has[twsm_assessment_description]]" variable="ignore" emptyMessage="No assessment information!">
+<$transclude field="twsm_assessment_description" mode="block"/>
+</$list>
+

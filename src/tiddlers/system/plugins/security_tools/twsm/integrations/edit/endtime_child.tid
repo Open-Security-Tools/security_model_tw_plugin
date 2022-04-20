@@ -1,0 +1,27 @@
+created: 20210729064928376
+list-before: $:/core/ui/EditTemplate/body
+modified: 20220215021808812
+tags: $:/tags/EditTemplate
+title: $:/plugins/security_tools/twsm/integrations/edit/endtime_child
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]has[twsm_class]filter<endtime_child>]">
+
+<div class="tfc-plugin-info">
+  <table class="tfc-plugin-info">
+
+<tr class="tfc-plugin-info-element">
+    <td class="tfc-plugin-info-element-name">
+      Assurance Completed:
+    </td>
+    <td class="tfc-plugin-edit-element-value">
+<$checkbox field="assurance_completed" checked="yes" unchecked="" default=""></$checkbox>
+    </td>
+  </tr>
+
+
+
+</table>
+</div>
+
+</$list>

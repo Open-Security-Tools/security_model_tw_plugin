@@ -1,0 +1,30 @@
+created: 20211116110925497
+creator: paul
+modified: 20211116131726565
+modifier: paul
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/subsystem/edit_risks
+type: text/vnd.tiddlywiki
+
+* Risk coverage percentage: <$edit-text type=number size=4 field="risk_coverage_assessment"/>
+
+<table class="risk_table">
+<tr>
+<th class="risk_id">Risk ID #</th>
+<th class="risk_description">Description</th>
+<th class="store">Inherent Score</th>
+<th class="store">Mitigation %</th>
+<th class="store">Residual Score</th>
+</tr>
+<$list filter="[all[current]get[draft.of]tagging[]twsm_class[risk]] [all[current]get[draft.of]tagging[]twsm_class[control]tagging[]twsm_class[risk]]  +[!nsort[twsm_residual_score]]">
+<tr>
+<td class="risk_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<td data-score="yes" class={{!!twsm_inherent_class}}>{{!!twsm_inherent_name}} ({{!!twsm_inherent_score}})</td>
+<td>{{!!twsm_mitigation_percent}}</td>
+<td data-score="yes" class={{!!twsm_residual_class}}>{{!!twsm_residual_name}} ({{!!twsm_residual_score}})</td>
+</tr>
+</$list>
+</table>

@@ -1,0 +1,37 @@
+caption: All Risks
+created: 20210726141458953
+modified: 20220224114057981
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/control/related_control_table
+type: text/vnd.tiddlywiki
+
+<$set name=control value=<<currentTiddler>>>
+<$list filter="[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]!match<control>first[]]" variable=ignore>
+
+!! Related Controls
+
+<table class="control_table">
+<tr>
+<th class="control_id">ID #</th>
+<th class="control_description">Description</th>
+<th class="control_temporal">Temporal</th>
+<th class="control_characteristic">Characteristic</th>
+<th class="control_status">Status</th>
+<th class="control_risk_count">Risks</th>
+</tr>
+<$list filter="[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]sort[]!match<control>]" emptyMessage="<tr><td style='text-align:center' colspan='6'>No related controls...</td></tr>">
+<tr>
+<td class="control_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="control_description"><$link to=<<currentTiddler>>><$view field="title"/></$link></td>
+<td class="control_temporal">{{!!twsm_temporal_class}}</td>
+<td class="control_characteristic">{{!!twsm_characteristic_class}}</td>
+<td class="control_status">{{!!twsm_control_status}}</td>
+<$list filter="[all[current]tagging[]twsm_class[risk]count[]]">
+<td data-risk-count=<<currentTiddler>> class="control_risk_count"><<currentTiddler>>
+</td>
+</$list>
+</tr>
+</$list>
+</table>
+</$list>
+</$set>

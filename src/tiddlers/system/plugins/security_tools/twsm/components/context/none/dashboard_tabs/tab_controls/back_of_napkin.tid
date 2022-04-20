@@ -1,0 +1,28 @@
+caption: Back of Napkin
+created: 20210728224443627
+modified: 20211113175340013
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_controls/back_of_napkin
+twsm_icon_class: control
+type: text/vnd.tiddlywiki
+
+These controls are speculative and will require elaboration and design before being either discarded or implemented.
+
+<table class="control_table">
+<tr><th class="control_id">ID #</th><th class="control_description">Description</th><th class="control_temporal">Temporal</th><th class="control_characteristic">Characteristic</th><th class="control_risk_count">Risks</th></tr>
+<$list filter="[twsm_class[control]twsm_control_status[Back of Napkin]sort[]]">
+<tr>
+<td class="control_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="control_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<td class="control_temporal">{{!!twsm_temporal_class}}</td>
+<td class="control_characteristic">{{!!twsm_characteristic_class}}</td>
+<$list filter="[all[current]tagging[]twsm_class[risk]count[]]">
+<td data-risk-count=<<currentTiddler>> class="control_risk_count">
+<<currentTiddler>>
+</td>
+</$list>
+</tr>
+</$list>
+</table>

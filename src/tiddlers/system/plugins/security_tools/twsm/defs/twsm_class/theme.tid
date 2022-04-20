@@ -1,0 +1,13 @@
+class_name: Theme
+class_name_plural: Themes
+created: 20210723221302864
+family: fas
+glyph: fa-cubes
+modified: 20220216085651484
+prefix: 
+tags: 
+title: $:/plugins/security_tools/twsm/defs/twsm_class/theme
+to_deprecate: yes
+twsm_hue: 200
+type: text/vnd.tiddlywiki
+

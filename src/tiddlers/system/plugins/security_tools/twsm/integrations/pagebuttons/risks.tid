@@ -1,0 +1,19 @@
+created: 20220217212202222
+list-after: $:/core/ui/ViewTemplate/body
+modified: 20220217213931628
+tags: $:/tags/PageControls
+title: $:/plugins/security_tools/twsm/integrations/pagebuttons/risks
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\define showAllRisksButton()
+<$button tooltip="Show all risks" aria-label="Show all risks" class=<<tv-config-toolbar-class>> actions={{$:/plugins/security_tools/twsm/integrations/actions/show_all_risks}}>
+<$list filter="[<tv-config-toolbar-icons>match[yes]]">
+<small>{{$:/plugins/security_tools/twsm/defs/twsm_class/risk||$:/plugins/security_tools/twsm/templates/class_inline_icon}}</small>
+</$list>
+<$list filter="[<tv-config-toolbar-text>match[yes]]">
+<span class="tc-btn-text"><$text text="Show all risks"/></span>
+</$list>
+</$button>
+\end
+<<showAllRisksButton>>

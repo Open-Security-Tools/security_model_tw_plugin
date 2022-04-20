@@ -1,0 +1,16 @@
+created: 20190923165924142
+creator: paul
+modified: 20210717151126955
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/twsm_class_def
+type: text/css
+
+div.twsm_class_def {
+  border-radius: 8px;
+  border: solid;
+  border-color: #e08080;
+  color: #000;
+  padding: 10px;
+  background: #e0808010;
+}

@@ -1,0 +1,119 @@
+created: 20210928111822007
+modified: 20210928204220859
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/highlights
+type: text/css
+
+div.highlights {
+  list-style: none;
+  border: none;
+	  align-items: center;
+  justify-content: center;
+	width: 100%;
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+	  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+	padding: 10px;
+	}
+
+div.highlights > button {
+		min-width: 180px;
+		max-width: 180px;
+  	min-height: 75px;
+		position: relative;
+		display: block;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-weight: bolder;
+    padding-top: 5px;
+    padding-right: 0px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    border-radius: 10px;
+    overflow: hidden;
+		background-color: #FdFdFd !important;
+		box-shadow: 0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);
+}
+
+div.highlights > button div.icon {
+		position: absolute;
+		right: 12px;
+    z-index: 0;
+		top: 13px;
+}
+
+div.highlights > button div.inner {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+   padding: 10px;
+	 padding-left: 20px;
+	 padding-top: 2px;
+	 font-size: 1rem;
+font-weight: 400;
+line-height: 1.0;
+color: #212529;
+text-align: left;
+z-index: 1;
+}
+
+div.highlights > button div.inner h3 {
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  padding: 0;
+  white-space: nowrap;
+	font-size: 1.9rem;
+	line-height: 1.0;
+	color: #000;
+	z-index: 200;
+
+}
+
+div.highlights > button div.inner.empty h3 {
+  color: #DDD;
+}
+
+div.highlights > button div.inner.error h3 {
+  color: red;
+}
+
+div.highlights > button div.inner.warning h3 {
+  color: orange;
+}
+
+
+div.highlights > button div.inner p {
+  font-weight: 600;
+  font-size: 0.8rem;
+	color: #111;
+	padding: 0;
+	margin-top: 0;
+  margin-bottom: 1rem;
+	z-index: 200;
+}
+
+div.highlights > button div.inner.empty p {
+  color: #DDD;
+}
+
+
+div.highlights > button div.icon i {
+	font-size: 40px;
+	top: 20px;
+	transition: all .3s linear;
+	color: rgba(0,0,0,.05);
+		z-index: 0;
+
+}
+
+
+div.highlights > button.twsm-entity-btn-selected {
+   background-color: #FFEE45;
+}

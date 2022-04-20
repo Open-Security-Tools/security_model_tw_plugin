@@ -1,0 +1,22 @@
+class: 
+count_filter: [all[]filter<to_deprecate>count[]]
+created: 20220214194551284
+creator: paul
+modified: 20220214195247322
+modifier: paul
+nonzeroclass: warning
+pop_plural: Entities to Deprecate
+pop_singular: Entity to Deprecate
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/brewing_problems/to_deprecate
+tooltip: Entities to deprecate
+type: text/vnd.tiddlywiki
+
+<ul>
+<$list filter="[all[]filter<to_deprecate>sort[]]">
+<li>
+{{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}
+</li>
+</$list>
+</ul>
+

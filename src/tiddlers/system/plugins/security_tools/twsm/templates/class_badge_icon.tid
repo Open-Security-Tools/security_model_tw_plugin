@@ -1,0 +1,7 @@
+created: 20210807212933526
+modified: 20210807214432115
+tags: 
+title: $:/plugins/security_tools/twsm/templates/class_badge_icon
+type: text/vnd.tiddlywiki
+
+<$macrocall $name="fa-lbadge" glyph={{!!glyph}} fam={{!!family}}>>

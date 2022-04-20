@@ -1,0 +1,49 @@
+class: sprint
+count_filter: [all[]has[twsm_class]filter<endtime_parent>count[]]
+created: 20220216223744893
+creator: paul
+modified: 20220216224403905
+modifier: paul
+pop_plural: Sprints
+pop_singular: Sprint
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/model_summary/sprints
+tooltip: Sprints
+type: text/vnd.tiddlywiki
+
+<table>
+<tr>
+<th>Id</th>
+<th>Assurance Activities</th>
+<th>Vulnerabilities</th>
+<th>Controls</th>
+<th>Risks</th>
+</tr>
+<$list filter="[all[]has[twsm_class]filter<endtime_parent>sort[]]">
+<tr>
+<td>
+{{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}
+</td>
+<td>
+<$list filter="[all[current]tagging[]has[twsm_class]filter<endtime_child>count[]]">
+<$view field="title"/>
+</$list>
+</td>
+<td>
+<$list filter="[all[current]tagging[]has[twsm_class]filter<endtime_child>tags[]twsm_class[vulnerability]count[]]">
+<$view field="title"/>
+</$list>
+</td>
+<td>
+<$list filter="[all[current]tagging[]has[twsm_class]filter<endtime_child>tags[]twsm_class[control]count[]]">
+<$view field="title"/>
+</$list>
+</td>
+<td>
+<$list filter="[all[current]tagging[]has[twsm_class]filter<endtime_child>tags[]twsm_class[risk]count[]]">
+<$view field="title"/>
+</$list>
+</td>
+</tr>
+</$list>
+</table>

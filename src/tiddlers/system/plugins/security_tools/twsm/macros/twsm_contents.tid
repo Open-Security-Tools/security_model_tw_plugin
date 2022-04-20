@@ -1,0 +1,81 @@
+created: 20210814174919430
+modified: 20211007083300830
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/twsm_contents
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define twsm_contents_label()
+<$list filter="[is[current]has[caption]get[caption]] [is[current]!has[caption]get[title]] +[search-replace[$(parent)$],[]]">
+<<currentTiddler>>
+</$list>
+\end
+
+\define twsm_contents_prefix_label()
+<span style="color: black;">
+<$list filter="$(style)$ +[nth<headernum>]"><<currentTiddler>></$list>.
+</span><span style="color: blue;"><<twsm_contents_label>></span>
+\end
+
+
+\define _twsm_contents_editlist()
+<ol>
+<$list filter="[all[current]] +[tagging[]!has[draft.of]!has[twsm_class]nsort[order]]">
+<li>
+<$button class="tc-btn-invisible tc-tiddlylink">
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<currentTiddler>>/>
+<<twsm_contents_label>>
+</$button>
+</li>
+</$list>
+</ol>
+\end
+
+\define _twsm_contents_displaylist()
+<ol>
+<$set name="state" value=<<qualify """$:/state/twsm_contents""">>>
+<$list filter="[all[current]] [all[current]get[draft.of]]  +[tagging[]!has[draft.of]!has[twsm_class]nsort[order]]">
+<li><$appear
+show=<<twsm_contents_label>>
+tooltip="show/hide tiddler"
+state=<<state>>>
+<$transclude mode="block"/>
+</$appear></li>
+</$list>
+</$set>
+</ol>
+\end
+
+\define _twsm_contents_displaylist_headings()
+<$set name="state" value=<<qualify """$:/state/twsm_contents""">>>
+<$list filter="[all[current]] [all[current]get[draft.of]]  +[tagging[]!has[draft.of]!has[twsm_class]nsort[order]]" counter="headernum">
+
+
+<$appear
+show=<<twsm_contents_prefix_label>>
+tooltip="show/hide tiddler"
+state=<<state>>>
+<$transclude mode="block"/>
+</$appear>
+</$list>
+</$set>
+\end
+
+
+\define twsm_contents(style:"1 2 3 4 5 6 7 8 9 10 11 12")
+<$set name="style" value="$style$">
+<$set name="parent" value={{!!title}}>
+<$list filter="[all[current]] [all[current]get[draft.of]]  +[tagging[]!has[twsm_class]first[]]" variable="ignoreme">
+
+<$list filter="[all[current]!has[draft.of]]">
+<<_twsm_contents_displaylist_headings>>
+</$list>
+<$list filter="[all[current]get[draft.of]]">
+<<_twsm_contents_editlist>>
+</$list>
+
+</$list>
+</$set>
+</$set>
+\end

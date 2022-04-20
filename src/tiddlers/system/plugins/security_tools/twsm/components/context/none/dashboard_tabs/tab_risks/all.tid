@@ -1,0 +1,32 @@
+caption: All
+created: 20210805150256713
+modified: 20211113175518073
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_risks/all
+twsm_icon_class: risk
+type: text/vnd.tiddlywiki
+
+\define inherent_score_class()
+"$(inherent_score_class)$"
+\end
+\define residual_score_class()
+"score $(residual_score_class)$"
+\end
+<table class="risk_table">
+<tr><th class="risk_id">ID #</th><th class="risk_description">Description</th><th class="risk_control_count">Controls</th><th class="score inherent_score">Inherent Score</th><th class="score residual_score">Residual Score</th></tr>
+<$list filter="[twsm_class[risk]!nsort[twsm_residual_score]]">
+<tr><td class="risk_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td><td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<$list filter="[all[current]tags[]twsm_class[control]count[]]">
+<td data-control-count=<<currentTiddler>> class="risk_control_count">
+<<currentTiddler>>
+</td>
+</$list>
+<td data-score="yes" class={{!!twsm_inherent_class}}>{{!!twsm_inherent_name}} ({{!!twsm_inherent_score}})</td>
+<td data-score="yes" class={{!!twsm_residual_class}}>{{!!twsm_residual_name}} ({{!!twsm_residual_score}})</td>
+</tr>
+</$list>
+</table>
+
+

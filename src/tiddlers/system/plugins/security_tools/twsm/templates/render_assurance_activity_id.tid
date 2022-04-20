@@ -1,0 +1,14 @@
+created: 20210805210346870
+modified: 20210806215518351
+tags: 
+title: $:/plugins/security_tools/twsm/templates/render_assurance_activity_id
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<$list filter="[all[current]twsm_class[assurance_activity]]">
+{{||$:/plugins/security_tools/twsm/templates/link_id}}
+</$list>
+<$list filter="[all[current]!twsm_class[assurance_activity]]">
+ERROR: NOT AN ASSURANCE ACTIVITY!
+</$list>

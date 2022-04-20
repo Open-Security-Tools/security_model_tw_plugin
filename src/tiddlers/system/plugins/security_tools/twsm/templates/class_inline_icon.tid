@@ -1,0 +1,15 @@
+created: 20210807212052809
+modified: 20220215195335310
+tags: 
+title: $:/plugins/security_tools/twsm/templates/class_inline_icon
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\define render_class()
+<i class="$(family)$ $(glyph)$ $(id_icon_class)$"></i>
+\end
+<$set name="family" value={{!!family}}>
+<$set name="glyph" value={{!!glyph}}>
+<<render_class>>
+</$set>
+</$set>

@@ -1,0 +1,35 @@
+class: risk
+count_filter: [twsm_class[risk]twsm_mitigation_percent[0]] -[twsm_class[control]twsm_control_status[Verified]tagging[]twsm_class[vulnerability]tagging[]twsm_class[risk]] -[twsm_class[control]twsm_control_status[Unverified]tagging[]twsm_class[vulnerability]tagging[]twsm_class[risk]] +[count[]]
+created: 20210928194245305
+creator: paul
+modified: 20220214202212749
+modifier: paul
+nonzeroclass: warning
+pop_plural: Unmitigated Risks With Controls
+pop_singular: Unmitigated Risk With Controls
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/brewing_problems/unmitigated_risks_with_controls
+tooltip: Risks which have not been mitigated, but have linked controls
+type: text/vnd.tiddlywiki
+
+<table class="risk_table">
+<tr>
+<th class="risk_id">Risk ID #</th>
+<th class="risk_age">Age</th>
+<th class="risk_description">Description</th>
+<th class="score">Inherent Score</th>
+<th class="store">Residual Score</th>
+</tr>
+<$list filter="
+[twsm_class[risk]twsm_mitigation_percent[0]] -[twsm_class[control]twsm_control_status[Verified]tagging[]twsm_class[vulnerability]tagging[]twsm_class[control]] -[twsm_class[control]twsm_control_status[Unverified]tagging[]twsm_class[vulnerability]tagging[]twsm_class[risk]] +[nsort[modified]]">
+<tr>
+<td class="risk_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="risk_age"><$view field=modified format= relativedate /></td>
+<td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<td data-score="yes" class={{!!twsm_inherent_class}}>{{!!twsm_inherent_name}} ({{!!twsm_inherent_score}})</td>
+<td data-score="yes" class={{!!twsm_residual_class}}>{{!!twsm_residual_name}} ({{!!twsm_residual_score}})</td>
+</tr>
+</$list>
+</table>

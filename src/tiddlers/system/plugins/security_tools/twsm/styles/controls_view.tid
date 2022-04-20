@@ -1,0 +1,45 @@
+created: 20210727184903191
+creator: paul
+modified: 20210805210606861
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/controls_view
+type: text/css
+
+table.control_table {
+  width: 100%;
+}
+
+table.control_table tr td.control_id,th.control_id {
+  text-align: right;
+	font-family: monospace;
+	  position: relative;
+	top: 1px;
+  white-space:nowrap;
+}
+
+table.control_table tr td[data-risk-count="0"] {
+  color: transparent;
+}
+
+table.control_table tr td.control_description,th.control_description {
+  text-align: left;
+}
+
+table.control_table tr td.control_risk_count,th.control_risk_count {
+  text-align: center;
+}
+
+table.control_table tr td.control_temporal,th.control_temporal {
+  text-align: center;
+}
+
+table.control_table tr td.control_characteristic,th.control_characteristic {
+  text-align: center;
+}
+
+table.control_table tr td.control_status,th.control_status {
+  text-align: center;
+}
+
+

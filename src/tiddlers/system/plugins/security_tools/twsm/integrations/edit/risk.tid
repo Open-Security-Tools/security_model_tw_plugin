@@ -1,0 +1,143 @@
+created: 20210718210417914
+list-before: $:/core/ui/EditTemplate/body
+modified: 20211113155617940
+tags: $:/tags/EditTemplate
+title: $:/plugins/security_tools/twsm/integrations/edit/risk
+type: text/vnd.tiddlywiki
+
+\define risk_score_row()
+  <tr class="tfc-plugin-info-element">
+    <td class="tfc-plugin-info-element-name">
+      $(flavour)$ Risk:
+    </td>
+    <td class="tfc-plugin-edit-element-value" style=<<calculate_risk_colour impact:"$(impact)$" likelihood:"$(likelihood)$" mitigation:"$(mitigation)$">>>
+		  <<calculate_risk_score impact:"$(impact)$" likelihood:"$(likelihood)$" mitigation:"$(mitigation)$">>
+			(<<calculate_risk_name impact:"$(impact)$" likelihood:"$(likelihood)$" mitigation:"$(mitigation)$">>)
+    </td>
+  </tr>
+\end
+
+\define plugin-info-row(name, value, output:"html")
+\rules except wikilink
+  <tr class="tfc-plugin-info-element">
+    <td class="tfc-plugin-info-element-name">
+      $name$:
+    </td>
+    <td class="tfc-plugin-edit-element-value">
+	  $value$
+    </td>
+  </tr>
+\end
+
+\define plugin-edit-row(name, field, placeholder)
+  <tr class="tfc-plugin-info-element">
+    <td class="tfc-plugin-info-element-name">
+      $name$:
+    </td>
+    <td class="tfc-plugin-edit-element-value">
+      <$edit-text field="$field$" placeholder="$placeholder$"/>
+    </td>
+  </tr>
+\end
+
+<$list filter="[all[current]field:twsm_class[risk]]">
+
+! Risk Assessment
+
+
+<div class="tfc-plugin-info">
+  <table class="tfc-plugin-info">
+  <tr class="tfc-plugin-info-element">
+    <td class="tfc-plugin-info-element-name">
+      Impact:
+    </td>
+    <td class="tfc-plugin-edit-element-value">
+	<$select tiddler=<<currentTiddler>> field='twsm_impact' >
+	<$list filter="[all[current]get[twsm_impact]] Unknown Insignificant Minor Moderate Major Extreme/Catastrophic" variable=fv>
+<option><$action-setfield twsm_impact/><<fv>></option>
+</$list>
+</$select>
+    </td>
+  </tr>
+
+  <tr class="tfc-plugin-info-element">
+    <td class="tfc-plugin-info-element-name">
+      Likelihood:
+    </td>
+    <td class="tfc-plugin-edit-element-value">
+	<$select tiddler=<<currentTiddler>> field='twsm_likelihood' >
+	<$list filter="[all[current]get[twsm_likelihood]] Unknown Remote Unlikely Credible Likely [[Almost Certain]]" variable=fv>
+<option><$action-setfield twsm_likelihood/><<fv>></option>
+</$list>
+</$select>
+    </td>
+  </tr>
+
+	<$set name=impact value={{!!twsm_impact}}>
+	<$set name=likelihood value={{!!twsm_likelihood}}>
+	<$set name=flavour value=Inherent>
+	<$set name=mitigation value="0">
+	<<risk_score_row>>
+	</$set>
+	</$set>
+	</$set>
+	</$set>
+
+	<<plugin-edit-row "Simple Risk Id" "twsm_simpleriskid" "">>
+</table>
+</div>
+
+Assessment description:
+
+<$edit
+
+  field="twsm_assessment_description"
+	 tag="textarea"
+  class="tc-edit-texteditor"
+  placeholder="Justify assessment"
+  tabindex={{$:/config/EditTabIndex}}
+
+></$edit>
+
+
+
+! Mitigation Plan
+
+<div class="tfc-plugin-info">
+  <table class="tfc-plugin-info">
+	<$set name=impact value={{!!twsm_impact}}>
+	<$set name=likelihood value={{!!twsm_likelihood}}>
+	<$set name=flavour value=Residual>
+	<$set name=mitigation value={{!!twsm_mitigation_percent}}>
+  <tr class="tfc-plugin-info-element">
+    <td class="tfc-plugin-info-element-name">
+      Mitigation (%)
+    </td>
+    <td class="tfc-plugin-edit-element-value">
+      <$edit-text field="twsm_mitigation_percent" placeholder="0" />
+    </td>
+  </tr>
+	<<risk_score_row>>
+	</$set>
+	</$set>
+	</$set>
+	</$set>
+</table>
+</div>
+
+Mitigation description:
+
+<$edit
+
+  field="twsm_mitigation_description"
+	 tag="textarea"
+  class="tc-edit-texteditor"
+  placeholder="Justify mitigation percent"
+  tabindex={{$:/config/EditTabIndex}}
+
+></$edit>
+
+
+
+
+</$list>

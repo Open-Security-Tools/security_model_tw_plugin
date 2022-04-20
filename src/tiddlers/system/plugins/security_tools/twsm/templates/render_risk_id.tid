@@ -1,0 +1,12 @@
+created: 20210728155351452
+modified: 20210807220907703
+tags: 
+title: $:/plugins/security_tools/twsm/templates/render_risk_id
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]twsm_class[risk]]">
+{{||$:/plugins/security_tools/twsm/templates/link_id}}
+</$list>
+<$list filter="[all[current]!twsm_class[risk]]">
+ERROR: NOT A RISK!
+</$list>

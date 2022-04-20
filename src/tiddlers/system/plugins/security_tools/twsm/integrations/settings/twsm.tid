@@ -1,0 +1,8 @@
+caption: TWSM
+created: 20211113154403841
+modified: 20211207183008029
+tags: $:/tags/ControlPanel
+title: $:/plugins/security_tools/twsm/integrations/settings/twsm
+type: text/vnd.tiddlywiki
+
+{{$:/plugins/security_tools/twsm/components/context/none/settings_tabs}}

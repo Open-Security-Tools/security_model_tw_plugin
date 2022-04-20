@@ -1,0 +1,8 @@
+caption: Controls
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/risk/body
+type: text/vnd.tiddlywiki
+
+<<tabs "$:/plugins/security_tools/twsm/components/context/risk/assessment $:/plugins/security_tools/twsm/components/context/risk/mitigation" $:/plugins/security_tools/twsm/components/context/risk/assessment  "$:/state/twsm_risk_tabs" buttonTemplate:"$:/plugins/security_tools/twsm/templates/risk_tab_caption">>

@@ -1,0 +1,10 @@
+created: 20211113215828659
+creator: paul
+modified: 20211116132705434
+modifier: paul
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/pillboxes_of_subsystems
+type: text/vnd.tiddlywiki
+
+<div class="subsystem_pillboxes"><$list filter="[twsm_class[theme]is_subsystem_theme[yes]]"><<calculateSecurityScore "$:/plugins/security_tools/twsm/components/context/none/pillboxes_of_subsystems/pillbox">></$list>
+</div>

@@ -1,0 +1,18 @@
+class_name: Task
+class_name_plural: Tasks
+created: 20220214163058684
+family: fas
+glyph: fa-tasks
+has_endtime: yes
+modified: 20220216085708865
+prefix: 
+provides_assurance: yes
+tags: 
+tags_controls: yes
+tags_risks: yes
+tags_sprints: yes
+tags_vulnerabilities: yes
+title: $:/plugins/security_tools/twsm/defs/twsm_class/task
+twsm_hue: 300
+type: text/vnd.tiddlywiki
+

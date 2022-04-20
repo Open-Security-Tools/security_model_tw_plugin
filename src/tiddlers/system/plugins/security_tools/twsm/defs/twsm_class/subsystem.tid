@@ -1,0 +1,16 @@
+class_name: Subsystem
+class_name_plural: Subsystems
+created: 20220214180338707
+family: fas
+glyph: fa-cogs
+is_theme: yes
+modified: 20220215203308147
+prefix: 
+tags: 
+tags_controls: yes
+tags_risks: yes
+tags_vulnerabilities: yes
+title: $:/plugins/security_tools/twsm/defs/twsm_class/subsystem
+twsm_hue: 100
+type: text/vnd.tiddlywiki
+

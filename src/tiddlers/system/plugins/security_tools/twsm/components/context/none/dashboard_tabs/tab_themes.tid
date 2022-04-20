@@ -1,0 +1,41 @@
+caption: Themes
+created: 20210723222242908
+modified: 20211113161113565
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_themes
+twsm_icon_class: theme
+type: text/vnd.tiddlywiki
+
+Themes provide convenient entry points for risks, controls and assurance activities.
+
+<table class="theme-table">
+<tr><th>Theme</th><th>Risks</th><th>High Residual</th><th>Medium Residual</th><th>Low Residual</th><th>Missing Assessment</th><th>Controls</th><th>Assurance Activities</th></tr>
+<$list filter="[twsm_class[theme]sort[]]">
+<tr>
+<td>{{||$:/plugins/security_tools/twsm/templates/large_tag_link_template}}</td>
+<$list filter="[all[current]tagging[]twsm_class[risk]count[]]">
+<td data-value=<<currentTiddler>>><<currentTiddler>></td>
+</$list>
+<$list filter="[all[current]tagging[]twsm_class[risk]twsm_residual_name[High]count[]]">
+<td data-value=<<currentTiddler>>><<currentTiddler>></td>
+</$list>
+<$list filter="[all[current]tagging[]twsm_class[risk]twsm_residual_name[Medium]count[]]">
+<td data-value=<<currentTiddler>>><<currentTiddler>></td>
+</$list>
+<$list filter="[all[current]tagging[]twsm_class[risk]twsm_residual_name[Low]count[]]">
+<td data-value=<<currentTiddler>>><<currentTiddler>></td>
+</$list>
+<$list filter="[all[current]tagging[]twsm_class[risk]twsm_residual_name[Unknown]count[]]">
+<td data-value=<<currentTiddler>>><<currentTiddler>></td>
+</$list>
+<$list filter="[all[current]tagging[]twsm_class[control]count[]]">
+<td data-value=<<currentTiddler>>><<currentTiddler>></td>
+</$list>
+<$list filter="[all[current]tagging[]twsm_class[assurance_activity]count[]]">
+<td data-value=<<currentTiddler>>><<currentTiddler>></td>
+</$list>
+</tr>
+</$list>
+</table>
+
+

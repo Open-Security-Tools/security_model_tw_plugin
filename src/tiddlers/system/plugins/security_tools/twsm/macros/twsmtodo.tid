@@ -1,0 +1,11 @@
+created: 20210808211335696
+modified: 20210808211413078
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/twsmtodo
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define twsmtodo(description)
+<span class="todo"><i class="fas fa-user-edit"></i><span>$description$</span></span>
+\end

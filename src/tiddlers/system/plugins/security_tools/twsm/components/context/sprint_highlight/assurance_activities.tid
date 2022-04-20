@@ -1,0 +1,63 @@
+caption: All Risks
+created: 20220210120601251
+modified: 20220210205656930
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/sprint_highlight/assurance_activities
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define display_pill(subtype)
+
+<$set name="state3" value=<<qualify """$:/_state/sprinthighlightassurance-$(assurance_activity)$-$subtype$""">>>
+
+<$button popup=<<state3>> class="tc-btn-invisible tc-tiddlylink" selectedClass="pop-btn-selected">
+<<item_count>>
+</$button>
+<$reveal type="popup" state=<<state3>> class="tc-popup pop-popup pretty pop-tiddler" position="belowleft">
+
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/sprint_highlight/assurance_activities/pills/$subtype$" mode="block"/>
+
+</$reveal>
+</$set>
+\end
+
+This sprint included the following assurance activities:
+
+<$set name=sprint value=<<currentTiddler>>>
+<table class="sprint_assurance_activities">
+<tr>
+<th>#</th>
+<th>Description</th>
+<th>Controls</th>
+<th>Vulnerabilities</th>
+<th>Risks</th>
+</tr>
+<$list filter="[all[current]tagging[]twsm_class[assurance_activity]]" variable="assurance_activity">
+<tr style="position:relative">
+<td>
+<$list filter="[title<assurance_activity>]">
+{{||$:/plugins/security_tools/twsm/templates/link_id}}</$list></td>
+<td>
+<$list filter="[title<assurance_activity>get<sprint>else<assurance_activity>]">
+<$link to=<<assurance_activity>>>
+<$view field="title"/>
+</$link>
+</$list>
+</td>
+<td class="controls">
+<$list filter="[title<assurance_activity>tags[]twsm_class[control]count[]]"
+variable="item_count"> <<display_pill controls>> </$list>
+</td>
+<td class="vulnerabilities">
+<$list filter="[title<assurance_activity>tags[]twsm_class[vulnerability]count[]]"
+variable="item_count"> <<display_pill vulnerabilities>> </$list>
+</td>
+<td class="risks">
+<$list filter="[title<assurance_activity>tags[]twsm_class[risk]count[]]"
+variable="item_count"> <<display_pill risks>> </$list>
+</td>
+</tr>
+</$list>
+</table>
+<$set>

@@ -1,0 +1,14 @@
+created: 20210728154910901
+modified: 20210730072317405
+tags: 
+title: $:/plugins/security_tools/twsm/templates/render_control_id
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<$list filter="[all[current]twsm_class[control]]">
+{{||$:/plugins/security_tools/twsm/templates/link_id}}
+</$list>
+<$list filter="[all[current]!twsm_class[control]]">
+ERROR: NOT A CONTROL!
+</$list>

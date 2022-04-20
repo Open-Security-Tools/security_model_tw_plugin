@@ -1,0 +1,29 @@
+caption: Subsystem Coverage
+created: 20211113154902446
+modified: 20211113181949875
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/settings_tabs/subsystem_coverage
+type: text/vnd.tiddlywiki
+
+<table>
+<tr>
+<th>Name</th>
+<th>Risk Coverage</th>
+<th>Control Coverage</th>
+</tr>
+<$list filter="[twsm_class[theme]is_subsystem_theme[yes]sort[]]">
+<tr>
+<td>
+<$link>
+{{!!title}}
+</$link>
+</td>
+<td>
+<$edit-text field="risk_coverage_assessment"/>
+</td>
+<td>
+<$edit-text field="control_coverage_assessment"/>
+</td>
+</tr>
+</$list>
+</table>

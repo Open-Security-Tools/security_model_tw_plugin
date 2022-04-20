@@ -1,0 +1,27 @@
+created: 20220211103105194
+creator: paul
+modified: 20220211103138401
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/id_and_name
+type: text/css
+
+a.twsm_id_and_name {
+  font-family: monospace;
+}
+
+a.twsm_id_and_name i.twsm_risk_high {
+  color: #fb2c08; 
+}
+
+a.twsm_id_and_name i.twsm_risk_medium {
+  color: #fd9309;
+}
+
+a.twsm_id_and_name i.twsm_risk_low {
+  color: #cccc00;
+}
+
+a.twsm_id_and_name i.twsm_risk_unknown {
+  color: #a0a0a0;
+}

@@ -1,0 +1,24 @@
+created: 20210727173451999
+modified: 20210807225422602
+tags: 
+title: $:/plugins/security_tools/twsm/templates/large_tag_link_template
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define my-actions()
+<$action-navigate $to="$(theme)$"/>
+\end
+
+\define my-button()
+<span data-theme-name="$(theme)$" class="theme-pill large-theme-pill">
+<$button actions=<<my-actions>> class="tc-btn-invisible">
+{{$:/plugins/security_tools/twsm/defs/twsm_class/theme||$:/plugins/security_tools/twsm/templates/class_inline_icon}} <$view tiddler=<<currentTiddler>> field="title" format="text"/>
+</$button>
+</span>
+\end
+
+<$set name="theme" value=<<currentTiddler>>>
+<<my-button>>
+</$set>
+

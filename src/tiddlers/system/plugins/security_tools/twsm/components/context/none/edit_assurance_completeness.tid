@@ -1,0 +1,22 @@
+created: 20220215021051116
+modified: 20220215021810646
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/edit_assurance_completeness
+type: text/vnd.tiddlywiki
+
+<table>
+<tr>
+<th>Entity</th>
+<th>Complete?</th>
+</tr>
+<$list filter="[all[]has[twsm_class]filter<provides_assurance>sort[]]">
+<tr>
+<td>
+{{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}
+</td>
+<td>
+<$checkbox field="assurance_completed" checked="yes" unchecked="" default=""></$checkbox>
+</td>
+</tr>
+</$list>
+</table>

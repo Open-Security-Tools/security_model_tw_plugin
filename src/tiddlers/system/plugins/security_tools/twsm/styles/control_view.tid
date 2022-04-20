@@ -1,0 +1,43 @@
+created: 20210725062928367
+creator: paul
+modified: 20210807141133765
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/control_view
+type: text/css
+
+div.control-header {
+    display: flex;
+    padding-right: 260px;
+    width: 100%;
+    margin-right: -260px;}
+
+div.control-header div.scores div.score {
+  width: 220px;
+	height: 100px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-right: 10px;
+	font-weight: bolder;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 10px;
+	padding-left: 0px;
+  background-color: #fbfbc08;
+	border-style: solid;
+}
+
+
+div.control-header div.scores div.score span {
+  display: block;
+	font-size: 30px;
+	font-weight: 400;
+	box-sizing: border-box;
+}
+
+div.control-header div.scores {
+    display: flex;
+		height: 120px;
+		box-sizing: border-box;
+		line-height: 1.6;
+}

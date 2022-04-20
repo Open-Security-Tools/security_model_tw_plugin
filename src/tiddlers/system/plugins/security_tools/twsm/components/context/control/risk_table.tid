@@ -1,0 +1,32 @@
+caption: All Risks
+created: 20210725063603390
+modified: 20220224114803873
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/control/risk_table
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tagging[]twsm_class[vulnerability]tagging[]twsm_class[risk]] [all[current]tagging[]twsm_class[risk]] +[first[]]" variable="ignore">
+
+!! Risks:
+
+<table class="risk_table">
+<tr>
+<th class="risk_id">ID #</th>
+<th class="risk_description">Description</th>
+<th class="score">Inherent Score</th>
+<th class="score">Residual Score</th>
+</tr>
+<$list filter="[all[current]tagging[]twsm_class[vulnerability]tagging[]twsm_class[risk]] [all[current]tagging[]twsm_class[risk]] +[!nsort[twsm_residual_score]]">
+<tr>
+<td class="risk_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<td data-score="yes" class={{!!twsm_inherent_class}}>{{!!twsm_inherent_name}} ({{!!twsm_inherent_score}})</td>
+<td data-score="yes" class={{!!twsm_residual_class}}>{{!!twsm_residual_name}} ({{!!twsm_residual_score}})</td>
+</tr>
+</$list>
+</table>
+</$list>
+
+

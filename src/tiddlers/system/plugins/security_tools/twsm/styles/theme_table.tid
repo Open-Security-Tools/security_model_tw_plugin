@@ -1,0 +1,20 @@
+created: 20210726145621227
+creator: paul
+modified: 20210727183121220
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/theme_table
+type: text/css
+
+table.theme-table {
+  width: 100%;
+}
+
+table.theme-table tr td {
+  text-align: center;
+}
+
+table.theme-table tr td[data-value="0"] {
+  color: transparent;
+}
+

@@ -1,0 +1,12 @@
+created: 20211112200520451
+creator: paul
+modified: 20211114110947616
+modifier: paul
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/table_of_subsystems/row
+type: text/vnd.tiddlywiki
+
+<tr>
+<td>{{||$:/plugins/security_tools/twsm/templates/large_tag_link_template}}</td>
+<td><<securityScore>></td>
+</tr>

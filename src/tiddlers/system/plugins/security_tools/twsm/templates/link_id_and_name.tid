@@ -1,0 +1,30 @@
+created: 20220215204004120
+modified: 20220216112710425
+tags: 
+title: $:/plugins/security_tools/twsm/templates/link_id_and_name
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define get_twsm_class_tiddler() 
+$:/plugins/security_tools/twsm/defs/twsm_class/$(twsm_class_name)$
+\end
+
+\define render_link()
+<$link to=<<currentTiddler>>
+overrideClass="twsm_entity_pill">
+<span data-twsm-class="$(twsm_class_name)$">
+<$set name="currentTiddler" value=<<get_twsm_class_tiddler>>>
+{{||$:/plugins/security_tools/twsm/templates/class_inline_icon}}
+</$set>
+<span class="number"><$view field="twsm_id"/></span>
+<span class="description"><$view field="title"/></span>
+</span>
+</$link>
+\end
+
+<$list filter="[all[current]twsm_class[risk]get[twsm_residual_class]else[]]" variable="id_icon_class">
+<$set name="twsm_class_name" value={{!!twsm_class}}>
+<<render_link>>
+</$set>
+</$list>

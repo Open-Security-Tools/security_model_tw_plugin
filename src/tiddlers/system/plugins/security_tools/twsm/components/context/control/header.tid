@@ -1,0 +1,31 @@
+created: 20210725062648082
+modified: 20211113161234599
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/control/header
+type: text/vnd.tiddlywiki
+
+<div class="control-header">
+<div class="scores">
+<div class="score">
+Characteristic
+<span>{{!!twsm_characteristic_class}}</span>
+</div>
+<div class="score">
+Temporal
+<span>{{!!twsm_temporal_class}}</span>
+</div>
+<div class="score">
+Status
+<span>{{!!twsm_control_status}}</span>
+</div>
+</div>
+<div class="details">
+<div class="reference-id">
+<label>ID #: <span class="risk-id">C{{!!twsm_id}}</span></label>
+</div>
+<div class="themes">
+<label>Themes: {{||$:/plugins/security_tools/twsm/templates/relatedlargethemes}}
+</label>
+</div>
+</div>
+</div>

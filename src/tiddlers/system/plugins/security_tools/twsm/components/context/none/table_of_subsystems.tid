@@ -1,0 +1,20 @@
+class: risk
+count_filter: [twsm_class[risk]count[]]
+created: 20211112200133750
+creator: paul
+modified: 20211114091906394
+modifier: paul
+pop_plural: Risks
+pop_singular: Risk
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/table_of_subsystems
+tooltip: All risks. Use themes or search if you want to refine the list.
+type: text/vnd.tiddlywiki
+
+<table class="subsystem_table">
+<tr>
+<th>Subsystem</th>
+<th>Score</th>
+</tr>
+<$list filter="[twsm_class[theme]is_subsystem_theme[yes]]"><<calculateSecurityScore "$:/plugins/security_tools/twsm/components/context/none/table_of_subsystems/row">></$list>
+</table>

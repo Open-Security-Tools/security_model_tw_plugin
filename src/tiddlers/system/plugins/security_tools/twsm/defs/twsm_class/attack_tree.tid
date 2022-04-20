@@ -1,0 +1,12 @@
+class_name: Attack Tree
+class_name_plural: Attack Trees
+created: 20210805122223476
+family: fas
+glyph: fa-tree
+modified: 20220216085636746
+prefix: 
+tags: 
+title: $:/plugins/security_tools/twsm/defs/twsm_class/attack_tree
+twsm_hue: 0
+type: text/vnd.tiddlywiki
+

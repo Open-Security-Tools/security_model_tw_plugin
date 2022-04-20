@@ -1,0 +1,34 @@
+created: 20220215201706662
+modified: 20220216090339080
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/twsm_class
+type: text/vnd.tiddlywiki
+
+\define twsm_class_style()
+span[data-twsm-class="$(class_name)$"] {
+	background-color: hsl({{!!twsm_hue}}, 60%, 90%);
+	border-color: hsl({{!!twsm_hue}}, 60%, 60%);
+}
+
+span[data-twsm-class="$(class_name)$"] span.number {
+  border-left: 1px solid hsl({{!!twsm_hue}}, 60%, 60%);
+  border-right: 1px solid hsl({{!!twsm_hue}}, 60%, 60%);
+}
+
+span[data-twsm-class="$(class_name)$"] span.numbernodescription {
+  border-left: 1px solid hsl({{!!twsm_hue}}, 60%, 60%);
+}
+
+
+
+\end
+
+<$list filter="[all[tiddlers+shadows]prefix[$:/plugins/security_tools/twsm/defs/twsm_class/]]">
+
+<$list filter="[all[current]removeprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]]" variable="class_name">
+
+<<twsm_class_style>>
+
+</$list>
+</$list>
+

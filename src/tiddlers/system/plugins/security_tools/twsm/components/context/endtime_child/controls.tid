@@ -1,0 +1,37 @@
+caption: Mitigation
+created: 20210729064308510
+modified: 20220216215450108
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/endtime_child/controls
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tags[]twsm_class[control]] +[first[]]" variable="ignore01">
+
+!! Controls
+
+<table class="control_table">
+<tr>
+<th class="control_id">ID #</th>
+<th class="control_description">Description</th>
+<th class="control_temporal">Temporal</th>
+<th class="control_characteristic">Characteristic</th>
+<th class="control_status">Status</th>
+<th class="control_status">Mitigates</th>
+</tr>
+<$list filter="[all[current]tags[]twsm_class[control]] +[sort[]]" emptyMessage="<tr><td colspan=6>No controls!</td></tr>">
+<tr>
+<td class="control_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="control_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<td class="control_temporal">{{!!twsm_temporal_class}}</td>
+<td class="control_characteristic">{{!!twsm_characteristic_class}}</td>
+<td class="control_status">{{!!twsm_control_status}}</td>
+<td>
+<$list filter="[all[current]tagging[]twsm_class[vulnerability]sort[]first[]]"><$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list><$list filter="[all[current]tagging[]twsm_class[vulnerability]sort[]butfirst[]]">, <$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list>
+</td>
+</tr>
+</$list>
+</table>
+
+</$list>

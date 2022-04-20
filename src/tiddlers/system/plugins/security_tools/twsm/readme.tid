@@ -1,0 +1,8 @@
+created: 20210715110017428
+modified: 20220312223135818
+tags: 
+title: $:/plugins/security_tools/twsm/readme
+type: text/vnd.tiddlywiki
+
+This plugin provides security modelling enhancements to TW5.
+See https://open-security-tools.github.io/security_model_tw_plugin/.

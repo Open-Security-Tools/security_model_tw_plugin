@@ -1,0 +1,30 @@
+caption: All Risks
+created: 20220210101700746
+modified: 20220210213131482
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/sprint_highlight/header
+type: text/vnd.tiddlywiki
+
+\define theme_image()
+<div class="twsm-entity-image">
+[img[$(currentTiddler)$]]
+</div>
+\end
+<div class="theme-entity-header">
+<$list filter={{!!image}}>
+<<theme_image>>
+</$list>
+<$list filter="[all[current]has[sprint_description]]">
+<div class="sprint_description">{{!!sprint_description}}</div>
+</$list>
+</div>
+
+<$list filter="[all[current]has[previous_sprint]]">
+<div class="alert alert-info" style="width:100%;">
+''Note'': Looking for the previous sprint's highlights? See <$link to={{!!previous_sprint}}>{{!!previous_sprint}}</$link>...
+</div>
+</$list>
+
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/sprint_highlight/assurance_activities" mode="block"/>
+
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/sprint_highlight/constraint_anomalies" mode="block"/>

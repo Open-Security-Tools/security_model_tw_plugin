@@ -1,0 +1,25 @@
+created: 20210724104435497
+modified: 20210728143902064
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/data_entities
+type: text/vnd.tiddlywiki
+
+<$list filter="[twsm_class[theme]]"> 
+[data-tiddler-title="<$view field=title/>"]  {
+  border-left: 5px solid hsl({{!!twsm_hue}}, 68%, 50%);
+}
+span[data-theme-name="<$view field=title/>"].theme-pill button {
+  background-color: hsl({{!!twsm_hue}}, 68%, 55%);
+	color: #FFF;
+}
+span[data-theme-name="<$view field=title/>"].theme-pill button:hover {
+  background-color: hsl({{!!twsm_hue}}, 68%, 45%);
+	color: #FFF;
+}
+</$list> 
+<$list filter="[twsm_class[risk]]"> 
+[data-tiddler-title="<$view field=title/>"] h1 {
+  color: #000000;
+	font-size: 130%;
+}
+</$list> 

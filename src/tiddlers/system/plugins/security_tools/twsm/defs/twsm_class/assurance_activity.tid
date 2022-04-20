@@ -1,0 +1,19 @@
+class_name: Assurance Activity
+class_name_plural: Assurance Activities
+created: 20210729063520466
+family: fas
+glyph: fa-hiking
+has_endtime: yes
+modified: 20220215203335209
+prefix: 
+provides_assurance: yes
+tags: 
+tags_controls: yes
+tags_risks: yes
+tags_sprints: yes
+tags_vulnerabilities: yes
+title: $:/plugins/security_tools/twsm/defs/twsm_class/assurance_activity
+to_deprecate: yes
+twsm_hue: 30
+type: text/vnd.tiddlywiki
+

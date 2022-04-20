@@ -1,0 +1,41 @@
+caption: Mitigation
+created: 20220130070819961
+modified: 20220220124356982
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/endtime_child/vulnerabilities
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tags[]twsm_class[vulnerability]] +[first[]]" variable="ignore01">
+
+!! Vulnerabilities
+
+<table class="vulnerability_table">
+<tr>
+<th class="vulnerability_id">ID #</th>
+<th class="vulnerability_cve">CVE #</th>
+<th class="vulnerability_description">Vulnerability Description</th>
+<th class="vulnerability_priority">Priority</th>
+<th class="vulnerability_status">Status</th>
+<th class="">Manifests Risks</th>
+<th class="">Mitigated By</th>
+</tr>
+<$list filter="[all[current]tags[]twsm_class[vulnerability]] +[sort[]]" emptyMessage="<tr><td colspan=6>No vulnerabilities!</td></tr>">
+<tr>
+<td class="vulnerability_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="vulnerability_cve"><$link to=<<currentTiddler>>><$view field="twsm_cve"/></$link></td>
+<td class="vulnerability_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<td class="vulnerability_priority">{{!!twsm_vulnerability_priority}}</td>
+<td class="vulnerability_status">{{!!twsm_vulnerability_status}}</td>
+<td>
+<$list filter="[all[current]tagging[]twsm_class[risk]sort[]first[]]"><$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list><$list filter="[all[current]tagging[]twsm_class[risk]sort[]butfirst[]]">, <$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list>
+</td>
+<td>
+<$list filter="[all[current]tags[]twsm_class[control]sort[]first[]]"><$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list><$list filter="[all[current]tags[]twsm_class[control]sort[]butfirst[]]">, <$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list>
+</td>
+</tr>
+</$list>
+</table>
+
+</$list>

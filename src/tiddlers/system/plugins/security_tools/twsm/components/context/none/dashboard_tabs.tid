@@ -1,0 +1,7 @@
+created: 20210717103227236
+modified: 20211113161113559
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs
+type: text/vnd.tiddlywiki
+
+<<tabs "$:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_themes $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_risks $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_controls $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_assurance_activities $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_attack_trees" $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_themes  "$:/state/twsm_dashboard_tabs" buttonTemplate:"$:/plugins/security_tools/twsm/templates/tab_icon_caption">>

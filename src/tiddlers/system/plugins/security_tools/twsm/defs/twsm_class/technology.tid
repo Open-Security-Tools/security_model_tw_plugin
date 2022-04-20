@@ -1,0 +1,16 @@
+class_name: Technology
+class_name_plural: Technologies
+created: 20220214163234199
+family: fas
+glyph: fa-microchip
+is_theme: yes
+modified: 20220215203312198
+prefix: 
+tags: 
+tags_controls: yes
+tags_risks: yes
+tags_vulnerabilities: yes
+title: $:/plugins/security_tools/twsm/defs/twsm_class/technology
+twsm_hue: 140
+type: text/vnd.tiddlywiki
+

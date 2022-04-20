@@ -1,0 +1,13 @@
+class_name: Risk
+class_name_plural: Risks
+created: 20210717223608768
+family: fas
+glyph: fa-balance-scale
+modified: 20220216085716124
+prefix: 
+tags: 
+tags_vulnerabilities: yes
+title: $:/plugins/security_tools/twsm/defs/twsm_class/risk
+twsm_hue: 240
+type: text/vnd.tiddlywiki
+

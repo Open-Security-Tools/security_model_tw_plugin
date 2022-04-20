@@ -1,0 +1,15 @@
+created: 20210808210810672
+modified: 20210808210955085
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/twsmtheme
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define _twsmtheme()
+<$list filter="[title<title>twsm_class[theme]]" emptyMessage="ERROR_NOT_A_THEME!">{{||$:/plugins/security_tools/twsm/templates/theme_pill}}</$list>
+\end
+
+\define twsmtheme(title)
+<$set name="title" value="$title$"><<_twsmtheme>></$set>
+\end

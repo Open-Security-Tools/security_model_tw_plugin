@@ -1,0 +1,12 @@
+class_name: Control
+class_name_plural: Controls
+created: 20210717135746983
+family: fas
+glyph: fa-shield-alt
+modified: 20220215203255563
+prefix: 
+tags: 
+title: $:/plugins/security_tools/twsm/defs/twsm_class/control
+twsm_hue: 60
+type: text/vnd.tiddlywiki
+

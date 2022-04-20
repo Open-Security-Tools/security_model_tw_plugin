@@ -1,0 +1,9 @@
+[prefix[$: /config/flibbles/relink/fields/twsm_]]
+additional-tiddlers: [prefix[$:/config/EditTemplateFields/Visibility/twsm_]] $:/core/ui/ViewTemplate/tags [prefix[$:/config/flibbles/relink/fields/twsm_]] [prefix[$:/config/flibbles/relink/macros/twsm]]
+created: 20210715110645289
+modified: 20210808202154757
+release: yes
+title: $:/config/ThirdFlow/plugins/$:/plugins/security_tools/twsm
+type: text/vnd.tiddlywiki
+
+twsm.tid

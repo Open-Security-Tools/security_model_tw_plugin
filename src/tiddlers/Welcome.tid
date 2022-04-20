@@ -1,0 +1,25 @@
+created: 20220312215441379
+modified: 20220313094606953
+title: Welcome
+type: text/vnd.tiddlywiki
+
+This website is a [[tiddlywiki|https://tiddlywiki.com/]] to publish and provide some [[documentation|Documentation]] for the `twsm` plugin. 
+
+See [[GitHub|https://github.com/Open-Security-Tools/security_model_tw_plugin]] for the code.
+The plugin is released under [[MIT license|$:/plugins/security_tools/twsm/license]].
+
+<$list filter="[title[$:/plugins/security_tools/twsm]get[version]]">
+<div class="versionblock">The latest TWSM plug version is <span class="versionnumber"><<currentTiddler>></span>
+</div>
+</$list>
+
+To create your own security model start with an [[empty wiki|https://tiddlywiki.com]] and then drag'n'drop in:
+
+# Dependencies:
+#* [[$:/plugins/TheDiveO/FontAwesome]]
+#* [[$:/plugins/flibbles/relink]]
+#* [[$:/plugins/tobibeer/appear]]
+# The security model plugin:
+#* [[$:/plugins/security_tools/twsm]]
+
+If upgrading the security model then you only need to drag'n'drop in the later version of [[$:/plugins/security_tools/twsm]]. 

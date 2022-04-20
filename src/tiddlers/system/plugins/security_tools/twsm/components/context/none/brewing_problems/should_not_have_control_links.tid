@@ -1,0 +1,43 @@
+class: control
+count_filter: [twsm_class[control]tagging[]has[twsm_class]unique[]!filter<tags_controls>count[]]
+created: 20220214195502608
+creator: paul
+modified: 20220217195735817
+modifier: paul
+nonzeroclass: warning
+pop_plural: Bad control refs
+pop_singular: Bad control ref
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/brewing_problems/should_not_have_control_links
+tooltip: Bad control refs
+type: text/vnd.tiddlywiki
+
+<table>
+<tr>
+<th>Entity</th>
+<th>Tagged with Control</th>
+<th>Replicated Vulnerability Mapping?</th>
+</tr>
+<$list filter="[twsm_class[control]tagging[]has[twsm_class]unique[]!filter<tags_controls>sort[]]">
+<$set name=entity value=<<currentTiddler>>>
+<$list filter="[all[current]tags[]twsm_class[control]sort[]]">
+<tr>
+<td>
+<$set name=currentTiddler value=<<entity>>>
+{{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}
+</$set>
+</td>
+<td>
+{{||$:/plugins/security_tools/twsm/templates/link_id_and_name}}
+</td>
+<td>
+<$list filter="[title<entity>] -[all[current]tagging[]twsm_class[vulnerability]tagging[]twsm_class[risk]]">
+No!
+</$list>
+</td>
+
+</tr>
+</$list>
+</$set>
+</$list>
+</table>

@@ -1,0 +1,57 @@
+created: 20210730130435829
+creator: paul
+modified: 20210801172747811
+modifier: paul
+tags: [[Wiki Internals]] $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/todo
+type: text/css
+
+.doing-ribbon{
+  width: 140px;
+  position: absolute;
+  border-bottom: 25px solid #F00000F0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  height: 0;
+  top: 27px;
+  right: -30px;
+  left: auto;
+  text-align: center;
+  line-height: 25px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.todo i {
+color: #FE1830;
+padding-right: 3px;
+}
+.todo {
+  text-decoration: underline;
+  text-decoration-color: #FE1830;
+ text-decoration-style: solid;
+ text-decoration-thickness: 2px;
+}
+
+
+
+
+.todo-pill {
+  position: relative;
+	top: -2px;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+	font-weight: 700;
+  font-size: 60%;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  padding-right: 0.6em;
+  padding-left: 0.1em;
+  text-decoration: none;
+	color: #b00;
+
+}

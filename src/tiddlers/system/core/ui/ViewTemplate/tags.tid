@@ -1,0 +1,14 @@
+created: 20210727195659649
+modified: 20210814171012687
+tags: $:/tags/ViewTemplate
+title: $:/core/ui/ViewTemplate/tags
+type: text/vnd.tiddlywiki
+
+<$reveal type="nomatch" stateTitle=<<folded-state>> text="hide" tag="div" retain="yes" animate="yes">
+<$list filter="[all[current]has[twsm_class]]" variable="ignore1">
+<div class="tc-tags-wrapper"><$list filter="[all[current]tags[]!has[twsm_class]sort[title]]" template="$:/core/ui/TagTemplate" storyview="pop"/></div>
+</$list>
+<$list filter="[all[current]!has[twsm_class]]" variable="ignore1">
+<div class="tc-tags-wrapper"><$list filter="[all[current]tags[]sort[title]]" template="$:/core/ui/TagTemplate" storyview="pop"/></div>
+</$list>
+</$reveal>

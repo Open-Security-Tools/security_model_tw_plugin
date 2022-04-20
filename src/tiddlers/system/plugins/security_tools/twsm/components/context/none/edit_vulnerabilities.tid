@@ -1,0 +1,40 @@
+created: 20220220133202531
+modified: 20220220133513694
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/edit_vulnerabilities
+type: text/vnd.tiddlywiki
+
+<table>
+<tr>
+<th>#</th>
+<th>Description</th>
+<th>CVE</th>
+<th>Priority</th>
+<th>Status</th>
+</tr>
+<$list filter="[twsm_class[vulnerability]sort[]]">
+<tr>
+<td>
+{{||$:/plugins/security_tools/twsm/templates/link_id}}
+</td>
+<td>
+<$link field=title/>
+</td>
+<td><$edit-text size=20 field="twsm_cve"/></td>
+<td>
+	<$select tiddler=<<currentTiddler>> field='twsm_vulnerability_priority' >
+	<$list filter="1 2 3 4 5" variable=fv>
+<option><$action-setfield twsm_vulnerability_priority/><<fv>></option>
+</$list>
+</$select>
+</td>
+<td>
+	<$select tiddler=<<currentTiddler>> field='twsm_vulnerability_status' >
+	<$list filter="Assess Remediate Verify Monitor" variable=fv>
+<option><$action-setfield twsm_vulnerability_status/><<fv>></option>
+</$list>
+</$select>
+</td>
+</tr>
+</$list>
+</table>
