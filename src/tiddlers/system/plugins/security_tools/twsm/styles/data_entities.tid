@@ -1,5 +1,5 @@
 created: 20210724104435497
-modified: 20210728143902064
+modified: 20220831230534800
 tags: $:/tags/Stylesheet
 title: $:/plugins/security_tools/twsm/styles/data_entities
 type: text/vnd.tiddlywiki
@@ -8,6 +8,11 @@ type: text/vnd.tiddlywiki
 [data-tiddler-title="<$view field=title/>"]  {
   border-left: 5px solid hsl({{!!twsm_hue}}, 68%, 50%);
 }
+span[data-theme-name="<$view field=title/>"].theme_btn_container button {
+  border-color: hsl({{!!twsm_hue}}, 68%, 35%);
+  color: hsl({{!!twsm_hue}}, 68%, 35%);
+}
+
 span[data-theme-name="<$view field=title/>"].theme-pill button {
   background-color: hsl({{!!twsm_hue}}, 68%, 55%);
 	color: #FFF;
