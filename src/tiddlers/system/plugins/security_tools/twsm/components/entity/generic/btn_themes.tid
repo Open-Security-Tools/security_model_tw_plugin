@@ -1,0 +1,25 @@
+created: 20220831224951747
+modified: 20220831230431078
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/generic/btn_themes
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define theme_button()
+<span data-theme-name="$(theme)$" class="theme_btn_container">
+<$button
+	class="btn_theme py-btn btn-small"
+	tooltip="Theme"
+>
+<i class="fas fa-cubes"/> <$view field=title/>
+<$action-navigate $to=<<currentTiddler>>/>
+</$button>
+</span>
+\end
+
+<$list filter="[all[current]tags[]twsm_class[theme]sort[]]">
+<$set name="theme" value=<<currentTiddler>>>
+<<theme_button>>
+</$set>
+</$list>

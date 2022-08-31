@@ -1,0 +1,17 @@
+created: 20220831222725264
+modified: 20220831223354605
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/risk/btn_residual_risk
+type: text/vnd.tiddlywiki
+
+\define button()
+<$button
+	class="residual_risk_button py-btn btn-small $(class)$"
+	tooltip="Residual risk"
+>
+<$view field=twsm_residual_name/>
+</$button>
+\end
+<$list filter="[all[current]get[twsm_residual_class]]" variable=class>
+<<button>>
+</$list>
