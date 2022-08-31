@@ -23,7 +23,7 @@
     "release": "tiddlywiki editions/release --verbose --build release"
   },
   "dependencies": {
-    "tiddlywiki": ">=5.2.0",
+    "tiddlywiki": ">=5.2.3",
     "tw5-thirdflow": ">=1.2.10"
   },
   "devDependencies": {},
