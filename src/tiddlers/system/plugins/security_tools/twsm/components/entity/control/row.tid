@@ -1,0 +1,21 @@
+created: 20220901083317704
+modified: 20220901092843125
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/control/row
+type: text/vnd.tiddlywiki
+
+<div class="tc-menu-list-item">
+<div class="py-todo">
+<label class="">
+{{$:/plugins/security_tools/twsm/defs/twsm_class/control||$:/plugins/security_tools/twsm/templates/class_inline_icon}}
+<$link><$view field=title/></$link>
+</label>
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_id}}
+{{||$:/plugins/security_tools/twsm/components/entity/control/btn_status}}
+{{||$:/plugins/security_tools/twsm/components/entity/control/btn_temporal}}
+{{||$:/plugins/security_tools/twsm/components/entity/control/btn_characteristic}}
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_themes}}
+<span class="py-todo-actions">
+</span>
+</div>
+</div>
