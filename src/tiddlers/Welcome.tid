@@ -1,5 +1,5 @@
 created: 20220312215441379
-modified: 20220313094606953
+modified: 20220901094320244
 title: Welcome
 type: text/vnd.tiddlywiki
 
@@ -19,6 +19,7 @@ To create your own security model start with an [[empty wiki|https://tiddlywiki.
 #* [[$:/plugins/TheDiveO/FontAwesome]]
 #* [[$:/plugins/flibbles/relink]]
 #* [[$:/plugins/tobibeer/appear]]
+#* [[$:/plugins/nico/projectify]]
 # The security model plugin:
 #* [[$:/plugins/security_tools/twsm]]
 
