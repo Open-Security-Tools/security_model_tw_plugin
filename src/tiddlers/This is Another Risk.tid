@@ -1,0 +1,21 @@
+created: 20220901195726611
+hide-body: yes
+modified: 20220901204314160
+tags: 
+title: This is Another Risk
+twsm_assessment_description: Some new lines: asdf
+twsm_class: risk
+twsm_error: 
+twsm_id: 1007
+twsm_impact: Insignificant
+twsm_inherent_class: twsm_risk_low
+twsm_inherent_name: Low
+twsm_inherent_score: 1.2
+twsm_likelihood: Credible
+twsm_mitigation_percent: 0
+twsm_residual_class: twsm_risk_low
+twsm_residual_name: Low
+twsm_residual_score: 1.2
+twsm_risk_calculation_version: 1
+type: text/vnd.tiddlywiki
+

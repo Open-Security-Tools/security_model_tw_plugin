@@ -1,8 +1,11 @@
+attack_tree: * <<branch "Cabbages">>
 created: 20220312223810074
 hide-body: yes
-modified: 20220831223626610
+modified: 20220901195120168
+multiline: something else
 tags: [[A sample vulnerability]]
 title: A sample risk
+twsm_assessment_description: This is a test with
 twsm_class: risk
 twsm_error: 
 twsm_id: 1000
@@ -17,4 +20,5 @@ twsm_residual_name: Medium
 twsm_residual_score: 4
 twsm_risk_calculation_version: 1
 type: text/vnd.tiddlywiki
+v1_computed_attack_tree: * <<branch "Cabbages">>
 
