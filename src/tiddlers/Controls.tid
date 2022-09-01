@@ -1,0 +1,13 @@
+created: 20220901083258035
+due: 
+modified: 20220901093100891
+priority: 
+tags: 
+title: Controls
+type: text/vnd.tiddlywiki
+
+<div class="py-todos">
+<$list filter="[all[]twsm_class[control]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/control/row}}
+</$list>
+</div>
