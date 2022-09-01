@@ -1,0 +1,14 @@
+created: 20220901083418140
+modified: 20220901083549682
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/control/btn_temporal
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]get[twsm_temporal_class]]" variable=ignore>
+<$button
+	class="py-btn btn-small"
+	tooltip="Temporal class"
+>
+<$view field=twsm_temporal_class/>
+</$button>
+</$list>
