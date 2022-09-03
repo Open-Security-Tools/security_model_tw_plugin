@@ -1,0 +1,12 @@
+{
+    "title": "$:/plugins/security_tools/twsm",
+    "name": "TWSM",
+    "description": "Security Model and Tools",
+    "author": "Paul",
+    "version": "1.0.226",
+    "core-version": ">=5.1.23",
+    "source": "https://github.com/Open-Security-Tools/security_model_tw_plugin",
+    "list": "readme license syntax",
+    "dependents": "",
+    "plugin-type": "plugin"
+}
