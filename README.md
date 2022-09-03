@@ -50,6 +50,13 @@ TODO:
 
 ### Current Build Process
 
+Development experience:
+
+* Plugin code changes via the browser (benefit of using ThirdFlow plugin).
+* Tiddler path to filing system path managed automatically.
+* Relink automatically applies to plugin content.
+* Plugin content derived from path + set of filters.
+
 ```bash
 npm run release
 ls -l editions/release/output/
@@ -109,5 +116,27 @@ Summary:
 * The tags override is used to hide twsm entity tag references. A better mechanism would be to use a bespoke field to store cross-references which need to be presented differently. **Not important**
 * The relink fields are important to maintain model integrity through renames.
 
+The CI pipeline builds the `demowiki.html` file, and then copies to an empty directory as `index.html`. 
+This directory is then force pushed to the gh-pages branch on GitHub. 
 
+### Target Build Process
+
+Development experience:
+
+* Code changes via development IDE.
+* Manually managed tiddler path to filing system directory structure.
+* Plugin contents limited to path.
+
+NPM integration:
+
+* TIDDLYWIKI_PLUGIN_PATH set to local plugins directory. 
+* Several tiddlywiki contexts (plugin development, demo website, empty)
+       * Each context has a `tiddlywiki.info` file and a `tiddlers` directory.
+       * Dependencies are stored as bundled tiddlers in the `tiddlers` directory (e.g. relink).  
+* `serve` used for plugin development. 
+       * Uses root `tiddlywiki.info` and `tiddlers` directory. 
+       * Watches plugin directory for changes and automatically reloads.
+* `serve-demo` ...
+* Builds reference the `demo` and `empty` contexts.
+* The build target uses the built in tiddlywiki save offline mechanism to save an all inclusive HTML version of the wiki.
 
