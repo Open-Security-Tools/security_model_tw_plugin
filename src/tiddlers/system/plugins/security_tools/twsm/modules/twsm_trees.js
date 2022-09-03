@@ -61,6 +61,22 @@ exports.twsmextractcomputedattacktree = function(source, operator, options) {
     return result;
 }
 
+exports.twsm_encode = function(source, operator, options) {
+    var result = [];
 
+    source (function(tiddler, title) {
+        result.push(title.replaceAll('\n', '\\n'));
+    })
+    return result;
+}
+
+exports.twsm_decode = function(source, operator, options) {
+    var result = [];
+
+    source (function(tiddler, title) {
+        result.push(title.replaceAll('\\n', '\n'));
+    })
+    return result;    
+}
 
 })();

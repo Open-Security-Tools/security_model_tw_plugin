@@ -1,6 +1,6 @@
 created: 20220901103823786
 due: 
-modified: 20220901192112901
+modified: 20220902224027341
 priority: 
 tags: Backlog todo
 title: Attack trees in wikitext
@@ -69,15 +69,18 @@ Source:
 <$edit-text tiddler="A sample risk" field=attack_tree tag=textarea minHeight=10 autoHeight=yes/>
 
 <$button>
-Trigger
 <$list filter="[title[A sample risk]twsmprocesstree[]]" variable=complex>
 <$list filter="[title<complex>twsmextractcomputedattacktree[]]" variable=computedattacktree>
 <$action-setfield $tiddler="A sample risk" v1_computed_attack_tree=<<computedattacktree>>/>
 </$list>
 </$list>
+Trigger
 </$button>
 
 Rendered:
 
 <$transclude tiddler="A sample risk" field=v1_computed_attack_tree/>
+
+
+
 

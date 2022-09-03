@@ -1,7 +1,11 @@
 attack_tree: * <<branch "Cabbages">>
+** <<leaf "Something">>
+** <<subtree "Another tree">>
+** <<control "Hello control">>
+* <<branch "another branch">>
 created: 20220312223810074
 hide-body: yes
-modified: 20220901195120168
+modified: 20220902224033347
 multiline: something else
 tags: [[A sample vulnerability]]
 title: A sample risk
@@ -21,4 +25,8 @@ twsm_residual_score: 4
 twsm_risk_calculation_version: 1
 type: text/vnd.tiddlywiki
 v1_computed_attack_tree: * <<branch "Cabbages">>
+** <<leaf "Something">>
+** <<subtree "Another tree">>
+** <<control "Hello control">>
+* <<branch "another branch">>
 
