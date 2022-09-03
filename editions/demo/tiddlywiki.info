@@ -3,7 +3,7 @@
 	"plugins": [
         "tiddlywiki/tiddlyweb",
         "tiddlywiki/filesystem",
-		"security_model/twsm"
+		"security_tools/twsm"
     ],
     "themes": [
         "tiddlywiki/vanilla",
