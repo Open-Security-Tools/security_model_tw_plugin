@@ -1,0 +1,13 @@
+created: 20220831213810031
+due: 
+modified: 20220901093047673
+priority: 
+tags: 
+title: Risks
+type: text/vnd.tiddlywiki
+
+<div class="py-todos">
+<$list filter="[all[]twsm_class[risk]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
+</$list>
+</div>

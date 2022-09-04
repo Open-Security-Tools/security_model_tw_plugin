@@ -1,0 +1,19 @@
+created: 20220312223810074
+hide-body: yes
+modified: 20220831223626610
+tags: [[A sample vulnerability]]
+title: A sample risk
+twsm_class: risk
+twsm_error: 
+twsm_id: 1000
+twsm_impact: Extreme/Catastrophic
+twsm_inherent_class: twsm_risk_high
+twsm_inherent_name: High
+twsm_inherent_score: 8
+twsm_likelihood: Likely
+twsm_mitigation_percent: 50
+twsm_residual_class: twsm_risk_medium
+twsm_residual_name: Medium
+twsm_residual_score: 4
+twsm_risk_calculation_version: 1
+type: text/vnd.tiddlywiki
