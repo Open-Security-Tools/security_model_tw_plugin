@@ -15,7 +15,7 @@
   ],
   "scripts": {
 		"build": "cross-env TIDDLYWIKI_PLUGIN_PATH=./plugins npx tiddlywiki editions/demo/ --build index",
-		"develop": "cross-env TIDDLYWIKI_PLUGIN_PATH=./plugins npx nodemon -e tid,multids,js,info --watch plugins ./node_modules/tiddlywiki/tiddlywiki.js . --listen",
+		"develop": "cross-env TIDDLYWIKI_PLUGIN_PATH=./plugins npx nodemon -e tid,multids,js,info --watch plugins ./node_modules/tiddlywiki/tiddlywiki.js . --listen port=8081",
 		"demo": "cross-env TIDDLYWIKI_PLUGIN_PATH=./plugins npx tiddlywiki editions/demo/ --listen"
   },
   "dependencies": {
