@@ -44,8 +44,18 @@ exports.twsmextractcontrols = function(source, operator, options) {
     var result = [];
 
     source (function(tiddler, title) {
-        var s = JSON.parse(title);
-        result.push(s.controls);
+        try  {
+            var s = JSON.parse(title);
+            if (s) {
+                result.push(s.controls);
+            }
+        } catch (objError) {
+            if (objError instanceof SyntaxError) {
+                // Do nothing...
+            } else {
+                throw(objError);
+            }
+        }
     })
     return result;
 }
@@ -55,28 +65,21 @@ exports.twsmextractcomputedattacktree = function(source, operator, options) {
     var result = [];
 
     source (function(tiddler, title) {
-        var s = JSON.parse(title);
-        result.push(s.computed_attack_tree);
+        try  {
+            var s = JSON.parse(title);
+            if (s && s.computed_attack_tree) {
+                result.push(s.computed_attack_tree);
+            }
+        } catch (objError) {
+            if (objError instanceof SyntaxError) {
+                // Do nothing...
+            } else {
+                throw(objError);
+            }
+        }
     })
     return result;
 }
 
-exports.twsm_encode = function(source, operator, options) {
-    var result = [];
-
-    source (function(tiddler, title) {
-        result.push(title.replaceAll('\n', '\\n'));
-    })
-    return result;
-}
-
-exports.twsm_decode = function(source, operator, options) {
-    var result = [];
-
-    source (function(tiddler, title) {
-        result.push(title.replaceAll('\\n', '\n'));
-    })
-    return result;    
-}
 
 })();
