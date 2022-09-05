@@ -1,0 +1,13 @@
+created: 20220905115057550
+modified: 20220905115134666
+title: Dev
+type: text/vnd.tiddlywiki
+
+
+<$edit-text tiddler="A sample risk" field=attack_tree tag=textarea minHeight=10 autoHeight=yes/>
+
+<pre>
+<$list filter="[title[A sample risk]twsmprocesstree[]]" variable=complex>
+<<complex>>
+</$list>
+</pre>
