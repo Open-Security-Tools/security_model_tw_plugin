@@ -1,0 +1,86 @@
+created: 20220901103823786
+due: 
+modified: 20220902224027341
+priority: 
+tags: Backlog todo
+title: Attack trees in wikitext
+type: text/vnd.tiddlywiki
+
+\define branch(name, operand: "OR")
+Branch: $name$ ($operand$)
+\end
+
+\define leaf(name, probability: "Highly Likely")
+Leaf: $name$ ($probability$)
+\end
+
+\define subtree(name)
+Sub-tree: $name$
+\end
+
+
+\define control(name)
+Control: $name$
+\end
+
+* <<branch "Cabbages">>
+** <<leaf "Something">>
+** <<subtree "Another tree">>
+** <<control "Hello control">>
+* <<branch "another branch">>
+
+Should be straight forward to parse and check for errors.
+
+How about rendering calculated probability score?
+
+* Have dedicated field for attack tree structure
+* Have dedicated field for rendered attack tree structure
+
+Conclusion:
+
+* twsm entity `risk` fields:
+** `attack_tree`
+** `v1_computed_attack_tree`
+** `v1_likelihood`
+** `v1_controls`
+** `v1_attack_sub_trees`
+* twsm entity `control` fields:
+** `attack_description`
+** `attack_likelihood`
+* twsm entity `attack_sub_tree` fields:
+** `attack_tree`
+** `v1_computed_attack_tree`
+** `v1_likelihood`
+** `v1_controls`
+** `v1_attack_sub_trees`
+
+The versioning of the computed fields allows easy identification for automatic updates to the schema engines.
+
+<ul>
+<$list filter="[title[A sample risk]twsmprocesstree[]]" variable=complex>
+<$list filter="[title<complex>twsmextractcontrols[]enlist-input[]]" variable=control>
+<li>Control = <<control>></li>
+</$list>
+</$list>
+</ul>
+
+Source:
+
+<$edit-text tiddler="A sample risk" field=attack_tree tag=textarea minHeight=10 autoHeight=yes/>
+
+<$button>
+<$list filter="[title[A sample risk]twsmprocesstree[]]" variable=complex>
+<$list filter="[title<complex>twsmextractcomputedattacktree[]]" variable=computedattacktree>
+<$action-setfield $tiddler="A sample risk" v1_computed_attack_tree=<<computedattacktree>>/>
+</$list>
+</$list>
+Trigger
+</$button>
+
+Rendered:
+
+<$transclude tiddler="A sample risk" field=v1_computed_attack_tree/>
+
+
+
+

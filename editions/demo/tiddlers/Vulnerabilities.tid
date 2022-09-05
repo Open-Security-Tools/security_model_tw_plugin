@@ -1,0 +1,13 @@
+created: 20220901081332752
+due: 
+modified: 20220901092926348
+priority: 
+tags: 
+title: Vulnerabilities
+type: text/vnd.tiddlywiki
+
+<div class="py-todos">
+<$list filter="[all[]twsm_class[vulnerability]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/vulnerability/row}}
+</$list>
+</div>
