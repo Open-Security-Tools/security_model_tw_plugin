@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "A sample risk",
-        "modified": "20220904144016704",
+        "modified": "20220904214811393",
         "tags": "[[A sample vulnerability]]",
         "type": "text/vnd.tiddlywiki",
         "hide-body": "yes",
@@ -20,8 +20,8 @@
         "twsm_residual_name": "Medium",
         "twsm_residual_score": "4",
         "twsm_risk_calculation_version": "1",
-        "attack_tree": "\n* <<branch \"Cabbages\">>\n** <<leaf \"Something\">>\n** <<subtree \"Another tree\">>\n** <<control \"Hello control\">>\n* <<branch \"another branch\">>",
-        "v1_computed_attack_tree": "\n* <<branch \"Cabbages\">>\n** <<leaf \"Something\">>\n** <<subtree \"Another tree\">>\n** <<control \"Hello control\">>\n* <<branch \"another branch\">>",
+        "attack_tree": "\n* <<branch \"Cabdbages\" and>>\n** <<leaf \"Something\">>\n** <<subtree \"Another tree\">>\n** <<ref \"monkey\">>\n** <<control \"Hello control\">>\n* <<branch \"another branch\">>",
+        "v1_computed_attack_tree": "*BRANCH 'Cabdbages' - and\n**LEAFSomething\n**CONTROLHello control\n*BRANCH 'another branch' - OR",
         "twsm_assessment_description": "asdf"
     }
 ]
