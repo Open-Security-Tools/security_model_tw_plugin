@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "A sample risk",
-        "modified": "20220906065730905",
+        "modified": "20220906164905726",
         "tags": "[[A sample vulnerability]]",
         "type": "text/vnd.tiddlywiki",
         "hide-body": "yes",
@@ -20,8 +20,8 @@
         "twsm_residual_name": "Medium",
         "twsm_residual_score": "4",
         "twsm_risk_calculation_version": "1",
-        "attack_tree": "* <<branch \"Cabdbages\" AND>>\n** <<leaf \"Something\">>\n** <<leaf \"Another tree\">>\n** <<ref \"Attack Tree\">>\n** <<control \"A sample procedure\">>\n* <<branch \"another branchd\">>",
-        "v1_computed_attack_tree": "",
+        "attack_tree": "* <<branch \"Cabbages\"  AND>>\n** <<leaf \"Something\" \"unlikely\">>\n** <<leaf \"Something 2\" \"highly likely\">>\n",
+        "v1_computed_attack_tree": "* <<rendered_branch \"Root\" OR 0.34687500000000004>>\n** <<rendered_branch \"Cabbages\" AND 0.34687500000000004>>\n*** <<rendered_leaf \"Something\" 0.375>>\n*** <<rendered_leaf \"Something 2\" 0.925>>",
         "twsm_assessment_description": "asdf"
     }
 ]

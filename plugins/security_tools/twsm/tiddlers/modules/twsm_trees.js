@@ -14,7 +14,7 @@ module-type: filteroperator
 var shlex = require("$:/plugins/security_tools/twsm/shlex.js");
 
 function indentToBullet(indent) {
-    return new Array(indent + 1).join("*");
+    return (new Array(indent + 1).join("*")) + " ";
 }
 
 function lstrip(x, characters) {
@@ -41,16 +41,85 @@ function parseMacro(line) {
     if ((line.slice(0,2) !== "<<") || (line.slice(-2) !== ">>")) {
         return result;
     }
-    return shlex.twsm_split(line.slice(2, -2));
+    try {
+        return shlex.twsm_split(line.slice(2, -2));
+    } catch (errorObj) {
+        throw new AttackTreeSyntaxError(errorObj.message);
+    }
 }
 
 var branchOperators = {
-    "OR": function() {
-
+    "OR": function(children) {
+        if (children.length == 0) {
+            return 1.0;
+        }
+        var max = 0.0;
+        for (let c of children) {
+            max = Math.max(max, c.get_probability());
+        }
+        return max;
     },
-    "AND": function() {
-
+    "AND": function(children) {
+        var running = 1.0;
+        for (let c of children) {
+            running = running * c.get_probability();
+        }
+        return running;
     }
+}
+
+const likelihood_calibration = [
+    {
+        band: [0.0, 0.075],
+        names: ["remote chance", "rc"],
+        title: "Remote Chance",
+    }, {
+        band: [0.075, 0.225],
+        names: ["highly unlikely", "hu"],
+        title: "Highly Unlikely",
+    }, {
+        band: [0.225, 0.375],
+        names: ["unlikely", "u"],
+        title: "Unlikely",
+    }, {
+        band: [0.375, 0.525],
+        names: ["realistic probability", "rp"],
+        title: "Realistic Probability",
+    }, {
+        band: [0.525, 0.775],
+        names: ["likely", "l"],
+        title: "Likely",
+    }, {
+        band: [0.775, 0.925],
+        names: ["highly likely", "hl"],
+        title: "Highly Likely",
+    }, {
+        band: [0.925, 1],
+        names: ["almost certain", "ac"],
+        title: "Almost Certain",
+    }
+];
+
+function phia2Probability(likelihood) {
+    likelihood = likelihood.trim().toLowerCase();
+    for (const b of likelihood_calibration) {
+        if (b.names.includes(likelihood)) {
+            // Return the upper
+            return b.band[1];
+        }
+    }
+    throw new AttackTreeSyntaxError("Unsupported PHIA likelihood (" + likelihood + ")");
+}
+
+function probability2Phia(probability) {
+    var c = "Remote Chance";
+    for (const b of likelihood_calibration) {
+        if ((probability > b.band[0]) && (probability <= b.band[1])) {
+            c = b.title;
+            break;
+        }
+    }
+    return c;
 }
 
 class Branch {
@@ -63,8 +132,18 @@ class Branch {
         this.parent = parent;
         this.branchName = branchName;
         this.operator = operator;
+        this.operatorFunction = operatorFunction;
         this.indent = indent;
         this.children = [];
+    }
+
+    render() {
+        var lines = [];
+        lines.push(indentToBullet(this.indent + 1) + "<<rendered_branch \"" + this.branchName + "\" " + this.operator + " " + this.get_probability() + ">>");
+        for (let c of this.children) {
+            lines.push(...c.render());
+        }
+        return lines;
     }
 
     console_log() {
@@ -74,6 +153,10 @@ class Branch {
             c.console_log();
         }
     }
+
+    get_probability() {
+        return this.operatorFunction(this.children);
+    }
 }
 
 class Leaf {
@@ -81,11 +164,20 @@ class Leaf {
         this.parent = parent;
         this.leafName = leafName;
         this.indent = indent;
-        this.probability = probability;
+        this.probability = phia2Probability(probability);
     }
 
+    render() {
+        var lines = [];
+        lines.push(indentToBullet(this.indent + 1) + "<<rendered_leaf \"" + this.leafName + "\" " + this.get_probability() + ">>");
+        return lines;
+    }
+    
     console_log() {
         console.log("Leaf (" + this.indent + "): " + this.leafName);
+    }
+    get_probability() {
+        return this.probability;
     }
 }
 
@@ -99,8 +191,18 @@ class Control {
         this.controlName = controlName;
         this.indent = indent;
     }
+
+    render() {
+        var lines = [];
+        lines.push(indentToBullet(this.indent + 1) + "<<rendered_control \"" + this.controlName + "\" " + this.get_probability() + ">>");
+        return lines;
+    }
+
     console_log() {
         console.log("Control (" + this.indent + "): " + this.controlName);
+    }
+    get_probability() {
+        return 0.5;
     }
 }
 
@@ -114,8 +216,19 @@ class Ref {
         this.refName = refName;
         this.indent = indent;
     }
+
+    render() {
+        var lines = [];
+        var l = indentToBullet(this.indent + 1) + "<<rendered_ref \"" + this.refName + "\" " + this.get_probability() + ">>";
+        lines.push(l);
+        return lines;
+    }
+
     console_log() {
         console.log("Ref (" + this.indent + "): " + this.refName);
+    }
+    get_probability() {
+        return 0.25;
     }
 }
 
@@ -162,44 +275,42 @@ function parse_attack_tree(tiddler, title) {
             console.log("B: " + branch);
             currentBranch.children.push(branch);
             currentBranch = branch;
-
-            return indentToBullet(indent) + "BRANCH '" + branchName + "' - " + operator;
         },
         "leaf": function(indent, args) {
             var leafName = args[0];
             var probability = args[1];
             var leaf = new Leaf(currentBranch, leafName, indent, probability);
             currentBranch.children.push(leaf);
-            return indentToBullet(indent) + "LEAF " + args;
         },
         "control": function(indent, args) {
             var controlName = args[0];
             var control = new Control(currentBranch, controlName, indent);
             currentBranch.children.push(control);
             controls.push(controlName);
-            return indentToBullet(indent) + "CONTROL " + args;
         },
         "ref": function(indent, args) {
             var refName = args[0];
             var ref = new Ref(currentBranch, refName, indent);
             currentBranch.children.push(ref);
             attack_sub_trees.push(refName);
-            return indentToBullet(indent) + "REF " + args;
         }
     }
 
     var lines = tiddler.fields.attack_tree.split('\n');
-    var newLines = [];
     var error = "";
     var lineNo = 1;
     for (let l of lines) {
         try {
             var t = lstrip(l, "*")
             var indent = l.length - t.length;
-            if (!indent) {
+            if ((!indent) && (t.trim().length > 0)) {
                 throw new AttackTreeSyntaxError("Line doesn't start with a '*'!");
             }
             if (indent) {
+                if (indent > (currentBranch.indent + 1)) {
+                    throw new AttackTreeSyntaxError("Branch children too indented!");
+                }
+
                 // Walk back up the tree finding the correct parent.
                 while (indent > (currentBranch.indent + 1)) {
                     currentBranch = currentBranch.parent;
@@ -213,10 +324,7 @@ function parse_attack_tree(tiddler, title) {
                     throw new AttackTreeSyntaxError("Unsupported macro!");
                 }
                 if (opFunc) {
-                    var r = opFunc(indent, macroArgs.slice(1,));
-                    if (r) {
-                        newLines.push(r);
-                    }
+                    opFunc(indent, macroArgs.slice(1,));
                 }
     
                 // var prefix = new Array(indent + 1).join("*");
@@ -234,17 +342,14 @@ function parse_attack_tree(tiddler, title) {
         }
         lineNo += 1;
     }
-    root.console_log();
+    var newLines = root.render();
+    console.log(newLines);
     var joined = newLines.join('\n');
-    console.log("Joined: " + joined);
-    // if (error) {
-    //     joined = error;
-    // }
 
     var obj = {
         computed_attack_tree: joined,
         error: error,
-        likelihood: "0.245",
+        likelihood: root.get_probability(),
         controls: controls,
         attack_sub_trees: attack_sub_trees, 
     }

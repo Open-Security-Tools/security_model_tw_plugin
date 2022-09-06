@@ -1,5 +1,5 @@
 created: 20220905115057550
-modified: 20220905115134666
+modified: 20220906163917099
 title: Dev
 type: text/vnd.tiddlywiki
 
@@ -8,6 +8,6 @@ type: text/vnd.tiddlywiki
 
 <pre>
 <$list filter="[title[A sample risk]twsmprocesstree[]]" variable=complex>
-<<complex>>
+<$text text=<<complex>>/>
 </$list>
 </pre>
