@@ -14,3 +14,10 @@ table.attack_tree_table tr td.attack_tree_description,th.attack_tree_description
   text-align: left;
 }
 
+span.branch_operator {
+  background: black;
+  color: white;
+  border-radius: 12px; 
+  border-style: none; 
+  padding: 0px 8px 0px 8px; 
+}

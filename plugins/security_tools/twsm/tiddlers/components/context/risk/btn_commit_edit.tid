@@ -1,0 +1,33 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/risk/btn_commit_edit
+type: text/vnd.tiddlywiki
+
+<$set name=draftAttackTree tiddler=<<currentTiddler>> field=draft_attack_tree>
+<$button>
+<$list filter="[title<complex>twsm_attack_tree_result:renderer[]]" variable=renderer>
+<$list filter="[title<complex>twsm_attack_tree_result:attack_tree[]]" variable=attack_tree>
+<$list filter="[title<complex>twsm_attack_tree_result:error[]]" variable=error>
+<$list filter="[title<complex>twsm_attack_tree_result:likelihood[]]" variable=likelihood>
+<$list filter="[title<complex>twsm_attack_tree_result:controls[]]" variable=controls>
+<$list filter="[title<complex>twsm_attack_tree_result:sub_trees[]]" variable=sub_trees>
+Commit
+<$action-setfield 
+     attack_tree=<<draftAttackTree>>
+     renderer=<<renderer>>
+     rendered_attack_tree=<<attack_tree>>
+     rendered_error=<<error>>
+     rendered_likelihood=<<likelihood>>
+     rendered_controls=<<controls>>
+     rendered_sub_trees=<<sub_trees>>
+/>
+<$action-deletefield edit_attack_tree/>
+</$list>
+</$list>
+</$list>
+</$list>
+</$list>
+</$list>
+</$button>
+</$set>

@@ -15,8 +15,8 @@ var shlex = require("$:/plugins/security_tools/twsm/shlex.js");
 
 function probability2Hue(probability) {
     // In HSV, 0 = Green, 120 = Red.
-    const hue_start = 120
-    const hue_end = 0
+    const hue_start = 180;
+    const hue_end = 220;
     
     return hue_start + ((hue_end - hue_start) * probability);
 }
@@ -125,13 +125,16 @@ var branchOperators = {
         if (children.length == 0) {
             return NULL_COMPLEX_LIKELIHOOD;
         }
+        console.log("Process Start");
         var treatedMaxLower = 0.0, treatedMaxUpper = 0.0, untreatedMaxLower = 0.0, untreatedMaxUpper = 0.0;
         for (let c of children) {
+            console.log("Child: " + c.nodeName);
             treatedMaxLower = Math.max(treatedMaxLower, c.likelihood.treated.lower);
             treatedMaxUpper = Math.max(treatedMaxUpper, c.likelihood.treated.upper);
             untreatedMaxLower = Math.max(untreatedMaxLower, c.likelihood.untreated.lower);
             untreatedMaxUpper = Math.max(untreatedMaxUpper, c.likelihood.untreated.upper);
         }
+        console.log("Process End");
         return new ComplexLikelihood(new Likelihood(untreatedMaxLower, untreatedMaxUpper), new Likelihood(treatedMaxLower, treatedMaxUpper));
     },
     "AND": function(children) {
@@ -194,15 +197,10 @@ class Node {
         this.likelihood = undefined;
         this.rendered_macro_name = renderedMacroName;
         this.extra_render_args = [];
+        this.comments = [];
     }
 
-    /**
-     * 
-     * @returns {ComplexLikelihood}
-     */
-    resolve() {
-        return NULL_COMPLEX_LIKELIHOOD;
-    }
+    resolve() {}
 
     addLikelihoodToRenderArgs(likelihood) {
         this.extra_render_args.push(likelihood.lower);
@@ -218,6 +216,12 @@ class Node {
         s.push(indentToBullet(this.indent + 1));
         s.push("<<" + this.rendered_macro_name);
         s.push("\"" + this.nodeName + "\"");
+        var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
+        if (comments.length > 0) {
+            s.push("\"\"\"<br>" + comments + "\"\"\"");
+        } else {
+            s.push("\"\"");
+        }
         s.push(...this.extra_render_args);
         s.push(">>");
         return [s.join(" ")];
@@ -244,7 +248,9 @@ class Branch extends Node {
     // Override resolve
     resolve() {
         // Recurse resolution down tree
+        console.log("Parent resolve: " + this.nodeName);
         for (let c of this.children) {
+            console.log("Resolving child:" + c.nodeName);
             c.resolve();
         }
         this.likelihood = this.operatorFunction(this.children);
@@ -324,7 +330,7 @@ function parse_attack_tree(attack_tree) {
 
     var controls = [];
     var attack_sub_trees = [];
-    var root = new Branch(null, "Root", 0);
+    var root = new Branch(null, "<$view field=title/>", 0);
     var currentBranch = root;
 
     var ops = {
@@ -332,7 +338,6 @@ function parse_attack_tree(attack_tree) {
             var branchName = args[0];
             var operator = args[1];
             var branch = new Branch(currentBranch, branchName, indent, operator);
-            console.log("B: " + branch);
             currentBranch.children.push(branch);
             currentBranch = branch;
         },
@@ -340,7 +345,11 @@ function parse_attack_tree(attack_tree) {
             var leafName = args[0];
             var probability = args[1];
             var leaf = new Leaf(currentBranch, leafName, indent, probability);
+            if (leaf.indent !== (currentBranch.indent + 1)) {
+                throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
+            }
             currentBranch.children.push(leaf);
+            console.log("Pushing leaf to branch: " + leaf.nodeName);
         },
         "control": function(indent, args) {
             var controlName = args[0];
@@ -363,8 +372,8 @@ function parse_attack_tree(attack_tree) {
         try {
             var t = lstrip(l, "*")
             var indent = l.length - t.length;
-            if ((!indent) && (t.trim().length > 0)) {
-                throw new AttackTreeSyntaxError("Line doesn't start with a '*'!");
+            if (!indent) {
+                currentBranch.comments.push(t);
             }
             if (indent) {
                 if (indent > (currentBranch.indent + 1)) {
@@ -372,7 +381,7 @@ function parse_attack_tree(attack_tree) {
                 }
 
                 // Walk back up the tree finding the correct parent.
-                while (indent > (currentBranch.indent + 1)) {
+                while ((indent - 1) < currentBranch.indent) {
                     currentBranch = currentBranch.parent;
                 }
                 var macroArgs = parseMacro(t.trim());
@@ -409,17 +418,102 @@ function parse_attack_tree(attack_tree) {
     var joined = newLines.join('\n');
 
     var obj = {
-        renderer: 1,
+        renderer: 2,
         attack_tree: joined,
         error: error,
-        untreated_probability: root.likelihood.untreated.probability,
+        untreated_probability_lower: root.likelihood.untreated.lower,
+        untreated_probability_upper: root.likelihood.untreated.upper,
         untreated_phia: root.likelihood.untreated.phia,
-        treated_probability: root.likelihood.treated.probability,
+        treated_probability_lower: root.likelihood.treated.lower,
+        treated_probability_upper: root.likelihood.treated.upper,
         treated_phia: root.likelihood.treated.phia,
         controls: controls,
         sub_trees: attack_sub_trees, 
     }
     return obj;
+}
+
+const impactDict = {
+	"unknown": 0,
+	"insignificant": 1,
+	"minimal": 1,
+	"minor": 2,
+	"moderate": 3,
+	"significant": 4,
+	"major": 4,
+	"extreme/catastrophic": 5,
+	"severe": 5
+};
+
+
+var LOW_THRESHOLD = 3.6;
+var MEDIUM_THRESHOLD = 6.4;
+
+function score2Name(score) {
+	if (score <= 0) {
+		return "Unknown";
+	}
+	else if (score <= LOW_THRESHOLD) {
+		return "Low";
+	}
+	else if (score <= MEDIUM_THRESHOLD) {
+	  return "Medium";
+	}
+	else {
+		return "High";
+	}
+}
+
+function score2Class(score) {
+	if (score <= 0) {
+		return "twsm_risk_unknown";
+	}
+	else if (score <= LOW_THRESHOLD) {
+		return "twsm_risk_low";
+	}
+	else if (score <= MEDIUM_THRESHOLD) {
+	  return "twsm_risk_medium";
+	}
+	else {
+		return "twsm_risk_high";
+	}
+}
+
+
+exports.twsm_risk_assessment = function(source, operator, options) {
+    var result = [];
+    var impactOperand = (operator.operand || "").toLowerCase();
+    // console.log("Impact Operand: " + JSON.stringify(operator));
+    var impact = impactDict[impactOperand] || 0;
+
+    source (function(tiddler, title){
+        try  {
+            var s = JSON.parse(title);
+            if (s) {
+                var inherent = (impact * s.untreated_probability_upper * 2);
+                var residual = (impact * s.treated_probability_upper * 2);
+
+
+                result.push(JSON.stringify(
+                    {
+                        "inherent_score": inherent.toFixed(1),
+                        "inherent_name": score2Name(inherent),
+                        "inherent_class": score2Class(inherent),
+                        "residual_score": residual.toFixed(1),
+                        "residual_name": score2Name(residual),
+                        "residual_class": score2Class(residual),
+                    }
+                ))
+            }
+        } catch (objError) {
+            if (objError instanceof SyntaxError) {
+                // Do nothing...
+            } else {
+                throw(objError);
+            }
+        }
+    });
+    return result;
 }
 
 exports.twsm_render_attack = function(source, operator, options) {
@@ -443,7 +537,7 @@ exports.twsm_render_attack = function(source, operator, options) {
                 throw(objError);
             }        
         }
-    })
+    });
     console.log(result);
     return result;
 }

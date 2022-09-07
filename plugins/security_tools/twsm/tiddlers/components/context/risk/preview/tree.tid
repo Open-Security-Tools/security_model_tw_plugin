@@ -1,0 +1,55 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/risk/preview/tree
+type: text/vnd.tiddlywiki
+
+\define display_likelihood(text, lower, upper, tooltip)
+<span
+    title="$tooltip$"
+    style="border-radius: 12px; border-style: solid; border-width: 1px; padding: 0px 8px 0px 8px; background: linear-gradient(90deg, hsl($lower$, 100%, 80%) 0%, hsl($upper$,100%,80%) 100%);">
+$text$
+</span>
+\end
+
+\define rendered_branch(name, comments, ul, ul_hue, uu, uu_hue, u_tooltip, u_name, tl, tl_hue, tu, tu_hue, t_tooltip, t_name, operand)
+<span class=branch_operator><i class="fas fa-code-branch"/> $operand$</span>
+$name$
+<<display_likelihood 
+    "<i class='fas fa-star'/> $t_name$" 
+    $tl_hue$ 
+    $tu_hue$
+    "$t_tooltip$"
+>>
+<<display_likelihood 
+    "<i class='fas fa-star-half-alt'/> $u_name$" 
+    $ul_hue$ 
+    $uu_hue$
+    "$u_tooltip$" 
+>>
+$comments$
+\end
+
+\define rendered_leaf(name, comments, tl, tl_hue, tu, tu_hue, t_tooltip, t_name)
+Leaf: $name$  = <<display_likelihood 
+    "$t_name$" 
+    $tl_hue$ 
+    $tu_hue$
+    "$t_tooltip$"
+>>
+\end
+
+\define rendered_control(name, comments, tl, tl_hue, tu, tu_hue, t_tooltip, t_name)
+<<twsmname "$name$">>  = <<display_likelihood 
+    "$t_name$" 
+    $tl_hue$ 
+    $tu_hue$
+    "$t_tooltip$"
+>>
+\end
+
+<$list filter="[title<complex>twsm_attack_tree_result:attack_tree[]]" variable=renderedAttackTree>
+
+<<renderedAttackTree>>
+
+</$list>

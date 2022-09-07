@@ -1,7 +1,31 @@
 created: 20220907152708570
-modified: 20220907164451036
+modified: 20220907191310551
 tags: 
 title: Likelihood Display
 type: text/vnd.tiddlywiki
 
+\define moo(something)
+<$wikify name=rendered text="""$something$""" output=html>
+<div style="color: red;"><<rendered>></div>
+</$wikify>
+\end
+
 <span style="border-radius: 12px; border-style: solid; border-width: 1px; padding: 2px 8px 2px 8px; background: linear-gradient(90deg, hsl(20, 100%, 80%) 0%, hsl(100,100%,80%) 100%);" title="flipper">Highly Unlikely</span>
+
+<<moo """hello there
+this
+is a test
+
+
+* Fish <b>Cabbage</b> {{Toad}}
+* Cabbage
+
+
+""">>
+
+
+"lkjsdf
+sad;lkfj
+l;askdjfsdlkjf
+sldfkjsklf
+"
