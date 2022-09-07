@@ -13,36 +13,61 @@ module-type: filteroperator
 
 var shlex = require("$:/plugins/security_tools/twsm/shlex.js");
 
+function probability2Hue(probability) {
+    // In HSV, 0 = Green, 120 = Red.
+    const hue_start = 120
+    const hue_end = 0
+    
+    return hue_start + ((hue_end - hue_start) * probability);
+}
+
+class Likelihood {
+    /**
+     * 
+     * @param {number} lower 
+     * @param {number} upper 
+     */
+    constructor(lower, upper, phia) {
+        this.lower = lower;
+        this.lowerHue = probability2Hue(lower);
+        this.upper = upper;
+        this.upperHue = probability2Hue(upper);
+        if (upper === lower) {
+            this.tooltip = (upper * 100).toFixed() + "%";
+        } else {
+            this.tooltip = (lower * 100).toFixed() + "% - " + (upper * 100).toFixed() + "%";
+        }
+
+        if (phia === undefined) {
+            this.phia = probability2Phia(upper);
+        } else {
+            this.phia = phia;
+        }
+    }
+}
 
 const likelihood_calibration = [
     {
-        band: [0.0, 0.075],
+        band: new Likelihood(0.0, 0.075, "Remote Chance"),
         names: ["remote chance", "rc"],
-        title: "Remote Chance",
     }, {
-        band: [0.075, 0.225],
+        band: new Likelihood(0.075, 0.225, "Highly Unlikely"),
         names: ["highly unlikely", "hu"],
-        title: "Highly Unlikely",
     }, {
-        band: [0.225, 0.375],
+        band: new Likelihood(0.225, 0.375, "Unlikely"),
         names: ["unlikely", "u"],
-        title: "Unlikely",
     }, {
-        band: [0.375, 0.525],
+        band: new Likelihood(0.375, 0.525, "Realistic Possibility"),
         names: ["realistic possibility", "rp"],
-        title: "Realistic Possibility",
     }, {
-        band: [0.525, 0.775],
+        band: new Likelihood(0.525, 0.775, "Likely"),
         names: ["likely", "l"],
-        title: "Likely",
     }, {
-        band: [0.775, 0.925],
+        band: new Likelihood(0.775, 0.925, "Highly Likely"),
         names: ["highly likely", "hl"],
-        title: "Highly Likely",
     }, {
-        band: [0.925, 1],
+        band: new Likelihood(0.925, 1, "Almost Certain"),
         names: ["almost certain", "ac"],
-        title: "Almost Certain",
     }
 ];
 
@@ -58,10 +83,6 @@ function lstrip(x, characters) {
     }
     var end = x.length - 1;
     return x.substr(start);
-}
-
-function eatWhiteSpace(x) {
-    return lstrip(x, " \t");
 }
 
 class AttackTreeSyntaxError extends Error {
@@ -83,17 +104,6 @@ function parseMacro(line) {
 }
 
 
-class Likelihood {
-    /**
-     * 
-     * @param {number} probability 
-     */
-    constructor(probability) {
-        this.probability = probability;
-        this.phia = probability2Phia(probability);
-    }
-}
-
 class ComplexLikelihood {
     /**
      * 
@@ -106,7 +116,7 @@ class ComplexLikelihood {
     }
 }
 
-const NULL_LIKELIHOOD = new Likelihood(1.0);
+const NULL_LIKELIHOOD = new Likelihood(1.0, 1.0);
 const NULL_COMPLEX_LIKELIHOOD = new ComplexLikelihood(NULL_LIKELIHOOD, NULL_LIKELIHOOD);
 
 
@@ -115,39 +125,53 @@ var branchOperators = {
         if (children.length == 0) {
             return NULL_COMPLEX_LIKELIHOOD;
         }
-        var treatedMax = 0.0, untreatedMax = 0.0;
+        var treatedMaxLower = 0.0, treatedMaxUpper = 0.0, untreatedMaxLower = 0.0, untreatedMaxUpper = 0.0;
         for (let c of children) {
-            treatedMax = Math.max(treatedMax, c.likelihood.treated.probability);
-            untreatedMax = Math.max(untreatedMax, c.likelihood.untreated.probability);
+            treatedMaxLower = Math.max(treatedMaxLower, c.likelihood.treated.lower);
+            treatedMaxUpper = Math.max(treatedMaxUpper, c.likelihood.treated.upper);
+            untreatedMaxLower = Math.max(untreatedMaxLower, c.likelihood.untreated.lower);
+            untreatedMaxUpper = Math.max(untreatedMaxUpper, c.likelihood.untreated.upper);
         }
-        return new ComplexLikelihood(new Likelihood(untreatedMax), new Likelihood(treatedMax));
+        return new ComplexLikelihood(new Likelihood(untreatedMaxLower, untreatedMaxUpper), new Likelihood(treatedMaxLower, treatedMaxUpper));
     },
     "AND": function(children) {
-        var runningUntreated = 1.0, runningTreated = 1.0;
+        var runningUntreatedLower = 1.0, runningUntreatedUpper = 1.0, runningTreatedLower = 1.0, runningTreatedUpper = 1.0;
         for (let c of children) {
-            runningUntreated = runningUntreated * c.likelihood.untreated.probability;
-            runningTreated = runningTreated * c.likelihood.treated.probability;
+            runningUntreatedLower = runningUntreatedLower * c.likelihood.untreated.lower;
+            runningUntreatedUpper = runningUntreatedUpper * c.likelihood.untreated.upper;
+            runningTreatedLower = runningTreatedLower * c.likelihood.treated.lower;
+            runningTreatedUpper = runningTreatedUpper * c.likelihood.treated.upper;
         }
-        return new ComplexLikelihood(new Likelihood(runningUntreated), new Likelihood(runningTreated));
+        return new ComplexLikelihood(new Likelihood(runningUntreatedLower, runningUntreatedUpper), new Likelihood(runningTreatedLower, runningTreatedUpper));
     }
 }
 
-function phia2Probability(likelihood) {
-    likelihood = likelihood.trim().toLowerCase();
+/**
+ * 
+ * @param {String} likelihood 
+ * @returns {Likelihood}
+ */
+function phia2Likelihood(phia) {
+    phia = phia.trim().toLowerCase();
     for (const b of likelihood_calibration) {
-        if (b.names.includes(likelihood)) {
+        if (b.names.includes(phia)) {
             // Return the upper
-            return b.band[1];
+            return b.band;
         }
     }
-    throw new AttackTreeSyntaxError("Unsupported PHIA likelihood (" + likelihood + ")");
+    throw new AttackTreeSyntaxError("Unsupported PHIA likelihood (" + phia + ")");
 }
 
+/**
+ * 
+ * @param {Number} probability 
+ * @returns {String}
+ */
 function probability2Phia(probability) {
     var c = "Remote Chance";
     for (const b of likelihood_calibration) {
-        if ((probability > b.band[0]) && (probability <= b.band[1])) {
-            c = b.title;
+        if ((probability > b.band.lower) && (probability <= b.band.upper)) {
+            c = b.band.phia;
             break;
         }
     }
@@ -180,15 +204,20 @@ class Node {
         return NULL_COMPLEX_LIKELIHOOD;
     }
 
+    addLikelihoodToRenderArgs(likelihood) {
+        this.extra_render_args.push(likelihood.lower);
+        this.extra_render_args.push(likelihood.lowerHue);
+        this.extra_render_args.push(likelihood.upper);
+        this.extra_render_args.push(likelihood.upperHue);
+        this.extra_render_args.push("\"" + likelihood.tooltip + "\"");
+        this.extra_render_args.push("\"" + likelihood.phia + "\"");
+    }
+
     render() {
         var s = [];
         s.push(indentToBullet(this.indent + 1));
         s.push("<<" + this.rendered_macro_name);
         s.push("\"" + this.nodeName + "\"");
-        s.push(this.likelihood.untreated.probability);
-        s.push("\"" + this.likelihood.untreated.phia + "\"");
-        s.push(this.likelihood.treated.probability);
-        s.push("\"" + this.likelihood.treated.phia + "\"");
         s.push(...this.extra_render_args);
         s.push(">>");
         return [s.join(" ")];
@@ -219,9 +248,9 @@ class Branch extends Node {
             c.resolve();
         }
         this.likelihood = this.operatorFunction(this.children);
-        this.extra_render_args = [
-            this.operator
-        ];
+        this.addLikelihoodToRenderArgs(this.likelihood.untreated);
+        this.addLikelihoodToRenderArgs(this.likelihood.treated);
+        this.extra_render_args.push(this.operator);
     }
 
     // Override render
@@ -237,8 +266,9 @@ class Branch extends Node {
 class Leaf extends Node {
     constructor(parent, nodeName, indent, probability="almost certain") {
         super(parent, nodeName, indent, "rendered_leaf");
-        var l = new Likelihood(phia2Probability(probability));
+        var l = phia2Likelihood(probability);
         this.likelihood = new ComplexLikelihood(l, l);
+        this.addLikelihoodToRenderArgs(this.likelihood.treated);
     }
 }
 
@@ -249,7 +279,8 @@ class Control extends Node {
         if (!is_control(nodeName)) {
             throw new AttackTreeSyntaxError("Not a control!");
         }
-        this.likelihood = new ComplexLikelihood(NULL_LIKELIHOOD, new Likelihood(phia2Probability(get_control_failure_likelihood(nodeName))));
+        this.likelihood = new ComplexLikelihood(NULL_LIKELIHOOD, phia2Likelihood(get_control_failure_likelihood(nodeName)));
+        this.addLikelihoodToRenderArgs(this.likelihood.treated);
     }
 }
 
