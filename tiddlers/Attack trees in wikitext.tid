@@ -1,19 +1,22 @@
 created: 20220901103823786
 due: 
-modified: 20220906164814976
+modified: 20220907063449777
 priority: 
 tags: Backlog todo
 title: Attack trees in wikitext
 type: text/vnd.tiddlywiki
 
-\define rendered_branch(name, operand, probability)
-Branch: $name$ ($operand$) = $probability$
+\define rendered_branch(name, operand, probability, phia)
+Branch: $name$ ($operand$) = $phia$
 \end
 
-\define rendered_leaf(name, probability)
-Leaf: $name$  = $probability$
+\define rendered_leaf(name, probability, phia)
+Leaf: $name$  = $phia$
 \end
 
+\define rendered_control(name, probability, phia)
+Control: [[$name$]]  = $phia$
+\end
 
 \define branch(name, operand: "OR")
 Branch: $name$ ($operand$)
@@ -32,18 +35,30 @@ Sub-tree: $name$
 Control: $name$
 \end
 
-* <<branch "Cabbages">>
-** <<leaf "Something">>
-** <<subtree "Another tree">>
-** <<control "Hello control">>
-* <<branch "another branch">>
+Source:
 
-Should be straight forward to parse and check for errors.
+<$edit-text tiddler="A sample risk" field=attack_tree tag=textarea minHeight=10 autoHeight=yes class=edit_attack_tree/>
 
-How about rendering calculated probability score?
+<$list filter="[title[A sample risk]twsmprocesstree[]]" variable=complex>
+<<complex>>
+<$list filter="[title<complex>twsmextracterror[]]" variable=error>
+<span style="color: red;"><<error>></span>
+</$list>
+</$list>
 
-* Have dedicated field for attack tree structure
-* Have dedicated field for rendered attack tree structure
+
+<$button>
+<$list filter="[title[A sample risk]twsmprocesstree[]]" variable=complex>
+<$list filter="[title<complex>twsmextractcomputedattacktree[]]" variable=computedattacktree>
+<$action-setfield $tiddler="A sample risk" v1_computed_attack_tree=<<computedattacktree>>/>
+</$list>
+</$list>
+Trigger
+</$button>
+
+Rendered:
+
+<$transclude tiddler="A sample risk" field=v1_computed_attack_tree/>
 
 Conclusion:
 
@@ -72,24 +87,5 @@ The versioning of the computed fields allows easy identification for automatic u
 </$list>
 </$list>
 </ul>
-
-Source:
-
-<$edit-text tiddler="A sample risk" field=attack_tree tag=textarea minHeight=10 autoHeight=yes/>
-
-<$button>
-<$list filter="[title[A sample risk]twsmprocesstree[]]" variable=complex>
-<$list filter="[title<complex>twsmextractcomputedattacktree[]]" variable=computedattacktree>
-<$action-setfield $tiddler="A sample risk" v1_computed_attack_tree=<<computedattacktree>>/>
-</$list>
-</$list>
-Trigger
-</$button>
-
-Rendered:
-
-<$transclude tiddler="A sample risk" field=v1_computed_attack_tree/>
-
-
 
 

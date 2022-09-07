@@ -83,8 +83,8 @@ const likelihood_calibration = [
         title: "Unlikely",
     }, {
         band: [0.375, 0.525],
-        names: ["realistic probability", "rp"],
-        title: "Realistic Probability",
+        names: ["realistic possibility", "rp"],
+        title: "Realistic Possibility",
     }, {
         band: [0.525, 0.775],
         names: ["likely", "l"],
@@ -135,11 +135,20 @@ class Branch {
         this.operatorFunction = operatorFunction;
         this.indent = indent;
         this.children = [];
+        this._probability = null;
+        this._phia = null;
+    }
+
+    get_phia() {
+        if (this._phia === null) {
+            this._phia = probability2Phia(this.get_probability());
+        }
+        return this._phia;
     }
 
     render() {
         var lines = [];
-        lines.push(indentToBullet(this.indent + 1) + "<<rendered_branch \"" + this.branchName + "\" " + this.operator + " " + this.get_probability() + ">>");
+        lines.push(indentToBullet(this.indent + 1) + "<<rendered_branch \"" + this.branchName + "\" " + this.operator + " " + this.get_probability() + " \"" + this.get_phia() + "\">>");
         for (let c of this.children) {
             lines.push(...c.render());
         }
@@ -155,7 +164,10 @@ class Branch {
     }
 
     get_probability() {
-        return this.operatorFunction(this.children);
+        if (this._probability === null) {
+            this._probability = this.operatorFunction(this.children);
+        }
+        return this._probability;
     }
 }
 
@@ -164,12 +176,20 @@ class Leaf {
         this.parent = parent;
         this.leafName = leafName;
         this.indent = indent;
-        this.probability = phia2Probability(probability);
+        this._probability = phia2Probability(probability);
+        this._phia = null;
+    }
+
+    get_phia() {
+        if (this._phia === null) {
+            this._phia = probability2Phia(this.get_probability());
+        }
+        return this._phia;
     }
 
     render() {
         var lines = [];
-        lines.push(indentToBullet(this.indent + 1) + "<<rendered_leaf \"" + this.leafName + "\" " + this.get_probability() + ">>");
+        lines.push(indentToBullet(this.indent + 1) + "<<rendered_leaf \"" + this.leafName + "\" " + this.get_probability() + " \"" + this.get_phia() + "\">>");
         return lines;
     }
     
@@ -177,7 +197,7 @@ class Leaf {
         console.log("Leaf (" + this.indent + "): " + this.leafName);
     }
     get_probability() {
-        return this.probability;
+        return this._probability;
     }
 }
 
@@ -190,11 +210,17 @@ class Control {
         this.parent = parent;
         this.controlName = controlName;
         this.indent = indent;
+        this.probability = phia2Probability(get_control_failure_likelihood(controlName));
+        this.phia = probability2Phia(this.probability);
+    }
+
+    get_phia() {
+        return this.phia;
     }
 
     render() {
         var lines = [];
-        lines.push(indentToBullet(this.indent + 1) + "<<rendered_control \"" + this.controlName + "\" " + this.get_probability() + ">>");
+        lines.push(indentToBullet(this.indent + 1) + "<<rendered_control \"" + this.controlName + "\" " + this.get_probability() + " \"" + this.get_phia() + "\">>");
         return lines;
     }
 
@@ -202,7 +228,7 @@ class Control {
         console.log("Control (" + this.indent + "): " + this.controlName);
     }
     get_probability() {
-        return 0.5;
+        return this.probability;
     }
 }
 
@@ -215,11 +241,20 @@ class Ref {
         this.parent = parent;
         this.refName = refName;
         this.indent = indent;
+        this._probability = 0.25;
+        this._phia = null
+    }
+
+    get_phia() {
+        if (this._phia === null) {
+            this._phia = probability2Phia(this.get_probability());
+        }
+        return this._phia;
     }
 
     render() {
         var lines = [];
-        var l = indentToBullet(this.indent + 1) + "<<rendered_ref \"" + this.refName + "\" " + this.get_probability() + ">>";
+        var l = indentToBullet(this.indent + 1) + "<<rendered_ref \"" + this.refName + "\" " + this.get_probability() + " \"" + this.get_phia() + "\">>";
         lines.push(l);
         return lines;
     }
@@ -228,7 +263,7 @@ class Ref {
         console.log("Ref (" + this.indent + "): " + this.refName);
     }
     get_probability() {
-        return 0.25;
+        return this._probability;
     }
 }
 
@@ -243,6 +278,13 @@ function is_control(controlTitle) {
         "[title[" + controlTitle + "]twsm_class[control]then[True]else[False]]"
     )
 }
+
+function get_control_failure_likelihood(controlTitle) {
+    return $tw.wiki.filterTiddlers(
+        "[title[" + controlTitle + "]get[failure_likelihood]else[Almost Certain]]"
+    )[0];
+}
+
 
 function is_ref(refTitle) {
     return tw_filter_to_bool(
@@ -411,6 +453,26 @@ exports.twsmextractcomputedattacktree = function(source, operator, options) {
             var s = JSON.parse(title);
             if (s) {
                 result.push(s.computed_attack_tree || "");
+            }
+        } catch (objError) {
+            if (objError instanceof SyntaxError) {
+                // Do nothing...
+            } else {
+                throw(objError);
+            }
+        }
+    })
+    return result;
+}
+
+exports.twsmextracterror = function(source, operator, options) {
+    var result = [];
+
+    source (function(tiddler, title) {
+        try  {
+            var s = JSON.parse(title);
+            if (s && s.error) {
+                result.push(s.error);
             }
         } catch (objError) {
             if (objError instanceof SyntaxError) {
