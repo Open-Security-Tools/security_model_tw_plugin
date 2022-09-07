@@ -6,16 +6,16 @@ title: $:/plugins/security_tools/twsm/components/context/risk/body
 type: text/vnd.tiddlywiki
 
 
-\define rendered_branch(name, operand, probability, phia)
-Branch: $name$ ($operand$) = $phia$
+\define rendered_branch(name, untreated_probability, untreated_phia, treated_probability, treated_phia, operand)
+Branch: $name$ ($operand$) = $untreated_phia$ / $treated_phia$
 \end
 
-\define rendered_leaf(name, probability, phia)
-Leaf: $name$  = $phia$
+\define rendered_leaf(name, untreated_probability, untreated_phia, treated_probability, treated_phia)
+Leaf: $name$  = $untreated_phia$ / $treated_phia$
 \end
 
-\define rendered_control(name, probability, phia)
-<<twsmname "$name$">>  = $phia$
+\define rendered_control(name, untreated_probability, untreated_phia, treated_probability, treated_phia)
+<<twsmname "$name$">>  = $untreated_phia$ / $treated_phia$
 \end
 
 \define branch(name, operand: "OR")

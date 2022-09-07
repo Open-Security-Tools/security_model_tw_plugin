@@ -13,6 +13,40 @@ module-type: filteroperator
 
 var shlex = require("$:/plugins/security_tools/twsm/shlex.js");
 
+
+const likelihood_calibration = [
+    {
+        band: [0.0, 0.075],
+        names: ["remote chance", "rc"],
+        title: "Remote Chance",
+    }, {
+        band: [0.075, 0.225],
+        names: ["highly unlikely", "hu"],
+        title: "Highly Unlikely",
+    }, {
+        band: [0.225, 0.375],
+        names: ["unlikely", "u"],
+        title: "Unlikely",
+    }, {
+        band: [0.375, 0.525],
+        names: ["realistic possibility", "rp"],
+        title: "Realistic Possibility",
+    }, {
+        band: [0.525, 0.775],
+        names: ["likely", "l"],
+        title: "Likely",
+    }, {
+        band: [0.775, 0.925],
+        names: ["highly likely", "hl"],
+        title: "Highly Likely",
+    }, {
+        band: [0.925, 1],
+        names: ["almost certain", "ac"],
+        title: "Almost Certain",
+    }
+];
+
+
 function indentToBullet(indent) {
     return (new Array(indent + 1).join("*")) + " ";
 }
@@ -48,57 +82,55 @@ function parseMacro(line) {
     }
 }
 
-var branchOperators = {
-    "OR": function(children) {
-        if (children.length == 0) {
-            return 1.0;
-        }
-        var max = 0.0;
-        for (let c of children) {
-            max = Math.max(max, c.get_probability());
-        }
-        return max;
-    },
-    "AND": function(children) {
-        var running = 1.0;
-        for (let c of children) {
-            running = running * c.get_probability();
-        }
-        return running;
+
+class Likelihood {
+    /**
+     * 
+     * @param {number} probability 
+     */
+    constructor(probability) {
+        this.probability = probability;
+        this.phia = probability2Phia(probability);
     }
 }
 
-const likelihood_calibration = [
-    {
-        band: [0.0, 0.075],
-        names: ["remote chance", "rc"],
-        title: "Remote Chance",
-    }, {
-        band: [0.075, 0.225],
-        names: ["highly unlikely", "hu"],
-        title: "Highly Unlikely",
-    }, {
-        band: [0.225, 0.375],
-        names: ["unlikely", "u"],
-        title: "Unlikely",
-    }, {
-        band: [0.375, 0.525],
-        names: ["realistic possibility", "rp"],
-        title: "Realistic Possibility",
-    }, {
-        band: [0.525, 0.775],
-        names: ["likely", "l"],
-        title: "Likely",
-    }, {
-        band: [0.775, 0.925],
-        names: ["highly likely", "hl"],
-        title: "Highly Likely",
-    }, {
-        band: [0.925, 1],
-        names: ["almost certain", "ac"],
-        title: "Almost Certain",
+class ComplexLikelihood {
+    /**
+     * 
+     * @param {Likelihood} untreated 
+     * @param {Likelihood} treated 
+     */
+    constructor(untreated, treated) {
+        this.untreated = untreated;
+        this.treated = treated;
     }
-];
+}
+
+const NULL_LIKELIHOOD = new Likelihood(1.0);
+const NULL_COMPLEX_LIKELIHOOD = new ComplexLikelihood(NULL_LIKELIHOOD, NULL_LIKELIHOOD);
+
+
+var branchOperators = {
+    "OR": function(children) {
+        if (children.length == 0) {
+            return NULL_COMPLEX_LIKELIHOOD;
+        }
+        var treatedMax = 0.0, untreatedMax = 0.0;
+        for (let c of children) {
+            treatedMax = Math.max(treatedMax, c.likelihood.treated.probability);
+            untreatedMax = Math.max(untreatedMax, c.likelihood.untreated.probability);
+        }
+        return new ComplexLikelihood(new Likelihood(untreatedMax), new Likelihood(treatedMax));
+    },
+    "AND": function(children) {
+        var runningUntreated = 1.0, runningTreated = 1.0;
+        for (let c of children) {
+            runningUntreated = runningUntreated * c.likelihood.untreated.probability;
+            runningTreated = runningTreated * c.likelihood.treated.probability;
+        }
+        return new ComplexLikelihood(new Likelihood(runningUntreated), new Likelihood(runningTreated));
+    }
+}
 
 function phia2Probability(likelihood) {
     likelihood = likelihood.trim().toLowerCase();
@@ -122,149 +154,113 @@ function probability2Phia(probability) {
     return c;
 }
 
-class Branch {
-    constructor(parent, branchName, indent, operator="OR") {
+
+
+class Node {
+    /**
+     * 
+     * @param {Node} parent 
+     * @param {String} nodeName 
+     * @param {Number} indent 
+     */
+    constructor(parent, nodeName, indent, renderedMacroName) {
+        this.parent = parent;
+        this.nodeName = nodeName;
+        this.indent = indent;
+        this.likelihood = undefined;
+        this.rendered_macro_name = renderedMacroName;
+        this.extra_render_args = [];
+    }
+
+    /**
+     * 
+     * @returns {ComplexLikelihood}
+     */
+    resolve() {
+        return NULL_COMPLEX_LIKELIHOOD;
+    }
+
+    render() {
+        var s = [];
+        s.push(indentToBullet(this.indent + 1));
+        s.push("<<" + this.rendered_macro_name);
+        s.push("\"" + this.nodeName + "\"");
+        s.push(this.likelihood.untreated.probability);
+        s.push("\"" + this.likelihood.untreated.phia + "\"");
+        s.push(this.likelihood.treated.probability);
+        s.push("\"" + this.likelihood.treated.phia + "\"");
+        s.push(...this.extra_render_args);
+        s.push(">>");
+        return [s.join(" ")];
+    }
+}
+
+
+class Branch extends Node {
+    constructor(parent, nodeName, indent, operator="OR") {
+        super(parent, nodeName, indent, "rendered_branch");
+
+        // Handle any case for operator name resolution.
         operator = operator.toUpperCase();
         var operatorFunction = branchOperators[operator];
         if (!operatorFunction) {
             throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
         }
 
-        this.parent = parent;
-        this.branchName = branchName;
         this.operator = operator;
         this.operatorFunction = operatorFunction;
-        this.indent = indent;
         this.children = [];
-        this._probability = null;
-        this._phia = null;
     }
 
-    get_phia() {
-        if (this._phia === null) {
-            this._phia = probability2Phia(this.get_probability());
+    // Override resolve
+    resolve() {
+        // Recurse resolution down tree
+        for (let c of this.children) {
+            c.resolve();
         }
-        return this._phia;
+        this.likelihood = this.operatorFunction(this.children);
+        this.extra_render_args = [
+            this.operator
+        ];
     }
 
+    // Override render
     render() {
-        var lines = [];
-        lines.push(indentToBullet(this.indent + 1) + "<<rendered_branch \"" + this.branchName + "\" " + this.operator + " " + this.get_probability() + " \"" + this.get_phia() + "\">>");
+        var lines = super.render();
         for (let c of this.children) {
             lines.push(...c.render());
         }
         return lines;
     }
-
-    console_log() {
-        console.log("Branch: (" + this.indent + "): " + this.branchName);
-        for (let c of this.children) {
-            // console.log("Child: " + JSON.stringify(c));
-            c.console_log();
-        }
-    }
-
-    get_probability() {
-        if (this._probability === null) {
-            this._probability = this.operatorFunction(this.children);
-        }
-        return this._probability;
-    }
 }
 
-class Leaf {
-    constructor(parent, leafName, indent, probability="almost certain") {
-        this.parent = parent;
-        this.leafName = leafName;
-        this.indent = indent;
-        this._probability = phia2Probability(probability);
-        this._phia = null;
-    }
-
-    get_phia() {
-        if (this._phia === null) {
-            this._phia = probability2Phia(this.get_probability());
-        }
-        return this._phia;
-    }
-
-    render() {
-        var lines = [];
-        lines.push(indentToBullet(this.indent + 1) + "<<rendered_leaf \"" + this.leafName + "\" " + this.get_probability() + " \"" + this.get_phia() + "\">>");
-        return lines;
-    }
-    
-    console_log() {
-        console.log("Leaf (" + this.indent + "): " + this.leafName);
-    }
-    get_probability() {
-        return this._probability;
+class Leaf extends Node {
+    constructor(parent, nodeName, indent, probability="almost certain") {
+        super(parent, nodeName, indent, "rendered_leaf");
+        var l = new Likelihood(phia2Probability(probability));
+        this.likelihood = new ComplexLikelihood(l, l);
     }
 }
 
 
-class Control {
-    constructor(parent, controlName, indent) {
-        if (!is_control(controlName)) {
+class Control extends Node {
+    constructor(parent, nodeName, indent) {
+        super(parent, nodeName, indent, "rendered_control");
+        if (!is_control(nodeName)) {
             throw new AttackTreeSyntaxError("Not a control!");
         }
-        this.parent = parent;
-        this.controlName = controlName;
-        this.indent = indent;
-        this.probability = phia2Probability(get_control_failure_likelihood(controlName));
-        this.phia = probability2Phia(this.probability);
-    }
-
-    get_phia() {
-        return this.phia;
-    }
-
-    render() {
-        var lines = [];
-        lines.push(indentToBullet(this.indent + 1) + "<<rendered_control \"" + this.controlName + "\" " + this.get_probability() + " \"" + this.get_phia() + "\">>");
-        return lines;
-    }
-
-    console_log() {
-        console.log("Control (" + this.indent + "): " + this.controlName);
-    }
-    get_probability() {
-        return this.probability;
+        this.likelihood = new ComplexLikelihood(NULL_LIKELIHOOD, new Likelihood(phia2Probability(get_control_failure_likelihood(nodeName))));
     }
 }
 
 
-class Ref {
+class Ref extends Node {
     constructor(parent, refName, indent) {
-        if (!is_ref(refName)) {
+        super(parent, nodeName, indent, "rendered_ref");
+        if (!is_ref(nodeName)) {
             throw new AttackTreeSyntaxError("Not a ref!");
         }
-        this.parent = parent;
-        this.refName = refName;
-        this.indent = indent;
-        this._probability = 0.25;
-        this._phia = null
-    }
-
-    get_phia() {
-        if (this._phia === null) {
-            this._phia = probability2Phia(this.get_probability());
-        }
-        return this._phia;
-    }
-
-    render() {
-        var lines = [];
-        var l = indentToBullet(this.indent + 1) + "<<rendered_ref \"" + this.refName + "\" " + this.get_probability() + " \"" + this.get_phia() + "\">>";
-        lines.push(l);
-        return lines;
-    }
-
-    console_log() {
-        console.log("Ref (" + this.indent + "): " + this.refName);
-    }
-    get_probability() {
-        return this._probability;
+        // TODO: Calculate likelihood
     }
 }
 
@@ -375,15 +371,20 @@ function parse_attack_tree(attack_tree) {
         }
         lineNo += 1;
     }
+    // Now that the tree structure is in place, resolve the likelihood calculation.
+    root.resolve();
+
     var newLines = root.render();
-    console.log(newLines);
     var joined = newLines.join('\n');
 
     var obj = {
         renderer: 1,
         attack_tree: joined,
         error: error,
-        likelihood: root.get_probability(),
+        untreated_probability: root.likelihood.untreated.probability,
+        untreated_phia: root.likelihood.untreated.phia,
+        treated_probability: root.likelihood.treated.probability,
+        treated_phia: root.likelihood.treated.phia,
         controls: controls,
         sub_trees: attack_sub_trees, 
     }

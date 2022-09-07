@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "A sample risk",
-        "modified": "20220907121514485",
+        "modified": "20220907141428494",
         "tags": "[[A sample vulnerability]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -30,7 +30,7 @@
         "rendered_likelihood": "",
         "rendered_controls": "",
         "rendered_sub_trees": "",
-        "draft_attack_tree": "* <<branch \"Cabbages\"  AND>>\n** <<leaf \"Something\" \"realistic possibility\">>\n** <<leaf \"Something 2 kjh\" \" likely\">>\n** <<control \"A sample procedure\">>\n** <<control \"A sample procedure\">>\n** <<control \"A sample procedure\">>\n\n\n\n\n",
+        "draft_attack_tree": "* <<branch \"Cabbages\"  AND>>\n** <<leaf \"Something\" \"realistic possibility\">>\n** <<leaf \"Something 2 kjh\" \" likely\">>\n** <<control \"A sample procedure\">>\n** <<control \"A sample procedure\">>\n\n\n",
         "edit_attack_tree": "yes"
     }
 ]
