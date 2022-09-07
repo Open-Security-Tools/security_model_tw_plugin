@@ -124,6 +124,7 @@ function probability2Phia(probability) {
 
 class Branch {
     constructor(parent, branchName, indent, operator="OR") {
+        operator = operator.toUpperCase();
         var operatorFunction = branchOperators[operator];
         if (!operatorFunction) {
             throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
@@ -437,13 +438,19 @@ exports.twsmextractcontrols = function(source, operator, options) {
 
 exports.twsm_attack_tree_result = function(source, operator, options) {
     
-    var result = [];
+    var suffixes = operator.suffixes || [],
+        field = (suffixes[0] || [])[0],
+        result = [];
+
+    if (!field) {
+        return result;
+    }
 
     source (function(tiddler, title) {
         try  {
             var s = JSON.parse(title);
-            if (s && !s.error && s.renderer) {
-                result.push(s.renderer);
+            if (s) {
+                result.push(String(s[field] || ""));
             }
         } catch (objError) {
             if (objError instanceof SyntaxError) {

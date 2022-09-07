@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "A sample risk",
-        "modified": "20220907075818368",
+        "modified": "20220907121514485",
         "tags": "[[A sample vulnerability]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -19,10 +19,18 @@
         "twsm_residual_name": "Medium",
         "twsm_residual_score": "4",
         "twsm_risk_calculation_version": "1",
-        "attack_tree": "* <<branch \"Cabbages\"  AND>>\n** <<leaf \"Something\" \"realistic possibility\">>\n** <<leaf \"Something 2 kjh\" \" likely\">>\n** <<control \"A sample procedure\">>\n** <<control \"A sample procedure\">>\n\n\n",
+        "attack_tree": "* <<branch \"Cabbages\"  AdND>>\n** <<leaf \"Something\" \"realistic possibility\">>\n** <<leaf \"Something 2 kjh\" \" likely\">>\n** <<control \"A sample procedure\">>\n** <<control \"A sample procedure\">>\n\n\n",
         "v1_computed_attack_tree": "* <<rendered_branch \"Root\" OR 0.11214492187500001 \"Highly Unlikely\">>\n** <<rendered_branch \"Cabbages\" AND 0.11214492187500001 \"Highly Unlikely\">>\n*** <<rendered_leaf \"Something\" 0.525 \"Realistic Possibility\">>\n*** <<rendered_leaf \"Something 2 kjh\" 0.775 \"Likely\">>\n*** <<rendered_control \"A sample procedure\" 0.525 \"Realistic Possibility\">>\n*** <<rendered_control \"A sample procedure\" 0.525 \"Realistic Possibility\">>",
-        "twsm_assessment_description": "asdf",
+        "twsm_assessment_description": "<$button>\nEdit Attack Tree\n<$action-setfield draft_attack_tree={{!!attack_tree}} edit_attack_tree=yes/>\n</$button>",
         "hide-body": "yes",
-        "twsm_mitigation_description": "\\define rendered_branch(name, operand, probability, phia)\nBranch: $name$ ($operand$) = $phia$\n\\end\n\n\\define rendered_leaf(name, probability, phia)\nLeaf: $name$  = $phia$\n\\end\n\n\\define rendered_control(name, probability, phia)\n<<twsmname \"$name$\">>  = $phia$\n\\end\n\n\\define branch(name, operand: \"OR\")\nBranch: $name$ ($operand$)\n\\end\n\n\\define leaf(name, probability: \"Highly Likely\")\nLeaf: $name$ ($probability$)\n\\end\n\n\\define subtree(name)\nSub-tree: $name$\n\\end\n\n\n\\define control(name)\nControl: $name$\n\\end\n\n<$transclude field=v1_computed_attack_tree/>\n"
+        "twsm_mitigation_description": "\\define rendered_branch(name, operand, probability, phia)\nBranch: $name$ ($operand$) = $phia$\n\\end\n\n\\define rendered_leaf(name, probability, phia)\nLeaf: $name$  = $phia$\n\\end\n\n\\define rendered_control(name, probability, phia)\n<<twsmname \"$name$\">>  = $phia$\n\\end\n\n\\define branch(name, operand: \"OR\")\nBranch: $name$ ($operand$)\n\\end\n\n\\define leaf(name, probability: \"Highly Likely\")\nLeaf: $name$ ($probability$)\n\\end\n\n\\define subtree(name)\nSub-tree: $name$\n\\end\n\n\n\\define control(name)\nControl: $name$\n\\end\n\n<$transclude field=v1_computed_attack_tree/>\n",
+        "renderer": "",
+        "rendered_attack_tree": "",
+        "rendered_error": "Syntax error (line 1): Unsupported operator (ADND)",
+        "rendered_likelihood": "",
+        "rendered_controls": "",
+        "rendered_sub_trees": "",
+        "draft_attack_tree": "* <<branch \"Cabbages\"  AND>>\n** <<leaf \"Something\" \"realistic possibility\">>\n** <<leaf \"Something 2 kjh\" \" likely\">>\n** <<control \"A sample procedure\">>\n** <<control \"A sample procedure\">>\n** <<control \"A sample procedure\">>\n\n\n\n\n",
+        "edit_attack_tree": "yes"
     }
 ]

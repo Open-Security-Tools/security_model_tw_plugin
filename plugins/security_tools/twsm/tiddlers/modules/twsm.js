@@ -118,6 +118,14 @@ function checkId(cf, nf, draftF) {
 }
 
 function processRisk(cf, nf) {
+	// Test edit another tiddler...
+	// var tmpTiddler = "TempTiddler";
+	// var t = $tw.wiki.getTiddler(tmpTiddler);
+	// var newFields = {}
+	// newFields["newField"] = "A new field Value!"
+	// $tw.wiki.addTiddler(new $tw.Tiddler(t,newFields));
+
+
 	// We want to hide the body (we incorporate it into a view)
 	if (cf["hide-body"] === undefined) {
 		nf["hide-body"] = "yes";

@@ -1,0 +1,11 @@
+a_test_field: Value
+created: 20220907100302625
+modified: 20220907112433408
+newField: Test. This is a test.to see.
+tags: 
+title: TempTiddler
+type: text/vnd.tiddlywiki
+
+Hello
+<$edit-text field=newField/>
+{{!!newField}}
