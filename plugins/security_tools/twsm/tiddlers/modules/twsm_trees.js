@@ -292,17 +292,7 @@ function is_ref(refTitle) {
     )
 }
 
-function parse_attack_tree(tiddler, title) {
-    if (!tiddler) {
-        return;
-    }
-    if (tiddler.fields.twsm_class !== "risk") {
-        return;
-    }
-
-    if (!tiddler.fields.attack_tree) {
-        return;
-    }
+function parse_attack_tree(attack_tree) {
 
     var controls = [];
     var attack_sub_trees = [];
@@ -338,7 +328,7 @@ function parse_attack_tree(tiddler, title) {
         }
     }
 
-    var lines = tiddler.fields.attack_tree.split('\n');
+    var lines = attack_tree.split('\n');
     var error = "";
     var lineNo = 1;
     for (let l of lines) {
@@ -389,21 +379,22 @@ function parse_attack_tree(tiddler, title) {
     var joined = newLines.join('\n');
 
     var obj = {
-        computed_attack_tree: joined,
+        renderer: 1,
+        attack_tree: joined,
         error: error,
         likelihood: root.get_probability(),
         controls: controls,
-        attack_sub_trees: attack_sub_trees, 
+        sub_trees: attack_sub_trees, 
     }
     return obj;
 }
 
-exports.twsmprocesstree = function(source, operator, options) {
+exports.twsm_render_attack = function(source, operator, options) {
     var result = [];
 
     source (function(tiddler, title) {
         try {
-            var obj = parse_attack_tree(tiddler, title);
+            var obj = parse_attack_tree(title);
             if (obj) {
                 result.push(JSON.stringify(obj));
             }
@@ -443,6 +434,28 @@ exports.twsmextractcontrols = function(source, operator, options) {
     })
     return result;
 }
+
+exports.twsm_attack_tree_result = function(source, operator, options) {
+    
+    var result = [];
+
+    source (function(tiddler, title) {
+        try  {
+            var s = JSON.parse(title);
+            if (s && !s.error && s.renderer) {
+                result.push(s.renderer);
+            }
+        } catch (objError) {
+            if (objError instanceof SyntaxError) {
+                // Do nothing...
+            } else {
+                throw(objError);
+            }
+        }
+    })
+    return result;
+}
+
 
 
 exports.twsmextractcomputedattacktree = function(source, operator, options) {
