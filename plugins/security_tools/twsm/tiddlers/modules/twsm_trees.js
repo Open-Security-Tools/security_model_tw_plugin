@@ -733,7 +733,6 @@ exports.twsm_attack_tree_result = function(source, operator, options) {
 
 function renderRiskAssessment(t) {
     var impact = impactDict[t.twsm_impact.toLowerCase()];
-    console.log("IMPACT = " + t.twsm_impact);
     var impactName = impact2Name[impact];
     var impactClass = impact2Class[impact];
 
@@ -771,5 +770,26 @@ exports.twsm_get_assessment = function(source, operator, options) {
     });
     return result;
 }
+
+exports.twsm_get_residual_class = function(source, operator, options) {
+    var result = [];
+    source (function(tiddler, title) {
+        var impact = impactDict[tiddler.fields.twsm_impact.toLowerCase()];
+        var residual = (impact * tiddler.fields.treated_likelihood_upper * 2);
+        result.push(score2Class(residual));
+    });
+    return result;
+}
+
+exports.twsm_get_residual_name = function(source, operator, options) {
+    var result = [];
+    source (function(tiddler, title) {
+        var impact = impactDict[tiddler.fields.twsm_impact.toLowerCase()];
+        var residual = (impact * tiddler.fields.treated_likelihood_upper * 2);
+        result.push(score2Name(residual));
+    });
+    return result;
+}
+
 
 })();

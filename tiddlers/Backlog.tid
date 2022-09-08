@@ -1,8 +1,8 @@
 category: 
 created: 20220831213451024
 description: 
-list: [[Attack trees in wikitext]] [[Migrate impact to score field (with name lookup)]] [[Decrecate old residual fields]] [[Deprecate old inherent fields]] [[Deprecate old likelihood field]] [[Provide a list of controls for risks]]
-modified: 20220908204102052
+list: [[Attack trees in wikitext]] [[Fix up references to risks to use new fields]] [[Migrate impact to score field (with name lookup)]] [[Decrecate old residual fields]] [[Deprecate old inherent fields]] [[Deprecate old likelihood field]] [[Add support for attack tree references]] [[Display a list of controls linked from risk in header]]
+modified: 20220908225915162
 tags: Project
 title: Backlog
 type: text/vnd.tiddlywiki

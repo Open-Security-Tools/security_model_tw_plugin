@@ -1,0 +1,33 @@
+[
+    {
+        "created": "20220831223951380",
+        "text": "",
+        "title": "Another sample risk",
+        "modified": "20220908233614875",
+        "tags": "[[A sample vulnerability]] [[A sample theme]]",
+        "type": "text/vnd.tiddlywiki",
+        "hide-body": "yes",
+        "twsm_class": "risk",
+        "twsm_error": "",
+        "twsm_id": "1005",
+        "twsm_impact": "Moderate",
+        "twsm_inherent_class": "twsm_risk_high",
+        "twsm_inherent_name": "High",
+        "twsm_inherent_score": "8",
+        "twsm_likelihood": "Likely",
+        "twsm_mitigation_percent": "0",
+        "twsm_residual_class": "twsm_risk_high",
+        "twsm_residual_name": "High",
+        "twsm_residual_score": "8",
+        "twsm_risk_calculation_version": "1",
+        "attack_tree": "* <<leaf \"do something\" u >>\n",
+        "renderer": "2",
+        "rendered_attack_tree": "*  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node branch_node critical_path \" style=\"background: linear-gradient(90deg, hsl(263.125, 100%, 80%) 0%, hsl(281.875,100%,80%) 100%);\" title=\"Likelihood band: 23% - 38%\"><i class=\"fas fa-code-branch\"/> OR  · Unlikely</span> <$view field=title/>\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node leaf_node critical_path \" style=\"background: linear-gradient(90deg, hsl(263.125, 100%, 80%) 0%, hsl(281.875,100%,80%) 100%);\" title=\"Likelihood band: 23% - 38%\"><i class=\"fab fa-envira\"/>  · Unlikely</span> do something",
+        "untreated_likelihood_lower": "0.225",
+        "untreated_likelihood_upper": "0.375",
+        "treated_likelihood_lower": "0.225",
+        "treated_likelihood_upper": "0.375",
+        "untreated_risk": "2.25",
+        "treated_risk": "2.25"
+    }
+]

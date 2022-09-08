@@ -9,9 +9,11 @@ type: text/vnd.tiddlywiki
 	class="residual_risk_button py-btn btn-small $(class)$"
 	tooltip="Residual risk"
 >
-<$view field=twsm_residual_name/>
+$(name)$
 </$button>
 \end
-<$list filter="[all[current]get[twsm_residual_class]]" variable=class>
+<$list filter="[all[current]twsm_get_residual_name[]]" variable=name>
+<$list filter="[all[current]twsm_get_residual_class[]]" variable=class>
 <<button>>
+</$list>
 </$list>

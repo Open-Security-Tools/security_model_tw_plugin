@@ -8,7 +8,6 @@ type: text/vnd.tiddlywiki
 <$link to="$control$"><$view tiddler="$control$" field=title/> (#<$view tiddler="$control$" field=twsm_id/>)</$link>
 \end
 
-
 <$list filter="[title<complex>twsm_attack_tree_result:attack_tree[]]" variable=renderedAttackTree>
 
 <<renderedAttackTree>>

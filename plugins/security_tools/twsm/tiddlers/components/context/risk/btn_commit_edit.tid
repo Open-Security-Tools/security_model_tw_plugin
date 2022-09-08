@@ -5,6 +5,7 @@ title: $:/plugins/security_tools/twsm/components/context/risk/btn_commit_edit
 type: text/vnd.tiddlywiki
 
 <$set name=draftAttackTree tiddler=<<currentTiddler>> field=draft_attack_tree>
+<$set name=draftImpact tiddler=<<currentTiddler>> field=draft_impact>
 <$button>
 <$list filter="[title<complex>twsm_attack_tree_result:renderer[]]" variable=renderer>
 <$list filter="[title<complex>twsm_attack_tree_result:attack_tree[]]" variable=attack_tree>
@@ -15,7 +16,8 @@ type: text/vnd.tiddlywiki
 <$list filter="[title<complex>twsm_attack_tree_result:untreated_risk[]]" variable=untreated_risk>
 <$list filter="[title<complex>twsm_attack_tree_result:treated_risk[]]" variable=treated_risk>
 Commit
-<$action-setfield 
+<$action-setfield
+     twsm_impact=<<draftImpact>>
      attack_tree=<<draftAttackTree>>
      renderer=<<renderer>>
      rendered_attack_tree=<<attack_tree>>
@@ -38,4 +40,5 @@ Commit
 </$list>
 </$list>
 </$button>
+</$set>
 </$set>
