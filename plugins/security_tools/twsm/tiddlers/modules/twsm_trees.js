@@ -141,35 +141,7 @@ const NULL_LIKELIHOOD = new Likelihood(1.0, 1.0);
 const NULL_COMPLEX_LIKELIHOOD = new ComplexLikelihood(NULL_LIKELIHOOD, NULL_LIKELIHOOD);
 
 
-var branchOperators = {
-    "OR": function(children) {
-        if (children.length == 0) {
-            // If no children, then task is impossible!
-            return new ComplexLikelihood(new Likelihood(0.0, 0.0), new Likelihood(0.0, 0.0));
-        }
-        console.log("Process Start");
-        var treatedMaxLower = 0.0, treatedMaxUpper = 0.0, untreatedMaxLower = 0.0, untreatedMaxUpper = 0.0;
-        for (let c of children) {
-            console.log("Child: " + c.nodeName);
-            treatedMaxLower = Math.max(treatedMaxLower, c.likelihood.treated.lower);
-            treatedMaxUpper = Math.max(treatedMaxUpper, c.likelihood.treated.upper);
-            untreatedMaxLower = Math.max(untreatedMaxLower, c.likelihood.untreated.lower);
-            untreatedMaxUpper = Math.max(untreatedMaxUpper, c.likelihood.untreated.upper);
-        }
-        console.log("Process End");
-        return new ComplexLikelihood(new Likelihood(untreatedMaxLower, untreatedMaxUpper), new Likelihood(treatedMaxLower, treatedMaxUpper));
-    },
-    "AND": function(children) {
-        var runningUntreatedLower = 1.0, runningUntreatedUpper = 1.0, runningTreatedLower = 1.0, runningTreatedUpper = 1.0;
-        for (let c of children) {
-            runningUntreatedLower = runningUntreatedLower * c.likelihood.untreated.lower;
-            runningUntreatedUpper = runningUntreatedUpper * c.likelihood.untreated.upper;
-            runningTreatedLower = runningTreatedLower * c.likelihood.treated.lower;
-            runningTreatedUpper = runningTreatedUpper * c.likelihood.treated.upper;
-        }
-        return new ComplexLikelihood(new Likelihood(runningUntreatedLower, runningUntreatedUpper), new Likelihood(runningTreatedLower, runningTreatedUpper));
-    }
-}
+
 
 /**
  * 
@@ -211,31 +183,24 @@ class Node {
      * @param {Node} parent 
      * @param {String} nodeName 
      * @param {Number} indent
-     * @param {String} renderedMacroName
      * @param {String} pillClass
      * @param {String} pillIconClass
      */
-    constructor(parent, nodeName, indent, renderedMacroName, pillClass, pillIconClass) {
+    constructor(parent, nodeName, indent, pillClass, pillIconClass) {
         this.parent = parent;
         this.nodeName = nodeName;
         this.indent = indent;
         this.likelihood = undefined;
-        this.rendered_macro_name = renderedMacroName;
         this.pillClass = pillClass;
         this.pillIconClass = pillIconClass;
-        this.extra_render_args = [];
         this.comments = [];
+        this.criticalPath = false;
     }
 
     resolve() {}
 
-    addLikelihoodToRenderArgs(likelihood) {
-        this.extra_render_args.push(likelihood.lower);
-        this.extra_render_args.push(likelihood.lowerHue);
-        this.extra_render_args.push(likelihood.upper);
-        this.extra_render_args.push(likelihood.upperHue);
-        this.extra_render_args.push("\"" + likelihood.tooltip + "\"");
-        this.extra_render_args.push("\"" + likelihood.phia + "\"");
+    markCriticalPath() {
+        this.criticalPath = true;
     }
 
     pillTextPreamble() {
@@ -265,54 +230,35 @@ class Node {
         if (comments.length > 0) {
             s.push("\"\"\"<br>" + comments + "\"\"\"");
         }
-
-        // s.push("<<" + this.rendered_macro_name);
-        // s.push("\"" + this.nodeName + "\"");
-        // if (comments.length > 0) {
-        //     s.push("\"\"\"<br>" + comments + "\"\"\"");
-        // } else {
-        //     s.push("\"\"");
-        // }
-        // s.push(...this.extra_render_args);
-        // s.push(">>");
         return [s.join(" ")];
     }
 }
 
 
 class Branch extends Node {
-    constructor(parent, nodeName, indent, operator="OR") {
-        super(parent, nodeName, indent, "rendered_branch", "branch_node", "fas fa-code-branch");
+    constructor(parent, nodeName, indent, operator) {
+        super(parent, nodeName, indent, "branch_node", "fas fa-code-branch");
 
         // Handle any case for operator name resolution.
-        operator = operator.toUpperCase();
-        var operatorFunction = branchOperators[operator];
-        if (!operatorFunction) {
-            throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
-        }
-
         this.operator = operator;
-        this.operatorFunction = operatorFunction;
         this.children = [];
+    }
+
+    calculateBranchProbability() {
+        throw new Error("Not implemented!");
     }
 
     pillTextPreamble() {
         return super.pillTextPreamble() + this.operator + " ";
     }
 
-
     // Override resolve
     resolve() {
         // Recurse resolution down tree
-        console.log("Parent resolve: " + this.nodeName);
         for (let c of this.children) {
-            console.log("Resolving child:" + c.nodeName);
             c.resolve();
         }
-        this.likelihood = this.operatorFunction(this.children);
-        this.addLikelihoodToRenderArgs(this.likelihood.untreated);
-        this.addLikelihoodToRenderArgs(this.likelihood.treated);
-        this.extra_render_args.push(this.operator);
+        this.likelihood = this.calculateBranchProbability();
     }
 
     // Override render
@@ -325,12 +271,52 @@ class Branch extends Node {
     }
 }
 
+class OrBranch extends Branch {
+    constructor(parent, nodeName, indent) {
+        super(parent, nodeName, indent, "OR");
+
+    }
+
+    calculateBranchProbability() {
+        if (this.children.length == 0) {
+            // If no children, then task is impossible!
+            return new ComplexLikelihood(new Likelihood(0.0, 0.0), new Likelihood(0.0, 0.0));
+        }
+        var treatedMaxLower = 0.0, treatedMaxUpper = 0.0, untreatedMaxLower = 0.0, untreatedMaxUpper = 0.0;
+        for (let c of this.children) {
+            console.log("Child: " + c.nodeName);
+            treatedMaxLower = Math.max(treatedMaxLower, c.likelihood.treated.lower);
+            treatedMaxUpper = Math.max(treatedMaxUpper, c.likelihood.treated.upper);
+            untreatedMaxLower = Math.max(untreatedMaxLower, c.likelihood.untreated.lower);
+            untreatedMaxUpper = Math.max(untreatedMaxUpper, c.likelihood.untreated.upper);
+        }
+        return new ComplexLikelihood(new Likelihood(untreatedMaxLower, untreatedMaxUpper), new Likelihood(treatedMaxLower, treatedMaxUpper));
+    }
+}
+
+class AndBranch extends Branch {
+    constructor(parent, nodeName, indent) {
+        super(parent, nodeName, indent, "AND");
+
+    }
+    calculateBranchProbability() {
+        var runningUntreatedLower = 1.0, runningUntreatedUpper = 1.0, runningTreatedLower = 1.0, runningTreatedUpper = 1.0;
+        for (let c of this.children) {
+            runningUntreatedLower = runningUntreatedLower * c.likelihood.untreated.lower;
+            runningUntreatedUpper = runningUntreatedUpper * c.likelihood.untreated.upper;
+            runningTreatedLower = runningTreatedLower * c.likelihood.treated.lower;
+            runningTreatedUpper = runningTreatedUpper * c.likelihood.treated.upper;
+        }
+        return new ComplexLikelihood(new Likelihood(runningUntreatedLower, runningUntreatedUpper), new Likelihood(runningTreatedLower, runningTreatedUpper));
+    }
+}
+
+
 class Leaf extends Node {
     constructor(parent, nodeName, indent, probability="almost certain") {
         super(parent, nodeName, indent, "rendered_leaf", "leaf_node", "fab fa-envira");
         var l = phia2Likelihood(probability);
         this.likelihood = new ComplexLikelihood(l, l);
-        this.addLikelihoodToRenderArgs(this.likelihood.treated);
     }
 }
 
@@ -342,7 +328,6 @@ class Control extends Node {
             throw new AttackTreeSyntaxError("Not a control!");
         }
         this.likelihood = new ComplexLikelihood(NULL_LIKELIHOOD, phia2Likelihood(get_control_failure_likelihood(nodeName)));
-        this.addLikelihoodToRenderArgs(this.likelihood.treated);
     }
 
     description() {
@@ -386,18 +371,31 @@ function is_ref(refTitle) {
     )
 }
 
+const branchFactoryLookup = {
+    "OR": function(currentBranch, branchName, indent) {
+        return new OrBranch(currentBranch, branchName, indent, "OR");
+    },
+    "AND": function(currentBranch, branchName, indent) {
+        return new AndBranch(currentBranch, branchName, indent, "OR");
+    },
+}
+
 function parse_attack_tree(attack_tree) {
 
     var controls = [];
     var attack_sub_trees = [];
-    var root = new Branch(null, "<$view field=title/>", 0);
+    var root = new OrBranch(null, "<$view field=title/>", 0);
     var currentBranch = root;
 
     var ops = {
         "branch": function(indent, args) {
             var branchName = args[0];
-            var operator = args[1];
-            var branch = new Branch(currentBranch, branchName, indent, operator);
+            var operator = (args[1] || "OR").toUpperCase();
+            var branchFactory = branchFactoryLookup[operator];
+            if (!branchFactory) {
+                throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
+            }
+            var branch = branchFactory(currentBranch, branchName, indent, operator);
             currentBranch.children.push(branch);
             currentBranch = branch;
         },
@@ -473,6 +471,7 @@ function parse_attack_tree(attack_tree) {
     }
     // Now that the tree structure is in place, resolve the likelihood calculation.
     root.resolve();
+    root.markCriticalPath();
 
     var newLines = root.render();
     var joined = newLines.join('\n');
