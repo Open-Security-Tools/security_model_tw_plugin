@@ -8,8 +8,14 @@ type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]!edit_attack_tree[yes]]" variable=ignore>
 <<tabs "$:/plugins/security_tools/twsm/components/context/risk/assessment $:/plugins/security_tools/twsm/components/context/risk/mitigation" $:/plugins/security_tools/twsm/components/context/risk/assessment  "$:/state/twsm_risk_tabs" buttonTemplate:"$:/plugins/security_tools/twsm/templates/risk_tab_caption">>
+
+{{||$:/plugins/security_tools/twsm/components/context/risk/btn_edit}}
+
 </$list>
 <$list filter="[all[current]edit_attack_tree[yes]]" variable=ignore>
-{{||$:/plugins/security_tools/twsm/components/context/risk/edit_form}}
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/risk/edit_form" mode="block"/>
 </$list>
+
+
+{{||$:/plugins/security_tools/twsm/components/context/risk/assurance_activities}}
 

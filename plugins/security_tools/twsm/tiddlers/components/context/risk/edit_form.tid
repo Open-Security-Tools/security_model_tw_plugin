@@ -6,8 +6,22 @@ title: $:/plugins/security_tools/twsm/components/context/risk/edit_form
 type: text/vnd.tiddlywiki
 
 
+<$set name=draftImpact tiddler=<<currentTiddler>> field=draft_impact>
+<$list filter="[all[current]get[draft_attack_tree]twsm_render_attack<draftImpact>]" variable=complex>
+{{||$:/plugins/security_tools/twsm/components/context/risk/preview/assessment}}
+</$list>
+</$set>
+
+<hr>
+
+{{||$:/plugins/security_tools/twsm/components/context/risk/debug/old_links}}
+
+
+{{||$:/plugins/security_tools/twsm/components/context/risk/debug/old_properties}}
+
 
 {{||$:/plugins/security_tools/twsm/components/context/risk/select_edit_draft_impact}}
+
 
 {{||$:/plugins/security_tools/twsm/components/context/risk/text_area_edit_draft_tree}}
 
@@ -18,9 +32,7 @@ type: text/vnd.tiddlywiki
 
 {{||$:/plugins/security_tools/twsm/components/context/risk/preview/tree}}
 
-<hr>
 
-{{||$:/plugins/security_tools/twsm/components/context/risk/preview/assessment}}
 
 <hr>
 

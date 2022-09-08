@@ -1,0 +1,29 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/risk/debug/old_properties
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]get[twsm_assessment_description]]" variable=ignore>
+Deprecated risk assessment (to be removed):
+<div style="border-style: solid; border-width: 1px;">
+<$transclude field="twsm_assessment_description" mode="block"/>
+</div>
+</$list>
+
+
+<$list filter="[all[current]get[twsm_mitigation_description]]" variable=ignore>
+Deprecated mitigation description (to be removed):
+<div style="border-style: solid; border-width: 1px;">
+<$transclude field="twsm_mitigation_description" mode="block"/>
+</div>
+</$list>
+
+<$list filter="[all[current]get[twsm_mitigation_percent]]" variable=ignore>
+Deprecated mitigation assessment (to be removed): <$view field=twsm_mitigation_percent/>
+</$list>
+
+
+
+
+

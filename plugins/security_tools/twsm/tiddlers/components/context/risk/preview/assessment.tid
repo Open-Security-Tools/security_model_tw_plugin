@@ -8,5 +8,11 @@ type: text/vnd.tiddlywiki
 <$list filter="[title<complex>twsm_attack_tree_result:risk_assessment[]]" variable=renderedRiskAssessment>
 <div class="twsm_risk_metric_container">
 <<renderedRiskAssessment>>
+<div class="risk_id_container">
+<span>#<$view field=twsm_id/></span>
+<div class="themes">
+{{||$:/plugins/security_tools/twsm/templates/relatedlargethemes}}
+</div>
+</div>
 </div>
 </$list>

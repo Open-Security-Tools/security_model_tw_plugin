@@ -100,3 +100,14 @@ div.twsm_risk_metric_container {
   display: flex;
   width: 100%;
 }
+
+div.twsm_risk_metric_container div.risk_id_container {
+  font-size: 60px;
+  line-height: 1;
+}
+
+div.twsm_risk_metric_container div.risk_id_container div.themes {
+  font-size: 12px;
+  line-height: 1;
+}
+
