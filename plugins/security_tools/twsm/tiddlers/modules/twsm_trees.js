@@ -175,6 +175,9 @@ function probability2Phia(probability) {
     return c;
 }
 
+function buildLikelihoodBackgroundStyle(lowerHue, upperHue) {
+    return "background: linear-gradient(90deg, hsl(" + lowerHue + ", 100%, 80%) 0%, hsl(" + upperHue + ",100%,80%) 100%);";
+}
 
 
 class Node {
@@ -212,7 +215,7 @@ class Node {
     }
 
     render() {
-        var nodePillStyle = "background: linear-gradient(90deg, hsl(" + this.likelihood.treated.lowerHue + ", 100%, 80%) 0%, hsl(" + this.likelihood.treated.upperHue + ",100%,80%) 100%);";
+        var nodePillStyle = buildLikelihoodBackgroundStyle(this.likelihood.treated.lowerHue, this.likelihood.treated.upperHue);
         var nodePillText = this.pillTextPreamble() + " · " + this.likelihood.treated.phia;
         var nodePillTooltip = "";
         if (this.likelihood.isControlled()) {
@@ -230,7 +233,7 @@ class Node {
 
         var criticalPathPrefixText = "";
         if (this.criticalPath) {
-            criticalPathPrefixText = "<i class=\"far fa-star\"/>"
+            criticalPathPrefixText = "<i class=\"far fa-check-circle\"/>"
         }
         var criticalPathPrefixSpan = "<span class=\"attack_tree_path_prefix\">" + criticalPathPrefixText + "</span>";
 
@@ -509,10 +512,14 @@ function parse_attack_tree(attack_tree) {
         attack_tree: joined,
         error: error,
         untreated_probability_lower: root.likelihood.untreated.lower,
+        untreated_probability_lower_hue: root.likelihood.untreated.lowerHue,
         untreated_probability_upper: root.likelihood.untreated.upper,
+        untreated_probability_upper_hue: root.likelihood.untreated.upperHue,
         untreated_phia: root.likelihood.untreated.phia,
         treated_probability_lower: root.likelihood.treated.lower,
+        treated_probability_lower_hue: root.likelihood.treated.lowerHue,
         treated_probability_upper: root.likelihood.treated.upper,
+        treated_probability_upper_hue: root.likelihood.treated.upperHue,
         treated_phia: root.likelihood.treated.phia,
         controls: controls,
         sub_trees: attack_sub_trees, 
@@ -531,6 +538,24 @@ const impactDict = {
 	"extreme/catastrophic": 5,
 	"severe": 5
 };
+
+const impact2Name = {
+    0: "Unknown",
+    1: "Minimal",
+    2: "Minor",
+    3: "Moderate",
+    4: "Major",
+    5: "Severe",
+}
+
+const impact2Class = {
+    0: "twsm_impact_unknown",
+    1: "twsm_impact_minimal",
+    2: "twsm_impact_minor",
+    3: "twsm_impact_moderate",
+    4: "twsm_impact_major",
+    5: "twsm_impact_severe",
+}
 
 
 var LOW_THRESHOLD = 3.6;
@@ -566,12 +591,17 @@ function score2Class(score) {
 	}
 }
 
+function generateRiskMetric(metricClass, header, metric, footer, style) {
+    return "<div class=\"twsm_risk_metric " + metricClass + "\" style=\"" + style + "\">" + header + "<span>" + metric + "</span>" + footer + "</div>";
+}
 
 exports.twsm_risk_assessment = function(source, operator, options) {
     var result = [];
     var impactOperand = (operator.operand || "").toLowerCase();
     // console.log("Impact Operand: " + JSON.stringify(operator));
     var impact = impactDict[impactOperand] || 0;
+    var impactName = impact2Name[impact];
+    var impactClass = impact2Class[impact];
 
     source (function(tiddler, title){
         try  {
@@ -580,6 +610,19 @@ exports.twsm_risk_assessment = function(source, operator, options) {
                 var inherent = (impact * s.untreated_probability_upper * 2);
                 var residual = (impact * s.treated_probability_upper * 2);
 
+                var treatedBand = (s.treated_probability_lower * 100).toFixed() + "-" + (s.treated_probability_upper * 100).toFixed();
+                var treatedBackgroundStyle = buildLikelihoodBackgroundStyle(s.treated_probability_lower_hue, s.treated_probability_upper_hue);
+
+                var untreatedBand = (s.untreated_probability_lower * 100).toFixed() + "-" + (s.untreated_probability_upper * 100).toFixed();
+                var untreatedBackgroundStyle = buildLikelihoodBackgroundStyle(s.untreated_probability_lower_hue, s.untreated_probability_upper_hue);
+
+                var l = [];
+                l.push(generateRiskMetric(score2Class(residual), "Treated Risk", residual.toFixed(1), score2Name(residual), ""));
+                l.push(generateRiskMetric(score2Class(inherent), "Untreated Risk", inherent.toFixed(1), score2Name(inherent), ""));
+                l.push(generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
+
+                l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, s.treated_phia, treatedBackgroundStyle));
+                l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, s.untreated_phia, untreatedBackgroundStyle));
 
                 result.push(JSON.stringify(
                     {
@@ -589,6 +632,7 @@ exports.twsm_risk_assessment = function(source, operator, options) {
                         "residual_score": residual.toFixed(1),
                         "residual_name": score2Name(residual),
                         "residual_class": score2Class(residual),
+                        "rendered_risk": l.join(""),
                     }
                 ))
             }
@@ -618,9 +662,6 @@ exports.twsm_render_attack = function(source, operator, options) {
                     "error": objError.message
                 }));
             } else {
-                // result.push(JSON.stringify({
-                //     "error-monke": objError.message
-                // }));
                 throw(objError);
             }        
         }

@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "A sample risk",
-        "modified": "20220908151035522",
+        "modified": "20220908163111497",
         "tags": "[[A sample vulnerability]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -30,8 +30,8 @@
         "rendered_likelihood": "",
         "rendered_controls": "A sample procedure",
         "rendered_sub_trees": "",
-        "draft_attack_tree": "This risk is manifested by the following attacks:\n\n* <<branch \"do something\" >>\n\n** <<leaf \"Crumpets\" \"rc\">>\n\n* <<branch \"Break into safe\"  AND>>\n\nTo break into the safe, the attack will need access, and safe cracking capabilities\n\n\n** <<leaf \"Access\" \"rp\">>\n** <<leaf \"Safe Cracking Capabilities\" ac>>\n** <<control \"A sample procedure\">>\n\n",
-        "draft_impact": "Minor",
+        "draft_attack_tree": "This risk is manifested by the following attacks:\n\n* <<branch \"do something\" >>\n\n** <<leaf \"Crumpets\" \"rc\">>\n\n* <<branch \"Break into safe\"  AND>>\n\nTo break into the safe, the attack will need access, and safe cracking capabilities\n\n\n** <<leaf \"Access\" \"hl\">>\n** <<leaf \"Safe Cracking Capabilities\" ac>>\n** <<control \"A sample procedure\">>\n\n",
+        "draft_impact": "Insignificant",
         "edit_attack_tree": "yes"
     }
 ]

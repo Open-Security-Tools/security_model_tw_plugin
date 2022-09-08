@@ -33,6 +33,7 @@ span.attack_tree_node {
 span.attack_tree_path_prefix {
    width: 15px;
    display: inline-block;
+   color: darkgrey;
 }
 
 div.twsm_risk_metric {
@@ -69,6 +70,24 @@ div.twsm_risk_metric.twsm_risk_unknown {
   background-color: #a0a0a0;
 }
 
+div.twsm_risk_metric.twsm_impact_unknown {
+  background-color: #a0a0a0;
+}
+div.twsm_risk_metric.twsm_impact_minimal {
+  background-color: #fef0d9;
+}
+div.twsm_risk_metric.twsm_impact_minor {
+  background-color: #fdcc8a;
+}
+div.twsm_risk_metric.twsm_impact_moderate {
+  background-color: #fc8d59;
+}
+div.twsm_risk_metric.twsm_impact_major {
+  background-color: #e34a33;
+}
+div.twsm_risk_metric.twsm_impact_severe {
+  background-color: #b30000;
+}
 
 div.twsm_risk_metric span {
   display: block;
