@@ -1,0 +1,18 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/risk/actual/assessment
+type: text/vnd.tiddlywiki
+
+
+<$list filter="[all[current]twsm_get_assessment[]]" variable=renderedRiskAssessment>
+<div class="twsm_risk_metric_container">
+<<renderedRiskAssessment>>
+<div class="risk_id_container">
+<span>#<$view field=twsm_id/></span>
+<div class="themes">
+{{||$:/plugins/security_tools/twsm/templates/relatedlargethemes}}
+</div>
+</div>
+</div>
+</$list>

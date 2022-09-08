@@ -311,6 +311,8 @@ class Node {
         var criticalPathPrefixText = "";
         if (this.criticalPath) {
             criticalPathPrefixText = "<i class=\"far fa-check-circle\"/>"
+        } else {
+            criticalPathPrefixText = "<i class=\"far fa-times-circle\"/>";
         }
         var criticalPathPrefixSpan = "<span class=\"attack_tree_path_prefix\">" + criticalPathPrefixText + "</span>";
 
@@ -392,6 +394,34 @@ class OrBranch extends Branch {
         }
     }
 
+    renderRiskActions(impact) {
+        var impactName = impact2Name[impact];
+        var impactClass = impact2Class[impact];
+    
+        var inherent = (impact * this.likelihood.untreated.upper * 2);
+        var residual = (impact * this.likelihood.treated.upper * 2);
+
+        var actionFields = {
+            untreated_risk: inherent,
+        }
+
+        var actions = [];
+        actions.push("<$action-setfield");
+        for (const [k, v] of Object.entries(actionFields)) {
+            actions.push(k + "=\"" + v + "\"");
+        }
+        actions.push("/>");
+        return actions.join(" ");
+
+        /**
+         * Action fields...
+         * 
+         * untreated_risk
+         * treated_risk
+         * 
+         */        
+    }
+
     renderRiskAssessment(impact) {
         var impactName = impact2Name[impact];
         var impactClass = impact2Class[impact];
@@ -412,7 +442,11 @@ class OrBranch extends Branch {
 
         l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
         l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
-        return l.join("");
+        return {
+            rendered_summary: l.join(""),
+            untreated_risk: inherent,
+            treated_risk: residual,
+        }
     }
 }
 
@@ -629,35 +663,21 @@ exports.twsm_render_attack = function(source, operator, options) {
         ret.renderer = rendered.renderer;
         ret.attack_tree = rendered.root.render().join("\n");
         ret.error = rendered.error;
+
+        // The attack properties are sent back so they can be incorporated into subsequent actions.
+        ret.untreated_likelihood_lower = rendered.root.likelihood.untreated.lower;
+        ret.untreated_likelihood_upper = rendered.root.likelihood.untreated.upper;
+        ret.treated_likelihood_lower = rendered.root.likelihood.treated.lower;
+        ret.treated_likelihood_upper = rendered.root.likelihood.treated.upper;
+
+        // TODO - we need controls and sub_trees added!
+
         if (impactOperand.length > 0) {
-            ret.risk_assessment = rendered.root.renderRiskAssessment(impactDict[impactOperand]);
+            var risk_assessment = rendered.root.renderRiskAssessment(impactDict[impactOperand]);
+            ret.risk_assessment = risk_assessment.rendered_summary;
+            ret.untreated_risk = risk_assessment.untreated_risk;
+            ret.treated_risk = risk_assessment.treated_risk;
         }
-
-        /**
-         * Action fields...
-         * 
-         * untreated_risk
-         * treated_risk
-         * 
-         * rendered_attack_tree
-         * 
-         * untreated_likelihood_lower
-         * untreated_likelihood_upper
-         * 
-         * treated_likelihood_lower
-         * treated_likelihood_upper
-         * 
-         * renderer_version
-         * 
-
-         * 
-         * 
-         * 
-
-         * 
-
-         * 
-         */
 
         result.push(JSON.stringify(ret));
     });

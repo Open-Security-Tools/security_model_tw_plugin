@@ -1,0 +1,11 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/risk/actual/tree
+type: text/vnd.tiddlywiki
+
+\define attack_tree_control_reference(control)
+<$link to="$control$"><$view tiddler="$control$" field=title/> (#<$view tiddler="$control$" field=twsm_id/>)</$link>
+\end
+
+<$transclude field=rendered_attack_tree/>

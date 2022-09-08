@@ -5,6 +5,23 @@ title: $:/plugins/security_tools/twsm/components/context/risk/text_area_edit_dra
 type: text/vnd.tiddlywiki
 
 
+
+Likelihoods:
+
+* Remote Chance (rc) 
+* Highly Unlikely (hu) 
+* Unlikely (u) 
+* Realistic Possibility (rp) 
+* Likely (l) 
+* Highly Likely (hl) 
+* Almost Certain (ac)
+
+Node types:
+
+* branch
+* leaf
+* control
+
 Attack:
 
-<$edit-text field=draft_attack_tree tag=textarea minHeight=10 autoHeight=yes class=edit_attack_tree/>
+<$edit-text field=draft_attack_tree tag=textarea minHeight=10 autoHeight=yes class=edit_attack_tree placeholder="Enter an attack tree here..."/>

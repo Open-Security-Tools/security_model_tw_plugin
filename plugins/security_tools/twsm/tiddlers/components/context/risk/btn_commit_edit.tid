@@ -8,21 +8,29 @@ type: text/vnd.tiddlywiki
 <$button>
 <$list filter="[title<complex>twsm_attack_tree_result:renderer[]]" variable=renderer>
 <$list filter="[title<complex>twsm_attack_tree_result:attack_tree[]]" variable=attack_tree>
-<$list filter="[title<complex>twsm_attack_tree_result:error[]]" variable=error>
-<$list filter="[title<complex>twsm_attack_tree_result:likelihood[]]" variable=likelihood>
-<$list filter="[title<complex>twsm_attack_tree_result:controls[]]" variable=controls>
-<$list filter="[title<complex>twsm_attack_tree_result:sub_trees[]]" variable=sub_trees>
+<$list filter="[title<complex>twsm_attack_tree_result:untreated_likelihood_lower[]]" variable=untreated_likelihood_lower>
+<$list filter="[title<complex>twsm_attack_tree_result:untreated_likelihood_upper[]]" variable=untreated_likelihood_upper>
+<$list filter="[title<complex>twsm_attack_tree_result:treated_likelihood_lower[]]" variable=treated_likelihood_lower>
+<$list filter="[title<complex>twsm_attack_tree_result:treated_likelihood_upper[]]" variable=treated_likelihood_upper>
+<$list filter="[title<complex>twsm_attack_tree_result:untreated_risk[]]" variable=untreated_risk>
+<$list filter="[title<complex>twsm_attack_tree_result:treated_risk[]]" variable=treated_risk>
 Commit
 <$action-setfield 
      attack_tree=<<draftAttackTree>>
      renderer=<<renderer>>
      rendered_attack_tree=<<attack_tree>>
-     rendered_error=<<error>>
-     rendered_likelihood=<<likelihood>>
-     rendered_controls=<<controls>>
-     rendered_sub_trees=<<sub_trees>>
+     untreated_likelihood_lower=<<untreated_likelihood_lower>>
+     untreated_likelihood_upper=<<untreated_likelihood_upper>>
+     treated_likelihood_lower=<<treated_likelihood_lower>>
+     treated_likelihood_upper=<<treated_likelihood_upper>>
+     untreated_risk=<<untreated_risk>>
+     treated_risk=<<treated_risk>>
 />
 <$action-deletefield edit_attack_tree/>
+<$action-deletefield draft_attack_tree/>
+<$action-deletefield draft_impact/>
+</$list>
+</$list>
 </$list>
 </$list>
 </$list>
