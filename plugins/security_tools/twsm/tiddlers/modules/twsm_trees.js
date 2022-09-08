@@ -681,7 +681,6 @@ exports.twsm_render_attack = function(source, operator, options) {
 
         result.push(JSON.stringify(ret));
     });
-    console.log(result);
     return result;
 }
 
@@ -732,47 +731,45 @@ exports.twsm_attack_tree_result = function(source, operator, options) {
     return result;
 }
 
+function renderRiskAssessment(t) {
+    var impact = impactDict[t.twsm_impact.toLowerCase()];
+    console.log("IMPACT = " + t.twsm_impact);
+    var impactName = impact2Name[impact];
+    var impactClass = impact2Class[impact];
 
+    var treated = new Likelihood(t.treated_likelihood_lower, t.treated_likelihood_upper);
+    var untreated = new Likelihood(t.untreated_likelihood_lower, t.untreated_likelihood_upper);
 
-exports.twsmextractcomputedattacktree = function(source, operator, options) {
-    var result = [];
+    var inherent = (impact * untreated.upper * 2);
+    var residual = (impact * treated.upper * 2);
 
-    source (function(tiddler, title) {
-        try  {
-            var s = JSON.parse(title);
-            if (s) {
-                result.push(s.computed_attack_tree || "");
-            }
-        } catch (objError) {
-            if (objError instanceof SyntaxError) {
-                // Do nothing...
-            } else {
-                throw(objError);
-            }
-        }
-    })
-    return result;
+    var treatedBand = treated.toBandSimplePercentageDescription();
+    var treatedBackgroundStyle = treated.buildLikelihoodBackgroundStyle();
+
+    var untreatedBand = untreated.toBandSimplePercentageDescription();
+    var untreatedBackgroundStyle = untreated.buildLikelihoodBackgroundStyle();
+
+    var l = [];
+    l.push(generateRiskMetric(score2Class(residual), "Treated Risk", residual.toFixed(1), score2Name(residual), ""));
+    l.push(generateRiskMetric(score2Class(inherent), "Untreated Risk", inherent.toFixed(1), score2Name(inherent), ""));
+    l.push(generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
+
+    l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, treated.phia, treatedBackgroundStyle));
+    l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, untreated.phia, untreatedBackgroundStyle));
+    return {
+        rendered_summary: l.join(""),
+        untreated_risk: inherent,
+        treated_risk: residual,
+    }
 }
 
-exports.twsmextracterror = function(source, operator, options) {
+exports.twsm_get_assessment = function(source, operator, options) {
     var result = [];
-
     source (function(tiddler, title) {
-        try  {
-            var s = JSON.parse(title);
-            if (s && s.error) {
-                result.push(s.error);
-            }
-        } catch (objError) {
-            if (objError instanceof SyntaxError) {
-                // Do nothing...
-            } else {
-                throw(objError);
-            }
-        }
-    })
+        var obj = renderRiskAssessment(tiddler.fields);
+        result.push(obj.rendered_summary);
+    });
     return result;
 }
-
 
 })();

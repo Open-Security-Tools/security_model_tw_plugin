@@ -8,19 +8,8 @@ type: text/vnd.tiddlywiki
 
 Likelihoods:
 
-* Remote Chance (rc) 
-* Highly Unlikely (hu) 
-* Unlikely (u) 
-* Realistic Possibility (rp) 
-* Likely (l) 
-* Highly Likely (hl) 
-* Almost Certain (ac)
-
-Node types:
-
-* branch
-* leaf
-* control
+* Remote Chance (rc), Highly Unlikely (hu), Unlikely (u), Realistic Possibility (rp), Likely (l), Highly Likely (hl), Almost Certain (ac)
+* Node types: `branch`, `leaf`, `control`
 
 Attack:
 
