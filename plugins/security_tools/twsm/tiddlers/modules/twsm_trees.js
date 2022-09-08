@@ -411,6 +411,75 @@ const branchFactoryLookup = {
     },
 }
 
+
+const impactDict = {
+	"unknown": 0,
+	"insignificant": 1,
+	"minimal": 1,
+	"minor": 2,
+	"moderate": 3,
+	"significant": 4,
+	"major": 4,
+	"extreme/catastrophic": 5,
+	"severe": 5
+};
+
+const impact2Name = {
+    0: "Unknown",
+    1: "Minimal",
+    2: "Minor",
+    3: "Moderate",
+    4: "Major",
+    5: "Severe",
+}
+
+const impact2Class = {
+    0: "twsm_impact_unknown",
+    1: "twsm_impact_minimal",
+    2: "twsm_impact_minor",
+    3: "twsm_impact_moderate",
+    4: "twsm_impact_major",
+    5: "twsm_impact_severe",
+}
+
+
+var LOW_THRESHOLD = 3.6;
+var MEDIUM_THRESHOLD = 6.4;
+
+function score2Name(score) {
+	if (score <= 0) {
+		return "Unknown";
+	}
+	else if (score <= LOW_THRESHOLD) {
+		return "Low";
+	}
+	else if (score <= MEDIUM_THRESHOLD) {
+	  return "Medium";
+	}
+	else {
+		return "High";
+	}
+}
+
+function score2Class(score) {
+	if (score <= 0) {
+		return "twsm_risk_unknown";
+	}
+	else if (score <= LOW_THRESHOLD) {
+		return "twsm_risk_low";
+	}
+	else if (score <= MEDIUM_THRESHOLD) {
+	  return "twsm_risk_medium";
+	}
+	else {
+		return "twsm_risk_high";
+	}
+}
+
+function generateRiskMetric(metricClass, header, metric, footer, style) {
+    return "<div class=\"twsm_risk_metric " + metricClass + "\" style=\"" + style + "\">" + header + "<span>" + metric + "</span>" + footer + "</div>";
+}
+
 function parse_attack_tree(attack_tree) {
 
     var controls = [];
@@ -527,74 +596,6 @@ function parse_attack_tree(attack_tree) {
     return obj;
 }
 
-const impactDict = {
-	"unknown": 0,
-	"insignificant": 1,
-	"minimal": 1,
-	"minor": 2,
-	"moderate": 3,
-	"significant": 4,
-	"major": 4,
-	"extreme/catastrophic": 5,
-	"severe": 5
-};
-
-const impact2Name = {
-    0: "Unknown",
-    1: "Minimal",
-    2: "Minor",
-    3: "Moderate",
-    4: "Major",
-    5: "Severe",
-}
-
-const impact2Class = {
-    0: "twsm_impact_unknown",
-    1: "twsm_impact_minimal",
-    2: "twsm_impact_minor",
-    3: "twsm_impact_moderate",
-    4: "twsm_impact_major",
-    5: "twsm_impact_severe",
-}
-
-
-var LOW_THRESHOLD = 3.6;
-var MEDIUM_THRESHOLD = 6.4;
-
-function score2Name(score) {
-	if (score <= 0) {
-		return "Unknown";
-	}
-	else if (score <= LOW_THRESHOLD) {
-		return "Low";
-	}
-	else if (score <= MEDIUM_THRESHOLD) {
-	  return "Medium";
-	}
-	else {
-		return "High";
-	}
-}
-
-function score2Class(score) {
-	if (score <= 0) {
-		return "twsm_risk_unknown";
-	}
-	else if (score <= LOW_THRESHOLD) {
-		return "twsm_risk_low";
-	}
-	else if (score <= MEDIUM_THRESHOLD) {
-	  return "twsm_risk_medium";
-	}
-	else {
-		return "twsm_risk_high";
-	}
-}
-
-function generateRiskMetric(metricClass, header, metric, footer, style) {
-    return "<div class=\"twsm_risk_metric " + metricClass + "\" style=\"" + style + "\">" + header + "<span>" + metric + "</span>" + footer + "</div>";
-}
-
 exports.twsm_risk_assessment = function(source, operator, options) {
     var result = [];
     var impactOperand = (operator.operand || "").toLowerCase();
@@ -607,34 +608,40 @@ exports.twsm_risk_assessment = function(source, operator, options) {
         try  {
             var s = JSON.parse(title);
             if (s) {
-                var inherent = (impact * s.untreated_probability_upper * 2);
-                var residual = (impact * s.treated_probability_upper * 2);
+                if (s.error.length > 0) {
 
-                var treatedBand = (s.treated_probability_lower * 100).toFixed() + "-" + (s.treated_probability_upper * 100).toFixed();
-                var treatedBackgroundStyle = buildLikelihoodBackgroundStyle(s.treated_probability_lower_hue, s.treated_probability_upper_hue);
+                } else {
 
-                var untreatedBand = (s.untreated_probability_lower * 100).toFixed() + "-" + (s.untreated_probability_upper * 100).toFixed();
-                var untreatedBackgroundStyle = buildLikelihoodBackgroundStyle(s.untreated_probability_lower_hue, s.untreated_probability_upper_hue);
 
-                var l = [];
-                l.push(generateRiskMetric(score2Class(residual), "Treated Risk", residual.toFixed(1), score2Name(residual), ""));
-                l.push(generateRiskMetric(score2Class(inherent), "Untreated Risk", inherent.toFixed(1), score2Name(inherent), ""));
-                l.push(generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
+                    var inherent = (impact * s.untreated_probability_upper * 2);
+                    var residual = (impact * s.treated_probability_upper * 2);
 
-                l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, s.treated_phia, treatedBackgroundStyle));
-                l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, s.untreated_phia, untreatedBackgroundStyle));
+                    var treatedBand = (s.treated_probability_lower * 100).toFixed() + "-" + (s.treated_probability_upper * 100).toFixed();
+                    var treatedBackgroundStyle = buildLikelihoodBackgroundStyle(s.treated_probability_lower_hue, s.treated_probability_upper_hue);
 
-                result.push(JSON.stringify(
-                    {
-                        "inherent_score": inherent.toFixed(1),
-                        "inherent_name": score2Name(inherent),
-                        "inherent_class": score2Class(inherent),
-                        "residual_score": residual.toFixed(1),
-                        "residual_name": score2Name(residual),
-                        "residual_class": score2Class(residual),
-                        "rendered_risk": l.join(""),
-                    }
-                ))
+                    var untreatedBand = (s.untreated_probability_lower * 100).toFixed() + "-" + (s.untreated_probability_upper * 100).toFixed();
+                    var untreatedBackgroundStyle = buildLikelihoodBackgroundStyle(s.untreated_probability_lower_hue, s.untreated_probability_upper_hue);
+
+                    var l = [];
+                    l.push(generateRiskMetric(score2Class(residual), "Treated Risk", residual.toFixed(1), score2Name(residual), ""));
+                    l.push(generateRiskMetric(score2Class(inherent), "Untreated Risk", inherent.toFixed(1), score2Name(inherent), ""));
+                    l.push(generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
+
+                    l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, s.treated_phia, treatedBackgroundStyle));
+                    l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, s.untreated_phia, untreatedBackgroundStyle));
+
+                    result.push(JSON.stringify(
+                        {
+                            "inherent_score": inherent.toFixed(1),
+                            "inherent_name": score2Name(inherent),
+                            "inherent_class": score2Class(inherent),
+                            "residual_score": residual.toFixed(1),
+                            "residual_name": score2Name(residual),
+                            "residual_class": score2Class(residual),
+                            "rendered_risk": l.join(""),
+                        }
+                    ))
+                }
             }
         } catch (objError) {
             if (objError instanceof SyntaxError) {

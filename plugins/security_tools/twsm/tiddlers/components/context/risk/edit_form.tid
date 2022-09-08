@@ -21,6 +21,7 @@ type: text/vnd.tiddlywiki
 
 
 <hr>
+<<complex>>
 
 <$set name=draftImpact tiddler=<<currentTiddler>> field=draft_impact>
 <$list filter="[title<complex>twsm_risk_assessment<draftImpact>]" variable=riskAssessment>
