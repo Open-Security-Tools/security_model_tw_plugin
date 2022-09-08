@@ -221,11 +221,22 @@ class Node {
         } else {
             nodePillTooltip = "Likelihood band: " + this.likelihood.treated.toBandPercentageDescription();
         }
-        var span = "<span class=\"attack_tree_node " + this.pillClass + "\" style=\"" + nodePillStyle + "\" title=\"" + nodePillTooltip + "\">" + nodePillText + "</span>";
+        var criticalPathClass = "";
+        if (this.criticalPath) {
+            criticalPathClass = " critical_path "
+        }
+        var span = "<span class=\"attack_tree_node " + this.pillClass + criticalPathClass + "\" style=\"" + nodePillStyle + "\" title=\"" + nodePillTooltip + "\">" + nodePillText + "</span>";
         var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
+
+        var criticalPathPrefixText = "";
+        if (this.criticalPath) {
+            criticalPathPrefixText = "<i class=\"far fa-star\"/>"
+        }
+        var criticalPathPrefixSpan = "<span class=\"attack_tree_path_prefix\">" + criticalPathPrefixText + "</span>";
 
         var s = [];
         s.push(indentToBullet(this.indent + 1));
+        s.push(criticalPathPrefixSpan);
         s.push(span + " " + this.description());
         if (comments.length > 0) {
             s.push("\"\"\"<br>" + comments + "\"\"\"");
@@ -292,6 +303,15 @@ class OrBranch extends Branch {
         }
         return new ComplexLikelihood(new Likelihood(untreatedMaxLower, untreatedMaxUpper), new Likelihood(treatedMaxLower, treatedMaxUpper));
     }
+
+    markCriticalPath() {
+        super.markCriticalPath();
+        for (let c of this.children) {
+            if (c.likelihood.treated.upper === this.likelihood.treated.upper) {
+                c.markCriticalPath();
+            }
+        }
+    }
 }
 
 class AndBranch extends Branch {
@@ -309,12 +329,20 @@ class AndBranch extends Branch {
         }
         return new ComplexLikelihood(new Likelihood(runningUntreatedLower, runningUntreatedUpper), new Likelihood(runningTreatedLower, runningTreatedUpper));
     }
+
+    markCriticalPath() {
+        super.markCriticalPath();
+        for (let c of this.children) {
+            c.markCriticalPath();
+        }
+    }
+
 }
 
 
 class Leaf extends Node {
     constructor(parent, nodeName, indent, probability="almost certain") {
-        super(parent, nodeName, indent, "rendered_leaf", "leaf_node", "fab fa-envira");
+        super(parent, nodeName, indent, "leaf_node", "fab fa-envira");
         var l = phia2Likelihood(probability);
         this.likelihood = new ComplexLikelihood(l, l);
     }
@@ -323,7 +351,7 @@ class Leaf extends Node {
 
 class Control extends Node {
     constructor(parent, nodeName, indent) {
-        super(parent, nodeName, indent, "rendered_control", "control_node", "fas fa-shield-alt");
+        super(parent, nodeName, indent, "control_node", "fas fa-shield-alt");
         if (!is_control(nodeName)) {
             throw new AttackTreeSyntaxError("Not a control!");
         }
@@ -338,7 +366,7 @@ class Control extends Node {
 
 class Ref extends Node {
     constructor(parent, refName, indent) {
-        super(parent, nodeName, indent, "rendered_ref", "reference_node", "fas fa-link");
+        super(parent, nodeName, indent, "reference_node", "fas fa-link");
         if (!is_ref(nodeName)) {
             throw new AttackTreeSyntaxError("Not a ref!");
         }

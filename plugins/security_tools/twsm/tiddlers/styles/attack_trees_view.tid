@@ -30,6 +30,11 @@ span.attack_tree_node {
     padding: 0px 8px 0px 8px;
 }
 
+span.attack_tree_path_prefix {
+   width: 15px;
+   display: inline-block;
+}
+
 div.twsm_risk_metric {
   width: 140px;
 	height: 120px;
