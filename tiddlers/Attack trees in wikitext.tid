@@ -1,92 +1,16 @@
 created: 20220901103823786
 due: 
-modified: 20220907115553235
+modified: 20220908083020872
 priority: 
 tags: Backlog todo
 title: Attack trees in wikitext
 type: text/vnd.tiddlywiki
 
-\define rendered_branch(name, operand, probability, phia)
-Branch: $name$ ($operand$) = $phia$
-\end
+See [[A sample risk]].
 
-\define rendered_leaf(name, probability, phia)
-Leaf: $name$  = $phia$
-\end
+Display:
 
-\define rendered_control(name, probability, phia)
-Control: [[$name$]]  = $phia$
-\end
-
-\define branch(name, operand: "OR")
-Branch: $name$ ($operand$)
-\end
-
-\define leaf(name, probability: "Highly Likely")
-Leaf: $name$ ($probability$)
-\end
-
-\define subtree(name)
-Sub-tree: $name$
-\end
-
-
-\define control(name)
-Control: $name$
-\end
-
-Source:
-
-<$edit-text tiddler="A sample risk" field=attack_tree tag=textarea minHeight=10 autoHeight=yes class=edit_attack_tree/>
-
-
-
-<$list filter="[title[A sample risk]get[attack_tree]twsm_render_attack[]]" variable=complex>
-<<complex>>
-<$list filter="[title<complex>twsmextracterror[]]" variable=error>
-<span style="color: red;"><<error>></span>
-</$list>
-<$list filter="[title<complex>twsm_attack_tree_result:renderer[]]" variable=value>
-
-
-
-Value: <<value>>
-</$list>
-</$list>
-
-<$list filter="[title[A sample risk]]">
-<$button>
-<$list filter="[all[current]get[attack_tree]twsm_render_attack[]]" variable=complex>
-<$list filter="[title<complex>twsm_attack_tree_result:renderer[]]" variable=renderer>
-<$list filter="[title<complex>twsm_attack_tree_result:attack_tree[]]" variable=attack_tree>
-<$list filter="[title<complex>twsm_attack_tree_result:error[]]" variable=error>
-<$list filter="[title<complex>twsm_attack_tree_result:likelihood[]]" variable=likelihood>
-<$list filter="[title<complex>twsm_attack_tree_result:controls[]]" variable=controls>
-<$list filter="[title<complex>twsm_attack_tree_result:sub_trees[]]" variable=sub_trees>
-Trigger
-<$action-setfield 
-     renderer=<<renderer>>
-     rendered_attack_tree=<<attack_tree>>
-     rendered_error=<<error>>
-     rendered_likelihood=<<likelihood>>
-     rendered_controls=<<controls>>
-     rendered_sub_trees=<<sub_trees>>
-/>
-</$list>
-</$list>
-</$list>
-</$list>
-</$list>
-</$list>
-</$list>
-</$button>
-
-
-</$list>
-
-Rendered:
-
-<$transclude tiddler="A sample risk" field=v1_computed_attack_tree/>
+* OR Highly Unlikely Mit-50% 
 
 Conclusion:
 
