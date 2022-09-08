@@ -1,0 +1,13 @@
+created: 20220908203931273
+due: 
+modified: 20220908204039190
+priority: 
+tags: Backlog todo
+title: Deprecate old inherent fields
+type: text/vnd.tiddlywiki
+
+Risk entity:
+
+* twsm_inherent_class
+* twsm_inherent_name
+* twsm_inherent_score

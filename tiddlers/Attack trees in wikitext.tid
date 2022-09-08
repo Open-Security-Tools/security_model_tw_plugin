@@ -1,36 +1,12 @@
 created: 20220901103823786
 due: 
-modified: 20220908083020872
+modified: 20220908204136700
 priority: 
 tags: Backlog todo
 title: Attack trees in wikitext
 type: text/vnd.tiddlywiki
 
-See [[A sample risk]].
 
-Display:
-
-* OR Highly Unlikely Mit-50% 
-
-Conclusion:
-
-* twsm entity `risk` fields:
-** `attack_tree`
-** `renderer`
-** `rendered_attack_tree`
-** `rendered_likelihood`
-** `rendered_controls`
-** `rendered_sub_trees`
-* twsm entity `control` fields:
-** `failure_description`
-** `failure_likelihood`
-* twsm entity `attack_sub_tree` fields:
-** `attack_tree`
-** `renderer`
-** `rendered_attack_tree`
-** `rendered_likelihood`
-** `rendered_controls`
-** `rendered_sub_trees`
 
 The versioning of the computed fields allows easy identification for automatic updates to the schema engines.
 

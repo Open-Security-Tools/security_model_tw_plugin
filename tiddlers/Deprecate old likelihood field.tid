@@ -1,0 +1,11 @@
+created: 20220908203920166
+due: 
+modified: 20220908204054804
+priority: 
+tags: Backlog todo
+title: Deprecate old likelihood field
+type: text/vnd.tiddlywiki
+
+Risk entity:
+
+* twsm_likelihood

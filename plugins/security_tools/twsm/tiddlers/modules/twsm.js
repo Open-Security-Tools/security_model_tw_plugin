@@ -118,71 +118,12 @@ function checkId(cf, nf, draftF) {
 }
 
 function processRisk(cf, nf) {
-	// Test edit another tiddler...
-	// var tmpTiddler = "TempTiddler";
-	// var t = $tw.wiki.getTiddler(tmpTiddler);
-	// var newFields = {}
-	// newFields["newField"] = "A new field Value!"
-	// $tw.wiki.addTiddler(new $tw.Tiddler(t,newFields));
-
-
-	// We want to hide the body (we incorporate it into a view)
-	if (cf["hide-body"] === undefined) {
-		nf["hide-body"] = "yes";
-	}
 
 	// Default impact
 	var impact = cf["twsm_impact"];
 	if (impact === undefined) {
 		impact = "Unknown"
 		nf["twsm_impact"] = impact;
-	}
-
-	// Default likelihood
-	var likelihood = cf["twsm_likelihood"]; 
-	if (likelihood === undefined) {
-		likelihood = "Unknown";
-		nf["twsm_likelihood"] = likelihood;
-	}
-
-	// Default mitigation
-	var mitigation = cf["twsm_mitigation_percent"];
-	if (mitigation === undefined) {
-		mitigation = "0"
-		nf["twsm_mitigation_percent"] = mitigation;
-	}
-
-	// Calculate score
-	var impactScore = impactDict[impact.toLowerCase()];
-	var likelihoodScore = likelihoodDict[likelihood.toLowerCase()];
-
-	if (impactScore === undefined) {
-		nf["twsm_error"] = "Bad impact"
-	}
-	else if (likelihoodScore === undefined) {
-		nf["twsm_error"] = "Bad likelihood"
-	}
-	else {
-		var inherentScore = ((impactScore * likelihoodScore * 10) / 25);
-		var inherentName = score2Name(inherentScore);
-		var inherentClass = score2class(inherentScore);
-
-		nf["twsm_inherent_score"] = (Math.round((inherentScore + Number.EPSILON) * 100) / 100).toString();
-		nf["twsm_inherent_name"] = inherentName;
-		nf["twsm_inherent_class"] = inherentClass;
-
-		var m = (100 - Math.max(Math.min(+mitigation, 100.0), 0)) / 100.0;
-
-		var residualScore = ((impactScore * likelihoodScore * 10) / 25) * m;
-		var residualName = score2Name(residualScore);
-		var residualClass = score2class(residualScore);
-
-		nf["twsm_residual_score"] = (Math.round((residualScore + Number.EPSILON) * 100) / 100).toString();
-		nf["twsm_residual_name"] = residualName;
-		nf["twsm_residual_class"] = residualClass;
-
-		nf["twsm_risk_calculation_version"] = 1;
-		nf["twsm_error"] = ""
 	}
 	return nf;
 }

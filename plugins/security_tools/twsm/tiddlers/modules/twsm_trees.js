@@ -633,6 +633,32 @@ exports.twsm_render_attack = function(source, operator, options) {
             ret.risk_assessment = rendered.root.renderRiskAssessment(impactDict[impactOperand]);
         }
 
+        /**
+         * Action fields...
+         * 
+         * untreated_risk
+         * treated_risk
+         * 
+         * rendered_attack_tree
+         * 
+         * untreated_likelihood_lower
+         * untreated_likelihood_upper
+         * 
+         * treated_likelihood_lower
+         * treated_likelihood_upper
+         * 
+         * renderer_version
+         * 
+
+         * 
+         * 
+         * 
+
+         * 
+
+         * 
+         */
+
         result.push(JSON.stringify(ret));
     });
     console.log(result);
