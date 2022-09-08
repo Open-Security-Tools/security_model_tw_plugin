@@ -57,3 +57,39 @@ Leaf: $name$  = <<display_likelihood
 <<renderedAttackTree>>
 
 </$list>
+
+
+<div class="twsm_risk_metric_container">
+
+<div class="twsm_risk_metric twsm_risk_low">
+Treated Risk
+<span>8.6</span>
+Low
+</div>
+
+<div class="twsm_risk_metric twsm_risk_medium">
+Untreated Risk
+<span>8.6</span>
+Medium
+</div>
+
+<div class="twsm_risk_metric">
+Impact
+<span>5</span>
+Major
+</div>
+
+<div class="twsm_risk_metric" style="background: linear-gradient(90deg, hsl(235, 100%, 70%) 0%, hsl(365,100%,70%) 100%);">
+Treated Likelihood
+<span>62-99</span>
+Highly Likely
+</div>
+
+<div class="twsm_risk_metric">
+Untreated Likelihood
+<span>62-99</span>
+Highly Likely
+</div>
+
+
+</div>

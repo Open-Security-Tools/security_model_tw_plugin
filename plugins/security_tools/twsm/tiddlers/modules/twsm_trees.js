@@ -15,8 +15,10 @@ var shlex = require("$:/plugins/security_tools/twsm/shlex.js");
 
 function probability2Hue(probability) {
     // In HSV, 0 = Green, 120 = Red.
-    const hue_start = 180;
-    const hue_end = 220;
+    // const hue_start = 180;
+    // const hue_end = 220;
+    const hue_start = 235;
+    const hue_end = 360;
     
     return hue_start + ((hue_end - hue_start) * probability);
 }
@@ -124,7 +126,7 @@ class ComplexLikelihood {
      * @returns {bool}
      */
     isControlled() {
-        return this.treated.upper < this.untreated.upper;
+        return (this.treated.upper < this.untreated.upper) && (this.untreated.upper !== 1.0) && (this.untreated.lower !== 1.0);
     }
 
     calculateControlProportion() {
@@ -142,7 +144,8 @@ const NULL_COMPLEX_LIKELIHOOD = new ComplexLikelihood(NULL_LIKELIHOOD, NULL_LIKE
 var branchOperators = {
     "OR": function(children) {
         if (children.length == 0) {
-            return NULL_COMPLEX_LIKELIHOOD;
+            // If no children, then task is impossible!
+            return new ComplexLikelihood(new Likelihood(0.0, 0.0), new Likelihood(0.0, 0.0));
         }
         console.log("Process Start");
         var treatedMaxLower = 0.0, treatedMaxUpper = 0.0, untreatedMaxLower = 0.0, untreatedMaxUpper = 0.0;
