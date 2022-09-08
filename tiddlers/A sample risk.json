@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "A sample risk",
-        "modified": "20220908083028729",
+        "modified": "20220908104525865",
         "tags": "[[A sample vulnerability]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -30,7 +30,8 @@
         "rendered_likelihood": "",
         "rendered_controls": "A sample procedure",
         "rendered_sub_trees": "",
-        "draft_attack_tree": "This risk is manifested by the following attacks:\n\n* <<branch \"Break into safe\"  AND>>\n\nTo break into the safe, the attack will need access, and safe cracking capabilities\n\n** <<leaf \"Access\" \"ac\">>\n** <<leaf \"Safe Cracking Capabilities\" ac>>\n** <<control \"A sample procedure\">>\n\n* <<leaf \"do something\" ac>>\n",
-        "draft_impact": "Minor"
+        "draft_attack_tree": "This risk is manifested by the following attacks:\n\n* <<branch \"Break into safe\"  AND>>\n\nTo break into the safe, the attack will need access, and safe cracking capabilities\n\n** <<leaf \"Access\" \"rp\">>\n** <<leaf \"Safe Cracking Capabilities\" ac>>\n** <<control \"A sample procedure\">>\n\n* <<leaf \"do something\" rc>>\n",
+        "draft_impact": "Extreme/Catastrophic",
+        "edit_attack_tree": "yes"
     }
 ]

@@ -4,6 +4,10 @@ tags:
 title: $:/plugins/security_tools/twsm/components/context/risk/preview/tree
 type: text/vnd.tiddlywiki
 
+\define attack_tree_control_reference(control)
+<$link to="$control$"><$view tiddler="$control$" field=title/> (#<$view tiddler="$control$" field=twsm_id/>)</$link>
+\end
+
 \define display_likelihood(text, lower, upper, tooltip)
 <span
     title="$tooltip$"

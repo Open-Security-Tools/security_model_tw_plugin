@@ -44,6 +44,10 @@ class Likelihood {
             this.phia = phia;
         }
     }
+
+    toBandPercentageDescription() {
+        return (this.lower * 100).toFixed() + "% - " + (this.upper * 100).toFixed() + "%";
+    }
 }
 
 const likelihood_calibration = [
@@ -113,6 +117,21 @@ class ComplexLikelihood {
     constructor(untreated, treated) {
         this.untreated = untreated;
         this.treated = treated;
+    }
+
+    /**
+     * 
+     * @returns {bool}
+     */
+    isControlled() {
+        return this.treated.upper < this.untreated.upper;
+    }
+
+    calculateControlProportion() {
+        // Amount of control is 1 - likelihood of attack.
+        // Note that untreated will always be larger than treated.
+        // Therefore, proportion of control is (Untreated - Treated) / (1 - Treated)
+        return ((this.untreated.upper - this.treated.upper) * 100) / (1 - this.treated.upper);
     }
 }
 
@@ -188,14 +207,19 @@ class Node {
      * 
      * @param {Node} parent 
      * @param {String} nodeName 
-     * @param {Number} indent 
+     * @param {Number} indent
+     * @param {String} renderedMacroName
+     * @param {String} pillClass
+     * @param {String} pillIconClass
      */
-    constructor(parent, nodeName, indent, renderedMacroName) {
+    constructor(parent, nodeName, indent, renderedMacroName, pillClass, pillIconClass) {
         this.parent = parent;
         this.nodeName = nodeName;
         this.indent = indent;
         this.likelihood = undefined;
         this.rendered_macro_name = renderedMacroName;
+        this.pillClass = pillClass;
+        this.pillIconClass = pillIconClass;
         this.extra_render_args = [];
         this.comments = [];
     }
@@ -211,19 +235,43 @@ class Node {
         this.extra_render_args.push("\"" + likelihood.phia + "\"");
     }
 
+    pillTextPreamble() {
+        return "<i class=\"" + this.pillIconClass + "\"/> ";
+    }
+
+    description() {
+        return this.nodeName;
+    }
+
     render() {
+        var nodePillStyle = "background: linear-gradient(90deg, hsl(" + this.likelihood.treated.lowerHue + ", 100%, 80%) 0%, hsl(" + this.likelihood.treated.upperHue + ",100%,80%) 100%);";
+        var nodePillText = this.pillTextPreamble() + " · " + this.likelihood.treated.phia;
+        var nodePillTooltip = "";
+        if (this.likelihood.isControlled()) {
+            nodePillText += " · " + this.likelihood.calculateControlProportion().toFixed() + "% mitigation";
+            nodePillTooltip = "Treated band: " + this.likelihood.treated.toBandPercentageDescription() + ", Untreated band: " + this.likelihood.untreated.toBandPercentageDescription();
+        } else {
+            nodePillTooltip = "Likelihood band: " + this.likelihood.treated.toBandPercentageDescription();
+        }
+        var span = "<span class=\"attack_tree_node " + this.pillClass + "\" style=\"" + nodePillStyle + "\" title=\"" + nodePillTooltip + "\">" + nodePillText + "</span>";
+        var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
+
         var s = [];
         s.push(indentToBullet(this.indent + 1));
-        s.push("<<" + this.rendered_macro_name);
-        s.push("\"" + this.nodeName + "\"");
-        var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
+        s.push(span + " " + this.description());
         if (comments.length > 0) {
             s.push("\"\"\"<br>" + comments + "\"\"\"");
-        } else {
-            s.push("\"\"");
         }
-        s.push(...this.extra_render_args);
-        s.push(">>");
+
+        // s.push("<<" + this.rendered_macro_name);
+        // s.push("\"" + this.nodeName + "\"");
+        // if (comments.length > 0) {
+        //     s.push("\"\"\"<br>" + comments + "\"\"\"");
+        // } else {
+        //     s.push("\"\"");
+        // }
+        // s.push(...this.extra_render_args);
+        // s.push(">>");
         return [s.join(" ")];
     }
 }
@@ -231,7 +279,7 @@ class Node {
 
 class Branch extends Node {
     constructor(parent, nodeName, indent, operator="OR") {
-        super(parent, nodeName, indent, "rendered_branch");
+        super(parent, nodeName, indent, "rendered_branch", "branch_node", "fas fa-code-branch");
 
         // Handle any case for operator name resolution.
         operator = operator.toUpperCase();
@@ -244,6 +292,11 @@ class Branch extends Node {
         this.operatorFunction = operatorFunction;
         this.children = [];
     }
+
+    pillTextPreamble() {
+        return super.pillTextPreamble() + this.operator + " ";
+    }
+
 
     // Override resolve
     resolve() {
@@ -271,7 +324,7 @@ class Branch extends Node {
 
 class Leaf extends Node {
     constructor(parent, nodeName, indent, probability="almost certain") {
-        super(parent, nodeName, indent, "rendered_leaf");
+        super(parent, nodeName, indent, "rendered_leaf", "leaf_node", "fab fa-envira");
         var l = phia2Likelihood(probability);
         this.likelihood = new ComplexLikelihood(l, l);
         this.addLikelihoodToRenderArgs(this.likelihood.treated);
@@ -281,19 +334,23 @@ class Leaf extends Node {
 
 class Control extends Node {
     constructor(parent, nodeName, indent) {
-        super(parent, nodeName, indent, "rendered_control");
+        super(parent, nodeName, indent, "rendered_control", "control_node", "fas fa-shield-alt");
         if (!is_control(nodeName)) {
             throw new AttackTreeSyntaxError("Not a control!");
         }
         this.likelihood = new ComplexLikelihood(NULL_LIKELIHOOD, phia2Likelihood(get_control_failure_likelihood(nodeName)));
         this.addLikelihoodToRenderArgs(this.likelihood.treated);
     }
+
+    description() {
+        return "<<attack_tree_control_reference \"" + this.nodeName + "\">>";
+    }
 }
 
 
 class Ref extends Node {
     constructor(parent, refName, indent) {
-        super(parent, nodeName, indent, "rendered_ref");
+        super(parent, nodeName, indent, "rendered_ref", "reference_node", "fas fa-link");
         if (!is_ref(nodeName)) {
             throw new AttackTreeSyntaxError("Not a ref!");
         }
