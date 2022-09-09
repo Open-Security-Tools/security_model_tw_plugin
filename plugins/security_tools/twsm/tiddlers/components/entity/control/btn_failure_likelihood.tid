@@ -1,0 +1,25 @@
+created: 20220901083427664
+modified: 20220901083544062
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/control/btn_failure_likelihood
+type: text/vnd.tiddlywiki
+
+<$vars popupTiddler=<<qualify "$:/state/twsm/control-failure-likelihood-dropdown">> >
+<$list filter="[all[current]twsm_control_failure_likelihood[]]" variable=failureLikelihood>
+<$button
+	class="py-btn btn-small"
+	popup=<<popupTiddler>>
+	tooltip="Likelihood of control failure"
+>
+<i class="fas fa-exclamation-triangle"/> Control Failure - <<failureLikelihood>> <i class="fas fa-caret-down"/>
+</$button>
+</$list>
+<$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
+<$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realist Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]]" variable=likelihood>
+<$button class="tc-btn-invisible">
+<<likelihood>>
+<$action-setfield failure_likelihood=<<likelihood>>/>
+</$button>
+</$list>
+</$reveal>
+</$vars>

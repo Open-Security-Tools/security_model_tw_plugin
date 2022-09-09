@@ -812,6 +812,17 @@ exports.twsm_is_non_trivial = function(source, operator, options) {
     return result; 
 }
 
+exports.twsm_control_failure_likelihood = function(source, operator, options) {
+    var result = [];
+    source (function(tiddler, title) {
+        if (tiddler.fields) {
+            var likelihood = tiddler.fields.failure_likelihood || "";
+            result.push(phia2Likelihood(likelihood).phia);
+        }
+    });
+    return result; 
+}
+
 
 
 })();
