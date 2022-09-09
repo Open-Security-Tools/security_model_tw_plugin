@@ -292,6 +292,9 @@ class Node {
     }
 
     render() {
+        if (this.indent < 1) {
+            return [];
+        }
         var nodePillStyle = this.likelihood.treated.buildLikelihoodBackgroundStyle();
         var nodePillText = this.pillTextPreamble() + " · " + this.likelihood.treated.phia;
         var nodePillTooltip = "";
@@ -317,7 +320,7 @@ class Node {
         var criticalPathPrefixSpan = "<span class=\"attack_tree_path_prefix\">" + criticalPathPrefixText + "</span>";
 
         var s = [];
-        s.push(indentToBullet(this.indent + 1));
+        s.push(indentToBullet(this.indent));
         s.push(criticalPathPrefixSpan);
         s.push(span + " " + this.description());
         if (comments.length > 0) {
@@ -392,34 +395,6 @@ class OrBranch extends Branch {
                 c.markCriticalPath();
             }
         }
-    }
-
-    renderRiskActions(impact) {
-        var impactName = impact2Name[impact];
-        var impactClass = impact2Class[impact];
-    
-        var inherent = (impact * this.likelihood.untreated.upper * 2);
-        var residual = (impact * this.likelihood.treated.upper * 2);
-
-        var actionFields = {
-            untreated_risk: inherent,
-        }
-
-        var actions = [];
-        actions.push("<$action-setfield");
-        for (const [k, v] of Object.entries(actionFields)) {
-            actions.push(k + "=\"" + v + "\"");
-        }
-        actions.push("/>");
-        return actions.join(" ");
-
-        /**
-         * Action fields...
-         * 
-         * untreated_risk
-         * treated_risk
-         * 
-         */        
     }
 
     renderRiskAssessment(impact) {
