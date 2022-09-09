@@ -3,7 +3,7 @@
         "created": "20220831223951380",
         "text": "<$list filter=\"[all[current]twsm_risk_assessment:impactName[]]\">\n<<currentTiddler>>\n</$list>\n",
         "title": "Another sample risk",
-        "modified": "20220909084346883",
+        "modified": "20220909104201409",
         "tags": "[[A sample vulnerability]] [[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -27,6 +27,9 @@
         "treated_likelihood_lower": "0.225",
         "treated_likelihood_upper": "0.375",
         "untreated_risk": "3.75",
-        "treated_risk": "3.75"
+        "treated_risk": "3.75",
+        "draft_attack_tree": "* <<leaf \"do something\" u >>\n",
+        "draft_impact": "Extreme/Catastrophic",
+        "edit_attack_tree": "yes"
     }
 ]
