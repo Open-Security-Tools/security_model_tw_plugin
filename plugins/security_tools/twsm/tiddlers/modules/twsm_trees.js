@@ -737,81 +737,50 @@ class RiskAssessment {
         this.impactName = impact2Name[this.impact];
         this.impactClass = impact2Class[this.impact];
     
-        this.treated = new Likelihood(tiddlerFields.treated_likelihood_lower || 0.0, tiddlerFields.treated_likelihood_upper || 0.0);
-        this.untreated = new Likelihood(tiddlerFields.untreated_likelihood_lower || 0.0, tiddlerFields.untreated_likelihood_upper || 0.0);
+        this.treatedLikelihood = new Likelihood(tiddlerFields.treated_likelihood_lower || 0.0, tiddlerFields.treated_likelihood_upper || 0.0);
+        this.untreatedLikelihood = new Likelihood(tiddlerFields.untreated_likelihood_lower || 0.0, tiddlerFields.untreated_likelihood_upper || 0.0);
     
-        this.inherent = (this.impact * this.untreated.upper * 2);
-        this.residual = (this.impact * this.treated.upper * 2);
+        this.untreatedRisk = (this.impact * this.untreatedLikelihood.upper * 2);
+        this.treatedRisk = (this.impact * this.treatedLikelihood.upper * 2);
+        this.treatedClass = score2Class(this.treatedRisk);
+        this.treatedName = score2Name(this.treatedRisk);
+        this.untreatedClass = score2Class(this.untreatedRisk);
+        this.untreatedName = score2Name(this.untreatedRisk);
     }
 
-    render() {
+    get rendered_summary() {
 
-        var treatedBand = this.treated.toBandSimplePercentageDescription();
-        var treatedBackgroundStyle = this.treated.buildLikelihoodBackgroundStyle();
+        var treatedBand = this.treatedLikelihood.toBandSimplePercentageDescription();
+        var treatedBackgroundStyle = this.treatedLikelihood.buildLikelihoodBackgroundStyle();
     
-        var untreatedBand = this.untreated.toBandSimplePercentageDescription();
-        var untreatedBackgroundStyle = this.untreated.buildLikelihoodBackgroundStyle();
+        var untreatedBand = this.untreatedLikelihood.toBandSimplePercentageDescription();
+        var untreatedBackgroundStyle = this.untreatedLikelihood.buildLikelihoodBackgroundStyle();
     
         var l = [];
-        l.push(generateRiskMetric(score2Class(this.residual), "Treated Risk", this.residual.toFixed(1), score2Name(this.residual), ""));
-        l.push(generateRiskMetric(score2Class(this.inherent), "Untreated Risk", this.inherent.toFixed(1), score2Name(this.inherent), ""));
+        l.push(generateRiskMetric(this.treatedClass, "Treated Risk", this.treatedRisk.toFixed(1), this.treatedName, ""));
+        l.push(generateRiskMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk.toFixed(1), this.untreatedName, ""));
         l.push(generateRiskMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
     
-        l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, this.treated.phia, treatedBackgroundStyle));
-        l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.untreated.phia, untreatedBackgroundStyle));
-        return {
-            rendered_summary: l.join(""),
-            untreated_risk: this.inherent,
-            treated_risk: this.residual,
-        }
+        l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
+        l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.untreatedLikelihood.phia, untreatedBackgroundStyle));
+
+        return l.join("");
     }
 
 }
-
-
 
 exports.twsm_risk_assessment = function(source, operator, options) {
     var suffixes = operator.suffixes || [],
         field = (suffixes[0] || [])[0],
         result = [];
     source (function(tiddler, title) {
-
+        var assessment = new RiskAssessment(tiddler.fields);
+        var value = assessment[field];
+        if (value !== undefined) {
+            result.push(value);
+        }
     });
     return result; 
 }
-
-exports.twsm_get_assessment = function(source, operator, options) {
-    var result = [];
-    source (function(tiddler, title) {
-        var obj = new RiskAssessment(tiddler.fields).render();
-        result.push(obj.rendered_summary);
-    });
-    return result;
-}
-
-exports.twsm_get_residual_class = function(source, operator, options) {
-    var result = [];
-    source (function(tiddler, title) {
-        var impactName = tiddler.fields.twsm_impact || "";
-        var impact = impactDict[impactName.toLowerCase()] || 0;
-        var treatedLikelihood = tiddler.fields.treated_likelihood_upper || 0;
-        var residual = (impact * treatedLikelihood * 2);
-        result.push(score2Class(residual));
-    });
-    return result;
-}
-
-exports.twsm_get_residual_name = function(source, operator, options) {
-    var result = [];
-    source (function(tiddler, title) {
-        var impactName = tiddler.fields.twsm_impact || "";
-        var impact = impactDict[impactName.toLowerCase()] || 0;
-        var treatedLikelihood = tiddler.fields.treated_likelihood_upper || 0;
-        var residual = (impact * treatedLikelihood * 2);
-        result.push(score2Name(residual));
-    });
-    return result;
-}
-
 
 })();

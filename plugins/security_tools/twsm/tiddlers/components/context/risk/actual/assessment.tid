@@ -5,7 +5,7 @@ title: $:/plugins/security_tools/twsm/components/context/risk/actual/assessment
 type: text/vnd.tiddlywiki
 
 
-<$list filter="[all[current]twsm_get_assessment[]]" variable=renderedRiskAssessment>
+<$list filter="[all[current]twsm_risk_assessment:rendered_summary[]]" variable=renderedRiskAssessment>
 <div class="twsm_risk_metric_container">
 <<renderedRiskAssessment>>
 <div class="risk_id_container">

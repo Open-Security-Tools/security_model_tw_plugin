@@ -1,16 +1,15 @@
 [
     {
         "created": "20220831223951380",
-        "text": "",
+        "text": "<$list filter=\"[all[current]twsm_risk_assessment:impactName[]]\">\n<<currentTiddler>>\n</$list>\n",
         "title": "Another sample risk",
-        "modified": "20220908233614875",
+        "modified": "20220909084346883",
         "tags": "[[A sample vulnerability]] [[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
-        "hide-body": "yes",
         "twsm_class": "risk",
         "twsm_error": "",
         "twsm_id": "1005",
-        "twsm_impact": "Moderate",
+        "twsm_impact": "Extreme/Catastrophic",
         "twsm_inherent_class": "twsm_risk_high",
         "twsm_inherent_name": "High",
         "twsm_inherent_score": "8",
@@ -27,7 +26,7 @@
         "untreated_likelihood_upper": "0.375",
         "treated_likelihood_lower": "0.225",
         "treated_likelihood_upper": "0.375",
-        "untreated_risk": "2.25",
-        "treated_risk": "2.25"
+        "untreated_risk": "3.75",
+        "treated_risk": "3.75"
     }
 ]

@@ -12,8 +12,8 @@ type: text/vnd.tiddlywiki
 $(name)$
 </$button>
 \end
-<$list filter="[all[current]twsm_get_residual_name[]]" variable=name>
-<$list filter="[all[current]twsm_get_residual_class[]]" variable=class>
+<$list filter="[all[current]twsm_risk_assessment:treatedName[]]" variable=name>
+<$list filter="[all[current]twsm_risk_assessment:treatedClass[]]" variable=class>
 <<button>>
 </$list>
 </$list>
