@@ -14,7 +14,7 @@ type: text/vnd.tiddlywiki
 <table class="risk_table">
 <tr><th class="risk_id">ID #</th><th class="risk_description">Description</th><th class="risk_control_count">Controls</th><th class="score">Inherent Score</th><th class="score">Residual Score</th></tr>
 <$set name=theme value=<<currentTiddler>>>
-<$list filter="[twsm_class[risk]tag<currentTiddler>!nsort[twsm_residual_score]]" emptyMessage="<tr><td style='text-align:center' colspan='5'>No risks!</td></tr>">
+<$list filter="[twsm_class[risk]tag<currentTiddler>!nsort[treated_risk]]" emptyMessage="<tr><td style='text-align:center' colspan='5'>No risks!</td></tr>">
 <tr><td class="risk_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
 <td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
 {{||$:/plugins/security_tools/twsm/templates/relatedthemes}}

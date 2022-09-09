@@ -19,7 +19,7 @@ type: text/vnd.tiddlywiki
 <th>Vulnerable Because</th>
 <th>Mitigated By</th>
 </tr>
-<$list filter="[all[current]tags[]twsm_class[risk]] +[!nsort[twsm_residual_score]]" emptyMessage="<tr><td colspan=6>No risks!</td></tr>">
+<$list filter="[all[current]tags[]twsm_class[risk]] +[!nsort[treated_risk]]" emptyMessage="<tr><td colspan=6>No risks!</td></tr>">
 <tr>
 <td class="risk_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
 <td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
