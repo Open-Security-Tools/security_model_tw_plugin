@@ -1,6 +1,6 @@
 created: 20220908203944528
-due: 
-modified: 20220908204017168
+due: 20220909120000000
+modified: 20220909120523789
 priority: 
 tags: Backlog todo
 title: Decrecate old residual fields
@@ -8,7 +8,6 @@ type: text/vnd.tiddlywiki
 
 Risk entity:
 
-* twsm_residual_class
 * twsm_residual_name
 * twsm_residual_score
 

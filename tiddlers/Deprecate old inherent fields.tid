@@ -1,6 +1,6 @@
 created: 20220908203931273
-due: 
-modified: 20220908204039190
+due: 20220909120000000
+modified: 20220909115726581
 priority: 
 tags: Backlog todo
 title: Deprecate old inherent fields
@@ -8,6 +8,5 @@ type: text/vnd.tiddlywiki
 
 Risk entity:
 
-* twsm_inherent_class
 * twsm_inherent_name
 * twsm_inherent_score

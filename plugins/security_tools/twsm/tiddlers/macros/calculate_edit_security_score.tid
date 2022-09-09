@@ -9,13 +9,9 @@ type: text/vnd.tiddlywiki
 \define calculateEditSecurityScore(template)
 <$list filter="
 
-[all[current]get[draft.of]tagging[]twsm_class[risk]!twsm_residual_class[twsm_risk_unknown]get[twsm_residual_score]]
+[all[current]get[draft.of]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]]
 
-[all[current]get[draft.of]tagging[]twsm_class[risk]twsm_residual_class[twsm_risk_unknown]then[10]]
-
-[all[current]get[draft.of]tagging[]twsm_class[control]tagging[]twsm_class[risk]!twsm_residual_class[twsm_risk_unknown]get[twsm_residual_score]]
-
-[all[current]get[draft.of]tagging[]twsm_class[control]tagging[]twsm_class[risk]twsm_residual_class[twsm_risk_unknown]then[10]]
+[all[current]get[draft.of]tagging[]twsm_class[control]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]]
 
 +[maxall[]!compare:number:eq[-Infinity]else[10]divide[10]negate[]add[1]multiply[25]trunc[]]
 

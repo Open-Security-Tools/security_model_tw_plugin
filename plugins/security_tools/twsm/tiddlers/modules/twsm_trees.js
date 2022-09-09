@@ -717,6 +717,11 @@ class RiskAssessment {
     
         this.untreatedRisk = (this.impact * this.untreatedLikelihood.upper * 2);
         this.treatedRisk = (this.impact * this.treatedLikelihood.upper * 2);
+        this.treatedRiskForCalculations = this.treatedRisk;
+        if (this.treatedRiskForCalculations == 0.0) {
+            this.treatedRiskForCalculations = 10.0;
+        }
+
         this.treatedClass = score2Class(this.treatedRisk);
         this.treatedName = score2Name(this.treatedRisk);
         this.untreatedClass = score2Class(this.untreatedRisk);
@@ -761,5 +766,17 @@ exports.twsm_risk_assessment = function(source, operator, options) {
     });
     return result; 
 }
+
+exports.twsm_is_unassessed = function(source, operator, options) {
+    var result = [];
+    source (function(tiddler, title) {
+        var assessment = new RiskAssessment(tiddler.fields);
+        if (assessment.treatedRisk == 0.0) {
+            result.push(title);
+        }
+    });
+    return result; 
+}
+
 
 })();
