@@ -103,3 +103,16 @@ div.risk-header div.scores {
 div.risk-header div.details {
     width: 100%;
 }
+
+
+
+button.py-disabled {
+	color: lightgray;
+}
+
+div.twsm_entity_toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+	margin-bottom: 5px;
+}

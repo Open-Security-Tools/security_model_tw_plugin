@@ -4,8 +4,10 @@ tags:
 title: $:/plugins/security_tools/twsm/components/context/risk/btn_edit
 type: text/vnd.tiddlywiki
 
-<$button>
-Edit Risk
+<$button 
+    class="py-btn btn-small"
+>
+<i class="fas fa-edit"/> Edit Risk
 <$action-setfield draft_attack_tree={{!!attack_tree}} draft_impact={{!!twsm_impact}} edit_attack_tree=yes/>
 </$button>
 

@@ -4,7 +4,9 @@ tags:
 title: $:/plugins/security_tools/twsm/components/context/risk/btn_cancel_edit
 type: text/vnd.tiddlywiki
 
-<$button>
-Cancel
+<$button
+    class="py-btn btn-small"
+>
+<i class="fas fa-edit"/> Cancel
 <$action-deletefield edit_attack_tree/>
 </$button>

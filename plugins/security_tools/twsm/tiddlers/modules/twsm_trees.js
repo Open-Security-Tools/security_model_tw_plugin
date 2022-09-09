@@ -631,7 +631,8 @@ function parse_attack_tree(attack_tree) {
 }
 
 function twListify(l) {
-    return l.map(function(x){ return "[[" + x + "]] ";});
+    var p = l.map(function(x){ return "[[" + x + "]]";});
+    return p.join(" ");
 }
 
 
@@ -665,26 +666,6 @@ exports.twsm_render_attack = function(source, operator, options) {
 
         result.push(JSON.stringify(ret));
     });
-    return result;
-}
-
-exports.twsmextractcontrols = function(source, operator, options) {
-    var result = [];
-
-    source (function(tiddler, title) {
-        try  {
-            var s = JSON.parse(title);
-            if (s && s.controls) {
-                result.push(...s.controls);
-            }
-        } catch (objError) {
-            if (objError instanceof SyntaxError) {
-                // Do nothing...
-            } else {
-                throw(objError);
-            }
-        }
-    })
     return result;
 }
 

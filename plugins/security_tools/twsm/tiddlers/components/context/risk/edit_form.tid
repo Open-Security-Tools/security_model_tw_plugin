@@ -34,7 +34,5 @@ type: text/vnd.tiddlywiki
 
 <hr>
 
-{{||$:/plugins/security_tools/twsm/components/context/risk/btn_cancel_edit}}{{||$:/plugins/security_tools/twsm/components/context/risk/btn_revert_edit}}{{||$:/plugins/security_tools/twsm/components/context/risk/btn_commit_edit}}
-
 </$list>
 </$set>
