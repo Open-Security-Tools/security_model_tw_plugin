@@ -731,41 +731,59 @@ exports.twsm_attack_tree_result = function(source, operator, options) {
     return result;
 }
 
-function renderRiskAssessment(t) {
-    var impact = impactDict[t.twsm_impact.toLowerCase()];
-    var impactName = impact2Name[impact];
-    var impactClass = impact2Class[impact];
-
-    var treated = new Likelihood(t.treated_likelihood_lower || 0.0, t.treated_likelihood_upper || 0.0);
-    var untreated = new Likelihood(t.untreated_likelihood_lower || 0.0, t.untreated_likelihood_upper || 0.0);
-
-    var inherent = (impact * untreated.upper * 2);
-    var residual = (impact * treated.upper * 2);
-
-    var treatedBand = treated.toBandSimplePercentageDescription();
-    var treatedBackgroundStyle = treated.buildLikelihoodBackgroundStyle();
-
-    var untreatedBand = untreated.toBandSimplePercentageDescription();
-    var untreatedBackgroundStyle = untreated.buildLikelihoodBackgroundStyle();
-
-    var l = [];
-    l.push(generateRiskMetric(score2Class(residual), "Treated Risk", residual.toFixed(1), score2Name(residual), ""));
-    l.push(generateRiskMetric(score2Class(inherent), "Untreated Risk", inherent.toFixed(1), score2Name(inherent), ""));
-    l.push(generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
-
-    l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, treated.phia, treatedBackgroundStyle));
-    l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, untreated.phia, untreatedBackgroundStyle));
-    return {
-        rendered_summary: l.join(""),
-        untreated_risk: inherent,
-        treated_risk: residual,
+class RiskAssessment {
+    constructor(tiddlerFields) {
+        this.impact = impactDict[(tiddlerFields.twsm_impact || "").toLowerCase()];
+        this.impactName = impact2Name[this.impact];
+        this.impactClass = impact2Class[this.impact];
+    
+        this.treated = new Likelihood(tiddlerFields.treated_likelihood_lower || 0.0, tiddlerFields.treated_likelihood_upper || 0.0);
+        this.untreated = new Likelihood(tiddlerFields.untreated_likelihood_lower || 0.0, tiddlerFields.untreated_likelihood_upper || 0.0);
+    
+        this.inherent = (this.impact * this.untreated.upper * 2);
+        this.residual = (this.impact * this.treated.upper * 2);
     }
+
+    render() {
+
+        var treatedBand = this.treated.toBandSimplePercentageDescription();
+        var treatedBackgroundStyle = this.treated.buildLikelihoodBackgroundStyle();
+    
+        var untreatedBand = this.untreated.toBandSimplePercentageDescription();
+        var untreatedBackgroundStyle = this.untreated.buildLikelihoodBackgroundStyle();
+    
+        var l = [];
+        l.push(generateRiskMetric(score2Class(this.residual), "Treated Risk", this.residual.toFixed(1), score2Name(this.residual), ""));
+        l.push(generateRiskMetric(score2Class(this.inherent), "Untreated Risk", this.inherent.toFixed(1), score2Name(this.inherent), ""));
+        l.push(generateRiskMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
+    
+        l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, this.treated.phia, treatedBackgroundStyle));
+        l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.untreated.phia, untreatedBackgroundStyle));
+        return {
+            rendered_summary: l.join(""),
+            untreated_risk: this.inherent,
+            treated_risk: this.residual,
+        }
+    }
+
+}
+
+
+
+exports.twsm_risk_assessment = function(source, operator, options) {
+    var suffixes = operator.suffixes || [],
+        field = (suffixes[0] || [])[0],
+        result = [];
+    source (function(tiddler, title) {
+
+    });
+    return result; 
 }
 
 exports.twsm_get_assessment = function(source, operator, options) {
     var result = [];
     source (function(tiddler, title) {
-        var obj = renderRiskAssessment(tiddler.fields);
+        var obj = new RiskAssessment(tiddler.fields).render();
         result.push(obj.rendered_summary);
     });
     return result;
