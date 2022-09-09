@@ -19,13 +19,4 @@ Status
 <span>{{!!twsm_control_status}}</span>
 </div>
 </div>
-<div class="details">
-<div class="reference-id">
-<label>ID #: <span class="risk-id">C{{!!twsm_id}}</span></label>
-</div>
-<div class="themes">
-<label>Themes: {{||$:/plugins/security_tools/twsm/templates/relatedlargethemes}}
-</label>
-</div>
-</div>
 </div>
