@@ -778,5 +778,50 @@ exports.twsm_is_unassessed = function(source, operator, options) {
     return result; 
 }
 
+exports.twsm_is_high = function(source, operator, options) {
+    var result = [];
+    source (function(tiddler, title) {
+        var assessment = new RiskAssessment(tiddler.fields);
+        if (assessment.treatedName === "High") {
+            result.push(title);
+        }
+    });
+    return result; 
+}
+
+exports.twsm_is_medium = function(source, operator, options) {
+    var result = [];
+    source (function(tiddler, title) {
+        var assessment = new RiskAssessment(tiddler.fields);
+        if (assessment.treatedName === "Medium") {
+            result.push(title);
+        }
+    });
+    return result; 
+}
+
+exports.twsm_is_low = function(source, operator, options) {
+    var result = [];
+    source (function(tiddler, title) {
+        var assessment = new RiskAssessment(tiddler.fields);
+        if (assessment.treatedName === "Low") {
+            result.push(title);
+        }
+    });
+    return result; 
+}
+
+exports.twsm_is_non_trivial = function(source, operator, options) {
+    var result = [];
+    source (function(tiddler, title) {
+        var assessment = new RiskAssessment(tiddler.fields);
+        if (assessment.treatedRisk > LOW_THRESHOLD) {
+            result.push(title);
+        }
+    });
+    return result; 
+}
+
+
 
 })();
