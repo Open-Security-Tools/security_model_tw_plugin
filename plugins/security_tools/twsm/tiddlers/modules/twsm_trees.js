@@ -736,8 +736,8 @@ function renderRiskAssessment(t) {
     var impactName = impact2Name[impact];
     var impactClass = impact2Class[impact];
 
-    var treated = new Likelihood(t.treated_likelihood_lower, t.treated_likelihood_upper);
-    var untreated = new Likelihood(t.untreated_likelihood_lower, t.untreated_likelihood_upper);
+    var treated = new Likelihood(t.treated_likelihood_lower || 0.0, t.treated_likelihood_upper || 0.0);
+    var untreated = new Likelihood(t.untreated_likelihood_lower || 0.0, t.untreated_likelihood_upper || 0.0);
 
     var inherent = (impact * untreated.upper * 2);
     var residual = (impact * treated.upper * 2);
@@ -774,8 +774,10 @@ exports.twsm_get_assessment = function(source, operator, options) {
 exports.twsm_get_residual_class = function(source, operator, options) {
     var result = [];
     source (function(tiddler, title) {
-        var impact = impactDict[tiddler.fields.twsm_impact.toLowerCase()];
-        var residual = (impact * tiddler.fields.treated_likelihood_upper * 2);
+        var impactName = tiddler.fields.twsm_impact || "";
+        var impact = impactDict[impactName.toLowerCase()] || 0;
+        var treatedLikelihood = tiddler.fields.treated_likelihood_upper || 0;
+        var residual = (impact * treatedLikelihood * 2);
         result.push(score2Class(residual));
     });
     return result;
@@ -784,8 +786,10 @@ exports.twsm_get_residual_class = function(source, operator, options) {
 exports.twsm_get_residual_name = function(source, operator, options) {
     var result = [];
     source (function(tiddler, title) {
-        var impact = impactDict[tiddler.fields.twsm_impact.toLowerCase()];
-        var residual = (impact * tiddler.fields.treated_likelihood_upper * 2);
+        var impactName = tiddler.fields.twsm_impact || "";
+        var impact = impactDict[impactName.toLowerCase()] || 0;
+        var treatedLikelihood = tiddler.fields.treated_likelihood_upper || 0;
+        var residual = (impact * treatedLikelihood * 2);
         result.push(score2Name(residual));
     });
     return result;
