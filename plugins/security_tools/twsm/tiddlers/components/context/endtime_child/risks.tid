@@ -14,7 +14,6 @@ type: text/vnd.tiddlywiki
 <th class="risk_id">Risk ID #</th>
 <th class="risk_description">Description</th>
 <th class="store">Inherent Score</th>
-<th>Mitigation</th>
 <th class="store">Residual Score</th>
 <th>Vulnerable Because</th>
 <th>Mitigated By</th>
@@ -26,7 +25,6 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
 </td>
 {{||$:/plugins/security_tools/twsm/components/entity/risk/untreated_table_cell}}
-<td>{{!!twsm_mitigation_percent}}%</td>
 {{||$:/plugins/security_tools/twsm/components/entity/risk/treated_table_cell}}
 <td>
 <$list filter="[all[current]tags[]twsm_class[vulnerability]sort[]first[]]"><$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list><$list filter="[all[current]tags[]twsm_class[vulnerability]sort[]butfirst[]]">, <$transclude tiddler="$:/plugins/security_tools/twsm/templates/link_id"/></$list>

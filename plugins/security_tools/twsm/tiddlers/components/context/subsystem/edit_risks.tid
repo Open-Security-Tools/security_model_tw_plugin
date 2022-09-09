@@ -13,7 +13,6 @@ type: text/vnd.tiddlywiki
 <th class="risk_id">Risk ID #</th>
 <th class="risk_description">Description</th>
 <th class="store">Inherent Score</th>
-<th class="store">Mitigation %</th>
 <th class="store">Residual Score</th>
 </tr>
 <$list filter="[all[current]get[draft.of]tagging[]twsm_class[risk]] [all[current]get[draft.of]tagging[]twsm_class[control]tagging[]twsm_class[risk]]  +[!nsort[treated_risk]]">
@@ -23,7 +22,6 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
 </td>
 {{||$:/plugins/security_tools/twsm/components/entity/risk/untreated_table_cell}}
-<td>{{!!twsm_mitigation_percent}}</td>
 {{||$:/plugins/security_tools/twsm/components/entity/risk/treated_table_cell}}
 </tr>
 </$list>
