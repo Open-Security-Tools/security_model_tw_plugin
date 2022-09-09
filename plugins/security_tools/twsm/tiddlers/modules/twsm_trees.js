@@ -746,6 +746,10 @@ class RiskAssessment {
         this.treatedName = score2Name(this.treatedRisk);
         this.untreatedClass = score2Class(this.untreatedRisk);
         this.untreatedName = score2Name(this.untreatedRisk);
+
+        // We round the risk scores at the end...
+        this.treatedRisk = this.treatedRisk.toFixed(1);
+        this.untreatedRisk = this.untreatedRisk.toFixed(1);
     }
 
     get rendered_summary() {
@@ -757,8 +761,8 @@ class RiskAssessment {
         var untreatedBackgroundStyle = this.untreatedLikelihood.buildLikelihoodBackgroundStyle();
     
         var l = [];
-        l.push(generateRiskMetric(this.treatedClass, "Treated Risk", this.treatedRisk.toFixed(1), this.treatedName, ""));
-        l.push(generateRiskMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk.toFixed(1), this.untreatedName, ""));
+        l.push(generateRiskMetric(this.treatedClass, "Treated Risk", this.treatedRisk, this.treatedName, ""));
+        l.push(generateRiskMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk, this.untreatedName, ""));
         l.push(generateRiskMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
     
         l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));

@@ -22,8 +22,8 @@ type: text/vnd.tiddlywiki
 <td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
 {{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
 </td>
-<td data-score="yes" class={{!!twsm_inherent_class}}>{{!!twsm_inherent_name}} ({{!!twsm_inherent_score}})</td>
-<td data-score="yes" class={{!!twsm_residual_class}}>{{!!twsm_residual_name}} ({{!!twsm_residual_score}})</td>
+{{||$:/plugins/security_tools/twsm/components/entity/risk/untreated_table_cell}}
+{{||$:/plugins/security_tools/twsm/components/entity/risk/treated_table_cell}}
 </tr>
 </$list>
 </table>
