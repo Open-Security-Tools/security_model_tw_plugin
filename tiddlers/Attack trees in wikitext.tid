@@ -1,6 +1,6 @@
 created: 20220901103823786
 due: 20220908120000000
-modified: 20220908225807517
+modified: 20220909145017936
 priority: 
 tags: Backlog todo done
 title: Attack trees in wikitext
@@ -11,7 +11,7 @@ type: text/vnd.tiddlywiki
 The versioning of the computed fields allows easy identification for automatic updates to the schema engines.
 
 <ul>
-<$list filter="[title[A sample risk]twsmprocesstree[]]" variable=complex>
+<$list filter="[title[A sample risk]get[attack_tree]twsm_render_attack[]]" variable=complex>
 <$list filter="[title<complex>twsmextractcontrols[]enlist-input[]]" variable=control>
 <li>Control = <<control>></li>
 </$list>

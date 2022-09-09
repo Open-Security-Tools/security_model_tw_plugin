@@ -611,6 +611,7 @@ function parse_attack_tree(attack_tree) {
         // Now that the tree structure is in place, resolve the likelihood calculation.
         root.resolve();
         root.markCriticalPath();
+
     } catch (objError) {
         if (objError instanceof AttackTreeSyntaxError) {
             error = objError.message;
@@ -618,13 +619,19 @@ function parse_attack_tree(attack_tree) {
             throw(objError);
         }        
     }
+
+    // Make sure we are not returning any duplicate entries for x-references
     return {
         renderer: 2,
         error: error,
         root: root,
-        controls: controls,
-        sub_trees: attack_sub_trees,
+        controls: controls.filter((v, i, a) => a.indexOf(v) === i),
+        sub_trees: attack_sub_trees.filter((v, i, a) => a.indexOf(v) === i),
     }
+}
+
+function twListify(l) {
+    return l.map(function(x){ return "[[" + x + "]] ";});
 }
 
 
@@ -645,7 +652,9 @@ exports.twsm_render_attack = function(source, operator, options) {
         ret.treated_likelihood_lower = rendered.root.likelihood.treated.lower;
         ret.treated_likelihood_upper = rendered.root.likelihood.treated.upper;
 
-        // TODO - we need controls and sub_trees added!
+        // Controls and sub trees are used to maintain x-references
+        ret.controls = twListify(rendered.controls);
+        ret.sub_trees = twListify(rendered.sub_trees);
 
         if (impactOperand.length > 0) {
             var risk_assessment = rendered.root.renderRiskAssessment(impactDict[impactOperand]);
@@ -665,8 +674,8 @@ exports.twsmextractcontrols = function(source, operator, options) {
     source (function(tiddler, title) {
         try  {
             var s = JSON.parse(title);
-            if (s) {
-                result.push(s.controls || "");
+            if (s && s.controls) {
+                result.push(...s.controls);
             }
         } catch (objError) {
             if (objError instanceof SyntaxError) {
