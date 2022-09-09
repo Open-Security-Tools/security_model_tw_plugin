@@ -761,7 +761,7 @@ exports.twsm_risk_assessment = function(source, operator, options) {
         var assessment = new RiskAssessment(tiddler.fields);
         var value = assessment[field];
         if (value !== undefined) {
-            result.push(value);
+            result.push(String(value));
         }
     });
     return result; 
