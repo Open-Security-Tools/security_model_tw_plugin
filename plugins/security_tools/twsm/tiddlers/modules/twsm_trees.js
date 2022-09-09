@@ -52,7 +52,7 @@ class Likelihood {
     }
 
     toBandSimplePercentageDescription() {
-        return (this.lower * 100).toFixed() + "-" + (this.upper * 100).toFixed();
+        return (this.lower * 100).toFixed() + "<i class=\"fas fa-arrows-alt-h\"/>" + (this.upper * 100).toFixed();
     }
 
     buildLikelihoodBackgroundStyle() {
@@ -440,8 +440,8 @@ class OrBranch extends Branch {
         l.push(generateRiskMetric(score2Class(inherent), "Untreated Risk", inherent.toFixed(1), score2Name(inherent), ""));
         l.push(generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
 
-        l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
-        l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
+        l.push(generateRiskMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
+        // l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
         return {
             rendered_summary: l.join(""),
             untreated_risk: inherent,
@@ -765,8 +765,8 @@ class RiskAssessment {
         l.push(generateRiskMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk, this.untreatedName, ""));
         l.push(generateRiskMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
     
-        l.push(generateRiskMetric("", "Treated Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
-        l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.untreatedLikelihood.phia, untreatedBackgroundStyle));
+        l.push(generateRiskMetric("", "Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
+        // l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.untreatedLikelihood.phia, untreatedBackgroundStyle));
 
         return l.join("");
     }
