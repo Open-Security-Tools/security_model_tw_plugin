@@ -15,12 +15,7 @@ var likelihood_utils = require("$:/plugins/security_tools/twsm/likelihood_utils.
 var impact_utils = require("$:/plugins/security_tools/twsm/impact_utils.js")
 var risk_utils = require("$:/plugins/security_tools/twsm/risk_utils.js")
 var attack_utils = require("$:/plugins/security_tools/twsm/attack_utils.js")
-
-
-function twListify(l) {
-    var p = l.map(function(x){ return "[[" + x + "]]";});
-    return p.join(" ");
-}
+var utils = require("$:/plugins/security_tools/twsm/utils.js");
 
 
 exports.twsm_render_attack = function(source, operator, options) {
@@ -41,8 +36,8 @@ exports.twsm_render_attack = function(source, operator, options) {
         ret.treated_likelihood_upper = rendered.root.likelihood.treated.upper;
 
         // Controls and sub trees are used to maintain x-references
-        ret.controls = twListify(rendered.controls);
-        ret.sub_trees = twListify(rendered.sub_trees);
+        ret.controls = utils.twListify(rendered.controls);
+        ret.sub_trees = utils.twListify(rendered.sub_trees);
 
         if (impactOperand.length > 0) {
             var risk_assessment = rendered.root.renderRiskAssessment(impact_utils.impactDict[impactOperand]);

@@ -12,9 +12,10 @@ Action widget to update dependent risks of a control.
 /*global $tw: false */
 "use strict";
 
-var risk_utils = require("$:/plugins/security_tools/twsm/risk_utils.js");
 var attack_utils = require("$:/plugins/security_tools/twsm/attack_utils.js");
+var impact_utils = require("$:/plugins/security_tools/twsm/impact_utils.js")
 var Widget = require("$:/core/modules/widgets/widget.js").widget;
+var utils = require("$:/plugins/security_tools/twsm/utils.js");
 
 var UpdateRiskWidget = function(parseTreeNode,options) {
     this.initialise(parseTreeNode,options);
@@ -60,8 +61,26 @@ UpdateRiskWidget.prototype.invokeAction = function(triggeringWidget,event) {
         if (tiddler && tiddler.fields.twsm_class === "risk") {
             console.log("Processing risk: " + this.actionTiddler + " " + JSON.stringify(tiddler));
             var attackTree = attack_utils.parse_attack_tree(tiddler.fields.attack_tree);
-            var riskAssessment = risk_utils.RiskAssessment()
-            console.log("Attack tree: " + attackTree.root.likelihood.treated.phia);
+            var risk = attackTree.root.renderRiskAssessment(impact_utils.impactDict[tiddler.fields.twsm_impact]);
+
+            var setFields = {
+                controls: utils.twListify(attackTree.controls),
+                sub_trees: utils.twListify(attackTree.sub_trees),
+                renderer: attackTree.renderer,
+                rendered_attack_tree: rendered.root.render().join("\n"),
+                untreated_likelihood_lower: rendered.root.likelihood.untreated.lower,
+                untreated_likelihood_upper: rendered.root.likelihood.untreated.upper,
+                treated_likelihood_lower: rendered.root.likelihood.treated.lower,
+                treated_likelihood_upper: rendered.root.likelihood.treated.upper,
+                untreated_risk: risk.untreated_risk,
+                treated_risk: risk.treated_risk,
+            }
+
+            for (const [key, value] of Object.entries(setFields)) {
+                self.wiki.setText(self.actionTiddler, key, undefined, value, options);
+            }
+
+            // console.log("Attack tree: " + attackTree.root.likelihood.treated.phia);
         }
 
 
