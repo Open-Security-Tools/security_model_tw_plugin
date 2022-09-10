@@ -4,6 +4,14 @@ tags:
 title: $:/plugins/security_tools/twsm/components/context/risk/debug/old_properties
 type: text/vnd.tiddlywiki
 
+\define titlePrefix()
+[[
+\end
+
+\define titleSuffix()
+]]
+\end
+
 <$list filter="[all[current]get[twsm_assessment_description]]" variable=ignore>
 Deprecated risk assessment (to be removed):
 <div style="border-style: solid; border-width: 1px;">
@@ -23,7 +31,17 @@ Deprecated mitigation description (to be removed):
 Deprecated mitigation assessment (to be removed): <$view field=twsm_mitigation_percent/>
 </$list>
 
-
-
-
-
+<$list filter="[all[current]get[twsm_likelihood]]" variable=likelihood>
+<$button
+  class="py-btn btn-small btn-danger"
+>
+Set attack tree to deprecated likelihood '<$view field=twsm_likelihood/>'
+<$list filter="[all[current]twsm_get_at_for_deprecated_state[]]" variable=newAttackTree>
+<$action-setfield draft_attack_tree=<<newAttackTree>>/>
+<$action-deletefield twsm_likelihood/>
+</$list>
+<$list filter="[all[current]tags[]] -[all[current]tags[]twsm_class[control]] +[addprefix<titlePrefix>addsuffix<titleSuffix>join[ ]]" variable=newTags>
+<$action-listops $field=tags $filter=<<newTags>>/>
+</$list>
+</$button>
+</$list>

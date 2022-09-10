@@ -167,7 +167,7 @@ class OrBranch extends Branch {
     calculateBranchProbability() {
         if (this.children.length == 0) {
             // If no children, then task is impossible!
-            return new ComplexLikelihood(new Likelihood(0.0, 0.0), new Likelihood(0.0, 0.0));
+            return new likelihood_utils.ComplexLikelihood(new likelihood_utils.Likelihood(0.0, 0.0), new likelihood_utils.Likelihood(0.0, 0.0));
         }
         var treatedMaxLower = 0.0, treatedMaxUpper = 0.0, untreatedMaxLower = 0.0, untreatedMaxUpper = 0.0;
         for (let c of this.children) {

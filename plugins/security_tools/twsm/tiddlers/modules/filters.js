@@ -104,6 +104,22 @@ exports.twsm_is_unassessed = function(source, operator, options) {
     return result; 
 }
 
+exports.twsm_get_at_for_deprecated_state = function(source, operator, options) {
+    var result = [];
+    source (function(tiddler, title) {
+        var l = [];
+        l.push("* <<branch \"Basic attack\" AND>>");
+        l.push("** <<leaf \"Migrated probability from previous risk model version\" \"" + tiddler.fields.twsm_likelihood + "\">>");
+        var controls = $tw.wiki.filterTiddlers("[title[" + title + "]tags[]twsm_class[control]] [title[" + title + "]tags[]twsm_class[vulnerability]tags[]twsm_class[control]]");
+        for (let c of controls) {
+            l.push("** <<control \"" + c + "\">>");
+        }
+
+        result.push(l.join("\n"));
+    });
+    return result;
+}
+
 exports.twsm_is_high = function(source, operator, options) {
     var result = [];
     source (function(tiddler, title) {
