@@ -394,6 +394,8 @@ function parse_attack_tree(attack_tree) {
             } catch (objError) {
                 if (objError instanceof AttackTreeSyntaxError) {
                     throw(new AttackTreeSyntaxError("Syntax error (line " + lineNo + "): " + objError.message));
+                } else if (objError instanceof likelihood_utils.LikelihoodError) {
+                    throw(new AttackTreeSyntaxError("Syntax error (line " + lineNo + "): " + objError.message));
                 } else {
                     throw(objError);
                 }        

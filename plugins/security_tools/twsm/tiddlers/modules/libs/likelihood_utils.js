@@ -117,6 +117,11 @@ const NULL_LIKELIHOOD = new Likelihood(1.0, 1.0);
 const NULL_COMPLEX_LIKELIHOOD = new ComplexLikelihood(NULL_LIKELIHOOD, NULL_LIKELIHOOD);
 
 
+class LikelihoodError extends Error {
+    constructor(message) {
+        super(message);
+    }
+}
 
 
 /**
@@ -132,7 +137,7 @@ function phia2Likelihood(phia) {
             return b.band;
         }
     }
-    throw new AttackTreeSyntaxError("Unsupported PHIA likelihood (" + phia + ")");
+    throw new LikelihoodError("Unsupported PHIA likelihood (" + phia + ")");
 }
 
 /**
@@ -156,6 +161,7 @@ exports.Likelihood = Likelihood;
 exports.ComplexLikelihood = ComplexLikelihood;
 exports.NULL_COMPLEX_LIKELIHOOD = NULL_COMPLEX_LIKELIHOOD;
 exports.NULL_LIKELIHOOD = NULL_LIKELIHOOD;
+exports.LikelihoodError = LikelihoodError;
 
 
 })();
