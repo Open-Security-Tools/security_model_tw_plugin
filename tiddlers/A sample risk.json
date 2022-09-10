@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "A sample risk",
-        "modified": "20220909155529755",
+        "modified": "20220910191550208",
         "tags": "[[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -27,8 +27,6 @@
         "untreated_risk": "",
         "treated_risk": "",
         "controls": "[[A preventative procedural control]] [[Another Control]]",
-        "sub_trees": "",
-        "draft_attack_tree": "* <<branch \"do something\" >>\n** <<leaf \"Crumpets\" \"rp\">>\n* <<branch \"Break into safe\"  AND>>\n** <<leaf \"Access\" \"hl\">>\n** <<leaf \"Safe Cracking Capabilities\" ac>>\n** <<control \"A preventative procedural control\">>\n** <<control \"Another Control\">>\n",
-        "draft_impact": "Extreme/Catastrophic"
+        "sub_trees": ""
     }
 ]

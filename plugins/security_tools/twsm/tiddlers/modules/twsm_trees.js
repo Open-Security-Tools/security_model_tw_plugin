@@ -12,82 +12,7 @@ module-type: filteroperator
 "use strict";
 
 var shlex = require("$:/plugins/security_tools/twsm/shlex.js");
-
-function probability2Hue(probability) {
-    // In HSV, 0 = Green, 120 = Red.
-    // const hue_start = 180;
-    // const hue_end = 220;
-    const hue_start = 235;
-    const hue_end = 360;
-    
-    return hue_start + ((hue_end - hue_start) * probability);
-}
-
-class Likelihood {
-    /**
-     * 
-     * @param {number} lower 
-     * @param {number} upper 
-     */
-    constructor(lower, upper, phia) {
-        this.lower = lower;
-        this.lowerHue = probability2Hue(lower);
-        this.upper = upper;
-        this.upperHue = probability2Hue(upper);
-        if (upper === lower) {
-            this.tooltip = (upper * 100).toFixed() + "%";
-        } else {
-            this.tooltip = (lower * 100).toFixed() + "% - " + (upper * 100).toFixed() + "%";
-        }
-
-        if (phia === undefined) {
-            this.phia = probability2Phia(upper);
-        } else {
-            this.phia = phia;
-        }
-    }
-
-    toBandPercentageDescription() {
-        return (this.lower * 100).toFixed() + "% - " + (this.upper * 100).toFixed() + "%";
-    }
-
-    toBandSimplePercentageDescription() {
-        return (this.lower * 100).toFixed() + "<i class=\"fas fa-arrows-alt-h\"/>" + (this.upper * 100).toFixed();
-    }
-
-    buildLikelihoodBackgroundStyle() {
-        return "background: linear-gradient(90deg, hsl(" + this.lowerHue + ", 100%, 80%) 0%, hsl(" + this.upperHue + ",100%,80%) 100%);";
-    }
-    
-}
-
-const likelihood_calibration = [
-    {
-        band: new Likelihood(0.0, 0.075, "Remote Chance"),
-        names: ["remote chance", "rc"],
-    }, {
-        band: new Likelihood(0.075, 0.225, "Highly Unlikely"),
-        names: ["highly unlikely", "hu"],
-    }, {
-        band: new Likelihood(0.225, 0.375, "Unlikely"),
-        names: ["unlikely", "u"],
-    }, {
-        band: new Likelihood(0.375, 0.525, "Realistic Possibility"),
-        names: ["realistic possibility", "rp"],
-    }, {
-        band: new Likelihood(0.525, 0.775, "Likely"),
-        names: ["likely", "l"],
-    }, {
-        band: new Likelihood(0.775, 0.925, "Highly Likely"),
-        names: ["highly likely", "hl"],
-    }, {
-        band: new Likelihood(0.925, 1, "Almost Certain"),
-        names: ["almost certain", "ac"],
-    }
-];
-
-
-
+var likelihood_utils = require("$:/plugins/security_tools/twsm/likelihood_utils.js");
 
 const impactDict = {
 	"unknown": 0,
@@ -190,72 +115,6 @@ function parseMacro(line) {
 }
 
 
-class ComplexLikelihood {
-    /**
-     * 
-     * @param {Likelihood} untreated 
-     * @param {Likelihood} treated 
-     */
-    constructor(untreated, treated) {
-        this.untreated = untreated;
-        this.treated = treated;
-    }
-
-    /**
-     * 
-     * @returns {bool}
-     */
-    isControlled() {
-        return (this.treated.upper < this.untreated.upper) && (this.untreated.upper !== 1.0) && (this.untreated.lower !== 1.0);
-    }
-
-    calculateControlProportion() {
-        // Amount of control is 1 - likelihood of attack.
-        // Note that untreated will always be larger than treated.
-        // Therefore, proportion of control is (Untreated - Treated) / (1 - Treated)
-        return ((this.untreated.upper - this.treated.upper) * 100) / (1 - this.treated.upper);
-    }
-}
-
-const NULL_LIKELIHOOD = new Likelihood(1.0, 1.0);
-const NULL_COMPLEX_LIKELIHOOD = new ComplexLikelihood(NULL_LIKELIHOOD, NULL_LIKELIHOOD);
-
-
-
-
-/**
- * 
- * @param {String} likelihood 
- * @returns {Likelihood}
- */
-function phia2Likelihood(phia) {
-    phia = phia.trim().toLowerCase();
-    for (const b of likelihood_calibration) {
-        if (b.names.includes(phia)) {
-            // Return the upper
-            return b.band;
-        }
-    }
-    throw new AttackTreeSyntaxError("Unsupported PHIA likelihood (" + phia + ")");
-}
-
-/**
- * 
- * @param {Number} probability 
- * @returns {String}
- */
-function probability2Phia(probability) {
-    var c = "Remote Chance";
-    for (const b of likelihood_calibration) {
-        if ((probability > b.band.lower) && (probability <= b.band.upper)) {
-            c = b.band.phia;
-            break;
-        }
-    }
-    return c;
-}
-
-
 
 class Node {
     /**
@@ -270,7 +129,7 @@ class Node {
         this.parent = parent;
         this.nodeName = nodeName;
         this.indent = indent;
-        this.likelihood = new ComplexLikelihood(new Likelihood(0.0, 0.0), new Likelihood(0.0, 0.0));
+        this.likelihood = new likelihood_utils.ComplexLikelihood(new likelihood_utils.Likelihood(0.0, 0.0), new likelihood_utils.Likelihood(0.0, 0.0));
         this.pillClass = pillClass;
         this.pillIconClass = pillIconClass;
         this.comments = [];
@@ -385,7 +244,7 @@ class OrBranch extends Branch {
             untreatedMaxLower = Math.max(untreatedMaxLower, c.likelihood.untreated.lower);
             untreatedMaxUpper = Math.max(untreatedMaxUpper, c.likelihood.untreated.upper);
         }
-        return new ComplexLikelihood(new Likelihood(untreatedMaxLower, untreatedMaxUpper), new Likelihood(treatedMaxLower, treatedMaxUpper));
+        return new likelihood_utils.ComplexLikelihood(new likelihood_utils.Likelihood(untreatedMaxLower, untreatedMaxUpper), new likelihood_utils.Likelihood(treatedMaxLower, treatedMaxUpper));
     }
 
     markCriticalPath() {
@@ -438,7 +297,7 @@ class AndBranch extends Branch {
             runningTreatedLower = runningTreatedLower * c.likelihood.treated.lower;
             runningTreatedUpper = runningTreatedUpper * c.likelihood.treated.upper;
         }
-        return new ComplexLikelihood(new Likelihood(runningUntreatedLower, runningUntreatedUpper), new Likelihood(runningTreatedLower, runningTreatedUpper));
+        return new likelihood_utils.ComplexLikelihood(new likelihood_utils.Likelihood(runningUntreatedLower, runningUntreatedUpper), new likelihood_utils.Likelihood(runningTreatedLower, runningTreatedUpper));
     }
 
     markCriticalPath() {
@@ -454,8 +313,8 @@ class AndBranch extends Branch {
 class Leaf extends Node {
     constructor(parent, nodeName, indent, probability="almost certain") {
         super(parent, nodeName, indent, "leaf_node", "fab fa-envira");
-        var l = phia2Likelihood(probability);
-        this.likelihood = new ComplexLikelihood(l, l);
+        var l = likelihood_utils.phia2Likelihood(probability);
+        this.likelihood = new likelihood_utils.ComplexLikelihood(l, l);
     }
 }
 
@@ -466,7 +325,7 @@ class Control extends Node {
         if (!is_control(nodeName)) {
             throw new AttackTreeSyntaxError("Not a control!");
         }
-        this.likelihood = new ComplexLikelihood(NULL_LIKELIHOOD, phia2Likelihood(get_control_failure_likelihood(nodeName)));
+        this.likelihood = new likelihood_utils.ComplexLikelihood(likelihood_utils.NULL_LIKELIHOOD, likelihood_utils.phia2Likelihood(get_control_failure_likelihood(nodeName)));
     }
 
     description() {
@@ -702,8 +561,8 @@ class RiskAssessment {
         this.impactName = impact2Name[this.impact];
         this.impactClass = impact2Class[this.impact];
     
-        this.treatedLikelihood = new Likelihood(tiddlerFields.treated_likelihood_lower || 0.0, tiddlerFields.treated_likelihood_upper || 0.0);
-        this.untreatedLikelihood = new Likelihood(tiddlerFields.untreated_likelihood_lower || 0.0, tiddlerFields.untreated_likelihood_upper || 0.0);
+        this.treatedLikelihood = new likelihood_utils.Likelihood(tiddlerFields.treated_likelihood_lower || 0.0, tiddlerFields.treated_likelihood_upper || 0.0);
+        this.untreatedLikelihood = new likelihood_utils.Likelihood(tiddlerFields.untreated_likelihood_lower || 0.0, tiddlerFields.untreated_likelihood_upper || 0.0);
     
         this.untreatedRisk = (this.impact * this.untreatedLikelihood.upper * 2);
         this.treatedRisk = (this.impact * this.treatedLikelihood.upper * 2);
@@ -816,8 +675,8 @@ exports.twsm_control_failure_likelihood = function(source, operator, options) {
     var result = [];
     source (function(tiddler, title) {
         if (tiddler.fields) {
-            var likelihood = tiddler.fields.failure_likelihood || "";
-            result.push(phia2Likelihood(likelihood).phia);
+            var l = tiddler.fields.failure_likelihood || "";
+            result.push(likelihood_utils.phia2Likelihood(l).phia);
         }
     });
     return result; 
