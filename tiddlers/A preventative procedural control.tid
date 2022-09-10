@@ -1,6 +1,6 @@
 created: 20220312224008097
 failure_likelihood: Unlikely
-modified: 20220909200112103
+modified: 20220910200116493
 tags: 
 title: A preventative procedural control
 twsm_characteristic_class: Procedural
@@ -12,5 +12,5 @@ type: text/vnd.tiddlywiki
 
 <$button>
 Trigger me!
-<$action-updatecontroldependents/>
+<$action-updaterisk/>
 </$button>

@@ -14,19 +14,19 @@ Action widget to update dependent risks of a control.
 
 var Widget = require("$:/core/modules/widgets/widget.js").widget;
 
-var UpdateControlDependentsWidget = function(parseTreeNode,options) {
+var UpdateRiskWidget = function(parseTreeNode,options) {
     this.initialise(parseTreeNode,options);
 };
 
 /*
 Inherit from the base widget class
 */
-UpdateControlDependentsWidget.prototype = new Widget();
+UpdateRiskWidget.prototype = new Widget();
 
 /*
 Render this widget into the DOM
 */
-UpdateControlDependentsWidget.prototype.render = function(parent,nextSibling) {
+UpdateRiskWidget.prototype.render = function(parent,nextSibling) {
     this.computeAttributes();
     this.execute();
 };
@@ -34,7 +34,7 @@ UpdateControlDependentsWidget.prototype.render = function(parent,nextSibling) {
 /*
 Compute the internal state of the widget
 */
-UpdateControlDependentsWidget.prototype.execute = function() {
+UpdateRiskWidget.prototype.execute = function() {
     this.actionTiddler = this.getAttribute("$tiddler") || (!this.hasParseTreeNodeAttribute("$tiddler") && this.getVariable("currentTiddler"));
     this.actionTimestamp = this.getAttribute("$timestamp","yes") === "yes";
 };
@@ -42,7 +42,7 @@ UpdateControlDependentsWidget.prototype.execute = function() {
 /*
 Refresh the widget by ensuring our attributes are up to date
 */
-UpdateControlDependentsWidget.prototype.refresh = function(changedTiddlers) {
+UpdateRiskWidget.prototype.refresh = function(changedTiddlers) {
     // Nothing to refresh
     return this.refreshChildren(changedTiddlers);
 };
@@ -50,7 +50,7 @@ UpdateControlDependentsWidget.prototype.refresh = function(changedTiddlers) {
 /*
 Invoke the action associated with this widget
 */
-UpdateControlDependentsWidget.prototype.invokeAction = function(triggeringWidget,event) {
+UpdateRiskWidget.prototype.invokeAction = function(triggeringWidget,event) {
     var self = this,
         options = {};
     if(this.actionTiddler) {
@@ -72,6 +72,6 @@ UpdateControlDependentsWidget.prototype.invokeAction = function(triggeringWidget
     return true; // Action was invoked
 };
 
-exports["action-updatecontroldependents"] = UpdateControlDependentsWidget;
+exports["action-updaterisk"] = UpdateRiskWidget;
 
 })();
