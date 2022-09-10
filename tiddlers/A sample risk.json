@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "A sample risk",
-        "modified": "20220910220859814",
+        "modified": "20220910221352868",
         "tags": "[[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -17,16 +17,16 @@
         "twsm_residual_name": "Low",
         "twsm_residual_score": "3.2",
         "twsm_risk_calculation_version": "1",
-        "attack_tree": "* <<branch \"Break into safe for fun\"  AND>>\n** <<leaf \"Access\" \"hl\">>\n** <<leaf \"Safe Cracking Capabilities\" ac>>\n** <<control \"A preventative procedural control\">>\n** <<control \"Another Control\">>\n",
+        "attack_tree": "* <<branch \"Break into safe for fun\"  AND>>\n** <<leaf \"Access\" \"hl\">>\n** <<leaf \"Safe Cracking Capabilities\" ac>>\n** <<control \"A preventative procedural control\">>\n** <<control \"Another Control\" >>\n",
         "renderer": "2",
         "untreated_likelihood_lower": "0.716875",
         "untreated_likelihood_upper": "0.925",
-        "treated_likelihood_lower": "0",
-        "treated_likelihood_upper": "0.005203125",
+        "treated_likelihood_lower": "0.24866601562500004",
+        "treated_likelihood_upper": "0.48562500000000003",
         "untreated_risk": "9.25",
-        "treated_risk": "0.05203125",
+        "treated_risk": "9.25",
         "controls": "[[A preventative procedural control]] [[Another Control]]",
         "sub_trees": "",
-        "rendered_attack_tree": "*  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node branch_node critical_path \" style=\"background: linear-gradient(90deg, hsl(235, 100%, 80%) 0%, hsl(235.650390625,100%,80%) 100%);\" title=\"Treated band: 0% - 1%, Untreated band: 72% - 93%\"><i class=\"fas fa-code-branch\"/> AND  · Remote Chance · 92% mitigation</span> Break into safe for fun\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node leaf_node critical_path \" style=\"background: linear-gradient(90deg, hsl(331.875, 100%, 80%) 0%, hsl(350.625,100%,80%) 100%);\" title=\"Likelihood band: 78% - 93%\"><i class=\"fab fa-envira\"/>  · Highly Likely</span> Access\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node leaf_node critical_path \" style=\"background: linear-gradient(90deg, hsl(350.625, 100%, 80%) 0%, hsl(360,100%,80%) 100%);\" title=\"Likelihood band: 93% - 100%\"><i class=\"fab fa-envira\"/>  · Almost Certain</span> Safe Cracking Capabilities\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node control_node critical_path \" style=\"background: linear-gradient(90deg, hsl(235, 100%, 80%) 0%, hsl(244.375,100%,80%) 100%);\" title=\"Likelihood band: 0% - 8%\"><i class=\"fas fa-shield-alt\"/>  · Remote Chance</span> <<attack_tree_control_reference \"A preventative procedural control\">>\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node control_node critical_path \" style=\"background: linear-gradient(90deg, hsl(235, 100%, 80%) 0%, hsl(244.375,100%,80%) 100%);\" title=\"Likelihood band: 0% - 8%\"><i class=\"fas fa-shield-alt\"/>  · Remote Chance</span> <<attack_tree_control_reference \"Another Control\">>"
+        "rendered_attack_tree": "*  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node branch_node critical_path \" style=\"background: linear-gradient(90deg, hsl(266.083251953125, 100%, 80%) 0%, hsl(295.703125,100%,80%) 100%);\" title=\"Treated band: 25% - 49%, Untreated band: 72% - 93%\"><i class=\"fas fa-code-branch\"/> AND  · Realistic Possibility · 85% mitigation</span> Break into safe for fun\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node leaf_node critical_path \" style=\"background: linear-gradient(90deg, hsl(331.875, 100%, 80%) 0%, hsl(350.625,100%,80%) 100%);\" title=\"Likelihood band: 78% - 93%\"><i class=\"fab fa-envira\"/>  · Highly Likely</span> Access\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node leaf_node critical_path \" style=\"background: linear-gradient(90deg, hsl(350.625, 100%, 80%) 0%, hsl(360,100%,80%) 100%);\" title=\"Likelihood band: 93% - 100%\"><i class=\"fab fa-envira\"/>  · Almost Certain</span> Safe Cracking Capabilities\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node control_node critical_path \" style=\"background: linear-gradient(90deg, hsl(281.875, 100%, 80%) 0%, hsl(300.625,100%,80%) 100%);\" title=\"Likelihood band: 38% - 53%\"><i class=\"fas fa-shield-alt\"/>  · Realistic Possibility</span> <<attack_tree_control_reference \"A preventative procedural control\">>\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node control_node critical_path \" style=\"background: linear-gradient(90deg, hsl(350.625, 100%, 80%) 0%, hsl(360,100%,80%) 100%);\" title=\"Likelihood band: 93% - 100%\"><i class=\"fas fa-shield-alt\"/>  · Almost Certain</span> <<attack_tree_control_reference \"Another Control\">>"
     }
 ]
