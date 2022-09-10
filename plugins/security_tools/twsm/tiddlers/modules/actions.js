@@ -12,6 +12,8 @@ Action widget to update dependent risks of a control.
 /*global $tw: false */
 "use strict";
 
+var risk_utils = require("$:/plugins/security_tools/twsm/risk_utils.js");
+var attack_utils = require("$:/plugins/security_tools/twsm/attack_utils.js");
 var Widget = require("$:/core/modules/widgets/widget.js").widget;
 
 var UpdateRiskWidget = function(parseTreeNode,options) {
@@ -54,9 +56,13 @@ UpdateRiskWidget.prototype.invokeAction = function(triggeringWidget,event) {
     var self = this,
         options = {};
     if(this.actionTiddler) {
-
-        console.log("Action tiddler triggered: " + this.actionTiddler);
-
+        var tiddler = $tw.wiki.getTiddler(this.actionTiddler);
+        if (tiddler && tiddler.fields.twsm_class === "risk") {
+            console.log("Processing risk: " + this.actionTiddler + " " + JSON.stringify(tiddler));
+            var attackTree = attack_utils.parse_attack_tree(tiddler.fields.attack_tree);
+            var riskAssessment = risk_utils.RiskAssessment()
+            console.log("Attack tree: " + attackTree.root.likelihood.treated.phia);
+        }
 
 
         // options.suppressTimestamp = !this.actionTimestamp;
