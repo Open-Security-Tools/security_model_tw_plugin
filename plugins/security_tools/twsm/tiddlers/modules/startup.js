@@ -1,7 +1,7 @@
 /*\
 created: 20210723152326655
 type: application/javascript
-title: $:/plugins/security_tools/twsm/twsm.js
+title: $:/plugins/security_tools/twsm/startup.js
 tags: 
 modified: 20210723155538045
 module-type: startup

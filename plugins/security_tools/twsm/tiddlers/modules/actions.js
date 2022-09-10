@@ -1,5 +1,5 @@
 /*\
-title: $:/core/modules/widgets/action-update-control-dependents.js
+title: $:/core/modules/widgets/actions.js
 type: application/javascript
 module-type: widget
 
