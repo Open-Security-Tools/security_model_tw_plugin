@@ -153,8 +153,16 @@ exports.twsm_control_failure_likelihood = function(source, operator, options) {
     source (function(tiddler, title) {
         if (tiddler.fields) {
             var l = tiddler.fields.failure_likelihood || "";
-            result.push(likelihood_utils.phia2Likelihood(l).phia);
-        }
+            try {
+                result.push(likelihood_utils.phia2Likelihood(l).phia);
+            } catch (objError) {
+                if (objError instanceof likelihood_utils.LikelihoodError) {
+                    // Do nothing...
+                } else {
+                    throw(objError);
+                }
+            }
+            }
     });
     return result; 
 }

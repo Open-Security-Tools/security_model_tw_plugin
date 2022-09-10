@@ -61,7 +61,10 @@ UpdateRiskWidget.prototype.invokeAction = function(triggeringWidget,event) {
         if (tiddler && tiddler.fields.twsm_class === "risk") {
             console.log("Processing risk: " + this.actionTiddler + " " + JSON.stringify(tiddler));
             var attackTree = attack_utils.parse_attack_tree(tiddler.fields.attack_tree);
-            var risk = attackTree.root.renderRiskAssessment(impact_utils.impactDict[tiddler.fields.twsm_impact]);
+            var risk = attackTree.root.renderRiskAssessment(impact_utils.impactDict[(tiddler.fields.twsm_impact || "").toLowerCase()]);
+
+            console.log("Rabbit");
+            console.log(JSON.stringify(risk));
 
             var setFields = {
                 controls: utils.twListify(attackTree.controls),
@@ -75,6 +78,8 @@ UpdateRiskWidget.prototype.invokeAction = function(triggeringWidget,event) {
                 untreated_risk: risk.untreated_risk,
                 treated_risk: risk.treated_risk,
             }
+
+            console.log(JSON.stringify(setFields));
 
             for (const [key, value] of Object.entries(setFields)) {
                 self.wiki.setText(self.actionTiddler, key, undefined, value, options);

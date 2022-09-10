@@ -5,7 +5,7 @@ title: $:/plugins/security_tools/twsm/components/entity/control/btn_failure_like
 type: text/vnd.tiddlywiki
 
 <$vars popupTiddler=<<qualify "$:/state/twsm/control-failure-likelihood-dropdown">> >
-<$list filter="[all[current]twsm_control_failure_likelihood[]]" variable=failureLikelihood>
+<$list filter="[all[current]twsm_control_failure_likelihood[]else[]]" variable=failureLikelihood>
 <$button
 	class="py-btn btn-small"
 	popup=<<popupTiddler>>
@@ -15,10 +15,13 @@ type: text/vnd.tiddlywiki
 </$button>
 </$list>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
-<$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realist Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]]" variable=likelihood>
+<$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realistic Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]]" variable=likelihood>
 <$button class="tc-btn-invisible">
 <<likelihood>>
 <$action-setfield failure_likelihood=<<likelihood>>/>
+<$list filter="[all[current]listed[controls]]">
+<$action-updaterisk/>
+</$list>
 </$button>
 </$list>
 </$reveal>
