@@ -13,37 +13,7 @@ module-type: filteroperator
 
 var shlex = require("$:/plugins/security_tools/twsm/shlex.js");
 var likelihood_utils = require("$:/plugins/security_tools/twsm/likelihood_utils.js");
-
-const impactDict = {
-	"unknown": 0,
-	"insignificant": 1,
-	"minimal": 1,
-	"minor": 2,
-	"moderate": 3,
-	"significant": 4,
-	"major": 4,
-	"extreme/catastrophic": 5,
-	"severe": 5
-};
-
-const impact2Name = {
-    0: "Unknown",
-    1: "Minimal",
-    2: "Minor",
-    3: "Moderate",
-    4: "Major",
-    5: "Severe",
-}
-
-const impact2Class = {
-    0: "twsm_impact_unknown",
-    1: "twsm_impact_minimal",
-    2: "twsm_impact_minor",
-    3: "twsm_impact_moderate",
-    4: "twsm_impact_major",
-    5: "twsm_impact_severe",
-}
-
+var impact_utils = require("$:/plugins/security_tools/twsm/impact_utils.js")
 
 var LOW_THRESHOLD = 3.6;
 var MEDIUM_THRESHOLD = 6.4;
@@ -257,8 +227,8 @@ class OrBranch extends Branch {
     }
 
     renderRiskAssessment(impact) {
-        var impactName = impact2Name[impact];
-        var impactClass = impact2Class[impact];
+        var impactName = impact_utils.impact2Name[impact];
+        var impactClass = impact_utils.impact2Class[impact];
     
         var inherent = (impact * this.likelihood.untreated.upper * 2);
         var residual = (impact * this.likelihood.treated.upper * 2);
@@ -517,7 +487,7 @@ exports.twsm_render_attack = function(source, operator, options) {
         ret.sub_trees = twListify(rendered.sub_trees);
 
         if (impactOperand.length > 0) {
-            var risk_assessment = rendered.root.renderRiskAssessment(impactDict[impactOperand]);
+            var risk_assessment = rendered.root.renderRiskAssessment(impact_utils.impactDict[impactOperand]);
             ret.risk_assessment = risk_assessment.rendered_summary;
             ret.untreated_risk = risk_assessment.untreated_risk;
             ret.treated_risk = risk_assessment.treated_risk;
@@ -557,9 +527,9 @@ exports.twsm_attack_tree_result = function(source, operator, options) {
 
 class RiskAssessment {
     constructor(tiddlerFields) {
-        this.impact = impactDict[(tiddlerFields.twsm_impact || "").toLowerCase()];
-        this.impactName = impact2Name[this.impact];
-        this.impactClass = impact2Class[this.impact];
+        this.impact = impact_utils.impactDict[(tiddlerFields.twsm_impact || "").toLowerCase()];
+        this.impactName = impact_utils.impact2Name[this.impact];
+        this.impactClass = impact_utils.impact2Class[this.impact];
     
         this.treatedLikelihood = new likelihood_utils.Likelihood(tiddlerFields.treated_likelihood_lower || 0.0, tiddlerFields.treated_likelihood_upper || 0.0);
         this.untreatedLikelihood = new likelihood_utils.Likelihood(tiddlerFields.untreated_likelihood_lower || 0.0, tiddlerFields.untreated_likelihood_upper || 0.0);
