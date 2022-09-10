@@ -14,43 +14,8 @@ module-type: filteroperator
 var shlex = require("$:/plugins/security_tools/twsm/shlex.js");
 var likelihood_utils = require("$:/plugins/security_tools/twsm/likelihood_utils.js");
 var impact_utils = require("$:/plugins/security_tools/twsm/impact_utils.js")
+var risk_utils = require("$:/plugins/security_tools/twsm/risk_utils.js")
 
-var LOW_THRESHOLD = 3.6;
-var MEDIUM_THRESHOLD = 6.4;
-
-function score2Name(score) {
-	if (score <= 0) {
-		return "Unknown";
-	}
-	else if (score <= LOW_THRESHOLD) {
-		return "Low";
-	}
-	else if (score <= MEDIUM_THRESHOLD) {
-	  return "Medium";
-	}
-	else {
-		return "High";
-	}
-}
-
-function score2Class(score) {
-	if (score <= 0) {
-		return "twsm_risk_unknown";
-	}
-	else if (score <= LOW_THRESHOLD) {
-		return "twsm_risk_low";
-	}
-	else if (score <= MEDIUM_THRESHOLD) {
-	  return "twsm_risk_medium";
-	}
-	else {
-		return "twsm_risk_high";
-	}
-}
-
-function generateRiskMetric(metricClass, header, metric, footer, style) {
-    return "<div class=\"twsm_risk_metric " + metricClass + "\" style=\"" + style + "\">" + header + "<span>" + metric + "</span>" + footer + "</div>";
-}
 
 
 function indentToBullet(indent) {
@@ -240,11 +205,11 @@ class OrBranch extends Branch {
         var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
 
         var l = [];
-        l.push(generateRiskMetric(score2Class(residual), "Treated Risk", residual.toFixed(1), score2Name(residual), ""));
-        l.push(generateRiskMetric(score2Class(inherent), "Untreated Risk", inherent.toFixed(1), score2Name(inherent), ""));
-        l.push(generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
+        l.push(risk_utils.generateRiskMetric(risk_utils.score2Class(residual), "Treated Risk", residual.toFixed(1), risk_utils.score2Name(residual), ""));
+        l.push(risk_utils.generateRiskMetric(risk_utils.score2Class(inherent), "Untreated Risk", inherent.toFixed(1), risk_utils.score2Name(inherent), ""));
+        l.push(risk_utils.generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
 
-        l.push(generateRiskMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
+        l.push(risk_utils.generateRiskMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
         // l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
         return {
             rendered_summary: l.join(""),
@@ -541,10 +506,10 @@ class RiskAssessment {
             this.treatedRiskForCalculations = 10.0;
         }
 
-        this.treatedClass = score2Class(this.treatedRisk);
-        this.treatedName = score2Name(this.treatedRisk);
-        this.untreatedClass = score2Class(this.untreatedRisk);
-        this.untreatedName = score2Name(this.untreatedRisk);
+        this.treatedClass = risk_utils.score2Class(this.treatedRisk);
+        this.treatedName = risk_utils.score2Name(this.treatedRisk);
+        this.untreatedClass = risk_utils.score2Class(this.untreatedRisk);
+        this.untreatedName = risk_utils.score2Name(this.untreatedRisk);
 
         // We round the risk scores at the end...
         this.treatedRisk = this.treatedRisk.toFixed(1);
@@ -560,11 +525,11 @@ class RiskAssessment {
         var untreatedBackgroundStyle = this.untreatedLikelihood.buildLikelihoodBackgroundStyle();
     
         var l = [];
-        l.push(generateRiskMetric(this.treatedClass, "Treated Risk", this.treatedRisk, this.treatedName, ""));
-        l.push(generateRiskMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk, this.untreatedName, ""));
-        l.push(generateRiskMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
+        l.push(risk_utils.generateRiskMetric(this.treatedClass, "Treated Risk", this.treatedRisk, this.treatedName, ""));
+        l.push(risk_utils.generateRiskMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk, this.untreatedName, ""));
+        l.push(risk_utils.generateRiskMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
     
-        l.push(generateRiskMetric("", "Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
+        l.push(risk_utils.generateRiskMetric("", "Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
         // l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.untreatedLikelihood.phia, untreatedBackgroundStyle));
 
         return l.join("");
