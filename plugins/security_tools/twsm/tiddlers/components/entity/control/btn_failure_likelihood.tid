@@ -15,9 +15,9 @@ type: text/vnd.tiddlywiki
 </$button>
 </$list>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
-<$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realistic Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]]" variable=likelihood>
+<$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realistic Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]] -[title<failureLikelihood>]" variable=likelihood>
 <$button class="tc-btn-invisible">
-<<likelihood>>
+<i class="fas fa-edit"/> Change to '<<likelihood>>'
 <$action-setfield failure_likelihood=<<likelihood>>/>
 <$list filter="[all[current]listed[controls]]">
 <$action-updaterisk/>
