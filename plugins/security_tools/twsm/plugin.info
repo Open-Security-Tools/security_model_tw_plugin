@@ -3,7 +3,7 @@
     "name": "TWSM",
     "description": "Security Model and Tools",
     "author": "Paul",
-    "version": "1.0.226",
+    "version": "1.4.1",
     "core-version": ">=5.1.23",
     "source": "https://github.com/Open-Security-Tools/security_model_tw_plugin",
     "list": "readme license syntax",

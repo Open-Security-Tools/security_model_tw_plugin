@@ -63,16 +63,16 @@ class Likelihood {
 const likelihood_calibration = [
     {
         band: new Likelihood(0.0, 0.075, "Remote Chance"),
-        names: ["remote chance", "rc"],
+        names: ["remote chance", "rc", "remote"],
     }, {
         band: new Likelihood(0.075, 0.225, "Highly Unlikely"),
-        names: ["highly unlikely", "hu"],
+        names: ["highly unlikely", "hu", "rare"],
     }, {
         band: new Likelihood(0.225, 0.375, "Unlikely"),
         names: ["unlikely", "u"],
     }, {
         band: new Likelihood(0.375, 0.525, "Realistic Possibility"),
-        names: ["realistic possibility", "rp"],
+        names: ["realistic possibility", "rp", "credible", "possible"],
     }, {
         band: new Likelihood(0.525, 0.775, "Likely"),
         names: ["likely", "l"],
