@@ -10,24 +10,10 @@ type: text/vnd.tiddlywiki
 
 <$list filter="[twsm_class[risk]tag<currentTiddler>first[]]" variable="ignore">
 
-<$set name="skip_theme" value=<<currentTiddler>>>
-<table class="risk_table">
-<tr><th class="risk_id">ID #</th><th class="risk_description">Description</th><th class="risk_control_count">Controls</th><th class="score">Inherent Score</th><th class="score">Residual Score</th></tr>
-<$set name=theme value=<<currentTiddler>>>
-<$list filter="[twsm_class[risk]tag<currentTiddler>!nsort[treated_risk]]" emptyMessage="<tr><td style='text-align:center' colspan='5'>No risks!</td></tr>">
-<tr><td class="risk_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
-<td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
-{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
-</td>
-<$list filter="[all[current]tags[]twsm_class[control]count[]]">
-<td data-control-count=<<currentTiddler>> class="risk_control_count">
-<<currentTiddler>>
-</td>
+<div class="py-todos">
+<$list filter="[twsm_class[risk]tag<currentTiddler>sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
 </$list>
-{{||$:/plugins/security_tools/twsm/components/entity/risk/untreated_table_cell}}
-{{||$:/plugins/security_tools/twsm/components/entity/risk/treated_table_cell}}</tr>
-</$list>
-</$set>
-</table>
-</$set>
+</div>
+
 </$list>

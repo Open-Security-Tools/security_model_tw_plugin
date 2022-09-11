@@ -6,10 +6,6 @@ tags: [[Wiki Internals]] $:/tags/Stylesheet
 title: $:/plugins/security_tools/twsm/styles/risk_view
 type: text/css
 
-table.risk_table {
-  width: 100%;
-}
-
 span.risk-id {
 	font-size: 24px;
 	line-height: 34px;

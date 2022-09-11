@@ -1,7 +1,7 @@
 # Security Modelling TW Plugin
 
 This repository is a security model plugin for TiddlyWiki (tw5, https://tiddlywiki.com).
-It provides the ability to cross reference risks, vulnerabilities, controls, assurance activities, meetings, tasks and sprints.
+It provides the ability to cross reference risks, vulnerabilities, controls, assurance activities, meetings, and tasks.
 
 The plugin (twsm) provides security modelling functionality.
 

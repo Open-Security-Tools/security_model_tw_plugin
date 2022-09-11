@@ -12,21 +12,9 @@ title: $:/plugins/security_tools/twsm/components/context/none/brewing_problems/r
 tooltip: Risks which are missing an assessment of impact or probability
 type: text/vnd.tiddlywiki
 
-<table class="risk_table">
-<tr>
-<th class="risk_id">Risk ID #</th>
-<th class="risk_description">Description</th>
-<th class="store">Inherent Score</th>
-<th class="store">Residual Score</th>
-</tr>
+<div class="py-todos">
 <$list filter="[twsm_class[risk]twsm_is_unassessed[]]">
-<tr>
-<td class="risk_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
-<td class="risk_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
-{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
-</td>
-{{||$:/plugins/security_tools/twsm/components/entity/risk/untreated_table_cell}}
-{{||$:/plugins/security_tools/twsm/components/entity/risk/treated_table_cell}}
-</tr>
+{{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
 </$list>
-</table>
+</div>
+

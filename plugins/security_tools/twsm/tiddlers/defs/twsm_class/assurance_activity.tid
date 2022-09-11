@@ -10,7 +10,6 @@ provides_assurance: yes
 tags: 
 tags_controls: yes
 tags_risks: yes
-tags_sprints: yes
 tags_vulnerabilities: yes
 title: $:/plugins/security_tools/twsm/defs/twsm_class/assurance_activity
 to_deprecate: yes
