@@ -7,8 +7,6 @@ type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]field:twsm_class[risk]]">
 
-{{||$:/plugins/security_tools/twsm/components/context/risk/header}}
-
 {{||$:/plugins/security_tools/twsm/components/context/risk/body}}
 
 </$list>

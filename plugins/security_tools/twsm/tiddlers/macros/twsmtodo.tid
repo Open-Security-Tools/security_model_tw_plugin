@@ -9,3 +9,12 @@ type: text/vnd.tiddlywiki
 \define twsmtodo(description)
 <span class="todo"><i class="fas fa-user-edit"></i><span>$description$</span></span>
 \end
+
+\define control(title)
+$title$
+\end
+
+\define attack_tree_control_reference(control)
+<$link to="$control$"><$view tiddler="$control$" field=title/> (#<$view tiddler="$control$" field=twsm_id/>)</$link>
+\end
+

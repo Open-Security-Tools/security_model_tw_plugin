@@ -1,9 +1,0 @@
-caption: Controls
-created: 20210718200918903
-modified: 20211113175410250
-tags: 
-title: $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_controls
-twsm_icon_class: control
-type: text/vnd.tiddlywiki
-
-<<tabs "$:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_controls/tab_all $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_controls/procedures $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_controls/policies $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_controls/unverified $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_controls/back_of_napkin" $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_controls/tab_all  "$:/state/twsm_dashboard_controls_tabs" buttonTemplate:"$:/plugins/security_tools/twsm/templates/tab_icon_caption">>

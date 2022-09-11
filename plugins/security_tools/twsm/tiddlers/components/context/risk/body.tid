@@ -5,4 +5,19 @@ tags:
 title: $:/plugins/security_tools/twsm/components/context/risk/body
 type: text/vnd.tiddlywiki
 
-<<tabs "$:/plugins/security_tools/twsm/components/context/risk/assessment $:/plugins/security_tools/twsm/components/context/risk/mitigation" $:/plugins/security_tools/twsm/components/context/risk/assessment  "$:/state/twsm_risk_tabs" buttonTemplate:"$:/plugins/security_tools/twsm/templates/risk_tab_caption">>
+{{||$:/plugins/security_tools/twsm/components/entity/risk/toolbar}}
+
+<$list filter="[all[current]!edit_attack_tree[yes]]" variable=ignore>
+
+{{||$:/plugins/security_tools/twsm/components/context/risk/actual/assessment}}
+
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/risk/actual/tree"/>
+
+</$list>
+<$list filter="[all[current]edit_attack_tree[yes]]" variable=ignore>
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/risk/edit_form" mode="block"/>
+</$list>
+
+
+{{||$:/plugins/security_tools/twsm/components/context/risk/assurance_activities}}
+

@@ -1,9 +1,0 @@
-caption: Risks
-created: 20210718195731309
-modified: 20211113175528157
-tags: 
-title: $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_risks
-twsm_icon_class: risk
-type: text/vnd.tiddlywiki
-
-<<tabs "$:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_risks/all $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_risks/unassessed" $:/plugins/security_tools/twsm/components/context/none/dashboard_tabs/tab_risks/all  "$:/state/twsm_dashboard_risks_tabs" buttonTemplate:"$:/plugins/security_tools/twsm/templates/tab_icon_caption">>

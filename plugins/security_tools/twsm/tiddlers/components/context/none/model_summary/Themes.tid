@@ -12,23 +12,23 @@ tooltip: Themes provide a view of the security model from a particular perspecti
 type: text/vnd.tiddlywiki
 
 <table class="theme-table">
-<tr><th>Theme</th><th>Risks</th><th>High Residual</th><th>Medium Residual</th><th>Low Residual</th><th>Missing Assessment</th><th>Controls</th><th>Assurance Activities</th></tr>
+<tr><th>Theme</th><th>Risks</th><th>High</th><th>Medium</th><th>Low</th><th>Missing Assessment</th><th>Controls</th><th>Assurance Activities</th></tr>
 <$list filter="[twsm_class[theme]sort[]]">
 <tr>
 <td>{{||$:/plugins/security_tools/twsm/templates/large_tag_link_template}}</td>
 <$list filter="[all[current]tagging[]twsm_class[risk]count[]]">
 <td data-value=<<currentTiddler>>><<currentTiddler>></td>
 </$list>
-<$list filter="[all[current]tagging[]twsm_class[risk]twsm_residual_name[High]count[]]">
+<$list filter="[all[current]tagging[]twsm_class[risk]twsm_is_high[]count[]]">
 <td data-value=<<currentTiddler>>><<currentTiddler>></td>
 </$list>
-<$list filter="[all[current]tagging[]twsm_class[risk]twsm_residual_name[Medium]count[]]">
+<$list filter="[all[current]tagging[]twsm_class[risk]twsm_is_medium[]count[]]">
 <td data-value=<<currentTiddler>>><<currentTiddler>></td>
 </$list>
-<$list filter="[all[current]tagging[]twsm_class[risk]twsm_residual_name[Low]count[]]">
+<$list filter="[all[current]tagging[]twsm_class[risk]twsm_is_low[]count[]]">
 <td data-value=<<currentTiddler>>><<currentTiddler>></td>
 </$list>
-<$list filter="[all[current]tagging[]twsm_class[risk]twsm_residual_name[Unknown]count[]]">
+<$list filter="[all[current]tagging[]twsm_class[risk]twsm_is_unassessed[]count[]]">
 <td data-value=<<currentTiddler>>><<currentTiddler>></td>
 </$list>
 <$list filter="[all[current]tagging[]twsm_class[control]count[]]">

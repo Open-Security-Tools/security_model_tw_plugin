@@ -85,24 +85,6 @@ It takes the contents of the `src/tiddlers/system/plugins/security_tools/twsm/` 
 
 Which maps to 24 additionsl plugins:
 
-* $:/config/EditTemplateFields/Visibility/twsm_assurance_activity_status
-* $:/config/EditTemplateFields/Visibility/twsm_assessment_description
-* $:/config/EditTemplateFields/Visibility/twsm_characteristic_class
-* $:/config/EditTemplateFields/Visibility/twsm_control_status
-* $:/config/EditTemplateFields/Visibility/twsm_error
-* $:/config/EditTemplateFields/Visibility/twsm_impact
-* $:/config/EditTemplateFields/Visibility/twsm_inherent_class
-* $:/config/EditTemplateFields/Visibility/twsm_inherent_name
-* $:/config/EditTemplateFields/Visibility/twsm_inherent_score
-* $:/config/EditTemplateFields/Visibility/twsm_likelihood
-* $:/config/EditTemplateFields/Visibility/twsm_mitigation_description
-* $:/config/EditTemplateFields/Visibility/twsm_mitigation_percent
-* $:/config/EditTemplateFields/Visibility/twsm_residual_class
-* $:/config/EditTemplateFields/Visibility/twsm_residual_name
-* $:/config/EditTemplateFields/Visibility/twsm_residual_score
-* $:/config/EditTemplateFields/Visibility/twsm_risk_calculation_version
-* $:/config/EditTemplateFields/Visibility/twsm_simpleriskid
-* $:/config/EditTemplateFields/Visibility/twsm_temporal_class
 * $:/core/ui/ViewTemplate/tags
 * $:/config/flibbles/relink/fields/twsm_assessment_description
 * $:/config/flibbles/relink/fields/twsm_mitigation_description

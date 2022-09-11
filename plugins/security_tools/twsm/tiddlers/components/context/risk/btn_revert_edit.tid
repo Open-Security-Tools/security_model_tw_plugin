@@ -1,0 +1,16 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/risk/btn_revert_edit
+type: text/vnd.tiddlywiki
+
+<$set name=draftAttackTree tiddler=<<currentTiddler>> field=draft_attack_tree>
+<$list filter="[all[current]attack_tree<draftAttackTree>then[yes]else[no]]" variable=disabled>
+<$button 
+    disabled=<<disabled>>
+    class="py-btn btn-small"
+>
+<i class="fas fa-edit"/> Revert
+</$button>
+</$list>
+</$set>

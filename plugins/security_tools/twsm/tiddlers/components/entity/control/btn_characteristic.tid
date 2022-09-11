@@ -9,6 +9,6 @@ type: text/vnd.tiddlywiki
 	class="py-btn btn-small"
 	tooltip="Control characteristic"
 >
-P<$view field=twsm_characteristic_class/>
+<$view field=twsm_characteristic_class/>
 </$button>
 </$list>
