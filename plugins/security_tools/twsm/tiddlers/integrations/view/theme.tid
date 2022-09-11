@@ -10,11 +10,5 @@ type: text/vnd.tiddlywiki
 <$transclude tiddler="$:/plugins/security_tools/twsm/components/context/subsystem/header" mode="block"/>
 </$list>
 <$list filter="[all[current]!is_subsystem_theme[yes]]">
-<$list filter="[all[current]is_sprint_highlight[yes]]">
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/sprint_highlight/header" mode="block"/>
-</$list>
-<$list filter="[all[current]!is_sprint_highlight[yes]]">
-{{||$:/plugins/security_tools/twsm/components/context/theme/header2}}
-</$list>
 </$list>
 </$list>

@@ -20,5 +20,3 @@ type: text/vnd.tiddlywiki
 
 \define tags_risks() [get[twsm_class]addprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]tags_risks[yes]]
 
-\define tags_sprints() [get[twsm_class]addprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]tags_sprints[yes]]
-
