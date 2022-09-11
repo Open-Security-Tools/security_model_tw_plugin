@@ -14,3 +14,5 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
 </$list>
 </div>
+
+</$list>

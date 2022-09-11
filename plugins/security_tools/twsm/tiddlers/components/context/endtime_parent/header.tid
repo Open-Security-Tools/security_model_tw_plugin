@@ -14,15 +14,6 @@ type: text/vnd.tiddlywiki
 <$list filter={{!!image}}>
 <<theme_image>>
 </$list>
-<$list filter="[all[current]has[sprint_description]]">
-<div class="sprint_description">{{!!sprint_description}}</div>
-</$list>
 </div>
-
-<$list filter="[all[current]has[previous_sprint]]">
-<div class="alert alert-info" style="width:100%;">
-''Note'': Looking for the previous sprint's highlights? See <$link to={{!!previous_sprint}}>{{!!previous_sprint}}</$link>...
-</div>
-</$list>
 
 <$transclude tiddler="$:/plugins/security_tools/twsm/components/context/endtime_parent/assurance_activities" mode="block"/>

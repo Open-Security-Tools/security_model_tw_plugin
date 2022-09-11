@@ -9,7 +9,6 @@ type: text/vnd.tiddlywiki
 <tr>
 <th>Name</th>
 <th>Is Subsystem Theme</th>
-<th>Is Sprint Highlight</th>
 </tr>
 <$list filter="[twsm_class[theme]sort[]]">
 <tr>
@@ -19,7 +18,6 @@ type: text/vnd.tiddlywiki
 </$link>
 </td>
 <td><$checkbox field="is_subsystem_theme" checked="yes" unchecked="" default=""></$checkbox></td>
-<td><$checkbox field="is_sprint_highlight" checked="yes" unchecked="" default=""></$checkbox></td>
 </tr>
 </$list>
 </table>
