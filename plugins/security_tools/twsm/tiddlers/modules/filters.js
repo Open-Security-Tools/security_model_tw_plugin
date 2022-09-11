@@ -156,8 +156,8 @@ exports.twsm_is_low = function(source, operator, options) {
 exports.twsm_is_non_trivial = function(source, operator, options) {
     var result = [];
     source (function(tiddler, title) {
-        var assessment = new RiskAssessment(tiddler.fields);
-        if (assessment.treatedRisk > LOW_THRESHOLD) {
+        var assessment = new risk_utils.RiskAssessment(tiddler.fields);
+        if (assessment && assessment.treatedRisk > risk_utils.LOW_THRESHOLD) {
             result.push(title);
         }
     });

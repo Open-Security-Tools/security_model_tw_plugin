@@ -1,0 +1,32 @@
+[
+    {
+        "created": "20220831223951380",
+        "title": "Another sample risk",
+        "modified": "20220911161437329",
+        "tags": "[[A sample vulnerability]] [[A sample theme]]",
+        "type": "text/vnd.tiddlywiki",
+        "text": "",
+        "hide-body": "yes",
+        "twsm_class": "risk",
+        "twsm_error": "",
+        "twsm_id": "1005",
+        "twsm_impact": "Extreme/Catastrophic",
+        "twsm_inherent_class": "twsm_risk_high",
+        "twsm_inherent_name": "High",
+        "twsm_inherent_score": "8",
+        "twsm_mitigation_percent": "0",
+        "twsm_residual_class": "twsm_risk_high",
+        "twsm_residual_name": "High",
+        "twsm_residual_score": "8",
+        "twsm_risk_calculation_version": "1",
+        "attack_tree": "* <<branch \"Basic attack\" AND>>\n** <<leaf \"Migrated probability from previous risk model version\" \"rp\">>\n** <<control \"A sample procedure\">>",
+        "controls": "[[A sample procedure]]",
+        "sub_trees": "",
+        "renderer": "2",
+        "rendered_attack_tree": "*  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node branch_node critical_path \" style=\"background: linear-gradient(90deg, hsl(238.515625, 100%, 80%) 0%, hsl(249.765625,100%,80%) 100%);\" title=\"Treated band: 3% - 12%, Untreated band: 38% - 53%\"><i class=\"fas fa-code-branch\"/> AND  · Highly Unlikely · 46% mitigation</span> Basic attack\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node leaf_node critical_path \" style=\"background: linear-gradient(90deg, hsl(281.875, 100%, 80%) 0%, hsl(300.625,100%,80%) 100%);\" title=\"Likelihood band: 38% - 53%\"><i class=\"fab fa-envira\"/>  · Realistic Possibility</span> Migrated probability from previous risk model version\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node control_node critical_path \" style=\"background: linear-gradient(90deg, hsl(244.375, 100%, 80%) 0%, hsl(263.125,100%,80%) 100%);\" title=\"Likelihood band: 8% - 23%\"><i class=\"fas fa-shield-alt\"/>  · Highly Unlikely</span> <<attack_tree_control_reference \"A sample procedure\">>",
+        "untreated_likelihood_lower": "0.375",
+        "untreated_likelihood_upper": "0.525",
+        "treated_likelihood_lower": "0.028124999999999997",
+        "treated_likelihood_upper": "0.11812500000000001"
+    }
+]

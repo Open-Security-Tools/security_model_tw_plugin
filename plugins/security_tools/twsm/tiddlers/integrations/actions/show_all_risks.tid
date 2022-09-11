@@ -1,8 +1,0 @@
-created: 20220217213641936
-list-after: $:/core/ui/ViewTemplate/body
-modified: 20220217213920108
-tags: 
-title: $:/plugins/security_tools/twsm/integrations/actions/show_all_risks
-type: text/vnd.tiddlywiki
-
-<$action-navigate $to="$:/plugins/security_tools/twsm/components/context/none/model_summary/Risks"/>
