@@ -1,9 +1,9 @@
 [
     {
         "created": "20220312223810074",
-        "text": "\\define titlePrefix()\n[[\n\\end\n\n\\define titleSuffix()\n]]\n\\end\n\n<pre>\n<$list filter=\"[all[current]twsm_get_at_for_deprecated_state[]]\" variable=value>\n<$text text=<<value>>/>\n</$list>\n</pre>\n\n\n<$list filter=\"[all[current]tags[]] -[all[current]tags[]twsm_class[control]] +[addprefix<titlePrefix>addsuffix<titleSuffix>join[ ]]\">\n<pre>\n<<currentTiddler>>\n</pre>\n</$list>\n",
+        "text": "",
         "title": "A sample risk",
-        "modified": "20220910235433308",
+        "modified": "20220911104712148",
         "tags": "[[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -16,19 +16,16 @@
         "twsm_residual_name": "Low",
         "twsm_residual_score": "3.2",
         "twsm_risk_calculation_version": "1",
-        "attack_tree": "* <<branch 'Basic attack' AND>>\n** <<leaf 'Migrated probability from previous risk model version' 'Almost Certain'>>",
+        "attack_tree": "* <<branch \"Basic attack\" AND>>\n** <<leaf \"Migrated probability from previous risk model version\" \"Almost Certain\">>\n** <<control \"A preventative procedural control\">>",
         "renderer": "2",
         "untreated_likelihood_lower": "0.925",
         "untreated_likelihood_upper": "1",
-        "treated_likelihood_lower": "0.925",
-        "treated_likelihood_upper": "1",
+        "treated_likelihood_lower": "0.34687500000000004",
+        "treated_likelihood_upper": "0.525",
         "untreated_risk": "9.25",
         "treated_risk": "9.25",
-        "controls": "",
+        "controls": "[[A preventative procedural control]]",
         "sub_trees": "",
-        "rendered_attack_tree": "*  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node branch_node critical_path \" style=\"background: linear-gradient(90deg, hsl(350.625, 100%, 80%) 0%, hsl(360,100%,80%) 100%);\" title=\"Likelihood band: 93% - 100%\"><i class=\"fas fa-code-branch\"/> AND  · Almost Certain</span> Basic attack\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node leaf_node critical_path \" style=\"background: linear-gradient(90deg, hsl(350.625, 100%, 80%) 0%, hsl(360,100%,80%) 100%);\" title=\"Likelihood band: 93% - 100%\"><i class=\"fab fa-envira\"/>  · Almost Certain</span> Migrated probability from previous risk model version",
-        "draft_attack_tree": "* <<branch \"Basic attack\" AND>>\n** <<leaf \"Migrated probability from previous risk model version\" \"Almost Certain\">>",
-        "draft_impact": "Extreme/Catastrophic",
-        "edit_attack_tree": "yes"
+        "rendered_attack_tree": "*  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node branch_node critical_path \" style=\"background: linear-gradient(90deg, hsl(278.359375, 100%, 80%) 0%, hsl(300.625,100%,80%) 100%);\" title=\"Likelihood band: 35% - 53%\"><i class=\"fas fa-code-branch\"/> AND  · Realistic Possibility</span> Basic attack\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node leaf_node critical_path \" style=\"background: linear-gradient(90deg, hsl(350.625, 100%, 80%) 0%, hsl(360,100%,80%) 100%);\" title=\"Likelihood band: 93% - 100%\"><i class=\"fab fa-envira\"/>  · Almost Certain</span> Migrated probability from previous risk model version\n**  <span class=\"attack_tree_path_prefix\"><i class=\"far fa-check-circle\"/></span> <span class=\"attack_tree_node control_node critical_path \" style=\"background: linear-gradient(90deg, hsl(281.875, 100%, 80%) 0%, hsl(300.625,100%,80%) 100%);\" title=\"Likelihood band: 38% - 53%\"><i class=\"fas fa-shield-alt\"/>  · Realistic Possibility</span> <<attack_tree_control_reference \"A preventative procedural control\">>"
     }
 ]
