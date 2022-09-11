@@ -11,7 +11,7 @@ type: text/vnd.tiddlywiki
 	popup=<<popupTiddler>>
 	tooltip="Likelihood of control failure"
 >
-<i class="fas fa-exclamation-triangle"/> Control Failure - <<failureLikelihood>> <i class="fas fa-caret-down"/>
+<i class="fas fa-exclamation-triangle"/> Failure: <<failureLikelihood>> <i class="fas fa-caret-down"/>
 </$button>
 </$list>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">

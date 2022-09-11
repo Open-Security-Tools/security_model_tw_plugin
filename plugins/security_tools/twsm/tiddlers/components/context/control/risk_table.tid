@@ -5,7 +5,7 @@ tags:
 title: $:/plugins/security_tools/twsm/components/context/control/risk_table
 type: text/vnd.tiddlywiki
 
-<$list filter="[all[current]listed[controls]first]" variable="ignore">
+<$list filter="[all[current]listed[controls]first[]]" variable="ignore">
 
 !! Mitigates Risks:
 

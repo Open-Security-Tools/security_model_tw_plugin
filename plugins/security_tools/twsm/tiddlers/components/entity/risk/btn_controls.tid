@@ -5,7 +5,7 @@ title: $:/plugins/security_tools/twsm/components/entity/risk/btn_controls
 type: text/vnd.tiddlywiki
 
 <$vars popupTiddler=<<qualify "$:/state/twsm/controls-button-dropdown">> >
-<$list filter="[title[A sample risk]get[controls]enlist-input[]count[]]" variable=controlCount>
+<$list filter="[all[current]get[controls]enlist-input[]count[]]" variable=controlCount>
 <$button
 	class="py-btn btn-small"
 	popup=<<popupTiddler>>
@@ -17,7 +17,7 @@ type: text/vnd.tiddlywiki
 </$button>
 </$list>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
-<$list filter="[title[A sample risk]get[controls]enlist-input[]sort[]]">
+<$list filter="[all[current]get[controls]enlist-input[]sort[]]">
 <$link><$view field=title/></$link>
 </$list>
 </$reveal>
