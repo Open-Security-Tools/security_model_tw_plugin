@@ -13,7 +13,6 @@ type: text/vnd.tiddlywiki
 >
 <i class="fas fa-exclamation-triangle"/> Failure: <<failureLikelihood>> <i class="fas fa-caret-down"/>
 </$button>
-</$list>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
 <$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realistic Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]] -[title<failureLikelihood>]" variable=likelihood>
 <$button class="tc-btn-invisible">
@@ -25,4 +24,5 @@ type: text/vnd.tiddlywiki
 </$button>
 </$list>
 </$reveal>
+</$list>
 </$vars>
