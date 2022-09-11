@@ -23,7 +23,7 @@ overrideClass="twsm_entity_pill justid">
 </$link>
 \end
 
-<$list filter="[all[current]twsm_class[risk]get[twsm_residual_class]else[]]" variable="id_icon_class">
+<$list filter="[all[current]twsm_class[risk]twsm_risk_assessment:treatedClass[]else[]]" variable="id_icon_class">
 <$set name="twsm_class_name" value={{!!twsm_class}}>
 <<render_link>>
 </$set>

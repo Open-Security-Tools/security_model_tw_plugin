@@ -1,0 +1,19 @@
+created: 20220831214144308
+modified: 20220831225133585
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/risk/toolbar
+type: text/vnd.tiddlywiki
+
+<div class="twsm_entity_toolbar">
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_id}}
+{{||$:/plugins/security_tools/twsm/components/entity/risk/btn_controls}}
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_themes}}
+<$list filter="[all[current]!edit_attack_tree[yes]]" variable=ignore>
+{{||$:/plugins/security_tools/twsm/components/context/risk/btn_edit}}
+</$list>
+<$list filter="[all[current]edit_attack_tree[yes]]" variable=ignore>
+{{||$:/plugins/security_tools/twsm/components/context/risk/btn_cancel_edit}}
+{{||$:/plugins/security_tools/twsm/components/context/risk/btn_revert_edit}}
+{{||$:/plugins/security_tools/twsm/components/context/risk/btn_commit_edit}}
+</$list>
+</div>

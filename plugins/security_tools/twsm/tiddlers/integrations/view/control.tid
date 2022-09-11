@@ -7,14 +7,12 @@ type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]field:twsm_class[control]]">
 
+{{||$:/plugins/security_tools/twsm/components/entity/control/toolbar}}
+
 {{||$:/plugins/security_tools/twsm/components/context/control/header}}
 
 {{||$:/plugins/security_tools/twsm/components/context/control/vulnerabilities}}
 
-{{||$:/plugins/security_tools/twsm/components/context/control/risk_table}}
-
 {{||$:/plugins/security_tools/twsm/components/context/control/assurance_activities}}
-
-{{||$:/plugins/security_tools/twsm/components/context/control/related_control_table}}
 
 </$list>

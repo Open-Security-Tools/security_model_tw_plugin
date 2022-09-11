@@ -1,0 +1,13 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/risk/btn_edit
+type: text/vnd.tiddlywiki
+
+<$button 
+    class="py-btn btn-small"
+>
+<i class="fas fa-edit"/> Edit Risk
+<$action-setfield draft_attack_tree={{!!attack_tree}} draft_impact={{!!twsm_impact}} edit_attack_tree=yes/>
+</$button>
+

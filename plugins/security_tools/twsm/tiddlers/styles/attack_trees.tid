@@ -1,0 +1,9 @@
+created: 20180820171551129
+modified: 20210808172126448
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/styles/attack_trees
+type: text/css
+
+textarea.edit_attack_tree {
+  width: 100%;
+}

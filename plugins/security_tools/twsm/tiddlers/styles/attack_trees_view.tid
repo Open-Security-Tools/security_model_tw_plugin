@@ -14,3 +14,100 @@ table.attack_tree_table tr td.attack_tree_description,th.attack_tree_description
   text-align: left;
 }
 
+span.branch_operator {
+  background: black;
+  color: white;
+  border-radius: 12px; 
+  border-style: none; 
+  padding: 0px 8px 0px 8px; 
+}
+
+span.attack_tree_node {
+    
+    border-radius: 12px; 
+    border-style: solid; 
+    border-width: 1px; 
+    padding: 0px 8px 0px 8px;
+}
+
+span.attack_tree_path_prefix {
+   width: 15px;
+   display: inline-block;
+   color: darkgrey;
+}
+
+div.twsm_risk_metric {
+  width: 140px;
+	height: 120px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-right: 10px;
+	font-size: 12px;
+	font-weight: 800;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 10px;
+	padding-left: 0px;
+  line-height: 1.6;
+  border-style: solid;
+  border-width: 1px;
+
+}
+
+div.twsm_risk_metric.twsm_risk_high {
+  background-color: #fb2c08; 
+}
+
+div.twsm_risk_metric.twsm_risk_medium {
+  background-color: #fd9309;
+}
+
+div.twsm_risk_metric.twsm_risk_low {
+  background-color: #FFFF0c;
+}
+
+div.twsm_risk_metric.twsm_risk_unknown {
+  background-color: #a0a0a0;
+}
+
+div.twsm_risk_metric.twsm_impact_unknown {
+  background-color: #a0a0a0;
+}
+div.twsm_risk_metric.twsm_impact_minimal {
+  background-color: #fef0d9;
+}
+div.twsm_risk_metric.twsm_impact_minor {
+  background-color: #fdcc8a;
+}
+div.twsm_risk_metric.twsm_impact_moderate {
+  background-color: #fc8d59;
+}
+div.twsm_risk_metric.twsm_impact_major {
+  background-color: #e34a33;
+}
+div.twsm_risk_metric.twsm_impact_severe {
+  background-color: #b30000;
+}
+
+div.twsm_risk_metric span {
+  display: block;
+	font-size: 35px;
+	font-weight: 400;
+	box-sizing: border-box;
+}
+
+div.twsm_risk_metric_container {
+  display: flex;
+  width: 100%;
+}
+
+div.twsm_risk_metric_container div.risk_id_container {
+  font-size: 60px;
+  line-height: 1;
+}
+
+div.twsm_risk_metric_container div.risk_id_container div.themes {
+  font-size: 12px;
+  line-height: 1;
+}
+

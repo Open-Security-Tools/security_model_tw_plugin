@@ -1,0 +1,24 @@
+created: 20220831222725264
+modified: 20220831223354605
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/control/btn_risks
+type: text/vnd.tiddlywiki
+
+<$vars popupTiddler=<<qualify "$:/state/twsm/risks-button-dropdown">> >
+<$list filter="[all[current]listed[controls]count[]]" variable=riskCount>
+<$button
+	class="py-btn btn-small"
+	popup=<<popupTiddler>>
+	tooltip="Risks"
+>
+<i class="fas fa-balance-scale"/>
+<<riskCount>>
+<i class="fas fa-caret-down"/>
+</$button>
+<$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
+<$list filter="[all[current]listed[controls]sort[]]">
+<$link><$view field=title/></$link>
+</$list>
+</$reveal>
+</$list>
+</$vars>
