@@ -1,9 +1,9 @@
 [
     {
         "created": "20220312223810074",
-        "text": "This is a description of the risk.",
+        "text": "This is a description of the risk.\n\n<$list filter=\"[all[current]twsm_class[risk]twsm_risk_assessment:treatedClass[]else[]]\" variable=\"id_icon_class\">\n<<id_icon_class>>\n</$list>\n",
         "title": "A sample risk with a really really really long name and perhaps some kind of description in the title",
-        "modified": "20220911170836359",
+        "modified": "20220911171525147",
         "tags": "[[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
