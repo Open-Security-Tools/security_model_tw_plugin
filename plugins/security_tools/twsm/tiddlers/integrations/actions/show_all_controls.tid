@@ -1,8 +1,0 @@
-created: 20220224114217097
-list-after: $:/core/ui/ViewTemplate/body
-modified: 20220224114241018
-tags: 
-title: $:/plugins/security_tools/twsm/integrations/actions/show_all_controls
-type: text/vnd.tiddlywiki
-
-<$action-navigate $to="$:/plugins/security_tools/twsm/components/context/none/model_summary/Controls"/>

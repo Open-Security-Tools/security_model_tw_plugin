@@ -1,26 +1,39 @@
 created: 20220312215441379
-modified: 20220903230632396
+modified: 20220911161126366
 title: Welcome
 type: text/vnd.tiddlywiki
 
-This website is a [[tiddlywiki|https://tiddlywiki.com/]] to publish and provide some [[documentation|Documentation]] for the `twsm` plugin. 
+This website provides distributes and demonstrates the [[$:/plugins/security_tools/twsm]] plugin.
 
-See [[GitHub|https://github.com/Open-Security-Tools/security_model_tw_plugin]] for the code.
-The plugin is released under [[MIT license|$:/plugins/security_tools/twsm/license]].
+''TWSM'' is a [[TiddlyWiki|https://tiddlywiki.com/]] plugin providing //Security Modelling// functionality.
+
+The plugin is [[open source|https://github.com/Open-Security-Tools/security_model_tw_plugin]] published under the [[MIT License|$:/plugins/security_tools/twsm/license]].
+
+!! Installation
+
+To create your own security model start with an [[empty tiddlywiki|https://tiddlywiki.com]] and then drag'n'drop in the following dependent plugins:
+
+* [[$:/plugins/TheDiveO/FontAwesome]]
+* [[$:/plugins/flibbles/relink]]
+* [[$:/plugins/tobibeer/appear]]
+* [[$:/plugins/nico/projectify]]
+* [[$:/plugins/security_tools/twsm]]
+
+!! Upgrading
+
+If upgrading the security model then you only need to drag'n'drop in the latest version of [[$:/plugins/security_tools/twsm]]. 
 
 <$list filter="[title[$:/plugins/security_tools/twsm]get[version]]">
 <div class="versionblock">The latest TWSM plug version is <span class="versionnumber"><<currentTiddler>></span>
 </div>
 </$list>
 
-To create your own security model start with an [[empty wiki|https://tiddlywiki.com]] and then drag'n'drop in:
+!! Demo
 
-# Dependencies:
-#* [[$:/plugins/TheDiveO/FontAwesome]]
-#* [[$:/plugins/flibbles/relink]]
-#* [[$:/plugins/tobibeer/appear]]
-#* [[$:/plugins/nico/projectify]]
-# The security model plugin:
-#* [[$:/plugins/security_tools/twsm]]
+Here are some demonstration risks which provide a good starting point:
 
-If upgrading the security model then you only need to drag'n'drop in the later version of [[$:/plugins/security_tools/twsm]]. 
+<div class="py-todos">
+<$list filter="[all[]twsm_class[risk]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
+</$list>
+</div>
