@@ -1,8 +1,8 @@
 category: 
 created: 20220831213451024
 description: 
-list: [[Attack trees in wikitext]] [[Fix up references to risks to use new fields]] [[Decrecate old residual fields]] [[Migrate impact to score field (with name lookup)]] [[Deprecate old inherent fields]] [[Deprecate old likelihood field]] [[Add support for attack tree references]] [[Display a list of controls linked from risk in header]]
-modified: 20220909115720737
+list: [[edit risk description as part of rest of edit page]] [[Add external reference mechanism]] [[Migrate impact to score field (with name lookup)]] [[Add support for attack tree references]] [[Display a list of controls linked from risk in header]] [[Add 'controls' button to risk row]] [[Add 'risks' button to control row]] [[Add a debug command to set likelihood from old field]] [[Add button to migrate risk fields]] [[Add control edit failure mode button]] [[Add RAG icon to risk drop-down pills indicating residual risk]] [[Disable edit view access to Risk fields which are read only]] [[Relink should replace draft_attack_tree field]] [[Remove links to vulnerabilities]]
+modified: 20220911194858050
 tags: Project
 title: Backlog
 type: text/vnd.tiddlywiki
