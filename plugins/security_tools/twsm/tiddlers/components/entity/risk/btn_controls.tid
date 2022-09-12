@@ -18,7 +18,11 @@ type: text/vnd.tiddlywiki
 </$list>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
 <$list filter="[all[current]get[controls]enlist-input[]sort[]]">
-<$link><$view field=title/></$link>
+<$link>
+<$list filter="[all[current]is_idea[yes]]">
+<span style="color: red;"><i class="far fa-lightbulb"/></span>
+</$list>
+<$view field=title/></$link>
 </$list>
 </$reveal>
 </$vars>
