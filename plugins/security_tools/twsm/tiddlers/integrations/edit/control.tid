@@ -36,19 +36,6 @@ type: text/vnd.tiddlywiki
     </td>
   </tr>
 
-<tr class="tfc-plugin-info-element">
-    <td class="tfc-plugin-info-element-name">
-      Status:
-    </td>
-    <td class="tfc-plugin-edit-element-value">
-	<$select tiddler=<<currentTiddler>> field='twsm_control_status' >
-	<$list filter="[all[current]get[twsm_control_status]] [[Back of Napkin]] [[In Development]] [[Unverified]] [[Verified]]" variable=fv>
-<option><$action-setfield twsm_control_status/><<fv>></option>
-</$list>
-</$select>
-    </td>
-  </tr>
-
 
 </table>
 </div>

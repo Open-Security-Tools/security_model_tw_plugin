@@ -18,9 +18,9 @@ type: text/vnd.tiddlywiki
 " 
 variable="securityScoreMaxRisk"><$list filter="[all[current]get[risk_coverage_assessment]else[0]] +[divide[100]multiply[25]trunc[]]" variable="securityScoreRiskCoverage"><$list filter="[all[current]get[control_coverage_assessment]else[0]] +[divide[100]multiply[25]trunc[]]" variable="securityScoreControlCoverage"><$list filter="
 
-[all[current]tagging[]twsm_class[control]!twsm_control_status[Back of Napkin]]
+[all[current]tagging[]twsm_class[control]!is_idea[yes]]
 
-[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]!twsm_control_status[Back of Napkin]]
+[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]!is_idea[yes]]
 
 +[count[]]
 
@@ -33,9 +33,9 @@ variable="securityScoreAppliedControlCount"
 variable="_fixedAppliedControlCount"
 ><$list filter="
 
-[all[current]tagging[]twsm_class[control]twsm_control_status[Verified]]
+[all[current]tagging[]twsm_class[control]!is_idea[yes]]
 
-[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]twsm_control_status[Verified]]
+[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]!is_idea[yes]]
 
 +[count[]]
 

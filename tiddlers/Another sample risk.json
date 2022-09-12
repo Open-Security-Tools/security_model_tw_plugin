@@ -3,7 +3,7 @@
         "created": "20220831223951380",
         "text": "<$list filter=\"[all[current]twsm_risk_assessment:impactName[]]\">\n<<currentTiddler>>\n</$list>\n",
         "title": "Another sample risk",
-        "modified": "20220912200405745",
+        "modified": "20220912201354022",
         "tags": "[[A sample vulnerability]] [[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
