@@ -12,3 +12,6 @@ ol.alpha {
 list-style-type: lower-alpha;
 }
 
+textarea.edit-external-references {
+    width: 100%;
+}

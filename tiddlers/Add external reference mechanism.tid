@@ -1,7 +1,26 @@
 created: 20220911194845137
-due: 
-modified: 20220911194845138
+due: 20220912120000000
+modified: 20220912075357652
 priority: 
 tags: Backlog todo
 title: Add external reference mechanism
 type: text/vnd.tiddlywiki
+
+Mouse over ID pill displays 'external_references' field.
+
+https://security_model_node_hosting/tiddlywiki.html#:[filter]
+
+Example:
+
+* <a href="http://localhost:8081/#:[search:external_references[cabbage]]">Example Link</a>
+
+
+
+Todo:
+
+# State for storing base URI
+# Helper tiddler showing all external references
+# On hover for ID pill show external refernces
+# On click for ID pill show edit modal dialog for editing external references with URI list
+
+
