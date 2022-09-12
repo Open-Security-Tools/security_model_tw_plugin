@@ -1,7 +1,7 @@
 created: 20220312224008097
 external_references: fish cabbage JIRA-1234
-failure_likelihood: Highly Likely
-modified: 20220912085425296
+failure_likelihood: Realistic Possibility
+modified: 20220912124649239
 tags: 
 title: A preventative procedural control with bells
 twsm_characteristic_class: Procedural

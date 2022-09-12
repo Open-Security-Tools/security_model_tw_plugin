@@ -1,6 +1,6 @@
 created: 20220912092509805
 due: 20220912120000000
-modified: 20220912093420187
+modified: 20220912122201142
 priority: 
 tags: Backlog todo
 title: Remove control status field
@@ -14,6 +14,6 @@ Display of control uses <i class="far fa-lightbulb"/> to indicate it is an idea.
 
 While we are at it, let's use the characteristic classification as a prefix for the control title via the same rendering macro.
  
-
+To do this, we need control actions. 
 
 

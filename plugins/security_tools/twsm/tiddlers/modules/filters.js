@@ -170,7 +170,13 @@ exports.twsm_control_failure_likelihood = function(source, operator, options) {
         if (tiddler.fields) {
             var l = tiddler.fields.failure_likelihood || "";
             try {
-                result.push(likelihood_utils.phia2Likelihood(l).phia);
+                // If it is an idea, then default is null (1.0).
+                var probability = likelihood_utils.NULL_LIKELIHOOD;
+                if (tiddler.fields.is_idea !== "yes") {
+                    probability = likelihood_utils.phia2Likelihood(l);
+                }
+
+                result.push(probability.phia);
             } catch (objError) {
                 if (objError instanceof likelihood_utils.LikelihoodError) {
                     // Do nothing...
@@ -183,6 +189,49 @@ exports.twsm_control_failure_likelihood = function(source, operator, options) {
     return result; 
 }
 
+function get_control_actions(tiddler, title, options) {
+    if ((tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "control")) {
+        return [];
+    }
+
+    var result = [];
+    if (tiddler.fields.is_idea === "yes") {
+        result.push("clear_control_idea_status");
+    } else {
+        result.push("set_control_idea_status");
+    }
+    return result;
+}
+
+function actions_filter_all(source, options) {
+    var result = [];
+    source(function(tiddler, title) {
+        result.push(...get_control_actions(tiddler, title, options));
+    });
+    return result;
+}
+
+function actions_filter_control(source, options) {
+    var result = [];
+    source(function(tiddler, title) {
+        result.push(...get_control_actions(tiddler, title, options));
+    });
+    return result;
+}
+
+
+var contexts = {
+    "all": actions_filter_all,
+    "control": actions_filter_control,
+}
+
+
+exports.twsm_actions = function (source, operator, options) {
+    var suffixes = operator.suffixes || [],
+		context = (suffixes[0] || [])[0],
+        contextFn = contexts[context] || contexts.all
+    return contextFn(source, options);
+}
 
 
 })();
