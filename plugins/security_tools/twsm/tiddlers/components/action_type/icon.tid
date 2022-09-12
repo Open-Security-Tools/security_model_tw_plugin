@@ -1,0 +1,12 @@
+created: 20220729134606777
+modified: 20220729134653051
+tags: 
+title: $:/plugins/security_tools/twsm/components/action_type/icon
+type: text/vnd.tiddlywiki
+
+\define icon_style()
+color: $(colour)$;
+\end
+<$vars colour={{!!colour}}>
+<span style=<<icon_style>>>{{!!icon}}</span>
+</$vars>

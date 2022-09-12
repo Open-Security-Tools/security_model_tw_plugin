@@ -6,17 +6,27 @@ type: text/vnd.tiddlywiki
 
 <$vars popupTiddler=<<qualify "$:/state/twsm/control-failure-likelihood-dropdown">> >
 <$list filter="[all[current]twsm_control_failure_likelihood[]else[]]" variable=failureLikelihood>
+<$list filter="[all[current]is_idea[yes]]" variable=ignore>
+<$button
+	class="py-btn btn-small"
+	popup=<<popupTiddler>>
+	tooltip="Likelihood of control failure (clamped, because it is an idea!)"
+>
+<i class="fas fa-exclamation-triangle"/> Failure is <<failureLikelihood>> <span style="color: red;"><i class="far fa-lightbulb"/></span>
+</$button>
+</$list>
+<$list filter="[all[current]!is_idea[yes]]" variable=ignore>
 <$button
 	class="py-btn btn-small"
 	popup=<<popupTiddler>>
 	tooltip="Likelihood of control failure"
 >
-<i class="fas fa-exclamation-triangle"/> Failure: <<failureLikelihood>> <i class="fas fa-caret-down"/>
+<i class="fas fa-exclamation-triangle"/> Failure is <<failureLikelihood>> <i class="fas fa-caret-down"/>
 </$button>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
 <$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realistic Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]] -[title<failureLikelihood>]" variable=likelihood>
 <$button class="tc-btn-invisible">
-<i class="fas fa-edit"/> Change to '<<likelihood>>'
+<i class="fas fa-edit"/>Failure is <<likelihood>>
 <$action-setfield failure_likelihood=<<likelihood>>/>
 <$list filter="[all[current]listed[controls]]">
 <$action-updaterisk/>
@@ -24,5 +34,6 @@ type: text/vnd.tiddlywiki
 </$button>
 </$list>
 </$reveal>
+</$list>
 </$list>
 </$vars>
