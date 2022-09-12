@@ -4,6 +4,7 @@ tags:
 title: $:/plugins/security_tools/twsm/components/entity/risk/btn_controls
 type: text/vnd.tiddlywiki
 
+<$list filter="[all[current]get[controls]enlist-input[]first[]]" variable=ignore>
 <$vars popupTiddler=<<qualify "$:/state/twsm/controls-button-dropdown">> >
 <$list filter="[all[current]get[controls]enlist-input[]count[]]" variable=controlCount>
 <$button
@@ -26,3 +27,4 @@ type: text/vnd.tiddlywiki
 </$list>
 </$reveal>
 </$vars>
+</$list>

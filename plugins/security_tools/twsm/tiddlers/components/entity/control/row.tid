@@ -13,9 +13,9 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_id}}
 {{||$:/plugins/security_tools/twsm/components/entity/control/btn_failure_likelihood}}
 {{||$:/plugins/security_tools/twsm/components/entity/control/btn_risks}}
-{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_themes}}
 <span class="py-todo-actions">
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
 </span>
 </div>
 </div>

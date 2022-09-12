@@ -1,0 +1,8 @@
+action_name: Edit risk
+action_type: discretionary
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/edit_risk
+type: text/vnd.tiddlywiki
+
+<$action-setfield draft_attack_tree={{!!attack_tree}} draft_impact={{!!twsm_impact}} edit_attack_tree=yes/>

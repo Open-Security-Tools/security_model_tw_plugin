@@ -188,10 +188,26 @@ function get_control_actions(tiddler, title, options) {
     return result;
 }
 
+function get_risk_actions(tiddler, title, options) {
+    if ((tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "risk")) {
+        return [];
+    }
+
+    var result = [];
+    if (tiddler.fields.edit_attack_tree === "yes") {
+        result.push("commit_risk");
+        result.push("cancel_edit_risk");
+    } else {
+        result.push("edit_risk");
+    }
+    return result;
+}
+
 function actions_filter_all(source, options) {
     var result = [];
     source(function(tiddler, title) {
         result.push(...get_control_actions(tiddler, title, options));
+        result.push(...get_risk_actions(tiddler, title, options));
     });
     return result;
 }
@@ -205,9 +221,19 @@ function actions_filter_control(source, options) {
 }
 
 
+function actions_filter_risk(source, options) {
+    var result = [];
+    source(function(tiddler, title) {
+        result.push(...get_risk_actions(tiddler, title, options));
+    });
+    return result;
+}
+
+
 var contexts = {
     "all": actions_filter_all,
     "control": actions_filter_control,
+    "risk": actions_filter_risk,
 }
 
 
