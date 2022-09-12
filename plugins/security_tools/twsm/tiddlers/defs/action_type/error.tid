@@ -1,0 +1,10 @@
+action_type_name: Error
+action_type_severity: 2
+colour: red
+created: 20220729133346224
+icon: <i class="fas fa-exclamation-triangle"/>
+modified: 20220803073311667
+tags: 
+title: $:/plugins/security_tools/twsm/defs/action_type/error
+type: text/vnd.tiddlywiki
+

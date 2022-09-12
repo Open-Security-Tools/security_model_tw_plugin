@@ -156,6 +156,27 @@ function probability2Phia(probability) {
     return c;
 }
 
+function calculateControlFailureLikelihood(failureLikelihood, isIdea) {
+    failureLikelihood = failureLikelihood || "";
+    // If it is an idea, then default is null (1.0).
+    var probability = NULL_LIKELIHOOD;
+
+    try {
+        if (isIdea !== "yes") {
+            probability = phia2Likelihood(failureLikelihood);
+        }
+
+    } catch (objError) {
+        if (objError instanceof likelihood_utils.LikelihoodError) {
+            // Do nothing - leave clamped at 1.0.
+        } else {
+            throw(objError);
+        }
+    }
+    return probability.phia;
+}
+
+exports.calculateControlFailureLikelihood = calculateControlFailureLikelihood;
 exports.phia2Likelihood = phia2Likelihood;
 exports.Likelihood = Likelihood;
 exports.ComplexLikelihood = ComplexLikelihood;

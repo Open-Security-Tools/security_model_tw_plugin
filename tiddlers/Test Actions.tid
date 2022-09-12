@@ -1,0 +1,31 @@
+created: 20220912123226440
+modified: 20220912124206828
+tags: 
+title: Test Actions
+type: text/vnd.tiddlywiki
+
+Actions for [[A preventative procedural control with bells]]:
+
+<ul>
+<$list filter="[title[A preventative procedural control with bells]twsm_actions[]]">
+<li><<currentTiddler>></li>
+</$list>
+</ul>
+
+Failure likelihood:
+
+<ul>
+<$list filter="[title[A preventative procedural control with bells]twsm_control_failure_likelihood[]]">
+<li><<currentTiddler>></li>
+</$list>
+</ul>
+
+
+Actions for a vulnerability:
+
+<ul>
+<$list filter="[title[A sample vulnerability]twsm_actions[]]">
+<li><<currentTiddler>></li>
+</$list>
+</ul>
+

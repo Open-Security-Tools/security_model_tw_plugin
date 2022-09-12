@@ -1,0 +1,11 @@
+action_name: Mark control as in operation
+action_type: error
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/clear_control_idea_status
+type: text/vnd.tiddlywiki
+
+<$action-deletefield is_idea/>
+<$list filter="[all[current]listed[controls]]">
+<$action-updaterisk/>
+</$list>

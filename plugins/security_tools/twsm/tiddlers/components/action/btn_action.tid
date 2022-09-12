@@ -1,0 +1,30 @@
+created: 20220729133038974
+modified: 20220731222224803
+tags: 
+title: $:/plugins/security_tools/twsm/components/action/btn_action
+type: text/vnd.tiddlywiki
+
+\define tooltip()
+Resolve action '$(action)$'!
+\end
+\define unknown_action()
+<$button
+   class="tc-btn-invisible"
+	 tooltip=<<tooltip>>
+>
+<i class="fas fa-exclamation-triangle"/>
+Unknown Action: <<action>>
+</$button>
+\end
+<$list filter="[title<action>addprefix[$:/plugins/security_tools/twsm/components/entity/generic/actions/]has[title]]" variable=action_tiddler emptyMessage=<<unknown_action>>>
+<$button
+   class="tc-btn-invisible"
+	 tooltip=<<tooltip>>
+>
+<$list filter="[title<action_tiddler>get[action_type]addprefix[$:/plugins/security_tools/twsm/defs/action_type/]has[title]]">
+{{||$:/plugins/security_tools/twsm/components/action_type/icon}}
+</$list>
+<$transclude tiddler=<<action_tiddler>>/>
+<$transclude tiddler=<<action_tiddler>> field=action_name/>
+</$button>
+</$list>
