@@ -1,0 +1,22 @@
+caption: External References
+created: 20211113212016075
+modified: 20211113213100775
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/none/settings_tabs/external_references
+type: text/vnd.tiddlywiki
+
+FQDN Base: <$edit-text tiddler="$:/config/twsm/settings" field=fqdn_base/>
+
+Index:
+
+<ul>
+<$list filter="[all[]get[external_references]uppercase[]split[ ]unique[]sort[]]" variable=externalReference>
+<li><<externalReference>>
+<ul>
+<$list filter="[all[]search:external_references<externalReference>]">
+<li><$link><$view field=title/></$link></li>
+</$list>
+</ul>
+</li>
+</$list>
+</ul>

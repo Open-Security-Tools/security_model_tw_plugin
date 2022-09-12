@@ -1,6 +1,6 @@
 created: 20220911194845137
 due: 20220912120000000
-modified: 20220912065356424
+modified: 20220912075357652
 priority: 
 tags: Backlog todo
 title: Add external reference mechanism
@@ -12,13 +12,9 @@ https://security_model_node_hosting/tiddlywiki.html#:[filter]
 
 Example:
 
-* http://localhost:8081/#:[search:external_references[cabbage]]
+* <a href="http://localhost:8081/#:[search:external_references[cabbage]]">Example Link</a>
 
-<ul>
-<$list filter="[all[]get[external_references]lowercase[]split[ ]unique[]sort[]]">
-<li><<currentTiddler>></li>
-</$list>
-</ul>
+
 
 Todo:
 

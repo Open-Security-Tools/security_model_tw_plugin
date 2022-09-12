@@ -4,9 +4,13 @@ tags:
 title: $:/plugins/security_tools/twsm/components/entity/generic/btn_id
 type: text/vnd.tiddlywiki
 
+<$list filter="[all[current]get[external_references]uppercase[]addprefix[External References: ]else[No external references!]]" variable=tooltip>
 <$button
 	class="py-btn btn-small"
-	tooltip="Unique security model id"
+	tooltip=<<tooltip>>
 >
 <i class="fas fa-hashtag"/> <$view field=twsm_id/>
+<$action-setfield $tiddler="$:/state/twsm/edit_external_references" target_tiddler=<<currentTiddler>>/>
+<$action-sendmessage $message="tm-modal" $param="$:/plugins/security_tools/twsm/components/context/entity/generic/edit_external_references"/>
 </$button>
+</$list>
