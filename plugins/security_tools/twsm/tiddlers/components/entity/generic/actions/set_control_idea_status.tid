@@ -1,0 +1,11 @@
+action_name: Mark control as an idea!
+action_type: discretionary
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/set_control_idea_status
+type: text/vnd.tiddlywiki
+
+<$action-setfield is_idea=yes/>
+<$list filter="[all[current]listed[controls]]">
+<$action-updaterisk/>
+</$list>

@@ -12,7 +12,7 @@ type: text/vnd.tiddlywiki
 	popup=<<popupTiddler>>
 	tooltip="Likelihood of control failure (clamped, because it is an idea!)"
 >
-<i class="fas fa-exclamation-triangle"/> Failure is <<failureLikelihood>> <i class="far fa-lightbulb"/>
+<i class="fas fa-exclamation-triangle"/> Failure is <<failureLikelihood>> <span style="color: red;"><i class="far fa-lightbulb"/></span>
 </$button>
 </$list>
 <$list filter="[all[current]!is_idea[yes]]" variable=ignore>

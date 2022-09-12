@@ -168,23 +168,8 @@ exports.twsm_control_failure_likelihood = function(source, operator, options) {
     var result = [];
     source (function(tiddler, title) {
         if (tiddler.fields) {
-            var l = tiddler.fields.failure_likelihood || "";
-            try {
-                // If it is an idea, then default is null (1.0).
-                var probability = likelihood_utils.NULL_LIKELIHOOD;
-                if (tiddler.fields.is_idea !== "yes") {
-                    probability = likelihood_utils.phia2Likelihood(l);
-                }
-
-                result.push(probability.phia);
-            } catch (objError) {
-                if (objError instanceof likelihood_utils.LikelihoodError) {
-                    // Do nothing...
-                } else {
-                    throw(objError);
-                }
-            }
-            }
+            result.push(likelihood_utils.calculateControlFailureLikelihood(tiddler.fields.failure_likelihood, tiddler.fields.is_idea));
+        }
     });
     return result; 
 }

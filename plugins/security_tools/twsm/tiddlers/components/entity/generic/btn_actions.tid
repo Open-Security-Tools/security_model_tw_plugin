@@ -1,0 +1,42 @@
+created: 20220831222252830
+modified: 20220831222610100
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/generic/btn_actions
+type: text/vnd.tiddlywiki
+
+\define _action_button()
+<$button
+  class="py-btn btn-small"
+	style="border-color: $(severity_colour)$;"
+	popup=<<popupTiddler>>
+>
+<$tiddler tiddler=<<severity_type>>>
+{{||$:/plugins/security_tools/twsm/components/action_type/icon}}
+</$tiddler>
+<i class="fas fa-caret-down"/>
+</$button>
+\end
+\define entity_action_button()
+<$list filter="[all[current]twsm_actions:$(context)$[]first[]]" variable=ignore>
+<$vars popupTiddler=<<qualify "$:/state/twsm/entity-action-button">>>
+<$list filter="[all[current]twsm_actions:$(context)$[]addprefix[$:/plugins/security_tools/twsm/components/entity/generic/actions/]get[action_type]else[error]addprefix[$:/plugins/security_tools/twsm/defs/action_type/]has[action_type_severity]unique[]!nsort[action_type_severity]first[]]" variable=severity_type>
+<$list filter="[title<severity_type>get[colour]]" variable="severity_colour">
+<<_action_button>>
+</$list>
+</$list>
+<$reveal
+  state=<<popupTiddler>>
+	type="popup"
+	position="belowleft"
+	animate="yes"
+	class="tc-drop-down py-drop-down py-todo-actions-drop-down">
+<$list filter="[all[current]twsm_actions:$(context)$[]sort[]]" variable=action>
+<div class="tc-menu-list-item">
+{{||$:/plugins/security_tools/twsm/components/action/btn_action}}
+</div>
+</$list>
+</$reveal>
+</$vars>
+</$list>
+\end
+<<entity_action_button>>

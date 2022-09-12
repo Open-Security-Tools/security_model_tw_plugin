@@ -290,9 +290,8 @@ function is_control(controlTitle) {
 }
 
 function get_control_failure_likelihood(controlTitle) {
-    return $tw.wiki.filterTiddlers(
-        "[title[" + controlTitle + "]get[failure_likelihood]else[Almost Certain]]"
-    )[0];
+    var tiddler = $tw.wiki.getTiddler(controlTitle);
+    return likelihood_utils.calculateControlFailureLikelihood(tiddler.fields.failure_likelihood, tiddler.fields.is_idea);
 }
 
 
