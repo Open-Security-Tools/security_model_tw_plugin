@@ -167,7 +167,7 @@ function calculateControlFailureLikelihood(failureLikelihood, isIdea) {
         }
 
     } catch (objError) {
-        if (objError instanceof likelihood_utils.LikelihoodError) {
+        if (objError instanceof LikelihoodError) {
             // Do nothing - leave clamped at 1.0.
         } else {
             throw(objError);
