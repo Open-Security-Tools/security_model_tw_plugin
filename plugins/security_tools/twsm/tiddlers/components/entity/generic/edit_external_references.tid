@@ -1,0 +1,49 @@
+caption: Model
+created: 20211113212941667
+modified: 20211114195923750
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/entity/generic/edit_external_references
+subtitle: Edit External References
+type: text/vnd.tiddlywiki
+
+\define searchPrefix()
+#:[search:external_references[
+\end
+
+\define twsmidPrefix()
+#:[twsmid[
+\end
+
+\define searchSuffix()
+]]
+\end
+
+<$set tiddler="$:/state/twsm/edit_external_references" field=target_tiddler name=targetTiddler>
+
+You can add any keywords which can be used in external URI references to link to <b><$view tiddler=<<targetTiddler>> field=title/></b>:
+
+<$edit-text class=edit-external-references tag=textarea tiddler=<<targetTiddler>> field=external_references/>
+
+<$list filter="[title[$:/config/twsm/settings]get[fqdn_base]]" variable=fqdnBase>
+
+You can use these links for external references:
+
+<ul>
+<$list filter="[title<targetTiddler>get[twsm_id]]" variable=twsmId>
+<$list filter="[title<twsmId>lowercase[]addprefix<twsmidPrefix>addprefix<fqdnBase>addsuffix<searchSuffix>]" variable=renderedUri>
+<li>
+Unique entity identifier: <a href=<<renderedUri>>>#<<twsmId>></a>
+</li>
+</$list>
+</$list>
+<$list filter="[title<targetTiddler>get[external_references]uppercase[]split[ ]unique[]sort[]]" variable=externalReference>
+<$list filter="[title<externalReference>lowercase[]addprefix<searchPrefix>addprefix<fqdnBase>addsuffix<searchSuffix>]" variable=renderedUri>
+<li>
+<a href=<<renderedUri>>><<externalReference>></a>
+</li>
+</$list>
+</$list>
+</ul>
+
+</$list>
+</$set>
