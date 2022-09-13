@@ -5,5 +5,12 @@ tags:
 title: $:/plugins/security_tools/twsm/components/entity/theme/header
 type: text/vnd.tiddlywiki
 
-<<calculateSecurityScore "$:/plugins/security_tools/twsm/components/entity/theme/header/_render">>
+{{||$:/plugins/security_tools/twsm/components/entity/theme/toolbar}}
 
+<$list filter="[all[current]twsm_security_score[]]" variable=score>
+Score = <<score>>
+</$list>
+
+{{||$:/plugins/security_tools/twsm/components/entity/theme/risks}}
+
+{{||$:/plugins/security_tools/twsm/components/entity/theme/controls}}

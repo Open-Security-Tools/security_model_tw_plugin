@@ -16,6 +16,14 @@ function twListify(l) {
     return p.join(" ");
 }
 
+function daysSince(value) {
+    var today = (new Date()).setHours(0, 0, 0, 0);
+    var reviewed = (new Date(($tw.utils.parseDate(value)))).setHours(0, 0, 0, 0);
+    return Math.round((today - reviewed) / (1000*60*60*24));
+}
+
+
 exports.twListify = twListify;
+exports.daysSince = daysSince;
 
 })();

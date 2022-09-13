@@ -1,0 +1,15 @@
+caption: All Risks
+created: 20211110125402059
+modified: 20211116101349878
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/theme/risks
+type: text/vnd.tiddlywiki
+
+
+!! Risks
+
+<div class="py-todos">
+<$list filter="[all[current]tagging[]twsm_class[risk]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
+</$list>
+</div>

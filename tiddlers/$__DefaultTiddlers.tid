@@ -1,9 +1,7 @@
 created: 20201130170713469
-modified: 20220913133632445
+modified: 20220913141937643
 title: $:/DefaultTiddlers
 type: text/vnd.tiddlywiki
 
 [[A sample theme]]
-[[A sample attack]]
-[[Add support for attack tree references]]
-[[Development Links]]
+[[An empty theme]]

@@ -213,12 +213,23 @@ function get_risk_actions(tiddler, title, options) {
     return result;
 }
 
+function get_theme_actions(tiddler, title, options) {
+    if ((tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "theme")) {
+        return [];
+    }
+
+    var result = [];
+    result.push("edit_theme_risk_coverage");
+    return result;
+}
+
 function actions_filter_all(source, options) {
     var result = [];
     source(function(tiddler, title) {
         result.push(...get_control_actions(tiddler, title, options));
         result.push(...get_risk_actions(tiddler, title, options));
         result.push(...get_generic_actions(tiddler, title, options));
+        result.push(...get_theme_actions(tiddler, title, options));
     });
     return result;
 }
@@ -248,12 +259,21 @@ function actions_filter_generic(source, options) {
     return result;
 }
 
+function actions_filter_theme(source, options) {
+    var result = [];
+    source(function(tiddler, title) {
+        result.push(...get_theme_actions(tiddler, title, options));
+    });
+    return result;
+}
+
 
 var contexts = {
     "all": actions_filter_all,
     "control": actions_filter_control,
     "risk": actions_filter_risk,
     "generic": actions_filter_generic,
+    "theme": actions_filter_theme,
 }
 
 
@@ -262,6 +282,143 @@ exports.twsm_actions = function (source, operator, options) {
 		context = (suffixes[0] || [])[0],
         contextFn = contexts[context] || contexts.all
     return contextFn(source, options);
+}
+
+function calculate_security_score(tiddler, title) {
+    if (!tiddler.fields || (tiddler.fields.twsm_class !== "theme")) {
+        return;
+    }
+
+    // Maximum risk score
+    // Maximum risk class
+    // Maximum risk name
+    // Risk coverage score
+    // Risk coverage assessment date
+    // Control coverage score
+    // Control coverage assessment date
+
+    var riskCount = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]count[]]")[0];
+    var maxRiskScore = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]maxall[]]")[0];
+    if (maxRiskScore == -Infinity) {
+        maxRiskScore = 0;
+    }
+    var risk = 1 - (maxRiskScore / 10.0);
+
+    var controlCount = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]count[]]")[0];
+
+    // Balancing data...
+    const assessmentLimit = 90;
+    const maxRiskWeighting = 1
+    const riskCoverageWeighting = 1
+    const controlCoverageWeighting = 1
+    const powerRollOff = 5
+
+    // Risk coverage assessment gets aged
+    var originalRiskCoverage = (tiddler.fields.risk_coverage_assessment || 0) / 100;
+    var daysSinceRiskCoverage = utils.daysSince(tiddler.fields.risk_coverage_checked);
+    var riskCoverageDecay = 1 - Math.pow(Math.min((daysSinceRiskCoverage / assessmentLimit), 1), powerRollOff);
+    var riskCoverage = originalRiskCoverage * riskCoverageDecay;
+
+    // Control coverage assessment gets aged
+    var originalControlCoverage = (tiddler.fields.control_coverage_assessment || 0) / 100;
+    var daysSinceControlCoverage = utils.daysSince(tiddler.fields.control_coverage_checked);
+    var controlCoverageDecay = 1 - Math.pow(Math.min((daysSinceControlCoverage / assessmentLimit), 1), powerRollOff);
+    var controlCoverage = originalControlCoverage * controlCoverageDecay;
+
+    var score = ((risk * maxRiskWeighting) + (riskCoverage * riskCoverageWeighting) + (controlCoverage * controlCoverageWeighting)) / (maxRiskWeighting + riskCoverageWeighting + controlCoverageWeighting);
+
+    // Inputs:
+    // 
+    // 1. Risks associated with this theme
+    // 2. Assessment of risk coverage
+    // 3. Assessment of control coverage
+
+
+    // 
+
+    // 25 points for risk coverage
+    // 25 points for control coverage
+    // 25 points for low average risk
+    // 25 points for low peak risk
+    // Find risks associated with theme.
+
+
+
+    return {
+        risk_count: riskCount,
+        max_risk_score: Number(maxRiskScore).toFixed(1),
+        max_risk_name: risk_utils.score2Name(maxRiskScore),
+        max_risk_class: risk_utils.score2Class(maxRiskScore),
+        control_count: controlCount,
+        risk_coverage_original: (originalRiskCoverage * 100).toFixed(),
+        risk_coverage_age: daysSinceRiskCoverage,
+        risk_coverage_age_penalty: ((1 - riskCoverageDecay) * 100).toFixed(),
+        risk_coverage: (riskCoverage * 100).toFixed(),
+        control_coverage_original: (originalControlCoverage * 100).toFixed(),
+        control_coverage_age: daysSinceControlCoverage,
+        control_coverage_penalty: ((1 - controlCoverageDecay) * 100).toFixed(),
+        control_coverage: (controlCoverage * 100).toFixed(),
+        score: (score * 100).toFixed(),
+    }
+}
+
+/**
+ * <$list filter="
+
+[all[current]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]]
+
+[all[current]tagging[]twsm_class[control]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]]
+
++[maxall[]!compare:number:eq[-Infinity]else[10]divide[10]negate[]add[1]multiply[25]trunc[]]
+
+" 
+variable="securityScoreMaxRisk"><$list filter="[all[current]get[risk_coverage_assessment]else[0]] +[divide[100]multiply[25]trunc[]]" variable="securityScoreRiskCoverage"><$list filter="[all[current]get[control_coverage_assessment]else[0]] +[divide[100]multiply[25]trunc[]]" variable="securityScoreControlCoverage"><$list filter="
+
+[all[current]tagging[]twsm_class[control]!is_idea[yes]]
+
+[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]!is_idea[yes]]
+
++[count[]]
+
+"
+variable="securityScoreAppliedControlCount"
+><$list filter="
+0
++[add<securityScoreAppliedControlCount>compare:number:gt[0]else[1]]
+"
+variable="_fixedAppliedControlCount"
+><$list filter="
+
+[all[current]tagging[]twsm_class[control]!is_idea[yes]]
+
+[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]!is_idea[yes]]
+
++[count[]]
+
+"
+variable="securityScoreVerifiedControlCount"
+><$list filter="
+0
++[add<securityScoreVerifiedControlCount>divide<_fixedAppliedControlCount>multiply[25]trunc[]]
+"
+variable="securityScoreVerifiedControls"
+><$list filter="
+0 +[add<securityScoreMaxRisk>add<securityScoreVerifiedControls>add<securityScoreRiskCoverage>add<securityScoreControlCoverage>]
+" 
+variable="securityScore"><$transclude tiddler="$template$"/></$list></$list></$list></$list></$list></$list></$list></$list>
+ */
+
+
+
+exports.twsm_security_score = function (source, operator, options) {
+    var result = [];
+    source(function(tiddler, title) {
+        var score = calculate_security_score(tiddler, title);
+        if (score !== undefined) {
+            result.push(JSON.stringify(score));
+        }
+    });
+    return result;
 }
 
 
