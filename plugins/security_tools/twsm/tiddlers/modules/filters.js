@@ -167,7 +167,7 @@ exports.twsm_is_non_trivial = function(source, operator, options) {
 exports.twsm_control_failure_likelihood = function(source, operator, options) {
     var result = [];
     source (function(tiddler, title) {
-        if (tiddler.fields) {
+        if (tiddler && tiddler.fields !== undefined) {
             var l = likelihood_utils.calculateControlFailureLikelihood(tiddler.fields.failure_likelihood, tiddler.fields.is_idea);
             if (l !== undefined) {
                 result.push(l);
