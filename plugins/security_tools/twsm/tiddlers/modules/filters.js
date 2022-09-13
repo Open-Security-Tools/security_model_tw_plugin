@@ -188,7 +188,7 @@ function get_generic_actions(tiddler, title, options) {
 }
 
 function get_control_actions(tiddler, title, options) {
-    if ((tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "control")) {
+    if ((tiddler === undefined) || (tiddler.fields === undefined) || (tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "control")) {
         return [];
     }
 
