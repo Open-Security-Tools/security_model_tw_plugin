@@ -1,0 +1,12 @@
+class_name: Attack
+class_name_plural: Attacks
+created: 20210717223608768
+family: fas
+glyph: fa-biohazard
+modified: 20220216085716124
+prefix: 
+tags: 
+title: $:/plugins/security_tools/twsm/defs/twsm_class/attack
+twsm_hue: 301
+type: text/vnd.tiddlywiki
+
