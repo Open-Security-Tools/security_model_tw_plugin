@@ -61,9 +61,11 @@ class RiskAssessment {
         this.untreatedRisk = (this.impact * this.untreatedLikelihood.upper * 2);
         this.treatedRisk = (this.impact * this.treatedLikelihood.upper * 2);
         this.treatedRiskForCalculations = this.treatedRisk;
-        if (this.treatedRiskForCalculations == 0.0) {
-            this.treatedRiskForCalculations = 10.0;
-        }
+
+        // If a risk is undefined, then leave it alone.
+        // if (this.treatedRiskForCalculations == 0.0) {
+        //     this.treatedRiskForCalculations = 10.0;
+        // }
 
         this.treatedClass = score2Class(this.treatedRisk);
         this.treatedName = score2Name(this.treatedRisk);
