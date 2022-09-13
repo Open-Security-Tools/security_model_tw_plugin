@@ -6,5 +6,9 @@ tags:
 title: $:/plugins/security_tools/twsm/components/context/none/themes_overview
 type: text/vnd.tiddlywiki
 
-<div class="subsystem_pillboxes"><$list filter="[twsm_class[theme]]"><<calculateSecurityScore "$:/plugins/security_tools/twsm/components/context/none/pillboxes_of_subsystems/pillbox">></$list>
+<div class="py-todos">
+<$list filter="[twsm_class[theme]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/theme/row}}
+</$list>
 </div>
+

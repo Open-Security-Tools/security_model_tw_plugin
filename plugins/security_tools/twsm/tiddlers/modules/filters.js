@@ -354,6 +354,8 @@ function calculate_security_score(tiddler, title) {
     return {
         risk_count: riskCount,
         max_risk_score: Number(maxRiskScore).toFixed(1),
+        max_risk_class: risk_utils.score2Class(maxRiskScore, false),
+        max_risk_name: risk_utils.score2Name(maxRiskScore, false),
         control_count: controlCount,
         risk_coverage_original: (originalRiskCoverage * 100).toFixed(),
         risk_coverage_age: daysSinceRiskCoverage,
