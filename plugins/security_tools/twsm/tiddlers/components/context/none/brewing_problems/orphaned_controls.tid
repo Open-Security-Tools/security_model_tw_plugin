@@ -19,7 +19,6 @@ type: text/vnd.tiddlywiki
 <th class="control_description">Control Description</th>
 <th class="control_temporal">Temporal Classification</th>
 <th class="control_characteristic">Characteristic Classification</th>
-<th class="control_status">Status</th>
 </tr>
 <$list filter="[twsm_class[control]] -[twsm_class[vulnerability]tags[twsm_class[control]] +[sort[]]" emptyMessage="<tr><td style='text-align:center' colspan='5'>No controls!</td></tr>">
 <tr>
@@ -29,7 +28,6 @@ type: text/vnd.tiddlywiki
 </td>
 <td class="control_temporal">{{!!twsm_temporal_class}}</td>
 <td class="control_characteristic">{{!!twsm_characteristic_class}}</td>
-<td class="control_status">{{!!twsm_control_status}}</td>
 </tr>
 </$list>
 </table>

@@ -14,9 +14,5 @@ Characteristic
 Temporal
 <span>{{!!twsm_temporal_class}}</span>
 </div>
-<div class="score">
-Status
-<span>{{!!twsm_control_status}}</span>
-</div>
 </div>
 </div>

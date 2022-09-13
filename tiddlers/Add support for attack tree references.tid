@@ -1,7 +1,18 @@
 created: 20220908204219412
-due: 
-modified: 20220908204219413
+due: 20220912120000000
+modified: 20220912211827169
 priority: 
 tags: Backlog todo
 title: Add support for attack tree references
 type: text/vnd.tiddlywiki
+
+New `twsm_class` 'Attack'.
+
+Same as risk, but derives probability.
+
+Updates become more complicated:
+
+* Find all risks and attack trees which contain sub_tree references.
+* How to find dependency graph?
+** Javascript filter, use sub_tree references to generate a graph, maintain list to detect circular references.
+

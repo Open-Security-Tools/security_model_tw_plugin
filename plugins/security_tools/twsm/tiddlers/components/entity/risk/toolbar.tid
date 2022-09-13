@@ -8,12 +8,5 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_id}}
 {{||$:/plugins/security_tools/twsm/components/entity/risk/btn_controls}}
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_themes}}
-<$list filter="[all[current]!edit_attack_tree[yes]]" variable=ignore>
-{{||$:/plugins/security_tools/twsm/components/context/risk/btn_edit}}
-</$list>
-<$list filter="[all[current]edit_attack_tree[yes]]" variable=ignore>
-{{||$:/plugins/security_tools/twsm/components/context/risk/btn_cancel_edit}}
-{{||$:/plugins/security_tools/twsm/components/context/risk/btn_revert_edit}}
-{{||$:/plugins/security_tools/twsm/components/context/risk/btn_commit_edit}}
-</$list>
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
 </div>
