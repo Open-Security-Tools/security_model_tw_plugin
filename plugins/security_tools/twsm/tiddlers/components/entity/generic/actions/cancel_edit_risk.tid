@@ -1,0 +1,8 @@
+action_name: Cancel edit risk
+action_type: error
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/cancel_edit_risk
+type: text/vnd.tiddlywiki
+
+<$action-deletefield edit_attack_tree/>

@@ -15,6 +15,10 @@ $title$
 \end
 
 \define attack_tree_control_reference(control)
-<$link to="$control$"><$view tiddler="$control$" field=title/> (#<$view tiddler="$control$" field=twsm_id/>)</$link>
+<$link to="$control$">
+<$list filter="[title[$control$]is_idea[yes]]">
+<span style="color: red"><i class="far fa-lightbulb"/></span>
+</$list>
+<$view tiddler="$control$" field=title/> (#<$view tiddler="$control$" field=twsm_id/>)</$link>
 \end
 

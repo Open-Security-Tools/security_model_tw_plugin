@@ -1,16 +1,13 @@
-created: 20210719223437656
-modified: 20211113161328872
-tags: 
-title: $:/plugins/security_tools/twsm/components/context/risk/btn_commit_edit
+action_name: Commit risk
+action_type: error
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/commit_risk
 type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]get[draft_attack_tree]twsm_render_attack<draftImpact>]" variable=complex>
 <$set name=draftAttackTree tiddler=<<currentTiddler>> field=draft_attack_tree>
 <$set name=draftImpact tiddler=<<currentTiddler>> field=draft_impact>
-<$button
-     class="py-btn btn-small"
->
-<i class="fas fa-edit"/> Commit
 <$action-setfield
      twsm_impact=<<draftImpact>>
      attack_tree=<<draftAttackTree>>
@@ -19,7 +16,6 @@ type: text/vnd.tiddlywiki
 <$action-deletefield draft_attack_tree/>
 <$action-deletefield draft_impact/>
 <$action-updaterisk/>
-</$button>
 </$set>
 </$set>
 </$list>
