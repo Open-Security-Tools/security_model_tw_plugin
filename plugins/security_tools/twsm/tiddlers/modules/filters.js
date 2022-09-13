@@ -178,7 +178,7 @@ exports.twsm_control_failure_likelihood = function(source, operator, options) {
 }
 
 function get_generic_actions(tiddler, title, options) {
-    if (tiddler.fields.twsm_class === undefined) {
+    if ((tiddler === undefined) || (tiddler.fields.twsm_class === undefined)) {
         return [];
     }
 
@@ -202,7 +202,7 @@ function get_control_actions(tiddler, title, options) {
 }
 
 function get_risk_actions(tiddler, title, options) {
-    if ((tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "risk")) {
+    if ((tiddler === undefined) || (tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "risk")) {
         return [];
     }
 
@@ -217,7 +217,7 @@ function get_risk_actions(tiddler, title, options) {
 }
 
 function get_theme_actions(tiddler, title, options) {
-    if ((tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "theme")) {
+    if ((tiddler === undefined) || (tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "theme")) {
         return [];
     }
 
