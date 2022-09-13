@@ -1,12 +1,11 @@
 created: 20220312224008097
 external_references: fish cabbage JIRA-1234
 failure_likelihood: Likely
-modified: 20220913165640772
+modified: 20220913204530169
 tags: 
 title: A preventative procedural control with bells
 twsm_characteristic_class: Procedural
 twsm_class: control
-twsm_control_status: Unverified
 twsm_id: 1002
 twsm_temporal_class: Preventative
 type: text/vnd.tiddlywiki

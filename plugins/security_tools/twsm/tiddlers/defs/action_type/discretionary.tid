@@ -1,6 +1,6 @@
 action_type_name: Discretionary
 action_type_severity: 0
-colour: green
+colour: grey
 created: 20220729133938882
 icon: <i class="fas fa-edit"/>
 modified: 20220729143225865

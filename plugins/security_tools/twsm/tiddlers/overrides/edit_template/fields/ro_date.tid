@@ -1,0 +1,7 @@
+created: 20220721204857448
+modified: 20220721204905728
+tags: 
+title: $:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_date
+type: text/vnd.tiddlywiki
+
+<$view field=<<currentField>> format="date" template="DD MMM YYYY"/>

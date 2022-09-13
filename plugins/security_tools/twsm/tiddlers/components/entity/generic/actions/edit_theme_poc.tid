@@ -1,0 +1,11 @@
+action_name: Set theme point of contact
+action_type: discretionary
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/edit_theme_poc
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]!has[theme_poc]]">
+<$action-setfield theme_poc=""/>
+</$list>
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<currentTiddler>>/>

@@ -14,6 +14,7 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/components/entity/theme/btn_max_risk}}
 {{||$:/plugins/security_tools/twsm/components/entity/theme/btn_risks}}
 {{||$:/plugins/security_tools/twsm/components/entity/theme/btn_controls}}
+{{||$:/plugins/security_tools/twsm/components/entity/theme/btn_poc}}
 
 <span class="py-todo-actions">
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
