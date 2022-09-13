@@ -1,6 +1,6 @@
 created: 20220908204219412
 due: 20220912120000000
-modified: 20220912211827169
+modified: 20220913111453633
 priority: 
 tags: Backlog todo
 title: Add support for attack tree references
@@ -15,4 +15,4 @@ Updates become more complicated:
 * Find all risks and attack trees which contain sub_tree references.
 * How to find dependency graph?
 ** Javascript filter, use sub_tree references to generate a graph, maintain list to detect circular references.
-
+* [[$:/plugins/security_tools/twsm/defs/twsm_class/attack]]

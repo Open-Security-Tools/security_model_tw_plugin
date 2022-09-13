@@ -1,0 +1,10 @@
+action_name: Edit theme risk coverage
+action_type: discretionary
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/edit_theme_risk_coverage
+type: text/vnd.tiddlywiki
+
+<$action-setfield $tiddler="$:/state/twsm/edit_risk_coverage" target_tiddler=<<currentTiddler>>/>
+<$action-setfield $tiddler="$:/state/twsm/edit_risk_coverage" risk_coverage_assessment={{!!risk_coverage_assessment}}/>
+<$action-sendmessage $message="tm-modal" $param="$:/plugins/security_tools/twsm/components/context/entity/theme/edit_risk_coverage"/>

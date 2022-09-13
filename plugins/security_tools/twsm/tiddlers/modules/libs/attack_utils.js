@@ -14,6 +14,7 @@ module-type: library
 var likelihood_utils = require("$:/plugins/security_tools/twsm/likelihood_utils.js");
 var impact_utils = require("$:/plugins/security_tools/twsm/impact_utils.js")
 var risk_utils = require("$:/plugins/security_tools/twsm/risk_utils.js")
+var utils = require("$:/plugins/security_tools/twsm/utils.js")
 var shlex = require("$:/plugins/security_tools/twsm/shlex.js")
 
 function indentToBullet(indent) {
@@ -203,11 +204,11 @@ class OrBranch extends Branch {
         var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
 
         var l = [];
-        l.push(risk_utils.generateRiskMetric(risk_utils.score2Class(residual), "Treated Risk", residual.toFixed(1), risk_utils.score2Name(residual), ""));
-        l.push(risk_utils.generateRiskMetric(risk_utils.score2Class(inherent), "Untreated Risk", inherent.toFixed(1), risk_utils.score2Name(inherent), ""));
-        l.push(risk_utils.generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
+        l.push(utils.generateRiskMetric(risk_utils.score2Class(residual), "Treated Risk", residual.toFixed(1), risk_utils.score2Name(residual), ""));
+        l.push(utils.generateRiskMetric(risk_utils.score2Class(inherent), "Untreated Risk", inherent.toFixed(1), risk_utils.score2Name(inherent), ""));
+        l.push(utils.generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
 
-        l.push(risk_utils.generateRiskMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
+        l.push(utils.generateRiskMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
         // l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
         return {
             rendered_summary: l.join(""),

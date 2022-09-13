@@ -6,4 +6,4 @@ type: text/vnd.tiddlywiki
 
 These settings let you customise the behaviour of this [[security model|$:/plugins/security_tools/twsm]].
 
-<<tabs "[all[tiddlers+shadows]prefix[$:/plugins/security_tools/twsm/components/context/none/settings_tabs/]]" "$:/plugins/security_tools/twsm/components/context/none/settings_tabs/model" "$:/state/twsm_settings_tab">>
+<<tabs "[all[tiddlers+shadows]prefix[$:/plugins/security_tools/twsm/components/context/none/settings_tabs/]]" "$:/plugins/security_tools/twsm/components/context/none/settings_tabs/stats" "$:/state/twsm_settings_tab">>

@@ -1,0 +1,22 @@
+created: 20220831222725264
+modified: 20220831223354605
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/theme/btn_max_risk
+type: text/vnd.tiddlywiki
+
+\define button()
+<$button
+	class="residual_risk_button py-btn btn-small $(class)$"
+	tooltip="Residual risk"
+>
+$(name)$
+</$button>
+\end
+<$list filter="[all[current]twsm_security_score[]]" variable=result>
+<$list filter="[title<result>twsm_attack_tree_result:max_risk_name[]]" variable=name>
+<$list filter="[title<result>twsm_attack_tree_result:max_risk_class[]]" variable=class>
+<<button>>
+</$list>
+</$list>
+</$list>
+

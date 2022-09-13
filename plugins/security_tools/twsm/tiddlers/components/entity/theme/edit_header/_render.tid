@@ -1,0 +1,16 @@
+caption: All Risks
+created: 20211116110840535
+modified: 20211116131933978
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/theme/edit_header/_render
+type: text/vnd.tiddlywiki
+
+<div class="subsystem_pillboxes">
+{{||$:/plugins/security_tools/twsm/components/context/none/pillboxes_of_subsystems/pillbox}}
+</div>
+
+* Points for maximum risk = <<securityScoreMaxRisk>> (out of 25)
+* Points for risk coverage = <<securityScoreRiskCoverage>> (out of 25)
+* Points for percentage applied controls verified = <<securityScoreVerifiedControls>> (out of 25)
+* Points for control coverage = <<securityScoreControlCoverage>> (out of 25)
+
