@@ -174,6 +174,16 @@ exports.twsm_control_failure_likelihood = function(source, operator, options) {
     return result; 
 }
 
+function get_generic_actions(tiddler, title, options) {
+    if (tiddler.fields.twsm_class === undefined) {
+        return [];
+    }
+
+    var result = [];
+    result.push("edit_external_references");
+    return result;
+}
+
 function get_control_actions(tiddler, title, options) {
     if ((tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "control")) {
         return [];
@@ -208,6 +218,7 @@ function actions_filter_all(source, options) {
     source(function(tiddler, title) {
         result.push(...get_control_actions(tiddler, title, options));
         result.push(...get_risk_actions(tiddler, title, options));
+        result.push(...get_generic_actions(tiddler, title, options));
     });
     return result;
 }
@@ -229,11 +240,20 @@ function actions_filter_risk(source, options) {
     return result;
 }
 
+function actions_filter_generic(source, options) {
+    var result = [];
+    source(function(tiddler, title) {
+        result.push(...get_generic_actions(tiddler, title, options));
+    });
+    return result;
+}
+
 
 var contexts = {
     "all": actions_filter_all,
     "control": actions_filter_control,
     "risk": actions_filter_risk,
+    "generic": actions_filter_generic,
 }
 
 

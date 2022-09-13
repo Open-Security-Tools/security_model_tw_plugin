@@ -8,9 +8,8 @@ type: text/vnd.tiddlywiki
 <div class="py-todo">
 <label class="">
 <i class="fas fa-balance-scale"/>
-<$link><$view field=title/></$link>
+<$link><tt>#<$view field=twsm_id/></tt> <$view field=title/></$link>
 </label>
-{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_id}}
 <$list filter="[all[current]twsm_class[risk]]">
 {{||$:/plugins/security_tools/twsm/components/entity/risk/btn_residual_risk}}
 {{||$:/plugins/security_tools/twsm/components/entity/risk/btn_controls}}

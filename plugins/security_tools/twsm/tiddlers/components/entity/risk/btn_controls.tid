@@ -23,6 +23,10 @@ type: text/vnd.tiddlywiki
 <$list filter="[all[current]is_idea[yes]]">
 <span style="color: red;"><i class="far fa-lightbulb"/></span>
 </$list>
+<tt>#<$view field=twsm_id/></tt>
+<$list filter="[all[current]get[twsm_characteristic_class]]">
+<<currentTiddler>>:
+</$list>
 <$view field=title/></$link>
 </$list>
 </$reveal>
