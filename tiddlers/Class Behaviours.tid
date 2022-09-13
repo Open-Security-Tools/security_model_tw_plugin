@@ -1,7 +1,7 @@
 created: 20220214162049359
 modified: 20220215203240457
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/none/class_behaviours
+title: Class Behaviours
 type: text/vnd.tiddlywiki
 
 \define class_row(class)
