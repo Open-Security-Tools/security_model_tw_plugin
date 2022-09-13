@@ -1,0 +1,11 @@
+created: 20220721202228602
+modified: 20220803224256696
+tags: 
+title: $:/plugins/security_tools/twsm/overrides/edit_template/fields/characteristic_classification
+type: text/vnd.tiddlywiki
+
+<$select tiddler=<<currentTiddler>> field='twsm_characteristic_class' >
+<$list filter="[all[current]get[twsm_characteristic_class]] Physical Policy Procedural Technical" variable=fv>
+<option><$action-setfield twsm_characteristic_class/><<fv>></option>
+</$list>
+</$select>
