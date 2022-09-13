@@ -13,12 +13,13 @@ module-type: library
 
 var impact_utils = require("$:/plugins/security_tools/twsm/impact_utils.js")
 var likelihood_utils = require("$:/plugins/security_tools/twsm/likelihood_utils.js");
+var utils = require("$:/plugins/security_tools/twsm/utils.js");
 
 var LOW_THRESHOLD = 3.6;
 var MEDIUM_THRESHOLD = 6.4;
 
-function score2Name(score) {
-	if (score <= 0) {
+function score2Name(score, includeUnknown=true) {
+	if (includeUnknown && (score <= 0)) {
 		return "Unknown";
 	}
 	else if (score <= LOW_THRESHOLD) {
@@ -32,8 +33,8 @@ function score2Name(score) {
 	}
 }
 
-function score2Class(score) {
-	if (score <= 0) {
+function score2Class(score, includeUnknown=true) {
+	if (includeUnknown && (score <= 0)) {
 		return "twsm_risk_unknown";
 	}
 	else if (score <= LOW_THRESHOLD) {
@@ -45,10 +46,6 @@ function score2Class(score) {
 	else {
 		return "twsm_risk_high";
 	}
-}
-
-function generateRiskMetric(metricClass, header, metric, footer, style) {
-    return "<div class=\"twsm_risk_metric " + metricClass + "\" style=\"" + style + "\">" + header + "<span>" + metric + "</span>" + footer + "</div>";
 }
 
 
@@ -87,11 +84,11 @@ class RiskAssessment {
         var untreatedBackgroundStyle = this.untreatedLikelihood.buildLikelihoodBackgroundStyle();
     
         var l = [];
-        l.push(generateRiskMetric(this.treatedClass, "Treated Risk", this.treatedRisk, this.treatedName, ""));
-        l.push(generateRiskMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk, this.untreatedName, ""));
-        l.push(generateRiskMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
+        l.push(utils.generateRiskMetric(this.treatedClass, "Treated Risk", this.treatedRisk, this.treatedName, ""));
+        l.push(utils.generateRiskMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk, this.untreatedName, ""));
+        l.push(utils.generateRiskMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
     
-        l.push(generateRiskMetric("", "Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
+        l.push(utils.generateRiskMetric("", "Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
         // l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.untreatedLikelihood.phia, untreatedBackgroundStyle));
 
         return l.join("");
@@ -101,8 +98,6 @@ class RiskAssessment {
 
 exports.score2Class = score2Class;
 exports.score2Name = score2Name;
-exports.generateRiskMetric = generateRiskMetric;
 exports.RiskAssessment = RiskAssessment;
-
 
 })();

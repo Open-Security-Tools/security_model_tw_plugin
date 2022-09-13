@@ -7,8 +7,10 @@ type: text/vnd.tiddlywiki
 
 {{||$:/plugins/security_tools/twsm/components/entity/theme/toolbar}}
 
-<$list filter="[all[current]twsm_security_score[]]" variable=score>
-Score = <<score>>
+<$list filter="[all[current]twsm_security_score[]twsm_attack_tree_result:rendered_header[]]" variable=header>
+<div class="twsm_risk_metric_container">
+<<header>>
+</div>
 </$list>
 
 {{||$:/plugins/security_tools/twsm/components/entity/theme/risks}}

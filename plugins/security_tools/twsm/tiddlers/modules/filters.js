@@ -220,6 +220,7 @@ function get_theme_actions(tiddler, title, options) {
 
     var result = [];
     result.push("edit_theme_risk_coverage");
+    result.push("edit_theme_control_coverage");
     return result;
 }
 
@@ -316,39 +317,43 @@ function calculate_security_score(tiddler, title) {
     // Risk coverage assessment gets aged
     var originalRiskCoverage = (tiddler.fields.risk_coverage_assessment || 0) / 100;
     var daysSinceRiskCoverage = utils.daysSince(tiddler.fields.risk_coverage_checked);
-    var riskCoverageDecay = 1 - Math.pow(Math.min((daysSinceRiskCoverage / assessmentLimit), 1), powerRollOff);
+    var riskCoverageDecay = 0;
+    if (daysSinceRiskCoverage !== undefined) {
+        riskCoverageDecay = 1 - Math.pow(Math.min((daysSinceRiskCoverage / assessmentLimit), 1), powerRollOff);
+    }
     var riskCoverage = originalRiskCoverage * riskCoverageDecay;
 
     // Control coverage assessment gets aged
     var originalControlCoverage = (tiddler.fields.control_coverage_assessment || 0) / 100;
     var daysSinceControlCoverage = utils.daysSince(tiddler.fields.control_coverage_checked);
-    var controlCoverageDecay = 1 - Math.pow(Math.min((daysSinceControlCoverage / assessmentLimit), 1), powerRollOff);
+    var controlCoverageDecay = 0;
+    if (daysSinceControlCoverage !== undefined) {
+        controlCoverageDecay = 1 - Math.pow(Math.min((daysSinceControlCoverage / assessmentLimit), 1), powerRollOff);
+    }
     var controlCoverage = originalControlCoverage * controlCoverageDecay;
 
     var score = ((risk * maxRiskWeighting) + (riskCoverage * riskCoverageWeighting) + (controlCoverage * controlCoverageWeighting)) / (maxRiskWeighting + riskCoverageWeighting + controlCoverageWeighting);
 
-    // Inputs:
-    // 
-    // 1. Risks associated with this theme
-    // 2. Assessment of risk coverage
-    // 3. Assessment of control coverage
+    var l = [];
+    l.push(utils.generateRiskMetric("", "Security Score", (score * 100).toFixed(), "out of 100", ""));
+    l.push(utils.generateRiskMetric(risk_utils.score2Class(maxRiskScore, false), "Max Risk", Number(maxRiskScore).toFixed(1), risk_utils.score2Name(maxRiskScore, false), ""));
+    if (daysSinceRiskCoverage === undefined) {
+        l.push(utils.generateRiskMetric("", "Risk Coverage", "?", "", ""));
+    } else {
+        l.push(utils.generateRiskMetric("", "Risk Coverage", (riskCoverage * 100).toFixed() + "%", daysSinceRiskCoverage + " day(s) old", ""));
+    }
+    if (daysSinceControlCoverage === undefined) {
+        l.push(utils.generateRiskMetric("", "Control Coverage", "?", "", ""));
+    } else {
+        l.push(utils.generateRiskMetric("", "Control Coverage", (controlCoverage * 100).toFixed() + "%", daysSinceControlCoverage + " day(s) old", ""));
+    }
 
-
-    // 
-
-    // 25 points for risk coverage
-    // 25 points for control coverage
-    // 25 points for low average risk
-    // 25 points for low peak risk
-    // Find risks associated with theme.
-
+    var renderedHeader = l.join("");
 
 
     return {
         risk_count: riskCount,
         max_risk_score: Number(maxRiskScore).toFixed(1),
-        max_risk_name: risk_utils.score2Name(maxRiskScore),
-        max_risk_class: risk_utils.score2Class(maxRiskScore),
         control_count: controlCount,
         risk_coverage_original: (originalRiskCoverage * 100).toFixed(),
         risk_coverage_age: daysSinceRiskCoverage,
@@ -359,54 +364,9 @@ function calculate_security_score(tiddler, title) {
         control_coverage_penalty: ((1 - controlCoverageDecay) * 100).toFixed(),
         control_coverage: (controlCoverage * 100).toFixed(),
         score: (score * 100).toFixed(),
+        rendered_header: renderedHeader,
     }
 }
-
-/**
- * <$list filter="
-
-[all[current]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]]
-
-[all[current]tagging[]twsm_class[control]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]]
-
-+[maxall[]!compare:number:eq[-Infinity]else[10]divide[10]negate[]add[1]multiply[25]trunc[]]
-
-" 
-variable="securityScoreMaxRisk"><$list filter="[all[current]get[risk_coverage_assessment]else[0]] +[divide[100]multiply[25]trunc[]]" variable="securityScoreRiskCoverage"><$list filter="[all[current]get[control_coverage_assessment]else[0]] +[divide[100]multiply[25]trunc[]]" variable="securityScoreControlCoverage"><$list filter="
-
-[all[current]tagging[]twsm_class[control]!is_idea[yes]]
-
-[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]!is_idea[yes]]
-
-+[count[]]
-
-"
-variable="securityScoreAppliedControlCount"
-><$list filter="
-0
-+[add<securityScoreAppliedControlCount>compare:number:gt[0]else[1]]
-"
-variable="_fixedAppliedControlCount"
-><$list filter="
-
-[all[current]tagging[]twsm_class[control]!is_idea[yes]]
-
-[all[current]tagging[]twsm_class[risk]tags[]twsm_class[control]!is_idea[yes]]
-
-+[count[]]
-
-"
-variable="securityScoreVerifiedControlCount"
-><$list filter="
-0
-+[add<securityScoreVerifiedControlCount>divide<_fixedAppliedControlCount>multiply[25]trunc[]]
-"
-variable="securityScoreVerifiedControls"
-><$list filter="
-0 +[add<securityScoreMaxRisk>add<securityScoreVerifiedControls>add<securityScoreRiskCoverage>add<securityScoreControlCoverage>]
-" 
-variable="securityScore"><$transclude tiddler="$template$"/></$list></$list></$list></$list></$list></$list></$list></$list>
- */
 
 
 

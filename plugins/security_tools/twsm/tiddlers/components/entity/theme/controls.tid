@@ -9,7 +9,7 @@ type: text/vnd.tiddlywiki
 !! Controls
 
 <div class="py-todos">
-<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]sort[]]">
+<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]sort[]]" emptyMessage="None!">
 {{||$:/plugins/security_tools/twsm/components/entity/control/row}}
 </$list>
 </div>
