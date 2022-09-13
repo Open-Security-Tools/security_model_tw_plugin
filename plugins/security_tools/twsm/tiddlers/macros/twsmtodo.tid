@@ -20,5 +20,9 @@ $title$
 <span style="color: red"><i class="far fa-lightbulb"/></span>
 </$list>
 <$view tiddler="$control$" field=title/> (#<$view tiddler="$control$" field=twsm_id/>)</$link>
+<$tiddler tiddler="$control$">
+{{||$:/plugins/security_tools/twsm/components/entity/control/btn_failure_likelihood}}
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
+</$tiddler>
 \end
 
