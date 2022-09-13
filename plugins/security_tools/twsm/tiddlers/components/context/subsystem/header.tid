@@ -6,3 +6,4 @@ title: $:/plugins/security_tools/twsm/components/context/subsystem/header
 type: text/vnd.tiddlywiki
 
 <<calculateSecurityScore "$:/plugins/security_tools/twsm/components/context/subsystem/header/_render">>
+
