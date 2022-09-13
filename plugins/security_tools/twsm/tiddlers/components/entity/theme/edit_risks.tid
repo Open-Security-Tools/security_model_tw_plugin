@@ -3,7 +3,7 @@ creator: paul
 modified: 20211116131726565
 modifier: paul
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/subsystem/edit_risks
+title: $:/plugins/security_tools/twsm/components/entity/theme/edit_risks
 type: text/vnd.tiddlywiki
 
 * Risk coverage percentage: <$edit-text type=number size=4 field="risk_coverage_assessment"/>

@@ -2,7 +2,7 @@ caption: All Risks
 created: 20211114195858318
 modified: 20211116104351095
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/subsystem/information_pills
+title: $:/plugins/security_tools/twsm/components/entity/theme/information_pills
 type: text/vnd.tiddlywiki
 
 \whitespace trim
@@ -55,7 +55,7 @@ type: text/vnd.tiddlywiki
 
 <div class="highlights">
 <$set name=theme value=<<currentTiddler>>>
-<$list filter="[all[tiddlers+shadows]prefix[$:/plugins/security_tools/twsm/components/context/subsystem/information_pills/pills/]sort[pop_singular]]">
+<$list filter="[all[tiddlers+shadows]prefix[$:/plugins/security_tools/twsm/components/entity/theme/information_pills/pills/]sort[pop_singular]]">
 <$macrocall 
   $name="pop_highlight" 
 />

@@ -7,7 +7,7 @@ modifier: paul
 pop_plural: Assurance Activities
 pop_singular: Assurance Activity
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/subsystem/information_pills/pills/assurance_activities
+title: $:/plugins/security_tools/twsm/components/entity/theme/information_pills/pills/assurance_activities
 tooltip: All related assurance activities.
 type: text/vnd.tiddlywiki
 

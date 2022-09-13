@@ -7,7 +7,7 @@ modifier: paul
 pop_plural: Applied Controls
 pop_singular: Applied Control
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/subsystem/information_pills/pills/applied_controls
+title: $:/plugins/security_tools/twsm/components/entity/theme/information_pills/pills/applied_controls
 tooltip: All applied controls.
 type: text/vnd.tiddlywiki
 

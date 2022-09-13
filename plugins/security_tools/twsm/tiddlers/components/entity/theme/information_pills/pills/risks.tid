@@ -7,7 +7,7 @@ modifier: paul
 pop_plural: Risks
 pop_singular: Risk
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/subsystem/information_pills/pills/risks
+title: $:/plugins/security_tools/twsm/components/entity/theme/information_pills/pills/risks
 tooltip: All risks. Use themes or search if you want to refine the list.
 type: text/vnd.tiddlywiki
 

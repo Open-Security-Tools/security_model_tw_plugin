@@ -3,7 +3,7 @@ creator: paul
 modified: 20211116131925323
 modifier: paul
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/subsystem/edit_applied_controls
+title: $:/plugins/security_tools/twsm/components/entity/theme/edit_applied_controls
 type: text/vnd.tiddlywiki
 
 * Applied control coverage percentage: <$edit-text type=number size=4 field="control_coverage_assessment"/>

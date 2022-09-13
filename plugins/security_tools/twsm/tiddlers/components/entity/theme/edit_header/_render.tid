@@ -2,7 +2,7 @@ caption: All Risks
 created: 20211116110840535
 modified: 20211116131933978
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/subsystem/edit_header/_render
+title: $:/plugins/security_tools/twsm/components/entity/theme/edit_header/_render
 type: text/vnd.tiddlywiki
 
 <div class="subsystem_pillboxes">

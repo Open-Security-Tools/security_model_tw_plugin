@@ -7,7 +7,7 @@ modifier: paul
 pop_plural: Concept Controls
 pop_singular: Concept Control
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/subsystem/information_pills/pills/concept_controls
+title: $:/plugins/security_tools/twsm/components/entity/theme/information_pills/pills/concept_controls
 tooltip: All concept controls.
 type: text/vnd.tiddlywiki
 
