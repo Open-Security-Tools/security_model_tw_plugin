@@ -16,6 +16,22 @@ function twListify(l) {
     return p.join(" ");
 }
 
+function daysSince(value) {
+    if (value === undefined) {
+        return undefined;
+    }
+    var today = (new Date()).setHours(0, 0, 0, 0);
+    var reviewed = (new Date(($tw.utils.parseDate(value)))).setHours(0, 0, 0, 0);
+    return Math.round((today - reviewed) / (1000*60*60*24));
+}
+
+function generateRiskMetric(metricClass, header, metric, footer, style) {
+    return "<div class=\"twsm_risk_metric " + metricClass + "\" style=\"" + style + "\">" + header + "<span>" + metric + "</span>" + footer + "</div>";
+}
+
+
 exports.twListify = twListify;
+exports.daysSince = daysSince;
+exports.generateRiskMetric = generateRiskMetric;
 
 })();

@@ -1,0 +1,29 @@
+created: 20211116131728751
+creator: paul
+modified: 20211116131925323
+modifier: paul
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/theme/edit_applied_controls
+type: text/vnd.tiddlywiki
+
+* Applied control coverage percentage: <$edit-text type=number size=4 field="control_coverage_assessment"/>
+
+
+<table class="control_table">
+<tr>
+<th class="control_id">ID #</th>
+<th class="control_description">Control Description</th>
+<th class="control_temporal">Temporal Classification</th>
+<th class="control_characteristic">Characteristic Classification</th>
+</tr>
+<$list filter="[all[current]get[draft.of]tagging[]twsm_class[control]!is_idea[yes]] [all[current]get[draft.of]tagging[]twsm_class[risk]tags[]twsm_class[control]!is_idea[yes]] +[sort[]]" emptyMessage="<tr><td style='text-align:center' colspan='5'>No controls!</td></tr>">
+<tr>
+<td class="control_id">{{||$:/plugins/security_tools/twsm/templates/link_id}}</td>
+<td class="control_description"><$link to=<<currentTiddler>>><$view field="title"/></$link>
+{{||$:/plugins/security_tools/twsm/templates/relatedthemes}}
+</td>
+<td class="control_temporal">{{!!twsm_temporal_class}}</td>
+<td class="control_characteristic">{{!!twsm_characteristic_class}}</td>
+</tr>
+</$list>
+</table>

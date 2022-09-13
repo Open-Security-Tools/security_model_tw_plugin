@@ -1,0 +1,22 @@
+created: 20220831214144308
+modified: 20220831225133585
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/theme/row
+type: text/vnd.tiddlywiki
+
+<div class="tc-menu-list-item">
+<div class="py-todo">
+<label class="">
+<i class="fas fa-cubes"/>
+<$link><tt>#<$view field=twsm_id/></tt> <$view field=title/></$link>
+</label>
+{{||$:/plugins/security_tools/twsm/components/entity/theme/btn_score}}
+{{||$:/plugins/security_tools/twsm/components/entity/theme/btn_max_risk}}
+{{||$:/plugins/security_tools/twsm/components/entity/theme/btn_risks}}
+{{||$:/plugins/security_tools/twsm/components/entity/theme/btn_controls}}
+
+<span class="py-todo-actions">
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
+</span>
+</div>
+</div>

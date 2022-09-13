@@ -1,0 +1,34 @@
+created: 20220831222725264
+modified: 20220831223354605
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/theme/btn_controls
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]first[]]" variable=ignore>
+<$vars popupTiddler=<<qualify "$:/state/twsm/controls-button-dropdown">> >
+<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]count[]]" variable=controlCount>
+<$button
+	class="py-btn btn-small"
+	popup=<<popupTiddler>>
+	tooltip="Controls"
+>
+<i class="fas fa-shield-alt"/>
+<<controlCount>>
+<i class="fas fa-caret-down"/>
+</$button>
+</$list>
+<$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
+<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]sort[]]">
+<$link>
+<$list filter="[all[current]is_idea[yes]]">
+<span style="color: red;"><i class="far fa-lightbulb"/></span>
+</$list>
+<tt>#<$view field=twsm_id/></tt>
+<$list filter="[all[current]get[twsm_characteristic_class]]">
+<<currentTiddler>>:
+</$list>
+<$view field=title/></$link>
+</$list>
+</$reveal>
+</$vars>
+</$list>

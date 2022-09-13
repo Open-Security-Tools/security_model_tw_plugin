@@ -1,0 +1,12 @@
+caption: Model
+created: 20211113212941667
+modified: 20211114195923750
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/entity/theme/edit_risk_coverage
+subtitle: Edit Risk Coverage
+footer: <$button>Cancel<$action-sendmessage $message="tm-close-tiddler"/></$button> <$button>Update<$action-sendmessage $message="tm-close-tiddler"/><$action-setfield $tiddler={{$:/state/twsm/edit_risk_coverage!!target_tiddler}} risk_coverage_assessment={{$:/state/twsm/edit_risk_coverage!!risk_coverage_assessment}} risk_coverage_checked=<<now "[UTC]YYYY0MM0DD0hh0mm0ssXXX">>/></$button>
+type: text/vnd.tiddlywiki
+
+<b><$view tiddler="$:/state/twsm/edit_risk_coverage" field=target_tiddler/></b>
+
+Risk coverage (%): <$edit-text type=number size=4 tiddler="$:/state/twsm/edit_risk_coverage" field="risk_coverage_assessment"/>

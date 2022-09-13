@@ -21,67 +21,10 @@ exports.platforms = ["browser"];
 exports.after = ["startup"];
 exports.synchronous = true;
 
-var impactDict = {
-	"unknown": 0,
-	"insignificant": 1,
-	"minimal": 1,
-	"minor": 2,
-	"moderate": 3,
-	"significant": 4,
-	"major": 4,
-	"extreme/catastrophic": 5,
-	"severe": 5
-};
-
-var likelihoodDict = {
-	"unknown": 0,
-	"remote": 1,
-	"rare": 1,
-	"unlikely": 2,
-	"possible": 3,
-	"credible": 3,
-	"likely": 4,
-	"almost certain": 5
-};
-
-var LOW_THRESHOLD = 3.6;
-var MEDIUM_THRESHOLD = 6.4;
 
 function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
 }
-
-function score2Name(score) {
-	if (score <= 0) {
-		return "Unknown";
-	}
-	else if (score <= LOW_THRESHOLD) {
-		return "Low";
-	}
-	else if (score <= MEDIUM_THRESHOLD) {
-	  return "Medium";
-	}
-	else {
-		return "High";
-	}
-}
-
-function score2class(score) {
-	if (score <= 0) {
-		return "twsm_risk_unknown";
-	}
-	else if (score <= LOW_THRESHOLD) {
-		return "twsm_risk_low";
-	}
-	else if (score <= MEDIUM_THRESHOLD) {
-	  return "twsm_risk_medium";
-	}
-	else {
-		return "twsm_risk_high";
-	}
-}
-
-const twsmClasses = ["risk", "control", "assurance_activity", "theme", "attack_tree", "vulnerability"];
 
 
 function checkId(cf, nf, draftF) {
@@ -147,7 +90,7 @@ function processTheme(cf, nf) {
 	return nf;
 }
 
-function processAttackTree(cf, nf) {
+function processAttack(cf, nf) {
 	return nf;
 }
 
@@ -157,7 +100,6 @@ exports.startup = function() {
 
 		// Is this one of our classes?
 		if (tiddler.fields.twsm_class !== undefined) {
-		// if (twsmClasses.includes(tiddler.fields.twsm_class)) {
 
 			// We'll manage current and new fields as dictionaries.
 			var cf = tiddler.fields;
@@ -174,8 +116,8 @@ exports.startup = function() {
 				nf = processAssuranceActivity(cf, nf);
 			} else if (cf.twsm_class === "theme") {
 				nf = processTheme(cf, nf);
-			} else if (cf.twsm_class === "attack_tree") {
-				nf = processAttackTree(cf, nf);
+			} else if (cf.twsm_class === "attack") {
+				nf = processAttack(cf, nf);
 			}
 			return new $tw.Tiddler(tiddler, nf);
 		} else {
