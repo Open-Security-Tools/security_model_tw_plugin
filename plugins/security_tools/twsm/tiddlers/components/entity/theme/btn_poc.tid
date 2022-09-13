@@ -1,0 +1,14 @@
+created: 20220831222725264
+modified: 20220831223354605
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/theme/btn_poc
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]get[theme_poc]]">
+<$button
+	class="residual_risk_button py-btn btn-small"
+	tooltip="Theme point of contact"
+>
+<i class="fas fa-crown"/> <<currentTiddler>>
+</$button>
+</$list>

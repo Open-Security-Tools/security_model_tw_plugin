@@ -1,0 +1,13 @@
+created: 20220721202228602
+modified: 20220803224256696
+tags: 
+title: $:/plugins/security_tools/twsm/overrides/edit_template/fields/twsm_class
+type: text/vnd.tiddlywiki
+
+<$select field=twsm_class>
+<$list filter="[all[shadows+tiddlers]prefix[$:/plugins/security_tools/twsm/defs/twsm_class/]sort[]]">
+<$list filter="[all[current]removeprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]]" variable=class>
+<option value=<<class>>><$view field="class_name"/></option>
+</$list>
+</$list>
+</$select>

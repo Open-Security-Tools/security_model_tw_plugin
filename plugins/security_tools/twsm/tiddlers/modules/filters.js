@@ -221,6 +221,7 @@ function get_theme_actions(tiddler, title, options) {
     var result = [];
     result.push("edit_theme_risk_coverage");
     result.push("edit_theme_control_coverage");
+    result.push("edit_theme_poc");
     return result;
 }
 

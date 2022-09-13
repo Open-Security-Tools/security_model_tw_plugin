@@ -1,0 +1,35 @@
+created: 20220721204831822
+list-before: $:/config/FieldEditorFilters/default
+modified: 20220721204844237
+tags: $:/tags/FieldEditorFilter
+title: $:/plugins/security_tools/twsm/overrides/edit_template/hooks
+type: text/vnd.tiddlywiki
+
+[regexp[^risk_coverage_checked$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_date]]
+[regexp[^control_coverage_checked$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_date]]
+[regexp[^twsm_id$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/twsm_id]]
+[regexp[^twsm_class$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/twsm_class]]
+[regexp[^risk_coverage_assessment$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_percentage]]
+[regexp[^control_coverage_assessment$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_percentage]]
+[regexp[^attack_tree$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_empty]]
+[regexp[^rendered_attack_tree$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_empty]]
+[regexp[^controls$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^sub_trees$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^renderer$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^treated_likelihood_lower$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^treated_likelihood_upper$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^treated_risk$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^twsm_impact$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^attack_tree$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^external_references$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^failure_likelihood$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^untreated_likelihood_lower$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^untreated_likelihood_upper$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^untreated_risk$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
+[regexp[^twsm_temporal_class$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/temporal_classification]]
+[regexp[^twsm_characteristic_class$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/characteristic_classification]]
+
+
+
+
+
