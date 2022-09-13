@@ -18,7 +18,7 @@ type: text/vnd.tiddlywiki
 </span>
 \end
 
-<$list filter="[all[current]tags[]twsm_class[theme]sort[]]">
+<$list filter="[all[current]tags[]twsm_class[theme]] -[title<hideTheme>] +[sort[]]">
 <$set name="theme" value=<<currentTiddler>>>
 <<theme_button>>
 </$set>
