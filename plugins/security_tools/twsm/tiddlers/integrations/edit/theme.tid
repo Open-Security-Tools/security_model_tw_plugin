@@ -6,7 +6,5 @@ title: $:/plugins/security_tools/twsm/integrations/edit/theme
 type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]field:twsm_class[theme]]">
-<$list filter="[all[current]is_subsystem_theme[yes]]">
 <$transclude tiddler="$:/plugins/security_tools/twsm/components/context/subsystem/edit_header" mode="block"/>
-</$list>
 </$list>

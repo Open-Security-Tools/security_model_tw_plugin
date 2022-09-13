@@ -2,7 +2,7 @@ caption: Subsystems
 created: 20211113154902446
 modified: 20211113181949875
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/none/settings_tabs/subsystem_coverage
+title: $:/plugins/security_tools/twsm/components/context/none/settings_tabs/theme_coverage
 type: text/vnd.tiddlywiki
 
 <table>
@@ -11,7 +11,7 @@ type: text/vnd.tiddlywiki
 <th>Risk Coverage</th>
 <th>Control Coverage</th>
 </tr>
-<$list filter="[twsm_class[theme]is_subsystem_theme[yes]sort[]]">
+<$list filter="[twsm_class[theme]sort[]]">
 <tr>
 <td>
 <$link>
