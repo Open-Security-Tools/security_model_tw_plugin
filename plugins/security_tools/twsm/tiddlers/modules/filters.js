@@ -301,6 +301,30 @@ exports.twsm_actions = function (source, operator, options) {
     return contextFn(source, options);
 }
 
+function daysPlural(days) {
+    if (days == 1) {
+        return "1 day";
+    } else {
+        return days + " days";
+    }
+}
+
+function addScoreCoverageMetric(name, original, decayed, days) {
+    if (original === undefined) {
+        return utils.generateRiskMetric("", name, "?", "", "");
+    }
+
+    // Convert to fixed point percentages
+    original = (original * 100).toFixed();
+    decayed = (decayed * 100).toFixed();
+
+    if (original === decayed) {
+        return utils.generateRiskMetric("", name, original + "%", "Current", "")
+    }
+    
+    return utils.generateRiskMetric("", name, decayed + "%", original + "% " + daysPlural(days) + " ago", "")
+}
+
 function calculate_security_score(tiddler, title) {
     if (!tiddler.fields || (tiddler.fields.twsm_class !== "theme")) {
         return;
@@ -325,10 +349,19 @@ function calculate_security_score(tiddler, title) {
 
     // Balancing data...
     const assessmentLimit = 90;
-    const maxRiskWeighting = 1
-    const riskCoverageWeighting = 1
+    const maxRiskWeighting = 2
+    const riskCoverageWeighting = 2
     const controlCoverageWeighting = 1
-    const powerRollOff = 5
+    const weightingDivisor = riskCoverageWeighting + controlCoverageWeighting + maxRiskWeighting;
+    const powerRollOff = 2
+
+    var scoreCalculations = [];
+
+    var riskPoints = ((risk * maxRiskWeighting * 100) / weightingDivisor).toFixed();
+
+    if (riskPoints != 0) {
+        scoreCalculations.push("Max risk of " + Number(maxRiskScore).toFixed(1) + " = <span style=\"color: green;\">" + riskPoints + " points</span>");
+    }
 
     // Risk coverage assessment gets aged
     var originalRiskCoverage = (tiddler.fields.risk_coverage_assessment || 0) / 100;
@@ -338,6 +371,16 @@ function calculate_security_score(tiddler, title) {
         riskCoverageDecay = 1 - Math.pow(Math.min((daysSinceRiskCoverage / assessmentLimit), 1), powerRollOff);
     }
     var riskCoverage = originalRiskCoverage * riskCoverageDecay;
+    var riskCoveragePoints = ((originalRiskCoverage * riskCoverageWeighting * 100) / weightingDivisor).toFixed();
+    var riskCoveragePointPenalty = ((originalRiskCoverage * riskCoverageDecay * riskCoverageWeighting * 100) / weightingDivisor).toFixed() - riskCoveragePoints;
+
+    if (riskCoveragePoints != 0) {
+        scoreCalculations.push("Risk coverage assessment of " + (originalRiskCoverage * 100).toFixed() + "% = <span style=\"color: green;\">" + riskCoveragePoints + " points</span>");
+    }
+
+    if (riskCoveragePointPenalty != 0) {
+        scoreCalculations.push("Risk coverage assessment age (" + daysSinceRiskCoverage + " days) penalty = <span style=\"color: red;\">" + riskCoveragePointPenalty + " points</span>");
+    }
 
     // Control coverage assessment gets aged
     var originalControlCoverage = (tiddler.fields.control_coverage_assessment || 0) / 100;
@@ -348,25 +391,39 @@ function calculate_security_score(tiddler, title) {
     }
     var controlCoverage = originalControlCoverage * controlCoverageDecay;
 
+    var controlCoveragePoints = ((originalControlCoverage * controlCoverageWeighting * 100) / weightingDivisor).toFixed();
+    var controlCoveragePointPenalty = ((originalControlCoverage * controlCoverageDecay * controlCoverageWeighting * 100) / weightingDivisor).toFixed() - controlCoveragePoints;
+
+    if (controlCoveragePoints != 0) {
+        scoreCalculations.push("Control coverage assessment of " + (originalControlCoverage * 100).toFixed() + "% = <span style=\"color: green;\">" + controlCoveragePoints + " points</span>");
+    }
+
+    if (controlCoveragePointPenalty != 0) {
+        scoreCalculations.push("Control coverage assessment age (" + daysSinceControlCoverage + " days) penalty = <span style=\"color: red;\">" + controlCoveragePointPenalty + " points</span>");
+    }
+
+
+
+
     var score = ((risk * maxRiskWeighting) + (riskCoverage * riskCoverageWeighting) + (controlCoverage * controlCoverageWeighting)) / (maxRiskWeighting + riskCoverageWeighting + controlCoverageWeighting);
 
     var l = [];
+    l.push("<$button class=\"tc-btn-invisible\" tooltip=\"Click to toggle showing the score calculation\">");
+    l.push("<$list filter=\"[title[$:/state/twsm/display]show_score_calculation[yes]]\" variable=ignore>");
+    l.push("<$action-deletefield $tiddler=\"$:/state/twsm/display\" show_score_calculation/>");
+    l.push("</$list>")
+    l.push("<$list filter=\"[title[$:/state/twsm/display]!show_score_calculation[yes]]\" variable=ignore>");
+    l.push("<$action-setfield $tiddler=\"$:/state/twsm/display\" show_score_calculation=yes/>");
+    l.push("</$list>")
     l.push(utils.generateRiskMetric("", "Security Score", (score * 100).toFixed(), "out of 100", ""));
+    l.push("</$button>");
     l.push(utils.generateRiskMetric(risk_utils.score2Class(maxRiskScore, false), "Max Risk", Number(maxRiskScore).toFixed(1), risk_utils.score2Name(maxRiskScore, false), ""));
-    if (daysSinceRiskCoverage === undefined) {
-        l.push(utils.generateRiskMetric("", "Risk Coverage", "?", "", ""));
-    } else {
-        l.push(utils.generateRiskMetric("", "Risk Coverage", (riskCoverage * 100).toFixed() + "%", daysSinceRiskCoverage + " day(s) old", ""));
-    }
-    if (daysSinceControlCoverage === undefined) {
-        l.push(utils.generateRiskMetric("", "Control Coverage", "?", "", ""));
-    } else {
-        l.push(utils.generateRiskMetric("", "Control Coverage", (controlCoverage * 100).toFixed() + "%", daysSinceControlCoverage + " day(s) old", ""));
-    }
+    l.push(addScoreCoverageMetric("Risk Coverage", originalRiskCoverage, originalRiskCoverage * riskCoverageDecay, daysSinceRiskCoverage));
+    l.push(addScoreCoverageMetric("Control Coverage", originalControlCoverage, originalControlCoverage * controlCoverageDecay, daysSinceControlCoverage));
 
     var renderedHeader = l.join("");
 
-
+    
     return {
         risk_count: riskCount,
         max_risk_score: Number(maxRiskScore).toFixed(1),
@@ -383,6 +440,7 @@ function calculate_security_score(tiddler, title) {
         control_coverage: (controlCoverage * 100).toFixed(),
         score: (score * 100).toFixed(),
         rendered_header: renderedHeader,
+        score_calculations: utils.twListify(scoreCalculations),
     }
 }
 
