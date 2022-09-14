@@ -1,0 +1,8 @@
+action_name: Change to ''Procedural'' characteristic
+action_type: discretionary
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/set_control_characteristic_procedural
+type: text/vnd.tiddlywiki
+
+<$action-setfield twsm_characteristic_class="Procedural"/>
