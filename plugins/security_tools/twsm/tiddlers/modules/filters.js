@@ -357,7 +357,7 @@ function calculate_security_score(tiddler, title) {
 
     var scoreCalculations = [];
 
-    var riskPoints = ((risk * maxRiskWeighting * 100) / weightingDivisor).toFixed();
+    var riskPoints = Number(((risk * maxRiskWeighting * 100) / weightingDivisor).toFixed());
 
     if (riskPoints != 0) {
         scoreCalculations.push("Max risk of " + Number(maxRiskScore).toFixed(1) + " = <span style=\"color: green;\">" + riskPoints + " points</span>");
@@ -371,8 +371,8 @@ function calculate_security_score(tiddler, title) {
         riskCoverageDecay = 1 - Math.pow(Math.min((daysSinceRiskCoverage / assessmentLimit), 1), powerRollOff);
     }
     var riskCoverage = originalRiskCoverage * riskCoverageDecay;
-    var riskCoveragePoints = ((originalRiskCoverage * riskCoverageWeighting * 100) / weightingDivisor).toFixed();
-    var riskCoveragePointPenalty = ((originalRiskCoverage * riskCoverageDecay * riskCoverageWeighting * 100) / weightingDivisor).toFixed() - riskCoveragePoints;
+    var riskCoveragePoints = Number(((originalRiskCoverage * riskCoverageWeighting * 100) / weightingDivisor).toFixed());
+    var riskCoveragePointPenalty = Number(((originalRiskCoverage * riskCoverageDecay * riskCoverageWeighting * 100) / weightingDivisor).toFixed()) - riskCoveragePoints;
 
     if (riskCoveragePoints != 0) {
         scoreCalculations.push("Risk coverage assessment of " + (originalRiskCoverage * 100).toFixed() + "% = <span style=\"color: green;\">" + riskCoveragePoints + " points</span>");
@@ -391,8 +391,8 @@ function calculate_security_score(tiddler, title) {
     }
     var controlCoverage = originalControlCoverage * controlCoverageDecay;
 
-    var controlCoveragePoints = ((originalControlCoverage * controlCoverageWeighting * 100) / weightingDivisor).toFixed();
-    var controlCoveragePointPenalty = ((originalControlCoverage * controlCoverageDecay * controlCoverageWeighting * 100) / weightingDivisor).toFixed() - controlCoveragePoints;
+    var controlCoveragePoints = Number(((originalControlCoverage * controlCoverageWeighting * 100) / weightingDivisor).toFixed());
+    var controlCoveragePointPenalty = Number(((originalControlCoverage * controlCoverageDecay * controlCoverageWeighting * 100) / weightingDivisor).toFixed()) - controlCoveragePoints;
 
     if (controlCoveragePoints != 0) {
         scoreCalculations.push("Control coverage assessment of " + (originalControlCoverage * 100).toFixed() + "% = <span style=\"color: green;\">" + controlCoveragePoints + " points</span>");
@@ -402,11 +402,8 @@ function calculate_security_score(tiddler, title) {
         scoreCalculations.push("Control coverage assessment age (" + daysSinceControlCoverage + " days) penalty = <span style=\"color: red;\">" + controlCoveragePointPenalty + " points</span>");
     }
 
-
-
-
-    var score = ((risk * maxRiskWeighting) + (riskCoverage * riskCoverageWeighting) + (controlCoverage * controlCoverageWeighting)) / (maxRiskWeighting + riskCoverageWeighting + controlCoverageWeighting);
-
+    var score = riskPoints + riskCoveragePoints + riskCoveragePointPenalty + controlCoveragePoints + controlCoveragePointPenalty;
+    
     var l = [];
     l.push("<$button class=\"tc-btn-invisible\" tooltip=\"Click to toggle showing the score calculation\">");
     l.push("<$list filter=\"[title[$:/state/twsm/display]show_score_calculation[yes]]\" variable=ignore>");
@@ -415,14 +412,13 @@ function calculate_security_score(tiddler, title) {
     l.push("<$list filter=\"[title[$:/state/twsm/display]!show_score_calculation[yes]]\" variable=ignore>");
     l.push("<$action-setfield $tiddler=\"$:/state/twsm/display\" show_score_calculation=yes/>");
     l.push("</$list>")
-    l.push(utils.generateRiskMetric("", "Security Score", (score * 100).toFixed(), "out of 100", ""));
+    l.push(utils.generateRiskMetric("", "Security Score", score, "out of 100", ""));
     l.push("</$button>");
     l.push(utils.generateRiskMetric(risk_utils.score2Class(maxRiskScore, false), "Max Risk", Number(maxRiskScore).toFixed(1), risk_utils.score2Name(maxRiskScore, false), ""));
     l.push(addScoreCoverageMetric("Risk Coverage", originalRiskCoverage, originalRiskCoverage * riskCoverageDecay, daysSinceRiskCoverage));
     l.push(addScoreCoverageMetric("Control Coverage", originalControlCoverage, originalControlCoverage * controlCoverageDecay, daysSinceControlCoverage));
 
     var renderedHeader = l.join("");
-
     
     return {
         risk_count: riskCount,
@@ -438,7 +434,7 @@ function calculate_security_score(tiddler, title) {
         control_coverage_age: daysSinceControlCoverage,
         control_coverage_penalty: ((1 - controlCoverageDecay) * 100).toFixed(),
         control_coverage: (controlCoverage * 100).toFixed(),
-        score: (score * 100).toFixed(),
+        score: score,
         rendered_header: renderedHeader,
         score_calculations: utils.twListify(scoreCalculations),
     }
