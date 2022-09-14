@@ -1,0 +1,8 @@
+action_name: Change to ''Corrective'' temporal characteristic
+action_type: discretionary
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/set_control_temporal_corrective
+type: text/vnd.tiddlywiki
+
+<$action-setfield twsm_temporal_class="Corrective"/>

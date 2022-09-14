@@ -30,7 +30,7 @@ type: text/vnd.tiddlywiki
 	position="belowleft"
 	animate="yes"
 	class="tc-drop-down py-drop-down py-todo-actions-drop-down">
-<$list filter="[all[current]twsm_actions:$(context)$[]sort[]]" variable=action>
+<$list filter="[all[current]twsm_actions:$(context)$[]]" variable=action>
 <div class="tc-menu-list-item">
 {{||$:/plugins/security_tools/twsm/components/action/btn_action}}
 </div>
