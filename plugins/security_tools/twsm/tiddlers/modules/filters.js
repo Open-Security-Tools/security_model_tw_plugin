@@ -225,6 +225,22 @@ function get_risk_actions(tiddler, title, options) {
     } else {
         result.push("edit_risk");
     }
+
+    // Calculate the residual risk
+    if (tiddler.fields.edit_attack_tree !== "yes") {
+        var assessment = new risk_utils.RiskAssessment(tiddler.fields);
+        if (assessment.treatedName === "Unknown") {
+            result.push("assess_unknown_risk");
+        }
+    }
+
+    // Every risk needs a theme...
+    var themeCount = $tw.wiki.filterTiddlers("[title[" + title + "]tags[]twsm_class[theme]count[]]")[0];
+    if (themeCount == 0) {
+        result.push("add_theme_to_risk");
+    }
+
+
     return result;
 }
 
