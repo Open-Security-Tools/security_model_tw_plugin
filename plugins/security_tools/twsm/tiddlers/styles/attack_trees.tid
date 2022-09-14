@@ -7,3 +7,10 @@ type: text/css
 textarea.edit_attack_tree {
   width: 100%;
 }
+
+div.security_score_calculation {
+  padding: 10px;
+  background: #fcfcfc;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
