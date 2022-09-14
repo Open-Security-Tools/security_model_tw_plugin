@@ -322,7 +322,7 @@ function addScoreCoverageMetric(name, original, decayed, days) {
         return utils.generateRiskMetric("", name, original + "%", "Current", "")
     }
     
-    return utils.generateRiskMetric("", name, decayed + "%", original + "% " + daysPlural(days) + " ago", "")
+    return utils.generateRiskMetric("", name, decayed + "%", original + "% (" + daysPlural(days) + " ago)", "")
 }
 
 function calculate_security_score(tiddler, title) {
@@ -412,11 +412,11 @@ function calculate_security_score(tiddler, title) {
     l.push("<$list filter=\"[title[$:/state/twsm/display]!show_score_calculation[yes]]\" variable=ignore>");
     l.push("<$action-setfield $tiddler=\"$:/state/twsm/display\" show_score_calculation=yes/>");
     l.push("</$list>")
-    l.push(utils.generateRiskMetric("", "Security Score", score, "out of 100", ""));
+    l.push(utils.generateRiskMetric("", "Security Score <i class=\"fas fa-crosshairs\"/>", score, "Out of 100", ""));
     l.push("</$button>");
-    l.push(utils.generateRiskMetric(risk_utils.score2Class(maxRiskScore, false), "Max Risk", Number(maxRiskScore).toFixed(1), risk_utils.score2Name(maxRiskScore, false), ""));
-    l.push(addScoreCoverageMetric("Risk Coverage", originalRiskCoverage, originalRiskCoverage * riskCoverageDecay, daysSinceRiskCoverage));
-    l.push(addScoreCoverageMetric("Control Coverage", originalControlCoverage, originalControlCoverage * controlCoverageDecay, daysSinceControlCoverage));
+    l.push(utils.generateRiskMetric(risk_utils.score2Class(maxRiskScore, false), "Max Risk <i class=\"fas fa-balance-scale\"/>", Number(maxRiskScore).toFixed(1), risk_utils.score2Name(maxRiskScore, false), ""));
+    l.push(addScoreCoverageMetric("Risk Coverage <i class=\"fas fa-balance-scale\"/>", originalRiskCoverage, originalRiskCoverage * riskCoverageDecay, daysSinceRiskCoverage));
+    l.push(addScoreCoverageMetric("Control Coverage <i class=\"fas fa-shield-alt\"/>", originalControlCoverage, originalControlCoverage * controlCoverageDecay, daysSinceControlCoverage));
 
     var renderedHeader = l.join("");
     

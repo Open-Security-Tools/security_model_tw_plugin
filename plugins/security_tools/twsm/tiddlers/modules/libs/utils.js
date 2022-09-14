@@ -26,7 +26,7 @@ function daysSince(value) {
 }
 
 function generateRiskMetric(metricClass, header, metric, footer, style) {
-    return "<div class=\"twsm_risk_metric " + metricClass + "\" style=\"" + style + "\">" + header + "<span>" + metric + "</span>" + footer + "</div>";
+    return "<div class=\"twsm_risk_metric " + metricClass + "\" style=\"" + style + "\"><span class=\"metric_header\">" + header + "</span><span class=\"metric_value\">" + metric + "</span><span class=\"metric_footer\">" + footer + "</span></div>";
 }
 
 
