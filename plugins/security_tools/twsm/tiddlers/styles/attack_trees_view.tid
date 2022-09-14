@@ -51,6 +51,7 @@ div.twsm_risk_metric {
   line-height: 1.6;
   border-style: solid;
   border-width: 1px;
+  border-radius: 20px;
 
 }
 
@@ -89,12 +90,21 @@ div.twsm_risk_metric.twsm_impact_severe {
   background-color: #b30000;
 }
 
-div.twsm_risk_metric span {
+div.twsm_risk_metric span.metric_value {
   display: block;
 	font-size: 35px;
 	font-weight: 400;
 	box-sizing: border-box;
 }
+
+div.twsm_risk_metric span.metric_header {
+  color: #505050;
+}
+
+div.twsm_risk_metric span.metric_footer {
+  color: #505050;
+}
+
 
 div.twsm_risk_metric_container {
   display: flex;
