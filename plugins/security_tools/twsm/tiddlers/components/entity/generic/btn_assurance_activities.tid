@@ -1,0 +1,31 @@
+created: 20220831222725264
+modified: 20220831223354605
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/generic/btn_assurance_activities
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tagging[]filter<provides_assurance>first[]]" variable=ignore>
+<$vars popupTiddler=<<qualify "$:/state/twsm/assurance-activities-button-dropdown">> >
+<$list filter="[all[current]tagging[]filter<provides_assurance>count[]]" variable=assuranceActivityCount>
+<$button
+	class="py-btn btn-small"
+	popup=<<popupTiddler>>
+	tooltip="Assurance activities"
+>
+<i class="fas fa-info-circle"/>
+<<assuranceActivityCount>>
+<i class="fas fa-caret-down"/>
+</$button>
+<$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
+<$list filter="[all[current]tagging[]filter<provides_assurance>sort[]]">
+<$link>
+<tt>#<$view field=twsm_id/></tt> 
+<$list filter="[all[current]get[twsm_class]addprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]]">
+{{||$:/plugins/security_tools/twsm/templates/class_inline_icon}}
+</$list>
+<$view field=title/></$link>
+</$list>
+</$reveal>
+</$list>
+</$vars>
+</$list>

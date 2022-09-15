@@ -1,0 +1,8 @@
+action_name: Add assurance activity to risk or control
+action_type: warning
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/add_assurance_activity_to_risk_or_control
+type: text/vnd.tiddlywiki
+
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<currentTiddler>>/>
