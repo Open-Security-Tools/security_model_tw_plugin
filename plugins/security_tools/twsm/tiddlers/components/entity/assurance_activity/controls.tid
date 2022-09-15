@@ -2,7 +2,7 @@ caption: Mitigation
 created: 20210729064308510
 modified: 20220216215450108
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/endtime_child/controls
+title: $:/plugins/security_tools/twsm/components/entity/assurance_activity/controls
 type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]tags[]twsm_class[control]] +[first[]]" variable="ignore01">

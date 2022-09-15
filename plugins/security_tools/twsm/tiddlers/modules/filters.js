@@ -213,6 +213,26 @@ function get_control_actions(tiddler, title, options) {
     return result;
 }
 
+function get_assurance_actions(tiddler, title, options) {
+    if ((tiddler === undefined) || (tiddler.fields === undefined) || (tiddler.fields.twsm_class === undefined)) {
+        return [];
+    }
+
+    var isAssuranceActivity = ($tw.wiki.filterTiddlers("[title[" + title + "]get[twsm_class]addprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]provides_assurance[yes]then[yes]else[no]]")[0]) == "yes";
+    if (!isAssuranceActivity) {
+        return [];
+    }
+
+    var result = [];
+    if (tiddler.fields.assurance_completed === "yes") {
+        result.push("mark_assurance_activity_incomplete");
+    } else {
+        result.push("mark_assurance_activity_complete");
+    }
+
+    return result;
+}
+
 function get_risk_actions(tiddler, title, options) {
     if ((tiddler === undefined) || (tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "risk")) {
         return [];
@@ -263,6 +283,7 @@ function actions_filter_all(source, options) {
         result.push(...get_risk_actions(tiddler, title, options));
         result.push(...get_generic_actions(tiddler, title, options));
         result.push(...get_theme_actions(tiddler, title, options));
+        result.push(...get_assurance_actions(tiddler, title, options));
     });
     return result;
 }
@@ -300,6 +321,13 @@ function actions_filter_theme(source, options) {
     return result;
 }
 
+function actions_filter_assurance_activity(source, options) {
+    var result = [];
+    source(function(tiddler, title) {
+        result.push(...get_assurance_actions(tiddler, title, options));
+    });
+    return result;
+}
 
 var contexts = {
     "all": actions_filter_all,
@@ -307,8 +335,8 @@ var contexts = {
     "risk": actions_filter_risk,
     "generic": actions_filter_generic,
     "theme": actions_filter_theme,
+    "assurance_activity": actions_filter_assurance_activity,
 }
-
 
 exports.twsm_actions = function (source, operator, options) {
     var suffixes = operator.suffixes || [],

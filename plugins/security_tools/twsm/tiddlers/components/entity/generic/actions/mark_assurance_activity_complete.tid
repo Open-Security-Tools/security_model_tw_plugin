@@ -1,0 +1,8 @@
+action_name: Mark assurance activity as ''complete''.
+action_type: error
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/mark_assurance_activity_complete
+type: text/vnd.tiddlywiki
+
+<$action-setfield assurance_completed=yes/>

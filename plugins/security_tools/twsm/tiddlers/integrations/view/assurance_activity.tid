@@ -9,10 +9,8 @@ type: text/vnd.tiddlywiki
 
 {{||$:/plugins/security_tools/twsm/components/entity/assurance_activity/toolbar}}
 
-{{||$:/plugins/security_tools/twsm/components/context/endtime_child/header}}
+{{||$:/plugins/security_tools/twsm/components/entity/assurance_activity/controls}}
 
-{{||$:/plugins/security_tools/twsm/components/context/endtime_child/controls}}
-
-{{||$:/plugins/security_tools/twsm/components/context/endtime_child/risks}}
+{{||$:/plugins/security_tools/twsm/components/entity/assurance_activity/risks}}
 
 </$list>
