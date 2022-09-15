@@ -1,0 +1,8 @@
+action_name: Mark assurance activity as ''incomplete''.
+action_type: discretionary
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/mark_assurance_activity_incomplete
+type: text/vnd.tiddlywiki
+
+<$action-deletefield assurance_completed/>

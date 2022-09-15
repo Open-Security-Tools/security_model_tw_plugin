@@ -7,7 +7,8 @@ type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]tagging[]twsm_class[vulnerability]] +[first[]]" variable="ignore">
 
-!! Vulnerabilities:
+!! Vulnerabilities (to remove):
+
 <table class="vulnerability_table">
 <tr>
 <th class="vulnerability_id">ID #</th>
