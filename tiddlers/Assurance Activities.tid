@@ -1,0 +1,11 @@
+created: 20220915124453494
+modified: 20220915124528489
+tags: 
+title: Assurance Activities
+type: text/vnd.tiddlywiki
+
+<div class="py-todos">
+<$list filter="[has[twsm_class]filter<provides_assurance>sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/assurance_activity/row}}
+</$list>
+</div>

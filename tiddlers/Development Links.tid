@@ -1,5 +1,5 @@
 created: 20220913130951847
-modified: 20220914142636385
+modified: 20220915124544900
 tags: 
 title: Development Links
 type: text/vnd.tiddlywiki
@@ -9,3 +9,5 @@ type: text/vnd.tiddlywiki
 * [[$:/plugins/security_tools/twsm/components/context/none/themes_overview]]
 * [[Risks]]
 * [[Controls]]
+* [[Assurance Activities]]
+
