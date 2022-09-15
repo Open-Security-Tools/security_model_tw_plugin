@@ -1,0 +1,22 @@
+created: 20220901083317704
+modified: 20220901092843125
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/assurance_activity/row
+type: text/vnd.tiddlywiki
+
+<div class="tc-menu-list-item">
+<div class="py-todo">
+<label class="">
+<$list filter="[all[current]get[twsm_class]addprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]]">
+{{||$:/plugins/security_tools/twsm/templates/class_inline_icon}}
+</$list>
+<$link><tt>#<$view field=twsm_id/></tt>
+<$view field=title/></$link>
+</label>
+{{||$:/plugins/security_tools/twsm/components/entity/assurance_activity/btn_risks}}
+{{||$:/plugins/security_tools/twsm/components/entity/assurance_activity/btn_controls}}
+<span class="py-todo-actions">
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
+</span>
+</div>
+</div>

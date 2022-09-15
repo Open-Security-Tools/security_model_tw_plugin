@@ -1,0 +1,14 @@
+created: 20220831222252830
+modified: 20220831222610100
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/assurance_activity/btn_status
+type: text/vnd.tiddlywiki
+
+<$button
+	class="py-btn btn-small"
+	tooltip="Assurance activity status"
+>
+<$list filter="[all[current]assurance_completed[yes]then[Complete]else[Incomplete]]">
+<<currentTiddler>>
+</$list>
+</$button>
