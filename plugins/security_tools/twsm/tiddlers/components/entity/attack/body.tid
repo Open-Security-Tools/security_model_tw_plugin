@@ -18,6 +18,3 @@ type: text/vnd.tiddlywiki
 <$transclude tiddler="$:/plugins/security_tools/twsm/components/context/risk/edit_form" mode="block"/>
 </$list>
 
-
-{{||$:/plugins/security_tools/twsm/components/context/risk/assurance_activities}}
-
