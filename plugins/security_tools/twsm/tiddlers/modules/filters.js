@@ -210,6 +210,19 @@ function get_control_actions(tiddler, title, options) {
             result.push("set_control_temporal_" + t.toLowerCase());
         }
     }
+    
+    // Controls should not be linked to themes
+    var themeCount = $tw.wiki.filterTiddlers("[title[" + title + "]tags[]twsm_class[theme]count[]]")[0];
+    if (themeCount > 0) {
+        result.push("remove_themes_from_control");
+    }
+
+    // Controls should be linked to risks
+    var riskCount = $tw.wiki.filterTiddlers("[title[" + title + "]listed[controls]count[]]")[0];
+    if (riskCount == 0) {
+        result.push("fix_orphaned_control");
+    }
+
     return result;
 }
 
