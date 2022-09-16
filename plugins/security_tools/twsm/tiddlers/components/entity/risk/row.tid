@@ -10,11 +10,8 @@ type: text/vnd.tiddlywiki
 <i class="fas fa-balance-scale"/>
 <$link><tt>#<$view field=twsm_id/></tt> <$view field=title/></$link>
 </label>
-<$list filter="[all[current]twsm_class[risk]]">
 {{||$:/plugins/security_tools/twsm/components/entity/risk/btn_residual_risk}}
 {{||$:/plugins/security_tools/twsm/components/entity/risk/btn_controls}}
-{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_assurance_activities}}
-</$list>
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_themes}}
 <span class="py-todo-actions">
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}

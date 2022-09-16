@@ -10,5 +10,4 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/components/entity/control/btn_risks}}
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_assurance_activities}}
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
-{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_themes}}
 </div>
