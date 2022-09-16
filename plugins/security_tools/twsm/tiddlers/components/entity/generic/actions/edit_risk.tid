@@ -8,3 +8,4 @@ type: text/vnd.tiddlywiki
 <$list filter="[all[current]!edit_attack_tree[yes]]" variable=ignore>
 <$action-setfield draft_attack_tree={{!!attack_tree}} draft_impact={{!!twsm_impact}} edit_attack_tree=yes/>
 </$list>
+<$action-navigate $to=<<currentTiddler>>/>

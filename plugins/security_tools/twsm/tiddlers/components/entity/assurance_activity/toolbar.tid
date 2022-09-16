@@ -6,6 +6,5 @@ type: text/vnd.tiddlywiki
 
 <div class="twsm_entity_toolbar">
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_id}}
-{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_themes}}
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
 </div>
