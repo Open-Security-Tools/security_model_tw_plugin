@@ -26,3 +26,9 @@ a.twsm_id i.twsm_risk_low {
 a.twsm_id i.twsm_risk_unknown {
   color: #a0a0a0;
 }
+
+span.row_icon {
+  display: inline-block;
+  width: 18px;
+  text-align: center;
+}
