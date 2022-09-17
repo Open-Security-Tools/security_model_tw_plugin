@@ -204,12 +204,12 @@ class OrBranch extends Branch {
         var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
 
         var l = [];
-        l.push(utils.generateRiskMetric(risk_utils.score2Class(residual), "Treated Risk", residual.toFixed(1), risk_utils.score2Name(residual), ""));
-        l.push(utils.generateRiskMetric(risk_utils.score2Class(inherent), "Untreated Risk", inherent.toFixed(1), risk_utils.score2Name(inherent), ""));
-        l.push(utils.generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
+        l.push(utils.generateMetric(risk_utils.score2Class(residual), "Treated Risk", residual.toFixed(1), risk_utils.score2Name(residual), ""));
+        l.push(utils.generateMetric(risk_utils.score2Class(inherent), "Untreated Risk", inherent.toFixed(1), risk_utils.score2Name(inherent), ""));
+        l.push(utils.generateMetric(impactClass, "Impact", impact, impactName, ""));
 
-        l.push(utils.generateRiskMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
-        // l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
+        l.push(utils.generateMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
+        // l.push(generateMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
         return {
             rendered_summary: l.join(""),
             untreated_risk: inherent,

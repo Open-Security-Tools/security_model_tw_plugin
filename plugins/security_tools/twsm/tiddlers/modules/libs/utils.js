@@ -25,13 +25,13 @@ function daysSince(value) {
     return Math.round((today - reviewed) / (1000*60*60*24));
 }
 
-function generateRiskMetric(metricClass, header, metric, footer, style) {
+function generateMetric(metricClass, header, metric, footer, style) {
     return "<div class=\"twsm_risk_metric " + metricClass + "\" style=\"" + style + "\"><span class=\"metric_header\">" + header + "</span><span class=\"metric_value\">" + metric + "</span><span class=\"metric_footer\">" + footer + "</span></div>";
 }
 
 
 exports.twListify = twListify;
 exports.daysSince = daysSince;
-exports.generateRiskMetric = generateRiskMetric;
+exports.generateMetric = generateMetric;
 
 })();
