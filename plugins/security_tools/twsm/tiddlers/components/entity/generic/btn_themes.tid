@@ -4,22 +4,28 @@ tags:
 title: $:/plugins/security_tools/twsm/components/entity/generic/btn_themes
 type: text/vnd.tiddlywiki
 
-\whitespace trim
-
-\define theme_button()
-<span data-theme-name="$(theme)$" class="theme_btn_container">
-<$button
-	class="btn_theme py-btn btn-small"
-	tooltip="Theme"
->
-<i class="fas fa-cubes"/> <$view field=title/>
-<$action-navigate $to=<<currentTiddler>>/>
-</$button>
-</span>
+\define themeLink()
+<$link><span data-theme-name="$(theme)$" class="theme_link">
+<i class="fas fa-cubes"/>
+<$view field=title/></span></$link>
 \end
 
+<$list filter="[all[current]tags[]twsm_class[theme]] -[title<hideTheme>] +[first[]]" variable=ignore>
+<$vars popupTiddler=<<qualify "$:/state/twsm/themes-button-dropdown">> >
+<$list filter="[all[current]tags[]twsm_class[theme]] -[title<hideTheme>] +[count[]]" variable=themeCount>
+<$button
+	class="py-btn btn-small"
+	popup=<<popupTiddler>>
+	tooltip="Themes"
+>
+<i class="fas fa-cubes"/> <<themeCount>> <i class="fas fa-caret-down"/>
+</$button>
+<$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
 <$list filter="[all[current]tags[]twsm_class[theme]] -[title<hideTheme>] +[sort[]]">
-<$set name="theme" value=<<currentTiddler>>>
-<<theme_button>>
+<$set name=theme value=<<currentTiddler>>>
+<<themeLink>>
 </$set>
 </$list>
+</$reveal>
+</$list>
+</$vars>
