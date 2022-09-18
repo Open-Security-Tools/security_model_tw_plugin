@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki
 
 {{||$:/plugins/security_tools/twsm/components/entity/theme/toolbar}}
 
-<$list filter="[all[current]twsm_security_score[]twsm_attack_tree_result:rendered_header[]]" variable=header>
+<$list filter="[all[current]twsm_security_score[]twsm_json_field:rendered_header[]]" variable=header>
 <div class="twsm_risk_metric_container">
 <<header>>
 </div>
@@ -20,12 +20,12 @@ type: text/vnd.tiddlywiki
 ''Security Score Calculation''
 
 
-<$list filter="[all[current]twsm_security_score[]twsm_attack_tree_result:score[]]" variable=score>
+<$list filter="[all[current]twsm_security_score[]twsm_json_field:score[]]" variable=score>
 The score of <<score>> has the following components:
 </$list>
 
 <ul>
-<$list filter="[all[current]twsm_security_score[]twsm_attack_tree_result:score_calculations[]enlist-input[]]" variable=calculation>
+<$list filter="[all[current]twsm_security_score[]twsm_json_field:score_calculations[]enlist-input[]]" variable=calculation>
 <li><<calculation>></li>
 </$list>
 </ul>

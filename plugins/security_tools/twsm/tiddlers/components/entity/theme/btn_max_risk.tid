@@ -13,8 +13,8 @@ $(name)$
 </$button>
 \end
 <$list filter="[all[current]twsm_security_score[]]" variable=result>
-<$list filter="[title<result>twsm_attack_tree_result:max_risk_name[]]" variable=name>
-<$list filter="[title<result>twsm_attack_tree_result:max_risk_class[]]" variable=class>
+<$list filter="[title<result>twsm_json_field:max_risk_name[]]" variable=name>
+<$list filter="[title<result>twsm_json_field:max_risk_class[]]" variable=class>
 <<button>>
 </$list>
 </$list>

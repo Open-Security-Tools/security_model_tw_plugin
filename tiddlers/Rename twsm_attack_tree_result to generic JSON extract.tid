@@ -3,5 +3,5 @@ due:
 modified: 20220913161852570
 priority: 
 tags: Backlog todo
-title: Rename twsm_attack_tree_result to generic JSON extract
+title: Rename twsm_json_field to generic JSON extract
 type: text/vnd.tiddlywiki

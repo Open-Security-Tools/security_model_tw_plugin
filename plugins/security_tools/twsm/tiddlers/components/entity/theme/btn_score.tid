@@ -13,7 +13,7 @@ type: text/vnd.tiddlywiki
 </$button>
 \end
 <$list filter="[all[current]twsm_security_score[]]" variable=result>
-<$list filter="[title<result>twsm_attack_tree_result:score[]]" variable=score>
+<$list filter="[title<result>twsm_json_field:score[]]" variable=score>
 <<button>>
 </$list>
 </$list>

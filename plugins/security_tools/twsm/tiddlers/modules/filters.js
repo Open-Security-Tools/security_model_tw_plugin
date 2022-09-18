@@ -51,7 +51,7 @@ exports.twsm_render_attack = function(source, operator, options) {
     return result;
 }
 
-exports.twsm_attack_tree_result = function(source, operator, options) {
+exports.twsm_json_field = function(source, operator, options) {
     
     var suffixes = operator.suffixes || [],
         field = (suffixes[0] || [])[0],
