@@ -131,3 +131,26 @@ div.twsm_risk_metric_container div.risk_id_container div.themes {
   line-height: 1;
 }
 
+span.attack_tree_branch_type {
+  border: 1px dotted grey; 
+  color: grey; 
+  border-radius: 25px; 
+  padding-left: 5px; 
+  padding-right: 5px; 
+  font-size: 14px; 
+  font-weight: bold;
+}
+
+span.attack_tree_branch_type.critical_path {
+  border-style: solid;
+}
+
+span.attack_tree_node_likelihood {
+  border: 1px solid grey; 
+  color: grey; 
+  border-radius: 25px; 
+  padding-left: 5px; 
+  padding-right: 5px; 
+  font-size: 10px;   
+}
+
