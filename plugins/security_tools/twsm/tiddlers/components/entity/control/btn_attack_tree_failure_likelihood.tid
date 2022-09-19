@@ -10,7 +10,7 @@ type: text/vnd.tiddlywiki
 <$button
 	class="attack_tree_node_likelihood"
 	popup=<<popupTiddler>>
-	tooltip="Likelihood of control failure (clamped, because it is an idea!)"
+	tooltip="Failure is certain - it's just an idea!"
 >
 <i class="far fa-lightbulb"/> Just an Idea!
 <i class="fas fa-caret-down"/>
