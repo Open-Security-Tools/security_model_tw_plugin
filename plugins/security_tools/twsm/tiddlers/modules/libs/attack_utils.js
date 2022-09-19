@@ -104,17 +104,13 @@ class Node {
         var span = "<span class=\"attack_tree_node " + this.pillClass + criticalPathClass + "\" style=\"" + nodePillStyle + "\" title=\"" + nodePillTooltip + "\">" + nodePillText + "</span>";
         var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
 
-        var criticalPathPrefixText = "";
-        if (this.criticalPath) {
-            criticalPathPrefixText = "<i class=\"far fa-check-circle\"/>"
-        } else {
-            criticalPathPrefixText = "<i class=\"far fa-times-circle\"/>";
-        }
-        var criticalPathPrefixSpan = "<span class=\"attack_tree_path_prefix\">" + criticalPathPrefixText + "</span>";
-
         var s = [];
         s.push(indentToBullet(this.indent));
-        s.push(criticalPathPrefixSpan);
+
+        var criticalPathStyle = this.criticalPath ? " critical_path" : "";
+        
+        s.push("<span class=\"attack_tree_branch_type" + criticalPathStyle + "\">" + this.parent.operator + "</span>");
+
         s.push(span + " " + this.description());
         if (comments.length > 0) {
             s.push("\"\"\"<br>" + comments + "\"\"\"");
