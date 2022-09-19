@@ -80,8 +80,19 @@ class Node {
         return "<i class=\"" + this.pillIconClass + "\"/> ";
     }
 
+    customCircle() {
+        return "<svg viewBox=\"0 0 6.3 4\" width=\"19\">" +
+            "<path transform=\"translate(0 0)\" fill=\"" + this.parent.nodeCircleColour() + "\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/>" +
+            "<path transform=\"translate(3.2 0)\" fill=\"" + this.nodeCircleColour() + "\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/>" + 
+            "</svg>";
+    }
+
     description() {
-        return this.nodeName;
+        return this.nodeName + " " + this.likelihoodSpan();
+    }
+
+    likelihoodSpan() {
+        return "<span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-calculator\"/> " + this.likelihood.treated.phia + "</span>";
     }
 
     oldLikelihoodSpan() {
@@ -102,6 +113,10 @@ class Node {
         return "<span class=\"attack_tree_node " + this.pillClass + criticalPathClass + "\" style=\"" + nodePillStyle + "\" title=\"" + nodePillTooltip + "\">" + nodePillText + "</span>";
     }
 
+    nodeCircleColour() {
+        return "grey";
+    }
+
     render() {
         if (this.indent < 1) {
             return [];
@@ -109,13 +124,13 @@ class Node {
 
         var s = [];
         s.push(indentToBullet(this.indent));
-
-        var criticalPathStyle = this.criticalPath ? " critical_path" : "";
+        s.push(this.customCircle());
         
         // AND/OR node
+        var criticalPathStyle = this.criticalPath ? " critical_path" : "";
         s.push("<span class=\"attack_tree_branch_type" + criticalPathStyle + "\">" + this.parent.operator + "</span>");
 
-        s.push(this.oldLikelihoodSpan() + " " + this.description());
+        s.push(this.description());
 
         // Comments added as additional lines
         var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
@@ -134,6 +149,14 @@ class Branch extends Node {
         // Handle any case for operator name resolution.
         this.operator = operator;
         this.children = [];
+    }
+
+    nodeCircleColour() {
+        if (this.parent === null) {
+            return "grey";
+        } else {
+            return "hsl(290, 50%, 50%)";
+        }
     }
 
     calculateBranchProbability() {
@@ -252,6 +275,10 @@ class Leaf extends Node {
         super(parent, nodeName, indent, "leaf_node", "fab fa-envira");
         var l = likelihood_utils.phia2Likelihood(probability);
         this.likelihood = new likelihood_utils.ComplexLikelihood(l, l);
+    }
+
+    likelihoodSpan() {
+        return "<span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> " + this.likelihood.treated.phia + "</span>";
     }
 }
 
