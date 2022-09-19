@@ -3,7 +3,7 @@ creator: paul
 modified: 20210807143713771
 modifier: paul
 tags: [[Wiki Internals]] $:/tags/Stylesheet
-title: $:/plugins/security_tools/twsm/styles/assurance_activities_view
+title: $:/plugins/security_tools/twsm/components/entity/assurance_activity/styles
 type: text/css
 
 table.assurance_activity_table {
