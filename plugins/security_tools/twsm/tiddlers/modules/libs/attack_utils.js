@@ -143,11 +143,13 @@ class Node {
 
 
 class Branch extends Node {
-    constructor(parent, nodeName, indent, operator) {
+    constructor(parent, nodeName, indent, operator, hue) {
         super(parent, nodeName, indent, "branch_node", "fas fa-code-branch");
 
         // Handle any case for operator name resolution.
         this.operator = operator;
+        this.hue = hue;
+        console.log("Hue = " + this.hue);
         this.children = [];
     }
 
@@ -155,7 +157,7 @@ class Branch extends Node {
         if (this.parent === null) {
             return "grey";
         } else {
-            return "hsl(290, 50%, 50%)";
+            return "hsl(" + this.hue + ", 50%, 50%)";
         }
     }
 
@@ -187,8 +189,9 @@ class Branch extends Node {
 }
 
 class OrBranch extends Branch {
-    constructor(parent, nodeName, indent) {
-        super(parent, nodeName, indent, "OR");
+    constructor(parent, nodeName, indent, hue) {
+        console.log("Hue2 = " + hue);
+        super(parent, nodeName, indent, "OR", hue);
     }
 
     calculateBranchProbability() {
@@ -245,8 +248,8 @@ class OrBranch extends Branch {
 }
 
 class AndBranch extends Branch {
-    constructor(parent, nodeName, indent) {
-        super(parent, nodeName, indent, "AND");
+    constructor(parent, nodeName, indent, hue) {
+        super(parent, nodeName, indent, "AND", hue);
 
     }
     calculateBranchProbability() {
@@ -333,11 +336,11 @@ function is_ref(refTitle) {
 }
 
 const branchFactoryLookup = {
-    "OR": function(currentBranch, branchName, indent) {
-        return new OrBranch(currentBranch, branchName, indent, "OR");
+    "OR": function(currentBranch, branchName, indent, hue) {
+        return new OrBranch(currentBranch, branchName, indent, hue);
     },
-    "AND": function(currentBranch, branchName, indent) {
-        return new AndBranch(currentBranch, branchName, indent, "OR");
+    "AND": function(currentBranch, branchName, indent, hue) {
+        return new AndBranch(currentBranch, branchName, indent, hue);
     },
 }
 
@@ -345,7 +348,10 @@ function parse_attack_tree(attack_tree) {
 
     var controls = [];
     var attack_sub_trees = [];
-    var root = new OrBranch(null, "<$view field=title/>", 0);
+    var hue = 200;
+    var root = new OrBranch(null, "<$view field=title/>", 0, hue);
+    var hueDelta = 75;
+    hue += hueDelta;
     var currentBranch = root;
 
     var ops = {
@@ -356,7 +362,8 @@ function parse_attack_tree(attack_tree) {
             if (!branchFactory) {
                 throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
             }
-            var branch = branchFactory(currentBranch, branchName, indent, operator);
+            var branch = branchFactory(currentBranch, branchName, indent, hue);
+            hue += hueDelta;
             currentBranch.children.push(branch);
             currentBranch = branch;
         },
