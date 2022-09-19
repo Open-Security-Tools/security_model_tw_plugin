@@ -26,7 +26,7 @@ exports.twsm_render_attack = function(source, operator, options) {
         var rendered = attack_utils.parse_attack_tree(title);
         var ret = {};
         ret.renderer = rendered.renderer;
-        ret.attack_tree = rendered.root.render().join("\n");
+        ret.attack_tree = rendered.root.render();
         ret.error = rendered.error;
 
         // The attack properties are sent back so they can be incorporated into subsequent actions.

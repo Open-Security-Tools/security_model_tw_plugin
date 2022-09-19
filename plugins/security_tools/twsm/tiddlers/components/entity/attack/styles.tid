@@ -136,8 +136,10 @@ span.attack_tree_branch_type {
   color: grey; 
   border-radius: 25px; 
   padding-left: 5px; 
+  padding-top: 2px;
+  padding-bottom: 2px;
   padding-right: 5px; 
-  font-size: 14px; 
+  font-size: 10px; 
   font-weight: bold;
 }
 
@@ -149,8 +151,31 @@ span.attack_tree_node_likelihood {
   border: 1px solid grey; 
   color: grey; 
   border-radius: 25px; 
-  padding-left: 5px; 
-  padding-right: 5px; 
-  font-size: 10px;   
+  padding-left: 7px; 
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 7px; 
+  font-size: 11px;   
 }
 
+button.attack_tree_node_likelihood {
+  border: 1px solid grey; 
+  color: grey; 
+  border-radius: 25px; 
+  padding-left: 7px; 
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 7px; 
+  font-size: 11px;
+  background-color: white;   
+}
+
+div.attack_tree ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
+div.attack_tree > ul {
+  list-style: none;
+  padding-left: 0px;
+}
