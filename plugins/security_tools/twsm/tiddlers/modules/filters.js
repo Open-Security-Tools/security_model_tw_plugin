@@ -51,7 +51,7 @@ exports.twsm_render_attack = function(source, operator, options) {
     return result;
 }
 
-exports.twsm_attack_tree_result = function(source, operator, options) {
+exports.twsm_json_field = function(source, operator, options) {
     
     var suffixes = operator.suffixes || [],
         field = (suffixes[0] || [])[0],
@@ -375,7 +375,7 @@ function daysPlural(days) {
 
 function addScoreCoverageMetric(name, original, decayed, days) {
     if (original === undefined) {
-        return utils.generateRiskMetric("", name, "?", "", "");
+        return utils.generateMetric("", name, "?", "", "");
     }
 
     // Convert to fixed point percentages
@@ -383,10 +383,10 @@ function addScoreCoverageMetric(name, original, decayed, days) {
     decayed = (decayed * 100).toFixed();
 
     if (original === decayed) {
-        return utils.generateRiskMetric("", name, original + "%", "Current", "")
+        return utils.generateMetric("", name, original + "%", "Current", "")
     }
     
-    return utils.generateRiskMetric("", name, decayed + "%", original + "% (" + daysPlural(days) + " ago)", "")
+    return utils.generateMetric("", name, decayed + "%", original + "% (" + daysPlural(days) + " ago)", "")
 }
 
 function calculate_security_score(tiddler, title) {
@@ -476,9 +476,9 @@ function calculate_security_score(tiddler, title) {
     l.push("<$list filter=\"[title[$:/state/twsm/display]!show_score_calculation[yes]]\" variable=ignore>");
     l.push("<$action-setfield $tiddler=\"$:/state/twsm/display\" show_score_calculation=yes/>");
     l.push("</$list>")
-    l.push(utils.generateRiskMetric("", "Security Score <i class=\"fas fa-crosshairs\"/>", score, "Out of 100", ""));
+    l.push(utils.generateMetric("", "Security Score <i class=\"fas fa-crosshairs\"/>", score, "Out of 100", ""));
     l.push("</$button>");
-    l.push(utils.generateRiskMetric(risk_utils.score2Class(maxRiskScore, false), "Max Risk <i class=\"fas fa-balance-scale\"/>", Number(maxRiskScore).toFixed(1), risk_utils.score2Name(maxRiskScore, false), ""));
+    l.push(utils.generateMetric(risk_utils.score2Class(maxRiskScore, false), "Max Risk <i class=\"fas fa-balance-scale\"/>", Number(maxRiskScore).toFixed(1), risk_utils.score2Name(maxRiskScore, false), ""));
     l.push(addScoreCoverageMetric("Risk Coverage <i class=\"fas fa-balance-scale\"/>", originalRiskCoverage, originalRiskCoverage * riskCoverageDecay, daysSinceRiskCoverage));
     l.push(addScoreCoverageMetric("Control Coverage <i class=\"fas fa-shield-alt\"/>", originalControlCoverage, originalControlCoverage * controlCoverageDecay, daysSinceControlCoverage));
 

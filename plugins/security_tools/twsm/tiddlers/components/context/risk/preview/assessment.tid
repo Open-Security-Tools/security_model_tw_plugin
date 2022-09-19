@@ -5,7 +5,7 @@ title: $:/plugins/security_tools/twsm/components/context/risk/preview/assessment
 type: text/vnd.tiddlywiki
 
 
-<$list filter="[title<complex>twsm_attack_tree_result:risk_assessment[]]" variable=renderedRiskAssessment>
+<$list filter="[title<complex>twsm_json_field:risk_assessment[]]" variable=renderedRiskAssessment>
 <div class="twsm_risk_metric_container">
 <<renderedRiskAssessment>>
 </div>

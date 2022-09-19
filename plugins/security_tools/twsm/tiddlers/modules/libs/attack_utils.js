@@ -80,16 +80,25 @@ class Node {
         return "<i class=\"" + this.pillIconClass + "\"/> ";
     }
 
-    description() {
-        return this.nodeName;
+    customCircle() {
+        return "<svg viewBox=\"0 0 6.3 4\" width=\"19\">" +
+            "<path transform=\"translate(0 0)\" fill=\"" + this.parent.nodeCircleColour() + "\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/>" +
+            "<path transform=\"translate(3.2 0)\" fill=\"" + this.nodeCircleColour() + "\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/>" + 
+            "</svg>";
     }
 
-    render() {
-        if (this.indent < 1) {
-            return [];
-        }
+    description() {
+        return this.nodeName + " " + this.likelihoodSpan();
+    }
+
+    likelihoodSpan() {
+        return "<span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-calculator\"/> " + this.likelihood.treated.phia + "</span>";
+    }
+
+    oldLikelihoodSpan() {
         var nodePillStyle = this.likelihood.treated.buildLikelihoodBackgroundStyle();
         var nodePillText = this.pillTextPreamble() + " · " + this.likelihood.treated.phia;
+
         var nodePillTooltip = "";
         if (this.likelihood.isControlled()) {
             nodePillText += " · " + this.likelihood.calculateControlProportion().toFixed() + "% mitigation";
@@ -101,21 +110,30 @@ class Node {
         if (this.criticalPath) {
             criticalPathClass = " critical_path "
         }
-        var span = "<span class=\"attack_tree_node " + this.pillClass + criticalPathClass + "\" style=\"" + nodePillStyle + "\" title=\"" + nodePillTooltip + "\">" + nodePillText + "</span>";
-        var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
+        return "<span class=\"attack_tree_node " + this.pillClass + criticalPathClass + "\" style=\"" + nodePillStyle + "\" title=\"" + nodePillTooltip + "\">" + nodePillText + "</span>";
+    }
 
-        var criticalPathPrefixText = "";
-        if (this.criticalPath) {
-            criticalPathPrefixText = "<i class=\"far fa-check-circle\"/>"
-        } else {
-            criticalPathPrefixText = "<i class=\"far fa-times-circle\"/>";
+    nodeCircleColour() {
+        return "grey";
+    }
+
+    render() {
+        if (this.indent < 1) {
+            return [];
         }
-        var criticalPathPrefixSpan = "<span class=\"attack_tree_path_prefix\">" + criticalPathPrefixText + "</span>";
 
         var s = [];
         s.push(indentToBullet(this.indent));
-        s.push(criticalPathPrefixSpan);
-        s.push(span + " " + this.description());
+        s.push(this.customCircle());
+        
+        // AND/OR node
+        var criticalPathStyle = this.criticalPath ? " critical_path" : "";
+        s.push("<span class=\"attack_tree_branch_type" + criticalPathStyle + "\">" + this.parent.operator + "</span>");
+
+        s.push(this.description());
+
+        // Comments added as additional lines
+        var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
         if (comments.length > 0) {
             s.push("\"\"\"<br>" + comments + "\"\"\"");
         }
@@ -125,12 +143,22 @@ class Node {
 
 
 class Branch extends Node {
-    constructor(parent, nodeName, indent, operator) {
+    constructor(parent, nodeName, indent, operator, hue) {
         super(parent, nodeName, indent, "branch_node", "fas fa-code-branch");
 
         // Handle any case for operator name resolution.
         this.operator = operator;
+        this.hue = hue;
+        console.log("Hue = " + this.hue);
         this.children = [];
+    }
+
+    nodeCircleColour() {
+        if (this.parent === null) {
+            return "grey";
+        } else {
+            return "hsl(" + this.hue + ", 50%, 50%)";
+        }
     }
 
     calculateBranchProbability() {
@@ -161,8 +189,9 @@ class Branch extends Node {
 }
 
 class OrBranch extends Branch {
-    constructor(parent, nodeName, indent) {
-        super(parent, nodeName, indent, "OR");
+    constructor(parent, nodeName, indent, hue) {
+        console.log("Hue2 = " + hue);
+        super(parent, nodeName, indent, "OR", hue);
     }
 
     calculateBranchProbability() {
@@ -204,12 +233,12 @@ class OrBranch extends Branch {
         var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
 
         var l = [];
-        l.push(utils.generateRiskMetric(risk_utils.score2Class(residual), "Treated Risk", residual.toFixed(1), risk_utils.score2Name(residual), ""));
-        l.push(utils.generateRiskMetric(risk_utils.score2Class(inherent), "Untreated Risk", inherent.toFixed(1), risk_utils.score2Name(inherent), ""));
-        l.push(utils.generateRiskMetric(impactClass, "Impact", impact, impactName, ""));
+        l.push(utils.generateMetric(risk_utils.score2Class(residual), "Treated Risk", residual.toFixed(1), risk_utils.score2Name(residual), ""));
+        l.push(utils.generateMetric(risk_utils.score2Class(inherent), "Untreated Risk", inherent.toFixed(1), risk_utils.score2Name(inherent), ""));
+        l.push(utils.generateMetric(impactClass, "Impact", impact, impactName, ""));
 
-        l.push(utils.generateRiskMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
-        // l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
+        l.push(utils.generateMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
+        // l.push(generateMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
         return {
             rendered_summary: l.join(""),
             untreated_risk: inherent,
@@ -219,8 +248,8 @@ class OrBranch extends Branch {
 }
 
 class AndBranch extends Branch {
-    constructor(parent, nodeName, indent) {
-        super(parent, nodeName, indent, "AND");
+    constructor(parent, nodeName, indent, hue) {
+        super(parent, nodeName, indent, "AND", hue);
 
     }
     calculateBranchProbability() {
@@ -249,6 +278,10 @@ class Leaf extends Node {
         super(parent, nodeName, indent, "leaf_node", "fab fa-envira");
         var l = likelihood_utils.phia2Likelihood(probability);
         this.likelihood = new likelihood_utils.ComplexLikelihood(l, l);
+    }
+
+    likelihoodSpan() {
+        return "<span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> " + this.likelihood.treated.phia + "</span>";
     }
 }
 
@@ -303,11 +336,11 @@ function is_ref(refTitle) {
 }
 
 const branchFactoryLookup = {
-    "OR": function(currentBranch, branchName, indent) {
-        return new OrBranch(currentBranch, branchName, indent, "OR");
+    "OR": function(currentBranch, branchName, indent, hue) {
+        return new OrBranch(currentBranch, branchName, indent, hue);
     },
-    "AND": function(currentBranch, branchName, indent) {
-        return new AndBranch(currentBranch, branchName, indent, "OR");
+    "AND": function(currentBranch, branchName, indent, hue) {
+        return new AndBranch(currentBranch, branchName, indent, hue);
     },
 }
 
@@ -315,7 +348,10 @@ function parse_attack_tree(attack_tree) {
 
     var controls = [];
     var attack_sub_trees = [];
-    var root = new OrBranch(null, "<$view field=title/>", 0);
+    var hue = 200;
+    var root = new OrBranch(null, "<$view field=title/>", 0, hue);
+    var hueDelta = 75;
+    hue += hueDelta;
     var currentBranch = root;
 
     var ops = {
@@ -326,7 +362,8 @@ function parse_attack_tree(attack_tree) {
             if (!branchFactory) {
                 throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
             }
-            var branch = branchFactory(currentBranch, branchName, indent, operator);
+            var branch = branchFactory(currentBranch, branchName, indent, hue);
+            hue += hueDelta;
             currentBranch.children.push(branch);
             currentBranch = branch;
         },

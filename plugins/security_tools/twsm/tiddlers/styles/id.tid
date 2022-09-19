@@ -26,3 +26,27 @@ a.twsm_id i.twsm_risk_low {
 a.twsm_id i.twsm_risk_unknown {
   color: #a0a0a0;
 }
+
+a span.risk_dropdown.twsm_risk_low {
+  color: #cccc00;
+}
+
+a span.risk_dropdown.twsm_risk_unknown {
+  color: #a0a0a0;
+}
+
+a span.risk_dropdown.twsm_risk_high {
+  color: #fb2c08; 
+}
+
+a span.risk_dropdown.twsm_risk_medium {
+  color: #fd9309;
+}
+
+
+
+span.row_icon {
+  display: inline-block;
+  width: 18px;
+  text-align: center;
+}
