@@ -9,6 +9,7 @@ type: text/vnd.tiddlywiki
   $name="tabs"
   tabsList="[all[tiddlers+shadows]tag[$:/plugins/security_tools/twsm/components/entity/theme/tabs]]"
   default="$:/plugins/security_tools/twsm/components/entity/theme/risks"
-  state="$:/state/twsm/themeview"
+  explicitState=<<tabState>>
   class="py-tabs"
 />
+
