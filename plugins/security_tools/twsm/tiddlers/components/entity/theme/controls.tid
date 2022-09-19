@@ -1,15 +1,19 @@
-caption: All Risks
+caption: Controls
 created: 20211110125402059
 modified: 20211116101349878
-tags: 
+tags: $:/plugins/security_tools/twsm/components/entity/theme/tabs
 title: $:/plugins/security_tools/twsm/components/entity/theme/controls
 type: text/vnd.tiddlywiki
 
+<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]get[twsm_characteristic_class]unique[]sort[]]" variable=characteristic>
 
-!! Controls
+!! <<characteristic>>
 
 <div class="py-todos">
-<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]sort[]]" emptyMessage="None!">
+<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]twsm_class[control]twsm_characteristic_class<characteristic>sort[]]">
 {{||$:/plugins/security_tools/twsm/components/entity/control/row}}
 </$list>
 </div>
+
+</$list>
+
