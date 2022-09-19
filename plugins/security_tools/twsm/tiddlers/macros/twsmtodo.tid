@@ -16,16 +16,12 @@ $title$
 
 \define attack_tree_control_reference(control)
 <$link to="$control$">
-<$list filter="[title[$control$]is_idea[yes]]">
-<span style="color: red"><i class="far fa-lightbulb"/></span>
-</$list>
 <$list filter="[title[$control$]get[twsm_characteristic_class]]">
 <<currentTiddler>>:
 </$list>
 <$view tiddler="$control$" field=title/> (#<$view tiddler="$control$" field=twsm_id/>)</$link>
 <$tiddler tiddler="$control$">
-{{||$:/plugins/security_tools/twsm/components/entity/control/btn_failure_likelihood}}
-{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
+{{||$:/plugins/security_tools/twsm/components/entity/control/btn_attack_tree_failure_likelihood}}
 </$tiddler>
 \end
 

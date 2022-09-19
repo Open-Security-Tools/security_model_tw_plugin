@@ -117,13 +117,14 @@ class Node {
         return "grey";
     }
 
-    render() {
+    renderStart() {
         if (this.indent < 1) {
             return [];
         }
 
         var s = [];
-        s.push(indentToBullet(this.indent));
+        // s.push(indentToBullet(this.indent));
+        s.push("<li>");
         s.push(this.customCircle());
         
         // AND/OR node
@@ -139,6 +140,15 @@ class Node {
         }
         return [s.join(" ")];
     }
+
+    renderEnd() {
+        if (this.indent < 1) {
+            return [];
+        }
+        return ["</li>"];
+    }
+
+
 }
 
 
@@ -179,10 +189,15 @@ class Branch extends Node {
     }
 
     // Override render
-    render() {
-        var lines = super.render();
-        for (let c of this.children) {
-            lines.push(...c.render());
+    renderStart() {
+        var lines = super.renderStart();
+        if (this.children.length > 0){
+            lines.push("<ul>")
+            for (let c of this.children) {
+                lines.push(...c.renderStart());
+                lines.push(...c.renderEnd());
+            }
+            lines.push("</ul>")
         }
         return lines;
     }
@@ -192,6 +207,16 @@ class OrBranch extends Branch {
     constructor(parent, nodeName, indent, hue) {
         console.log("Hue2 = " + hue);
         super(parent, nodeName, indent, "OR", hue);
+    }
+
+    // Root render
+    render() {
+        var lines = [];
+        lines.push("<div class=\"attack_tree\">");
+        lines.push(...this.renderStart());
+        lines.push(...this.renderEnd());
+        lines.push("</div>");
+        return lines.join("\n");
     }
 
     calculateBranchProbability() {
@@ -367,7 +392,33 @@ function parse_attack_tree(attack_tree) {
             currentBranch.children.push(branch);
             currentBranch = branch;
         },
+        "and": function(indent, args) {
+            var branchName = args[0];
+            var branchFactory = branchFactoryLookup["AND"];
+            var branch = branchFactory(currentBranch, branchName, indent, hue);
+            hue += hueDelta;
+            currentBranch.children.push(branch);
+            currentBranch = branch;
+        },
+        "or": function(indent, args) {
+            var branchName = args[0];
+            var branchFactory = branchFactoryLookup["OR"];
+            var branch = branchFactory(currentBranch, branchName, indent, hue);
+            hue += hueDelta;
+            currentBranch.children.push(branch);
+            currentBranch = branch;
+        },
         "leaf": function(indent, args) {
+            var leafName = args[0];
+            var probability = args[1];
+            var leaf = new Leaf(currentBranch, leafName, indent, probability);
+            if (leaf.indent !== (currentBranch.indent + 1)) {
+                throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
+            }
+            currentBranch.children.push(leaf);
+            console.log("Pushing leaf to branch: " + leaf.nodeName);
+        },
+        "task": function(indent, args) {
             var leafName = args[0];
             var probability = args[1];
             var leaf = new Leaf(currentBranch, leafName, indent, probability);

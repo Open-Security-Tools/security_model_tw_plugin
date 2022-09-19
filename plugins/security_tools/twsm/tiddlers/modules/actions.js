@@ -65,7 +65,7 @@ UpdateRiskWidget.prototype.invokeAction = function(triggeringWidget,event) {
                 controls: utils.twListify(attackTree.controls),
                 sub_trees: utils.twListify(attackTree.sub_trees),
                 renderer: attackTree.renderer,
-                rendered_attack_tree: attackTree.root.render().join("\n"),
+                rendered_attack_tree: attackTree.root.render(),
                 untreated_likelihood_lower: attackTree.root.likelihood.untreated.lower,
                 untreated_likelihood_upper: attackTree.root.likelihood.untreated.upper,
                 treated_likelihood_lower: attackTree.root.likelihood.treated.lower,
