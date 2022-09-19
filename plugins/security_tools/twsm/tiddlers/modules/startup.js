@@ -86,6 +86,7 @@ function processTheme(cf, nf) {
 		hue_colour = getRandomInt(360);
 		nf["twsm_hue"] = hue_colour;
 	}
+	nf["hide-body"] = "yes";
 
 	return nf;
 }

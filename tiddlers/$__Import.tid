@@ -1,16 +1,7 @@
-modified: 20220911194945249
 status: complete
 title: $:/Import
 type: text/vnd.tiddlywiki
 
 The following tiddlers were imported:
 
-# [[A sample risk]]
-# [[A preventative procedural control with bells]]
-# [[A sample theme]]
-# [[A sample vulnerability]]
-# [[Another sample risk]]
-# [[Controls]]
-# [[Model Summary]]
-# [[Risks]]
-# [[Vulnerabilities]]
+# [[$:/themes/nico/notebook]]

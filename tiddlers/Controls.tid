@@ -1,13 +1,18 @@
-created: 20220901083258035
-due: 
-modified: 20220915124505915
-priority: 
-tags: 
+caption: Controls (<$list filter="[all[]count[]]"><<currentTiddler>></$list>)
+created: 20220919154114042
+modified: 20220919194309868
+tags: Cucumber
 title: Controls
 type: text/vnd.tiddlywiki
 
+<$list filter="[all[]twsm_class[control]get[twsm_characteristic_class]unique[]sort[]]" variable=characteristic>
+
+!! <<characteristic>>
+
 <div class="py-todos">
-<$list filter="[all[]twsm_class[control]sort[]]">
+<$list filter="[all[]twsm_class[control]twsm_characteristic_class<characteristic>sort[]]">
 {{||$:/plugins/security_tools/twsm/components/entity/control/row}}
 </$list>
 </div>
+
+</$list>

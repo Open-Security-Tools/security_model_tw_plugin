@@ -1,12 +1,10 @@
-caption: All Risks
+caption: Risks
 created: 20211110125402059
 modified: 20211116101349878
-tags: 
+tags: $:/plugins/security_tools/twsm/components/entity/theme/tabs
+list-before: $:/plugins/security_tools/twsm/components/entity/theme/controls
 title: $:/plugins/security_tools/twsm/components/entity/theme/risks
 type: text/vnd.tiddlywiki
-
-
-!! Risks
 
 <$list filter="[all[current]twsm_class[theme]]" variable=hideTheme>
 <div class="py-todos">
