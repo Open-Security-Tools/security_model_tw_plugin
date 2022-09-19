@@ -1,0 +1,13 @@
+created: 20220919153519735
+modified: 20220919153752186
+tags: 
+title: Test Dashboard
+type: text/vnd.tiddlywiki
+
+<$macrocall
+  $name="tabs"
+  tabsList="[all[tiddlers+shadows]tag[Cucumber]]"
+  default={{$:/config/projectify/DefaultDashboardTab}}
+  state="$:/state/twsm/themeview"
+  class="py-tabs"
+/>

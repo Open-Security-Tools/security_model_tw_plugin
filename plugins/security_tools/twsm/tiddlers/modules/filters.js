@@ -469,18 +469,22 @@ function calculate_security_score(tiddler, title) {
     var score = riskPoints + riskCoveragePoints + riskCoveragePointPenalty + controlCoveragePoints + controlCoveragePointPenalty;
     
     var l = [];
-    l.push("<$button class=\"tc-btn-invisible\" tooltip=\"Click to toggle showing the score calculation\">");
-    l.push("<$list filter=\"[title[$:/state/twsm/display]show_score_calculation[yes]]\" variable=ignore>");
-    l.push("<$action-deletefield $tiddler=\"$:/state/twsm/display\" show_score_calculation/>");
-    l.push("</$list>")
-    l.push("<$list filter=\"[title[$:/state/twsm/display]!show_score_calculation[yes]]\" variable=ignore>");
-    l.push("<$action-setfield $tiddler=\"$:/state/twsm/display\" show_score_calculation=yes/>");
-    l.push("</$list>")
+    l.push("<$button class=\"tc-btn-invisible\">");
+    l.push("<$action-setfield $tiddler=<<tabState>> text=\"$:/plugins/security_tools/twsm/components/entity/theme/score\"/>");
     l.push(utils.generateMetric("", "Security Score <i class=\"fas fa-crosshairs\"/>", score, "Out of 100", ""));
     l.push("</$button>");
+    l.push("<$button class=\"tc-btn-invisible\">");
+    l.push("<$action-setfield $tiddler=<<tabState>> text=\"$:/plugins/security_tools/twsm/components/entity/theme/risks\"/>");
     l.push(utils.generateMetric(risk_utils.score2Class(maxRiskScore, false), "Max Risk <i class=\"fas fa-balance-scale\"/>", Number(maxRiskScore).toFixed(1), risk_utils.score2Name(maxRiskScore, false), ""));
+    l.push("</$button>");
+    l.push("<$button class=\"tc-btn-invisible\">");
+    l.push("<$action-setfield $tiddler=<<tabState>> text=\"$:/plugins/security_tools/twsm/components/entity/theme/risks\"/>");
     l.push(addScoreCoverageMetric("Risk Coverage <i class=\"fas fa-balance-scale\"/>", originalRiskCoverage, originalRiskCoverage * riskCoverageDecay, daysSinceRiskCoverage));
+    l.push("</$button>");
+    l.push("<$button class=\"tc-btn-invisible\">");
+    l.push("<$action-setfield $tiddler=<<tabState>> text=\"$:/plugins/security_tools/twsm/components/entity/theme/controls\"/>");
     l.push(addScoreCoverageMetric("Control Coverage <i class=\"fas fa-shield-alt\"/>", originalControlCoverage, originalControlCoverage * controlCoverageDecay, daysSinceControlCoverage));
+    l.push("</$button>");
 
     var renderedHeader = l.join("");
     

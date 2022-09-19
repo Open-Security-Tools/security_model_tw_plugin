@@ -1,0 +1,20 @@
+caption: Score
+created: 20211110125402059
+modified: 20211116101349878
+tags: $:/plugins/security_tools/twsm/components/entity/theme/tabs
+title: $:/plugins/security_tools/twsm/components/entity/theme/score
+type: text/vnd.tiddlywiki
+
+''Security Score Calculation''
+
+
+<$list filter="[all[current]twsm_security_score[]twsm_json_field:score[]]" variable=score>
+The score of <<score>> has the following components:
+</$list>
+
+<ul>
+<$list filter="[all[current]twsm_security_score[]twsm_json_field:score_calculations[]enlist-input[]]" variable=calculation>
+<li><<calculation>></li>
+</$list>
+</ul>
+
