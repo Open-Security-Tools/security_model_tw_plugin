@@ -12,7 +12,7 @@ type: text/vnd.tiddlywiki
 	popup=<<popupTiddler>>
 	tooltip="Likelihood of control failure (clamped, because it is an idea!)"
 >
-<i class="fas fa-exclamation-triangle"/> Failure is <<failureLikelihood>> <span style="color: red;"><i class="far fa-lightbulb"/></span>
+<i class="fas fa-virus"/> Failure is <<failureLikelihood>> <span style="color: red;"><i class="far fa-lightbulb"/></span>
 </$button>
 </$list>
 <$list filter="[all[current]!is_idea[yes]]" variable=ignore>
@@ -21,7 +21,7 @@ type: text/vnd.tiddlywiki
 	popup=<<popupTiddler>>
 	tooltip="Likelihood of control failure"
 >
-<i class="fas fa-exclamation-triangle"/> Failure is <<failureLikelihood>> <i class="fas fa-caret-down"/>
+<i class="fas fa-virus"/> Failure is <<failureLikelihood>> <i class="fas fa-caret-down"/>
 </$button>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
 <$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realistic Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]] -[title<failureLikelihood>]" variable=likelihood>

@@ -13,6 +13,15 @@ span[data-theme-name="<$view field=title/>"].theme_btn_container button {
   color: hsl({{!!twsm_hue}}, 68%, 35%);
 }
 
+span[data-theme-name="<$view field=title/>"].theme_link i {
+    color: hsl({{!!twsm_hue}}, 68%, 35%);
+}
+
+span[data-theme-name="<$view field=title/>"].theme_link:hover i {
+    color: white;
+}
+
+
 span[data-theme-name="<$view field=title/>"].theme-pill button {
   background-color: hsl({{!!twsm_hue}}, 68%, 55%);
 	color: #FFF;

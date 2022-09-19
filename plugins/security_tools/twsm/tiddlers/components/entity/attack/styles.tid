@@ -1,10 +1,20 @@
-created: 20210805123046268
-creator: paul
-modified: 20210805123635856
-modifier: paul
-tags: [[Wiki Internals]] $:/tags/Stylesheet
-title: $:/plugins/security_tools/twsm/styles/attack_trees_view
+created: 20180820171551129
+modified: 20210808172126448
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/components/entity/attack/styles
 type: text/css
+
+textarea.edit_attack_tree {
+  width: 100%;
+}
+
+div.security_score_calculation {
+  padding: 10px;
+  background: #fcfcfc;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
+
 
 table.attack_tree_table {
   width: 100%;
@@ -119,5 +129,28 @@ div.twsm_risk_metric_container div.risk_id_container {
 div.twsm_risk_metric_container div.risk_id_container div.themes {
   font-size: 12px;
   line-height: 1;
+}
+
+span.attack_tree_branch_type {
+  border: 1px dotted grey; 
+  color: grey; 
+  border-radius: 25px; 
+  padding-left: 5px; 
+  padding-right: 5px; 
+  font-size: 14px; 
+  font-weight: bold;
+}
+
+span.attack_tree_branch_type.critical_path {
+  border-style: solid;
+}
+
+span.attack_tree_node_likelihood {
+  border: 1px solid grey; 
+  color: grey; 
+  border-radius: 25px; 
+  padding-left: 5px; 
+  padding-right: 5px; 
+  font-size: 10px;   
 }
 

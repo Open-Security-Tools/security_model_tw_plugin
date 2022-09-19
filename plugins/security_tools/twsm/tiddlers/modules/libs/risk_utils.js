@@ -86,12 +86,12 @@ class RiskAssessment {
         var untreatedBackgroundStyle = this.untreatedLikelihood.buildLikelihoodBackgroundStyle();
     
         var l = [];
-        l.push(utils.generateRiskMetric(this.treatedClass, "Treated Risk", this.treatedRisk, this.treatedName, ""));
-        l.push(utils.generateRiskMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk, this.untreatedName, ""));
-        l.push(utils.generateRiskMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
+        l.push(utils.generateMetric(this.treatedClass, "Treated Risk", this.treatedRisk, this.treatedName, ""));
+        l.push(utils.generateMetric(this.untreatedClass, "Untreated Risk", this.untreatedRisk, this.untreatedName, ""));
+        l.push(utils.generateMetric(this.impactClass, "Impact", this.impact, this.impactName, ""));
     
-        l.push(utils.generateRiskMetric("", "Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
-        // l.push(generateRiskMetric("", "Untreated Likelihood", untreatedBand, this.untreatedLikelihood.phia, untreatedBackgroundStyle));
+        l.push(utils.generateMetric("", "Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
+        // l.push(generateMetric("", "Untreated Likelihood", untreatedBand, this.untreatedLikelihood.phia, untreatedBackgroundStyle));
 
         return l.join("");
     }

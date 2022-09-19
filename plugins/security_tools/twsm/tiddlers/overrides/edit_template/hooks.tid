@@ -12,6 +12,7 @@ type: text/vnd.tiddlywiki
 [regexp[^risk_coverage_assessment$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_percentage]]
 [regexp[^control_coverage_assessment$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_percentage]]
 [regexp[^attack_tree$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_empty]]
+[regexp[^draft_attack_tree$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_empty]]
 [regexp[^rendered_attack_tree$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_empty]]
 [regexp[^controls$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]
 [regexp[^sub_trees$]then[$:/plugins/security_tools/twsm/overrides/edit_template/fields/ro_text]]

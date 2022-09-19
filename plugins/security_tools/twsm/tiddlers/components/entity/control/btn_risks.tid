@@ -18,11 +18,7 @@ type: text/vnd.tiddlywiki
 </$button>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
 <$list filter="[all[current]listed[controls]sort[]]">
-<$link><tt>#<$view field=twsm_id/></tt> 
-<$list filter="[all[current]twsm_risk_assessment:treatedName[]]" variable=name>
-<<name>>: 
-</$list>
-<$view field=title/></$link>
+{{||$:/plugins/security_tools/twsm/components/entity/risk/list_item}}
 </$list>
 </$reveal>
 </$list>

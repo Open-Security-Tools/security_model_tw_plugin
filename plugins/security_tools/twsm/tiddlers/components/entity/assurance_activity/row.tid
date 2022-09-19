@@ -7,9 +7,11 @@ type: text/vnd.tiddlywiki
 <div class="tc-menu-list-item">
 <div class="py-todo">
 <label class="">
+<span class="row_icon">
 <$list filter="[all[current]get[twsm_class]addprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]]">
 {{||$:/plugins/security_tools/twsm/templates/class_inline_icon}}
 </$list>
+</span>
 <$link><tt>#<$view field=twsm_id/></tt>
 <$view field=title/></$link>
 </label>
