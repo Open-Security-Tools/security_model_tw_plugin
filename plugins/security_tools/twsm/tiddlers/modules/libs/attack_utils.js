@@ -84,12 +84,10 @@ class Node {
         return this.nodeName;
     }
 
-    render() {
-        if (this.indent < 1) {
-            return [];
-        }
+    oldLikelihoodSpan() {
         var nodePillStyle = this.likelihood.treated.buildLikelihoodBackgroundStyle();
         var nodePillText = this.pillTextPreamble() + " · " + this.likelihood.treated.phia;
+
         var nodePillTooltip = "";
         if (this.likelihood.isControlled()) {
             nodePillText += " · " + this.likelihood.calculateControlProportion().toFixed() + "% mitigation";
@@ -101,17 +99,26 @@ class Node {
         if (this.criticalPath) {
             criticalPathClass = " critical_path "
         }
-        var span = "<span class=\"attack_tree_node " + this.pillClass + criticalPathClass + "\" style=\"" + nodePillStyle + "\" title=\"" + nodePillTooltip + "\">" + nodePillText + "</span>";
-        var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
+        return "<span class=\"attack_tree_node " + this.pillClass + criticalPathClass + "\" style=\"" + nodePillStyle + "\" title=\"" + nodePillTooltip + "\">" + nodePillText + "</span>";
+    }
+
+    render() {
+        if (this.indent < 1) {
+            return [];
+        }
 
         var s = [];
         s.push(indentToBullet(this.indent));
 
         var criticalPathStyle = this.criticalPath ? " critical_path" : "";
         
+        // AND/OR node
         s.push("<span class=\"attack_tree_branch_type" + criticalPathStyle + "\">" + this.parent.operator + "</span>");
 
-        s.push(span + " " + this.description());
+        s.push(this.oldLikelihoodSpan() + " " + this.description());
+
+        // Comments added as additional lines
+        var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
         if (comments.length > 0) {
             s.push("\"\"\"<br>" + comments + "\"\"\"");
         }
