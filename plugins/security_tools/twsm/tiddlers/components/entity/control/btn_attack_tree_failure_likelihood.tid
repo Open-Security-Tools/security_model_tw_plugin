@@ -1,0 +1,57 @@
+created: 20220901083427664
+modified: 20220901083544062
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/control/btn_attack_tree_failure_likelihood
+type: text/vnd.tiddlywiki
+
+<$vars popupTiddler=<<qualify "$:/state/twsm/control-failure-likelihood-dropdown">> >
+<$list filter="[all[current]twsm_control_failure_likelihood[]else[]]" variable=failureLikelihood>
+<$list filter="[all[current]is_idea[yes]]" variable=ignore>
+<$button
+	class="attack_tree_node_likelihood"
+	popup=<<popupTiddler>>
+	tooltip="Failure is certain - it's just an idea!"
+>
+<i class="far fa-lightbulb"/> Just an Idea!
+<i class="fas fa-caret-down"/>
+</$button>
+<$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
+<$button class="tc-btn-invisible">
+Mark control as effective!
+<$action-deletefield is_idea/>
+<$list filter="[all[current]listed[controls]]">
+<$action-updaterisk/>
+</$list>
+</$button>
+</$reveal>
+</$list>
+<$list filter="[all[current]!is_idea[yes]]" variable=ignore>
+<$button
+	class="attack_tree_node_likelihood"
+	popup=<<popupTiddler>>
+	tooltip="Likelihood of control failure"
+>
+<i class="fas fa-shield-alt"/> Failure is <<failureLikelihood>>
+<i class="fas fa-caret-down"/>
+</$button>
+<$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
+<$button class="tc-btn-invisible">
+Control is just an ''Idea''!
+<$action-setfield is_idea=yes/>
+<$list filter="[all[current]listed[controls]]">
+<$action-updaterisk/>
+</$list>
+</$button>
+<$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realistic Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]] -[title<failureLikelihood>]" variable=likelihood>
+<$button class="tc-btn-invisible">
+Failure is ''<<likelihood>>''
+<$action-setfield failure_likelihood=<<likelihood>>/>
+<$list filter="[all[current]listed[controls]]">
+<$action-updaterisk/>
+</$list>
+</$button>
+</$list>
+</$reveal>
+</$list>
+</$list>
+</$vars>
