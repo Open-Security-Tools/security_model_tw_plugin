@@ -392,7 +392,33 @@ function parse_attack_tree(attack_tree) {
             currentBranch.children.push(branch);
             currentBranch = branch;
         },
+        "and": function(indent, args) {
+            var branchName = args[0];
+            var branchFactory = branchFactoryLookup["AND"];
+            var branch = branchFactory(currentBranch, branchName, indent, hue);
+            hue += hueDelta;
+            currentBranch.children.push(branch);
+            currentBranch = branch;
+        },
+        "or": function(indent, args) {
+            var branchName = args[0];
+            var branchFactory = branchFactoryLookup["OR"];
+            var branch = branchFactory(currentBranch, branchName, indent, hue);
+            hue += hueDelta;
+            currentBranch.children.push(branch);
+            currentBranch = branch;
+        },
         "leaf": function(indent, args) {
+            var leafName = args[0];
+            var probability = args[1];
+            var leaf = new Leaf(currentBranch, leafName, indent, probability);
+            if (leaf.indent !== (currentBranch.indent + 1)) {
+                throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
+            }
+            currentBranch.children.push(leaf);
+            console.log("Pushing leaf to branch: " + leaf.nodeName);
+        },
+        "task": function(indent, args) {
             var leafName = args[0];
             var probability = args[1];
             var leaf = new Leaf(currentBranch, leafName, indent, probability);
