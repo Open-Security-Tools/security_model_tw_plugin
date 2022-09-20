@@ -270,6 +270,24 @@ class OrBranch extends Branch {
             treated_risk: residual,
         }
     }
+
+    renderAttackAssessment() {
+
+        var treatedBand = this.likelihood.treated.toBandSimplePercentageDescription();
+        var treatedBackgroundStyle = this.likelihood.treated.buildLikelihoodBackgroundStyle();
+
+        var untreatedBand = this.likelihood.untreated.toBandSimplePercentageDescription();
+        var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
+
+        var l = [];
+        l.push(utils.generateMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
+        l.push(utils.generateMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
+        return {
+            rendered_summary: l.join(""),
+        }
+    }
+
+
 }
 
 class AndBranch extends Branch {

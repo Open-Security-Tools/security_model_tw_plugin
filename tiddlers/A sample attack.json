@@ -1,0 +1,21 @@
+[
+    {
+        "created": "20220913112007189",
+        "title": "A sample attack",
+        "modified": "20220920220534783",
+        "tags": "",
+        "type": "text/vnd.tiddlywiki",
+        "draft_impact": "",
+        "twsm_class": "attack",
+        "twsm_id": "1012",
+        "attack_tree": "* <<and \"hello\">>\n** <<leaf \"hello\" rp>>\n** <<leaf \"hello\" l>>\n** <<control \"Another Control\">>",
+        "controls": "[[Another Control]]",
+        "sub_trees": "",
+        "renderer": "2",
+        "rendered_attack_tree": "<div class=\"attack_tree\">\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"grey\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"hsl(275, 50%, 50%)\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">OR</span> hello <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-calculator\"/> Remote Chance</span>\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(275, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">AND</span> hello <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> Realistic Possibility</span>\n</li>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(275, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">AND</span> hello <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> Likely</span>\n</li>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(275, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">AND</span> <<attack_tree_control_reference \"Another Control\">>\n</li>\n</ul>\n</li>\n</ul>\n</div>",
+        "untreated_likelihood_lower": "0.19687500000000002",
+        "untreated_likelihood_upper": "0.40687500000000004",
+        "treated_likelihood_lower": "0",
+        "treated_likelihood_upper": "0.030515625"
+    }
+]

@@ -44,6 +44,9 @@ exports.twsm_render_attack = function(source, operator, options) {
             ret.risk_assessment = risk_assessment.rendered_summary;
             ret.untreated_risk = risk_assessment.untreated_risk;
             ret.treated_risk = risk_assessment.treated_risk;
+        } else {
+            var attackAssessment = rendered.root.renderAttackAssessment();
+            ret.attack_assessment = attackAssessment.rendered_summary;
         }
 
         result.push(JSON.stringify(ret));
@@ -78,6 +81,19 @@ exports.twsm_json_field = function(source, operator, options) {
     return result;
 }
 
+exports.twsm_attack_assessment = function(source, operator, options) {
+    var suffixes = operator.suffixes || [],
+        field = (suffixes[0] || [])[0],
+        result = [];
+    source (function(tiddler, title) {
+        var assessment = new risk_utils.AttackAssessment(tiddler.fields);
+        var value = assessment[field];
+        if (value !== undefined) {
+            result.push(String(value));
+        }
+    });
+    return result; 
+}
 
 exports.twsm_risk_assessment = function(source, operator, options) {
     var suffixes = operator.suffixes || [],
@@ -284,6 +300,22 @@ function get_risk_actions(tiddler, title, options) {
     return result;
 }
 
+function get_attack_actions(tiddler, title, options) {
+    if ((tiddler === undefined) || (tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "attack")) {
+        return [];
+    }
+
+    var result = [];
+    if (tiddler.fields.edit_attack_tree === "yes") {
+        result.push("commit_attack");
+        result.push("cancel_edit_attack");
+    } else {
+        result.push("edit_attack");
+    }
+
+    return result;
+}
+
 function get_theme_actions(tiddler, title, options) {
     if ((tiddler === undefined) || (tiddler.fields.twsm_class === undefined) || (tiddler.fields.twsm_class !== "theme")) {
         return [];
@@ -301,6 +333,7 @@ function actions_filter_all(source, options) {
     source(function(tiddler, title) {
         result.push(...get_control_actions(tiddler, title, options));
         result.push(...get_risk_actions(tiddler, title, options));
+        result.push(...get_attack_actions(tiddler, title, options));
         result.push(...get_generic_actions(tiddler, title, options));
         result.push(...get_theme_actions(tiddler, title, options));
         result.push(...get_assurance_actions(tiddler, title, options));
@@ -316,11 +349,18 @@ function actions_filter_control(source, options) {
     return result;
 }
 
-
 function actions_filter_risk(source, options) {
     var result = [];
     source(function(tiddler, title) {
         result.push(...get_risk_actions(tiddler, title, options));
+    });
+    return result;
+}
+
+function actions_filter_attack(source, options) {
+    var result = [];
+    source(function(tiddler, title) {
+        result.push(...get_attack_actions(tiddler, title, options));
     });
     return result;
 }
@@ -356,6 +396,7 @@ var contexts = {
     "generic": actions_filter_generic,
     "theme": actions_filter_theme,
     "assurance_activity": actions_filter_assurance_activity,
+    "attack": actions_filter_attack,
 }
 
 exports.twsm_actions = function (source, operator, options) {

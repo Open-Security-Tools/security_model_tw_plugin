@@ -13,7 +13,6 @@ Action widget to update dependent risks of a control.
 "use strict";
 
 var attack_utils = require("$:/plugins/security_tools/twsm/attack_utils.js");
-var impact_utils = require("$:/plugins/security_tools/twsm/impact_utils.js")
 var Widget = require("$:/core/modules/widgets/widget.js").widget;
 var utils = require("$:/plugins/security_tools/twsm/utils.js");
 
@@ -21,15 +20,24 @@ var UpdateRiskWidget = function(parseTreeNode,options) {
     this.initialise(parseTreeNode,options);
 };
 
+var UpdateAttackWidget = function(parseTreeNode,options) {
+    this.initialise(parseTreeNode,options);
+};
+
 /*
 Inherit from the base widget class
 */
 UpdateRiskWidget.prototype = new Widget();
+UpdateAttackWidget.prototype = new Widget();
 
 /*
 Render this widget into the DOM
 */
 UpdateRiskWidget.prototype.render = function(parent,nextSibling) {
+    this.computeAttributes();
+    this.execute();
+};
+UpdateAttackWidget.prototype.render = function(parent,nextSibling) {
     this.computeAttributes();
     this.execute();
 };
@@ -41,11 +49,19 @@ UpdateRiskWidget.prototype.execute = function() {
     this.actionTiddler = this.getAttribute("$tiddler") || (!this.hasParseTreeNodeAttribute("$tiddler") && this.getVariable("currentTiddler"));
     this.actionTimestamp = this.getAttribute("$timestamp","yes") === "yes";
 };
+UpdateAttackWidget.prototype.execute = function() {
+    this.actionTiddler = this.getAttribute("$tiddler") || (!this.hasParseTreeNodeAttribute("$tiddler") && this.getVariable("currentTiddler"));
+    this.actionTimestamp = this.getAttribute("$timestamp","yes") === "yes";
+};
 
 /*
 Refresh the widget by ensuring our attributes are up to date
 */
 UpdateRiskWidget.prototype.refresh = function(changedTiddlers) {
+    // Nothing to refresh
+    return this.refreshChildren(changedTiddlers);
+};
+UpdateAttackWidget.prototype.refresh = function(changedTiddlers) {
     // Nothing to refresh
     return this.refreshChildren(changedTiddlers);
 };
@@ -76,21 +92,40 @@ UpdateRiskWidget.prototype.invokeAction = function(triggeringWidget,event) {
                 self.wiki.setText(self.actionTiddler, key, undefined, value, options);
             }
         }
+    }
+    return true; // Action was invoked
+};
 
+UpdateAttackWidget.prototype.invokeAction = function(triggeringWidget,event) {
+    var self = this,
+        options = {};
 
-        // options.suppressTimestamp = !this.actionTimestamp;
-        // if((typeof this.actionField == "string") || (typeof this.actionIndex == "string")  || (typeof this.actionValue == "string")) {
-        //     this.wiki.setText(this.actionTiddler,this.actionField,this.actionIndex,this.actionValue,options);
-        // }
-        // $tw.utils.each(this.attributes,function(attribute,name) {
-        //     if(name.charAt(0) !== "$") {
-        //         self.wiki.setText(self.actionTiddler,name,undefined,attribute,options);
-        //     }
-        // });
+    if(this.actionTiddler) {
+        var tiddler = $tw.wiki.getTiddler(this.actionTiddler);
+        if (tiddler && tiddler.fields.twsm_class === "attack") {
+            var attackTree = attack_utils.parse_attack_tree(tiddler.fields.attack_tree);
+
+            var setFields = {
+                controls: utils.twListify(attackTree.controls),
+                sub_trees: utils.twListify(attackTree.sub_trees),
+                renderer: attackTree.renderer,
+                rendered_attack_tree: attackTree.root.render(),
+                untreated_likelihood_lower: attackTree.root.likelihood.untreated.lower,
+                untreated_likelihood_upper: attackTree.root.likelihood.untreated.upper,
+                treated_likelihood_lower: attackTree.root.likelihood.treated.lower,
+                treated_likelihood_upper: attackTree.root.likelihood.treated.upper,
+            }
+
+            for (const [key, value] of Object.entries(setFields)) {
+                self.wiki.setText(self.actionTiddler, key, undefined, value, options);
+            }
+        }
     }
     return true; // Action was invoked
 };
 
 exports["action-updaterisk"] = UpdateRiskWidget;
+
+exports["action-updateattack"] = UpdateAttackWidget;
 
 })();
