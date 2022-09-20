@@ -9,8 +9,10 @@ type: text/vnd.tiddlywiki
 <label class="">
 {{$:/plugins/security_tools/twsm/defs/twsm_class/control||$:/plugins/security_tools/twsm/templates/class_inline_icon}}
 <$link><tt>#<$view field=twsm_id/></tt>
+<$list filter="[title<disable_characteristic_prefix>compare:string:ne[yes]then[yes]]" variable=ignore>
 <$list filter="[all[current]get[twsm_characteristic_class]]">
 <<currentTiddler>>:
+</$list>
 </$list>
 <$view field=title/></$link>
 </label>
