@@ -10,9 +10,9 @@ type: text/vnd.tiddlywiki
 <$button
 	class="py-btn btn-small"
 	popup=<<popupTiddler>>
-	tooltip="Likelihood of control failure (clamped, because it is an idea!)"
+	tooltip="Just an idea!"
 >
-<i class="fas fa-virus"/> Failure is <<failureLikelihood>> <span style="color: red;"><i class="far fa-lightbulb"/></span>
+An Idea! <i class="far fa-lightbulb"/>
 </$button>
 </$list>
 <$list filter="[all[current]!is_idea[yes]]" variable=ignore>
