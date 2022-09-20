@@ -25,3 +25,7 @@ $title$
 </$tiddler>
 \end
 
+\define attack_tree_attack_reference(attack)
+<$link to="$attack$">
+<$view tiddler="$attack$" field=title/> (#<$view tiddler="$attack$" field=twsm_id/>)</$link>
+\end

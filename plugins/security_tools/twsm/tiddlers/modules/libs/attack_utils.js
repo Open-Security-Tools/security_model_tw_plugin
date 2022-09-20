@@ -147,8 +147,6 @@ class Node {
         }
         return ["</li>"];
     }
-
-
 }
 
 
@@ -254,16 +252,12 @@ class OrBranch extends Branch {
         var treatedBand = this.likelihood.treated.toBandSimplePercentageDescription();
         var treatedBackgroundStyle = this.likelihood.treated.buildLikelihoodBackgroundStyle();
 
-        var untreatedBand = this.likelihood.untreated.toBandSimplePercentageDescription();
-        var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
-
         var l = [];
         l.push(utils.generateMetric(risk_utils.score2Class(residual), "Treated Risk", residual.toFixed(1), risk_utils.score2Name(residual), ""));
         l.push(utils.generateMetric(risk_utils.score2Class(inherent), "Untreated Risk", inherent.toFixed(1), risk_utils.score2Name(inherent), ""));
         l.push(utils.generateMetric(impactClass, "Impact", impact, impactName, ""));
 
         l.push(utils.generateMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
-        // l.push(generateMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
         return {
             rendered_summary: l.join(""),
             untreated_risk: inherent,
@@ -315,7 +309,6 @@ class AndBranch extends Branch {
 
 }
 
-
 class Leaf extends Node {
     constructor(parent, nodeName, indent, probability="almost certain") {
         super(parent, nodeName, indent, "leaf_node", "fab fa-envira");
@@ -327,7 +320,6 @@ class Leaf extends Node {
         return "<span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> " + this.likelihood.treated.phia + "</span>";
     }
 }
-
 
 class Control extends Node {
     constructor(parent, nodeName, indent) {
@@ -343,14 +335,19 @@ class Control extends Node {
     }
 }
 
-
 class Ref extends Node {
-    constructor(parent, refName, indent) {
+    constructor(parent, nodeName, indent) {
         super(parent, nodeName, indent, "reference_node", "fas fa-link");
         if (!is_ref(nodeName)) {
             throw new AttackTreeSyntaxError("Not a ref!");
         }
-        // TODO: Calculate likelihood
+        this.likelihood = get_attack_treated_likelihood(nodeName);
+    }
+    likelihoodSpan() {
+        return "<span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-biohazard\"/> " + this.likelihood.treated.phia + "</span>";
+    }
+    description() {
+        return "<<attack_tree_attack_reference \"" + this.nodeName + "\">>" + " " + this.likelihoodSpan();
     }
 }
 
@@ -371,10 +368,17 @@ function get_control_failure_likelihood(controlTitle) {
     return likelihood_utils.calculateControlFailureLikelihood(tiddler.fields.failure_likelihood, tiddler.fields.is_idea);
 }
 
+function get_attack_treated_likelihood(attackTitle) {
+    var tiddler = $tw.wiki.getTiddler(attackTitle);
+    return new likelihood_utils.ComplexLikelihood(
+        new likelihood_utils.Likelihood(tiddler.fields.untreated_likelihood_lower, tiddler.fields.untreated_likelihood_upper),
+        new likelihood_utils.Likelihood(tiddler.fields.treated_likelihood_lower, tiddler.fields.treated_likelihood_upper)
+    );
+}
 
 function is_ref(refTitle) {
     return tw_filter_to_bool(
-        "[title[" + refTitle + "]twsm_class[attack_tree]then[True]else[False]]"
+        "[title[" + refTitle + "]twsm_class[attack]then[True]else[False]]"
     )
 }
 
