@@ -1,5 +1,5 @@
 action_name: Mark control as no longer an idea!
-action_type: error
+action_type: warning
 created: 20220729125843346
 modified: 20220808074647730
 title: $:/plugins/security_tools/twsm/components/entity/generic/actions/clear_control_idea_status
