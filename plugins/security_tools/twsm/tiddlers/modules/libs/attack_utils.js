@@ -17,10 +17,6 @@ var risk_utils = require("$:/plugins/security_tools/twsm/risk_utils.js")
 var utils = require("$:/plugins/security_tools/twsm/utils.js")
 var shlex = require("$:/plugins/security_tools/twsm/shlex.js")
 
-function indentToBullet(indent) {
-    return (new Array(indent + 1).join("*")) + " ";
-}
-
 function lstrip(x, characters) {
     var start = 0;
     while (characters.indexOf(x[start]) >= 0) {
@@ -123,7 +119,6 @@ class Node {
         }
 
         var s = [];
-        // s.push(indentToBullet(this.indent));
         s.push("<li>");
         s.push(this.customCircle());
         
@@ -390,8 +385,10 @@ const branchFactoryLookup = {
 
 function parse_attack_tree(attack_tree) {
 
-    var controls = [];
-    var attack_sub_trees = [];
+    var controls = new Set();
+    var accumulatedControls = new Set();
+    var attackSubTrees = new Set();
+    var accumulatedAttackSubTrees = new Set();
     var hue = 200;
     var root = new OrBranch(null, "<$view field=title/>", 0, hue);
     var hueDelta = 75;
@@ -449,19 +446,42 @@ function parse_attack_tree(attack_tree) {
             var controlName = args[0];
             var control = new Control(currentBranch, controlName, indent);
             currentBranch.children.push(control);
-            controls.push(controlName);
+            controls.add(controlName);
+            accumulatedControls.add(controlName);
         },
         "ref": function(indent, args) {
             var refName = args[0];
             var ref = new Ref(currentBranch, refName, indent);
             currentBranch.children.push(ref);
-            attack_sub_trees.push(refName);
+            attackSubTrees.add(refName);
+            accumulatedAttackSubTrees.add(refName);
+            
+            // Also pull in the controls and attack trees referenced in this sub tree
+            var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
+            for (let c of accumControls) {
+                accumulatedControls.add(c);
+            }
+            var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
+            for (let s of accumSubTrees) {
+                accumulatedAttackSubTrees.add(s);
+            }
         },
         "attack": function(indent, args) {
             var refName = args[0];
             var ref = new Ref(currentBranch, refName, indent);
             currentBranch.children.push(ref);
-            attack_sub_trees.push(refName);
+            attackSubTrees.add(refName);
+            accumulatedAttackSubTrees.add(refName);
+
+            // Also pull in the controls and attack trees referenced in this sub tree
+            var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
+            for (let c of accumControls) {
+                accumulatedControls.add(c);
+            }
+            var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
+            for (let s of accumSubTrees) {
+                accumulatedAttackSubTrees.add(s);
+            }
         }
     }
 
@@ -530,8 +550,10 @@ function parse_attack_tree(attack_tree) {
         renderer: 2,
         error: error,
         root: root,
-        controls: controls.filter((v, i, a) => a.indexOf(v) === i),
-        sub_trees: attack_sub_trees.filter((v, i, a) => a.indexOf(v) === i),
+        controls: Array.from(controls),
+        accumulated_controls: Array.from(accumulatedControls),
+        sub_trees: Array.from(attackSubTrees),
+        accumulated_sub_trees: Array.from(accumulatedAttackSubTrees),
     }
 }
 

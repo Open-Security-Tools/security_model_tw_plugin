@@ -2,7 +2,7 @@
     {
         "created": "20220913112007189",
         "title": "A sample attack",
-        "modified": "20220921201313338",
+        "modified": "20220921204336286",
         "tags": "",
         "type": "text/vnd.tiddlywiki",
         "draft_impact": "",
@@ -16,6 +16,8 @@
         "untreated_likelihood_lower": "0.775",
         "untreated_likelihood_upper": "0.925",
         "treated_likelihood_lower": "0",
-        "treated_likelihood_upper": "0.069375"
+        "treated_likelihood_upper": "0.069375",
+        "accumulated_controls": "[[Another Control]] [[A simple control]]",
+        "accumulated_sub_trees": "[[Another attack]]"
     }
 ]

@@ -36,7 +36,9 @@ class ModelIntegrity {
 
         var setFields = {
             controls: utils.twListify(attackTree.controls),
+            accumulated_controls: utils.twListify(attackTree.accumulated_controls),
             sub_trees: utils.twListify(attackTree.sub_trees),
+            accumulated_sub_trees: utils.twListify(attackTree.accumulated_sub_trees),
             renderer: attackTree.renderer,
             rendered_attack_tree: attackTree.root.render(),
             untreated_likelihood_lower: attackTree.root.likelihood.untreated.lower,

@@ -37,7 +37,9 @@ exports.twsm_render_attack = function(source, operator, options) {
 
         // Controls and sub trees are used to maintain x-references
         ret.controls = utils.twListify(rendered.controls);
+        ret.accumulated_controls = utils.twListify(rendered.accumulated_controls);
         ret.sub_trees = utils.twListify(rendered.sub_trees);
+        ret.accumulated_sub_trees = utils.twListify(rendered.accumulated_sub_trees);
 
         if (impactOperand.length > 0) {
             var risk_assessment = rendered.root.renderRiskAssessment(impact_utils.impactDict[impactOperand]);
