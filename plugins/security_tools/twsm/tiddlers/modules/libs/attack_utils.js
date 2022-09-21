@@ -461,6 +461,12 @@ function parse_attack_tree(attack_tree) {
             var ref = new Ref(currentBranch, refName, indent);
             currentBranch.children.push(ref);
             attack_sub_trees.push(refName);
+        },
+        "attack": function(indent, args) {
+            var refName = args[0];
+            var ref = new Ref(currentBranch, refName, indent);
+            currentBranch.children.push(ref);
+            attack_sub_trees.push(refName);
         }
     }
 
