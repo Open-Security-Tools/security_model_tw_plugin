@@ -157,7 +157,6 @@ class Branch extends Node {
         // Handle any case for operator name resolution.
         this.operator = operator;
         this.hue = hue;
-        console.log("Hue = " + this.hue);
         this.children = [];
     }
 
@@ -203,7 +202,6 @@ class Branch extends Node {
 
 class OrBranch extends Branch {
     constructor(parent, nodeName, indent, hue) {
-        console.log("Hue2 = " + hue);
         super(parent, nodeName, indent, "OR", hue);
     }
 
@@ -224,7 +222,6 @@ class OrBranch extends Branch {
         }
         var treatedMaxLower = 0.0, treatedMaxUpper = 0.0, untreatedMaxLower = 0.0, untreatedMaxUpper = 0.0;
         for (let c of this.children) {
-            console.log("Child: " + c.nodeName);
             treatedMaxLower = Math.max(treatedMaxLower, c.likelihood.treated.lower);
             treatedMaxUpper = Math.max(treatedMaxUpper, c.likelihood.treated.upper);
             untreatedMaxLower = Math.max(untreatedMaxLower, c.likelihood.untreated.lower);
@@ -438,7 +435,6 @@ function parse_attack_tree(attack_tree) {
                 throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
             }
             currentBranch.children.push(leaf);
-            console.log("Pushing leaf to branch: " + leaf.nodeName);
         },
         "task": function(indent, args) {
             var leafName = args[0];
@@ -448,7 +444,6 @@ function parse_attack_tree(attack_tree) {
                 throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
             }
             currentBranch.children.push(leaf);
-            console.log("Pushing leaf to branch: " + leaf.nodeName);
         },
         "control": function(indent, args) {
             var controlName = args[0];

@@ -12,6 +12,6 @@ type: text/vnd.tiddlywiki
 />
 <$action-deletefield edit_attack_tree/>
 <$action-deletefield draft_attack_tree/>
-<$action-updateattack/>
+<$action-updatemodel/>
 </$set>
 </$list>

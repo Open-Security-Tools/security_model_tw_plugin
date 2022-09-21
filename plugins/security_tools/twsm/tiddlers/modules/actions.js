@@ -18,67 +18,92 @@ var utils = require("$:/plugins/security_tools/twsm/utils.js");
 
 class ModelIntegrity {
     constructor() {
-        this.updatedNodes = [];
+        this.processedNodes = new Set();
     }
 
-    updateControl(tiddler) {
-
+    updateControl(tiddler, title) {
+        console.log("Updating control '" + title + "'");
+        // Find attacks or risks which reference this control
+        var entities = $tw.wiki.filterTiddlers("[title[" + title + "]listed[controls]]");
+        for (let entityTitle of entities) {
+            var entityTiddler = $tw.wiki.getTiddler(entityTitle);
+            this.updateEntity(entityTiddler, entityTitle);
+        }
     }
 
-    updateRisk(tiddler) {
+    _processAttackTree(tiddler, title) {
+        var attackTree = attack_utils.parse_attack_tree(tiddler.fields.attack_tree);
 
+        var setFields = {
+            controls: utils.twListify(attackTree.controls),
+            sub_trees: utils.twListify(attackTree.sub_trees),
+            renderer: attackTree.renderer,
+            rendered_attack_tree: attackTree.root.render(),
+            untreated_likelihood_lower: attackTree.root.likelihood.untreated.lower,
+            untreated_likelihood_upper: attackTree.root.likelihood.untreated.upper,
+            treated_likelihood_lower: attackTree.root.likelihood.treated.lower,
+            treated_likelihood_upper: attackTree.root.likelihood.treated.upper,
+        }
+
+        for (const [key, value] of Object.entries(setFields)) {
+            $tw.wiki.setText(title, key, undefined, value, {});
+        }
     }
 
-    updateAttack(tiddler) {
-
+    updateRisk(tiddler, title) {
+        console.log("Updating risk '" + title + "'");
+        this._processAttackTree(tiddler, title);
+        // Nothing else to do. Rest of risk is dynamically calculated.
     }
 
-    updateEntity(tiddler) {
+    updateAttack(tiddler, title) {
+        console.log("Updating attack '" + title + "'");
+        // Detect circular references...
+        if (this.processedNodes.has(title)) {
+            console.log("Circular reference for '" + title + "'");
+            return;
+        }
+
+        this._processAttackTree(tiddler, title);
+
+        this.processedNodes.add(title);
+
+        // Find attacks or risks which reference this attack tree
+        var entities = $tw.wiki.filterTiddlers("[title[" + title + "]listed[sub_trees]]");
+        for (let entityTitle of entities) {
+            var entityTiddler = $tw.wiki.getTiddler(entityTitle);
+            this.updateEntity(entityTiddler, entityTitle);
+        }
+    }
+
+    updateEntity(tiddler, title) {
         if (!tiddler.fields) {
             return;
         }
         if (tiddler.fields.twsm_class === "control") {
-            this.updateControl(tiddler);
+            this.updateControl(tiddler, title);
         } else if (tiddler.fields.twsm_class === "risk") {
-            this.updateRisk(tiddler);
+            this.updateRisk(tiddler, title);
         } else if (tiddler.fields.twsm_class === "attack") {
-            this.updateAttack(tiddler);
+            this.updateAttack(tiddler, title);
         }
     }
 }
 
 
-var UpdateRiskWidget = function(parseTreeNode,options) {
-    this.initialise(parseTreeNode,options);
-};
-
-var UpdateAttackWidget = function(parseTreeNode,options) {
-    this.initialise(parseTreeNode,options);
-};
-
-var UpdateControlWidget = function(parseTreeNode,options) {
+var UpdateWidget = function(parseTreeNode,options) {
     this.initialise(parseTreeNode,options);
 };
 
 /*
 Inherit from the base widget class
 */
-UpdateRiskWidget.prototype = new Widget();
-UpdateAttackWidget.prototype = new Widget();
-UpdateControlWidget.prototype = new Widget();
+UpdateWidget.prototype = new Widget();
 
 /*
 Render this widget into the DOM
 */
-UpdateRiskWidget.prototype.render = function(parent,nextSibling) {
-    this.computeAttributes();
-    this.execute();
-};
-UpdateAttackWidget.prototype.render = function(parent,nextSibling) {
-    this.computeAttributes();
-    this.execute();
-};
-UpdateControlWidget.prototype.render = function(parent,nextSibling) {
+UpdateWidget.prototype.render = function(parent,nextSibling) {
     this.computeAttributes();
     this.execute();
 };
@@ -86,15 +111,7 @@ UpdateControlWidget.prototype.render = function(parent,nextSibling) {
 /*
 Compute the internal state of the widget
 */
-UpdateRiskWidget.prototype.execute = function() {
-    this.actionTiddler = this.getAttribute("$tiddler") || (!this.hasParseTreeNodeAttribute("$tiddler") && this.getVariable("currentTiddler"));
-    this.actionTimestamp = this.getAttribute("$timestamp","yes") === "yes";
-};
-UpdateAttackWidget.prototype.execute = function() {
-    this.actionTiddler = this.getAttribute("$tiddler") || (!this.hasParseTreeNodeAttribute("$tiddler") && this.getVariable("currentTiddler"));
-    this.actionTimestamp = this.getAttribute("$timestamp","yes") === "yes";
-};
-UpdateControlWidget.prototype.execute = function() {
+UpdateWidget.prototype.execute = function() {
     this.actionTiddler = this.getAttribute("$tiddler") || (!this.hasParseTreeNodeAttribute("$tiddler") && this.getVariable("currentTiddler"));
     this.actionTimestamp = this.getAttribute("$timestamp","yes") === "yes";
 };
@@ -102,15 +119,7 @@ UpdateControlWidget.prototype.execute = function() {
 /*
 Refresh the widget by ensuring our attributes are up to date
 */
-UpdateRiskWidget.prototype.refresh = function(changedTiddlers) {
-    // Nothing to refresh
-    return this.refreshChildren(changedTiddlers);
-};
-UpdateAttackWidget.prototype.refresh = function(changedTiddlers) {
-    // Nothing to refresh
-    return this.refreshChildren(changedTiddlers);
-};
-UpdateControlWidget.prototype.refresh = function(changedTiddlers) {
+UpdateWidget.prototype.refresh = function(changedTiddlers) {
     // Nothing to refresh
     return this.refreshChildren(changedTiddlers);
 };
@@ -118,84 +127,18 @@ UpdateControlWidget.prototype.refresh = function(changedTiddlers) {
 /*
 Invoke the action associated with this widget
 */
-UpdateRiskWidget.prototype.invokeAction = function(triggeringWidget,event) {
-    var self = this,
-        options = {};
+UpdateWidget.prototype.invokeAction = function(triggeringWidget,event) {
     if(this.actionTiddler) {
         var tiddler = $tw.wiki.getTiddler(this.actionTiddler);
-        if (tiddler && tiddler.fields.twsm_class === "risk") {
-            var attackTree = attack_utils.parse_attack_tree(tiddler.fields.attack_tree);
-
-            var setFields = {
-                controls: utils.twListify(attackTree.controls),
-                sub_trees: utils.twListify(attackTree.sub_trees),
-                renderer: attackTree.renderer,
-                rendered_attack_tree: attackTree.root.render(),
-                untreated_likelihood_lower: attackTree.root.likelihood.untreated.lower,
-                untreated_likelihood_upper: attackTree.root.likelihood.untreated.upper,
-                treated_likelihood_lower: attackTree.root.likelihood.treated.lower,
-                treated_likelihood_upper: attackTree.root.likelihood.treated.upper,
-            }
-
-            for (const [key, value] of Object.entries(setFields)) {
-                self.wiki.setText(self.actionTiddler, key, undefined, value, options);
-            }
-        }
-    }
-    return true; // Action was invoked
-};
-
-UpdateAttackWidget.prototype.invokeAction = function(triggeringWidget,event) {
-    var self = this,
-        options = {};
-
-    if(this.actionTiddler) {
-        var tiddler = $tw.wiki.getTiddler(this.actionTiddler);
-        if (tiddler && tiddler.fields.twsm_class === "attack") {
-            var attackTree = attack_utils.parse_attack_tree(tiddler.fields.attack_tree);
-
-            var setFields = {
-                controls: utils.twListify(attackTree.controls),
-                sub_trees: utils.twListify(attackTree.sub_trees),
-                renderer: attackTree.renderer,
-                rendered_attack_tree: attackTree.root.render(),
-                untreated_likelihood_lower: attackTree.root.likelihood.untreated.lower,
-                untreated_likelihood_upper: attackTree.root.likelihood.untreated.upper,
-                treated_likelihood_lower: attackTree.root.likelihood.treated.lower,
-                treated_likelihood_upper: attackTree.root.likelihood.treated.upper,
-            }
-
-            for (const [key, value] of Object.entries(setFields)) {
-                self.wiki.setText(self.actionTiddler, key, undefined, value, options);
-            }
-        }
-    }
-    return true; // Action was invoked
-};
-
-UpdateControlWidget.prototype.invokeAction = function(triggeringWidget,event) {
-    var self = this,
-        options = {};
-
-    if(this.actionTiddler) {
-        var tiddler = $tw.wiki.getTiddler(this.actionTiddler);
-        if (tiddler && tiddler.fields.twsm_class === "control") {
-
-            // Find the objects which reference this control and update them recursively
-            // Risks and attacks reference this control in 'controls' field.
-
-
+        if (tiddler && tiddler.fields.twsm_class !== undefined) {
+            var m = new ModelIntegrity();
+            m.updateEntity(tiddler, this.actionTiddler);
         }
     }
     return true; // Action was invoked
 };
 
 
-exports["action-updaterisk"] = UpdateRiskWidget;
-
-exports["action-updateattack"] = UpdateAttackWidget;
-
-exports["action-updatecontrol"] = UpdateControlWidget;
-
+exports["action-updatemodel"] = UpdateWidget;
 
 })();
