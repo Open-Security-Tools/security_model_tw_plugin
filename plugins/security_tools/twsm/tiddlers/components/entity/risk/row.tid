@@ -12,6 +12,7 @@ type: text/vnd.tiddlywiki
 </label>
 {{||$:/plugins/security_tools/twsm/components/entity/risk/btn_residual_risk}}
 {{||$:/plugins/security_tools/twsm/components/entity/risk/btn_controls}}
+{{||$:/plugins/security_tools/twsm/components/entity/risk/btn_sub_trees}}
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_themes}}
 <span class="py-todo-actions">
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}

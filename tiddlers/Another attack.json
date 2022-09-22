@@ -4,7 +4,7 @@
         "text": "",
         "tags": "",
         "title": "Another attack",
-        "modified": "20220921204336285",
+        "modified": "20220922072145591",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "attack",
         "twsm_id": "1017",
@@ -13,11 +13,11 @@
         "controls": "[[A simple control]]",
         "sub_trees": "",
         "renderer": "2",
-        "rendered_attack_tree": "<div class=\"attack_tree\">\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"grey\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"hsl(275, 50%, 50%)\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">OR</span> do something <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-calculator\"/> Remote Chance</span>\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(275, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">AND</span> <<attack_tree_control_reference \"A simple control\">>\n</li>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(275, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">AND</span> fix this <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> Highly Likely</span>\n</li>\n</ul>\n</li>\n</ul>\n</div>",
+        "rendered_attack_tree": "<div class=\"attack_tree\">\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"grey\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"hsl(275, 50%, 50%)\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">OR</span> do something <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-calculator\"/> Likely</span>\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(275, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">AND</span> <<attack_tree_control_reference \"A simple control\">>\n</li>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(275, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">AND</span> fix this <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> Highly Likely</span>\n</li>\n</ul>\n</li>\n</ul>\n</div>",
         "untreated_likelihood_lower": "0.775",
         "untreated_likelihood_upper": "0.925",
-        "treated_likelihood_lower": "0",
-        "treated_likelihood_upper": "0.069375",
+        "treated_likelihood_lower": "0.40687500000000004",
+        "treated_likelihood_upper": "0.716875",
         "accumulated_controls": "[[A simple control]]",
         "accumulated_sub_trees": ""
     }
