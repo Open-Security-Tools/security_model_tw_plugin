@@ -1,6 +1,6 @@
 created: 20220921150812125
-failure_likelihood: Remote Chance
-modified: 20220921201313335
+failure_likelihood: Likely
+modified: 20220922072145589
 tags: 
 title: A simple control
 twsm_characteristic_class: Policy

@@ -1,0 +1,13 @@
+created: 20220901083427664
+modified: 20220901083544062
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/attack/btn_likelihood
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]twsm_attack_assessment:likelihood[]]" variable=likelihood>
+<$button
+	class="py-btn btn-small"
+	tooltip="Attack likelihood"
+>
+<<likelihood>>
+</$button>
