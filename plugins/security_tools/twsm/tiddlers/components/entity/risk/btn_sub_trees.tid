@@ -1,0 +1,28 @@
+created: 20220831222725264
+modified: 20220831223354605
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/risk/btn_sub_trees
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]get[accumulated_sub_trees]enlist-input[]first[]]" variable=ignore>
+<$vars popupTiddler=<<qualify "$:/state/twsm/sub-trees-button-dropdown">> >
+<$list filter="[all[current]get[accumulated_sub_trees]enlist-input[]count[]]" variable=subTreeCount>
+<$button
+	class="py-btn btn-small"
+	popup=<<popupTiddler>>
+	tooltip="Sub trees"
+>
+<i class="fas fa-biohazard"/>
+<<subTreeCount>>
+<i class="fas fa-caret-down"/>
+</$button>
+</$list>
+<$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
+<$list filter="[all[current]get[accumulated_sub_trees]enlist-input[]sort[]]">
+<$link>
+<tt>#<$view field=twsm_id/></tt>
+<$view field=title/></$link>
+</$list>
+</$reveal>
+</$vars>
+</$list>

@@ -102,6 +102,7 @@ class AttackAssessment {
   constructor(tiddlerFields) {
       this.treatedLikelihood = new likelihood_utils.Likelihood(tiddlerFields.treated_likelihood_lower || 0.0, tiddlerFields.treated_likelihood_upper || 0.0);
       this.untreatedLikelihood = new likelihood_utils.Likelihood(tiddlerFields.untreated_likelihood_lower || 0.0, tiddlerFields.untreated_likelihood_upper || 0.0);
+      this.likelihood = this.treatedLikelihood.phia;
   }
 
   get rendered_summary() {
