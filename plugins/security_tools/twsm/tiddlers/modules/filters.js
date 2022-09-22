@@ -321,6 +321,12 @@ function get_attack_actions(tiddler, title, options) {
         result.push("remove_themes_from_attack");
     }
 
+    // Attacks should be used!
+    var riskCount = $tw.wiki.filterTiddlers("[title[" + title + "]listed[sub_trees]count[]]")[0];
+    if (riskCount == 0) {
+        result.push("fix_orphaned_attack");
+    }
+    
 
     return result;
 }

@@ -5,3 +5,6 @@ title: $:/plugins/security_tools/twsm/components/context/risk/actual/tree
 type: text/vnd.tiddlywiki
 
 <$transclude field=rendered_attack_tree/>
+<$list filter="[all[current]!has[rendered_attack_tree]]">
+No attack tree!
+</$list>
