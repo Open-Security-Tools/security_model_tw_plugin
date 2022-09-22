@@ -1,0 +1,11 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/attack/actual_assessment
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]twsm_attack_assessment:rendered_summary[]]" variable=renderedAttackAssessment>
+<div class="twsm_risk_metric_container">
+<<renderedAttackAssessment>>
+</div>
+</$list>

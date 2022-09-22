@@ -19,9 +19,7 @@ type: text/vnd.tiddlywiki
 <$button class="tc-btn-invisible">
 Mark control as effective!
 <$action-deletefield is_idea/>
-<$list filter="[all[current]listed[controls]]">
-<$action-updaterisk/>
-</$list>
+<$action-updatemodel/>
 </$button>
 </$reveal>
 </$list>
@@ -38,17 +36,13 @@ Mark control as effective!
 <$button class="tc-btn-invisible">
 Control is just an ''Idea''!
 <$action-setfield is_idea=yes/>
-<$list filter="[all[current]listed[controls]]">
-<$action-updaterisk/>
-</$list>
+<$action-updatemodel/>
 </$button>
 <$list filter="[[Remote Chance]] [[Highly Unlikely]] [[Unlikely]] [[Realistic Possibility]] [[Likely]] [[Highly Likely]] [[Almost Certain]] -[title<failureLikelihood>]" variable=likelihood>
 <$button class="tc-btn-invisible">
 Failure is ''<<likelihood>>''
 <$action-setfield failure_likelihood=<<likelihood>>/>
-<$list filter="[all[current]listed[controls]]">
-<$action-updaterisk/>
-</$list>
+<$action-updatemodel/>
 </$button>
 </$list>
 </$reveal>

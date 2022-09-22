@@ -6,6 +6,4 @@ title: $:/plugins/security_tools/twsm/components/entity/generic/actions/set_cont
 type: text/vnd.tiddlywiki
 
 <$action-setfield is_idea=yes/>
-<$list filter="[all[current]listed[controls]]">
-<$action-updaterisk/>
-</$list>
+<$action-updatemodel/>

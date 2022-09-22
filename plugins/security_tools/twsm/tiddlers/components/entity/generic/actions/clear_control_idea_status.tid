@@ -6,6 +6,4 @@ title: $:/plugins/security_tools/twsm/components/entity/generic/actions/clear_co
 type: text/vnd.tiddlywiki
 
 <$action-deletefield is_idea/>
-<$list filter="[all[current]listed[controls]]">
-<$action-updaterisk/>
-</$list>
+<$action-updatemodel/>

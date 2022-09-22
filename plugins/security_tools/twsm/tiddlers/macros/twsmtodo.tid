@@ -25,3 +25,11 @@ $title$
 </$tiddler>
 \end
 
+\define attack_tree_attack_reference(attack)
+<$link to="$attack$">
+<$view tiddler="$attack$" field=title/> (#<$view tiddler="$attack$" field=twsm_id/>)
+</$link>
+<$tiddler tiddler="$attack$">
+{{||$:/plugins/security_tools/twsm/components/entity/attack/btn_controls}}
+</$tiddler>
+\end
