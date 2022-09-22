@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "Risk of car theft",
-        "modified": "20220922151452461",
+        "modified": "20220922184553644",
         "tags": "[[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "attack_tree": "* <<branch \"Pinch the car when it is unlocked and the key in the ignition\" AND>>\n** <<leaf \"Find the car unlocked\" rp>>\n** <<control \"Procedural: Car keys not left in the car\">>\n* <<branch \"Steal the keys\" AND>>\n** <<leaf \"Break into house\" hu>>\n** <<branch \"Find the keys\" AND>>\n*** <<control \"Procedural: Store car keys out of sight\">> ",
@@ -19,6 +19,7 @@
         "treated_likelihood_lower": "0.084375",
         "treated_likelihood_upper": "0.19687500000000002",
         "accumulated_controls": "[[Procedural: Car keys not left in the car]] [[Procedural: Store car keys out of sight]]",
-        "accumulated_sub_trees": ""
+        "accumulated_sub_trees": "",
+        "help": "Risk Help"
     }
 ]
