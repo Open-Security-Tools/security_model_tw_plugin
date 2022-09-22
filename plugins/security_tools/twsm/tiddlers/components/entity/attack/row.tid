@@ -1,0 +1,18 @@
+created: 20220901083317704
+modified: 20220901092843125
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/attack/row
+type: text/vnd.tiddlywiki
+
+<div class="tc-menu-list-item">
+<div class="py-todo">
+<label class="">
+{{$:/plugins/security_tools/twsm/defs/twsm_class/attack||$:/plugins/security_tools/twsm/templates/class_inline_icon}}
+<$link><tt>#<$view field=twsm_id/></tt>
+<$view field=title/></$link>
+</label>
+<span class="py-todo-actions">
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
+</span>
+</div>
+</div>

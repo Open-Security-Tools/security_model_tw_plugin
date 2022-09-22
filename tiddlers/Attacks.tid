@@ -1,0 +1,13 @@
+caption: Controls (<$list filter="[all[]count[]]"><<currentTiddler>></$list>)
+created: 20220922071019732
+modified: 20220922071044528
+tags: Cucumber
+title: Attacks
+type: text/vnd.tiddlywiki
+
+
+<div class="py-todos">
+<$list filter="[all[]twsm_class[attack]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/attack/row}}
+</$list>
+</div>
