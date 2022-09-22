@@ -1,0 +1,8 @@
+action_name: Remove themes
+action_type: warning
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/remove_themes_from_attack
+type: text/vnd.tiddlywiki
+
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<currentTiddler>>/>

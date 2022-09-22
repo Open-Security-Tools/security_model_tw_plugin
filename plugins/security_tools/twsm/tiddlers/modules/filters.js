@@ -315,6 +315,13 @@ function get_attack_actions(tiddler, title, options) {
         result.push("edit_attack");
     }
 
+    // Attacks should not be linked to themes
+    var themeCount = $tw.wiki.filterTiddlers("[title[" + title + "]tags[]twsm_class[theme]count[]]")[0];
+    if (themeCount > 0) {
+        result.push("remove_themes_from_attack");
+    }
+
+
     return result;
 }
 
