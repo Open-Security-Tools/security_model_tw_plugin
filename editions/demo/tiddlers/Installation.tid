@@ -1,0 +1,18 @@
+created: 20220922175531522
+modified: 20220922175544633
+tags: 
+title: Installation
+type: text/vnd.tiddlywiki
+
+To create your own security model start with an [[empty tiddlywiki|https://tiddlywiki.com]] and then drag'n'drop in the following dependent plugins:
+
+* [[$:/plugins/TheDiveO/FontAwesome]]
+* [[$:/plugins/flibbles/relink]]
+* [[$:/plugins/tobibeer/appear]]
+* [[$:/plugins/nico/projectify]]
+* [[$:/plugins/security_tools/twsm]]
+
+!! Upgrading
+
+If upgrading the security model then you only need to drag'n'drop in the latest version of [[$:/plugins/security_tools/twsm]]. 
+

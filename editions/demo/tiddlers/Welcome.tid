@@ -1,39 +1,19 @@
 created: 20220312215441379
-modified: 20220911161126366
+modified: 20220922185030215
 title: Welcome
 type: text/vnd.tiddlywiki
 
-This website provides distributes and demonstrates the [[$:/plugins/security_tools/twsm]] plugin.
+This website distributes and demonstrates a  [[TiddlyWiki|https://tiddlywiki.com/]] plugin called ''T''iddly''W''iki ''S''ecurity ''M''odel (TWSM).
+TWSM is extends a wiki to provide security modelling functionality.
 
-''TWSM'' is a [[TiddlyWiki|https://tiddlywiki.com/]] plugin providing //Security Modelling// functionality.
-
-The plugin is [[open source|https://github.com/Open-Security-Tools/security_model_tw_plugin]] published under the [[MIT License|$:/plugins/security_tools/twsm/license]].
-
-!! Installation
-
-To create your own security model start with an [[empty tiddlywiki|https://tiddlywiki.com]] and then drag'n'drop in the following dependent plugins:
-
-* [[$:/plugins/TheDiveO/FontAwesome]]
-* [[$:/plugins/flibbles/relink]]
-* [[$:/plugins/tobibeer/appear]]
-* [[$:/plugins/nico/projectify]]
-* [[$:/plugins/security_tools/twsm]]
-
-!! Upgrading
-
-If upgrading the security model then you only need to drag'n'drop in the latest version of [[$:/plugins/security_tools/twsm]]. 
+The source code is available on [[GitHub|https://github.com/Open-Security-Tools/security_model_tw_plugin]] and published under the [[MIT License|$:/plugins/security_tools/twsm/license]].
 
 <$list filter="[title[$:/plugins/security_tools/twsm]get[version]]">
 <div class="versionblock">The latest TWSM plug version is <span class="versionnumber"><<currentTiddler>></span>
 </div>
 </$list>
 
-!! Demo
+This website is a wiki with the TWSM plugin installed.
+So, you can explore the TWSM functionality immediately (your changes won't be persisted). Start with a look at the [[example risk themes|Themes]].
 
-Here are some demonstration risks which provide a good starting point:
-
-<div class="py-todos">
-<$list filter="[all[]twsm_class[risk]sort[]]">
-{{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
-</$list>
-</div>
+Alternatively, you can [[create your own security model|Installation]].
