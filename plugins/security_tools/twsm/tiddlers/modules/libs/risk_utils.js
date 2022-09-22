@@ -98,8 +98,32 @@ class RiskAssessment {
 
 }
 
+class AttackAssessment {
+  constructor(tiddlerFields) {
+      this.treatedLikelihood = new likelihood_utils.Likelihood(tiddlerFields.treated_likelihood_lower || 0.0, tiddlerFields.treated_likelihood_upper || 0.0);
+      this.untreatedLikelihood = new likelihood_utils.Likelihood(tiddlerFields.untreated_likelihood_lower || 0.0, tiddlerFields.untreated_likelihood_upper || 0.0);
+  }
+
+  get rendered_summary() {
+
+      var treatedBand = this.treatedLikelihood.toBandSimplePercentageDescription();
+      var treatedBackgroundStyle = this.treatedLikelihood.buildLikelihoodBackgroundStyle();
+  
+      var untreatedBand = this.untreatedLikelihood.toBandSimplePercentageDescription();
+      var untreatedBackgroundStyle = this.untreatedLikelihood.buildLikelihoodBackgroundStyle();
+  
+      var l = [];
+      l.push(utils.generateMetric("", "Likelihood", treatedBand, this.treatedLikelihood.phia, treatedBackgroundStyle));
+      l.push(utils.generateMetric("", "Untreated Likelihood", untreatedBand, this.untreatedLikelihood.phia, untreatedBackgroundStyle));
+
+      return l.join("");
+  }
+
+}
+
 exports.score2Class = score2Class;
 exports.score2Name = score2Name;
 exports.RiskAssessment = RiskAssessment;
+exports.AttackAssessment = AttackAssessment;
 
 })();

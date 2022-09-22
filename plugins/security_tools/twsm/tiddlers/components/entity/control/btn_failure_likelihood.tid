@@ -28,9 +28,7 @@ An Idea! <i class="far fa-lightbulb"/>
 <$button class="tc-btn-invisible">
 <i class="fas fa-edit"/>Failure is <<likelihood>>
 <$action-setfield failure_likelihood=<<likelihood>>/>
-<$list filter="[all[current]listed[controls]]">
-<$action-updaterisk/>
-</$list>
+<$action-updatemodel/>
 </$button>
 </$list>
 </$reveal>

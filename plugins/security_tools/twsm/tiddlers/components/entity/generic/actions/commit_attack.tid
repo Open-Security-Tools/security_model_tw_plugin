@@ -1,0 +1,17 @@
+action_name: Commit attack
+action_type: warning
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/commit_attack
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]get[draft_attack_tree]else[]twsm_render_attack[]]" variable=complex>
+<$set name=draftAttackTree tiddler=<<currentTiddler>> field=draft_attack_tree>
+<$action-setfield
+     attack_tree=<<draftAttackTree>>
+/>
+<$action-deletefield edit_attack_tree/>
+<$action-deletefield draft_attack_tree/>
+<$action-updatemodel/>
+</$set>
+</$list>

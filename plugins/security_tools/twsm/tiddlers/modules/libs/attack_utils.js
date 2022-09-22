@@ -17,10 +17,6 @@ var risk_utils = require("$:/plugins/security_tools/twsm/risk_utils.js")
 var utils = require("$:/plugins/security_tools/twsm/utils.js")
 var shlex = require("$:/plugins/security_tools/twsm/shlex.js")
 
-function indentToBullet(indent) {
-    return (new Array(indent + 1).join("*")) + " ";
-}
-
 function lstrip(x, characters) {
     var start = 0;
     while (characters.indexOf(x[start]) >= 0) {
@@ -123,7 +119,6 @@ class Node {
         }
 
         var s = [];
-        // s.push(indentToBullet(this.indent));
         s.push("<li>");
         s.push(this.customCircle());
         
@@ -147,8 +142,6 @@ class Node {
         }
         return ["</li>"];
     }
-
-
 }
 
 
@@ -159,7 +152,6 @@ class Branch extends Node {
         // Handle any case for operator name resolution.
         this.operator = operator;
         this.hue = hue;
-        console.log("Hue = " + this.hue);
         this.children = [];
     }
 
@@ -205,7 +197,6 @@ class Branch extends Node {
 
 class OrBranch extends Branch {
     constructor(parent, nodeName, indent, hue) {
-        console.log("Hue2 = " + hue);
         super(parent, nodeName, indent, "OR", hue);
     }
 
@@ -226,7 +217,6 @@ class OrBranch extends Branch {
         }
         var treatedMaxLower = 0.0, treatedMaxUpper = 0.0, untreatedMaxLower = 0.0, untreatedMaxUpper = 0.0;
         for (let c of this.children) {
-            console.log("Child: " + c.nodeName);
             treatedMaxLower = Math.max(treatedMaxLower, c.likelihood.treated.lower);
             treatedMaxUpper = Math.max(treatedMaxUpper, c.likelihood.treated.upper);
             untreatedMaxLower = Math.max(untreatedMaxLower, c.likelihood.untreated.lower);
@@ -254,22 +244,36 @@ class OrBranch extends Branch {
         var treatedBand = this.likelihood.treated.toBandSimplePercentageDescription();
         var treatedBackgroundStyle = this.likelihood.treated.buildLikelihoodBackgroundStyle();
 
-        var untreatedBand = this.likelihood.untreated.toBandSimplePercentageDescription();
-        var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
-
         var l = [];
         l.push(utils.generateMetric(risk_utils.score2Class(residual), "Treated Risk", residual.toFixed(1), risk_utils.score2Name(residual), ""));
         l.push(utils.generateMetric(risk_utils.score2Class(inherent), "Untreated Risk", inherent.toFixed(1), risk_utils.score2Name(inherent), ""));
         l.push(utils.generateMetric(impactClass, "Impact", impact, impactName, ""));
 
         l.push(utils.generateMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
-        // l.push(generateMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
         return {
             rendered_summary: l.join(""),
             untreated_risk: inherent,
             treated_risk: residual,
         }
     }
+
+    renderAttackAssessment() {
+
+        var treatedBand = this.likelihood.treated.toBandSimplePercentageDescription();
+        var treatedBackgroundStyle = this.likelihood.treated.buildLikelihoodBackgroundStyle();
+
+        var untreatedBand = this.likelihood.untreated.toBandSimplePercentageDescription();
+        var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
+
+        var l = [];
+        l.push(utils.generateMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
+        l.push(utils.generateMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
+        return {
+            rendered_summary: l.join(""),
+        }
+    }
+
+
 }
 
 class AndBranch extends Branch {
@@ -297,7 +301,6 @@ class AndBranch extends Branch {
 
 }
 
-
 class Leaf extends Node {
     constructor(parent, nodeName, indent, probability="almost certain") {
         super(parent, nodeName, indent, "leaf_node", "fab fa-envira");
@@ -309,7 +312,6 @@ class Leaf extends Node {
         return "<span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> " + this.likelihood.treated.phia + "</span>";
     }
 }
-
 
 class Control extends Node {
     constructor(parent, nodeName, indent) {
@@ -325,14 +327,19 @@ class Control extends Node {
     }
 }
 
-
 class Ref extends Node {
-    constructor(parent, refName, indent) {
+    constructor(parent, nodeName, indent) {
         super(parent, nodeName, indent, "reference_node", "fas fa-link");
         if (!is_ref(nodeName)) {
             throw new AttackTreeSyntaxError("Not a ref!");
         }
-        // TODO: Calculate likelihood
+        this.likelihood = get_attack_treated_likelihood(nodeName);
+    }
+    likelihoodSpan() {
+        return "<span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-biohazard\"/> " + this.likelihood.treated.phia + "</span>";
+    }
+    description() {
+        return "<<attack_tree_attack_reference \"" + this.nodeName + "\">>" + " " + this.likelihoodSpan();
     }
 }
 
@@ -353,10 +360,17 @@ function get_control_failure_likelihood(controlTitle) {
     return likelihood_utils.calculateControlFailureLikelihood(tiddler.fields.failure_likelihood, tiddler.fields.is_idea);
 }
 
+function get_attack_treated_likelihood(attackTitle) {
+    var tiddler = $tw.wiki.getTiddler(attackTitle);
+    return new likelihood_utils.ComplexLikelihood(
+        new likelihood_utils.Likelihood(tiddler.fields.untreated_likelihood_lower, tiddler.fields.untreated_likelihood_upper),
+        new likelihood_utils.Likelihood(tiddler.fields.treated_likelihood_lower, tiddler.fields.treated_likelihood_upper)
+    );
+}
 
 function is_ref(refTitle) {
     return tw_filter_to_bool(
-        "[title[" + refTitle + "]twsm_class[attack_tree]then[True]else[False]]"
+        "[title[" + refTitle + "]twsm_class[attack]then[True]else[False]]"
     )
 }
 
@@ -371,8 +385,10 @@ const branchFactoryLookup = {
 
 function parse_attack_tree(attack_tree) {
 
-    var controls = [];
-    var attack_sub_trees = [];
+    var controls = new Set();
+    var accumulatedControls = new Set();
+    var attackSubTrees = new Set();
+    var accumulatedAttackSubTrees = new Set();
     var hue = 200;
     var root = new OrBranch(null, "<$view field=title/>", 0, hue);
     var hueDelta = 75;
@@ -416,7 +432,6 @@ function parse_attack_tree(attack_tree) {
                 throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
             }
             currentBranch.children.push(leaf);
-            console.log("Pushing leaf to branch: " + leaf.nodeName);
         },
         "task": function(indent, args) {
             var leafName = args[0];
@@ -426,19 +441,47 @@ function parse_attack_tree(attack_tree) {
                 throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
             }
             currentBranch.children.push(leaf);
-            console.log("Pushing leaf to branch: " + leaf.nodeName);
         },
         "control": function(indent, args) {
             var controlName = args[0];
             var control = new Control(currentBranch, controlName, indent);
             currentBranch.children.push(control);
-            controls.push(controlName);
+            controls.add(controlName);
+            accumulatedControls.add(controlName);
         },
         "ref": function(indent, args) {
             var refName = args[0];
             var ref = new Ref(currentBranch, refName, indent);
             currentBranch.children.push(ref);
-            attack_sub_trees.push(refName);
+            attackSubTrees.add(refName);
+            accumulatedAttackSubTrees.add(refName);
+            
+            // Also pull in the controls and attack trees referenced in this sub tree
+            var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
+            for (let c of accumControls) {
+                accumulatedControls.add(c);
+            }
+            var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
+            for (let s of accumSubTrees) {
+                accumulatedAttackSubTrees.add(s);
+            }
+        },
+        "attack": function(indent, args) {
+            var refName = args[0];
+            var ref = new Ref(currentBranch, refName, indent);
+            currentBranch.children.push(ref);
+            attackSubTrees.add(refName);
+            accumulatedAttackSubTrees.add(refName);
+
+            // Also pull in the controls and attack trees referenced in this sub tree
+            var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
+            for (let c of accumControls) {
+                accumulatedControls.add(c);
+            }
+            var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
+            for (let s of accumSubTrees) {
+                accumulatedAttackSubTrees.add(s);
+            }
         }
     }
 
@@ -507,8 +550,10 @@ function parse_attack_tree(attack_tree) {
         renderer: 2,
         error: error,
         root: root,
-        controls: controls.filter((v, i, a) => a.indexOf(v) === i),
-        sub_trees: attack_sub_trees.filter((v, i, a) => a.indexOf(v) === i),
+        controls: Array.from(controls),
+        accumulated_controls: Array.from(accumulatedControls),
+        sub_trees: Array.from(attackSubTrees),
+        accumulated_sub_trees: Array.from(accumulatedAttackSubTrees),
     }
 }
 

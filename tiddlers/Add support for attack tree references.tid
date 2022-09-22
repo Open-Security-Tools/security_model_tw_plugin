@@ -1,5 +1,6 @@
 created: 20220908204219412
-modified: 20220915085930561
+due: 20220920120000000
+modified: 20220921064251048
 priority: 
 tags: Backlog todo
 title: Add support for attack tree references
@@ -14,4 +15,15 @@ Updates become more complicated:
 * Find all risks and attack trees which contain sub_tree references.
 * How to find dependency graph?
 ** Javascript filter, use sub_tree references to generate a graph, maintain list to detect circular references.
+** Need multiple forms of list:
+*** Accumulated Controls (for display)
+*** Dependent Controls (for update)
+*** Accumulated Subtrees (for display)
+*** Dependent Subtrees (for update)
+** All four fields need relink overrides
+* Need to switch to action-updatecontrol - which does the recursion in code (list filter is not going to cut it)
+
+Links:
+
+* [[A sample attack]]
 * [[$:/plugins/security_tools/twsm/defs/twsm_class/attack]]
