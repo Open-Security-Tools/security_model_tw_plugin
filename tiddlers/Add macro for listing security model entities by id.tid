@@ -1,0 +1,10 @@
+created: 20220923105249152
+due: 20220923120000000
+modified: 20220923110650151
+priority: 
+tags: Backlog todo
+title: Add macro for listing security model entities by id
+type: text/vnd.tiddlywiki
+
+
+<<listEntities "1017 1008 1014 1011 1000 9999">>
