@@ -36,6 +36,7 @@ class ModelIntegrity {
 
         var setFields = {
             controls: utils.twListify(attackTree.controls),
+            node_count: attackTree.node_count,
             accumulated_controls: utils.twListify(attackTree.accumulated_controls),
             sub_trees: utils.twListify(attackTree.sub_trees),
             accumulated_sub_trees: utils.twListify(attackTree.accumulated_sub_trees),

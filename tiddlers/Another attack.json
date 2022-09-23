@@ -4,7 +4,7 @@
         "text": "",
         "tags": "",
         "title": "Another attack",
-        "modified": "20220923212653701",
+        "modified": "20220923220650908",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "attack",
         "twsm_id": "1017",
@@ -19,6 +19,8 @@
         "treated_likelihood_lower": "0.40687500000000004",
         "treated_likelihood_upper": "0.716875",
         "accumulated_controls": "[[A simple control]]",
-        "accumulated_sub_trees": ""
+        "accumulated_sub_trees": "",
+        "node_count": "4",
+        "draft_attack_tree": "Hello this is an attack.\n\n* <<and \"do something\">>\nThis is a comment ''hello''.\nI am a fish.\n** <<control \"A simple control\">>\nI am a fish\n\n\n** <<task \"fix this\" hl>>\nI am a fish\n"
     }
 ]

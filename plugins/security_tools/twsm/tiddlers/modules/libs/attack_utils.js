@@ -66,6 +66,10 @@ class Node {
         this.criticalPath = false;
     }
 
+    get nodeCount() {
+        return 1;
+    }
+
     resolve() {}
 
     markCriticalPath() {
@@ -153,6 +157,14 @@ class Branch extends Node {
         this.operator = operator;
         this.hue = hue;
         this.children = [];
+    }
+
+    get nodeCount() {
+        var count = 1;
+        for (let c of this.children) {
+            count += c.nodeCount;
+        }
+        return count;
     }
 
     nodeCircleColour() {
@@ -550,6 +562,7 @@ function parse_attack_tree(attack_tree) {
         renderer: 2,
         error: error,
         root: root,
+        node_count: root.nodeCount,
         controls: Array.from(controls),
         accumulated_controls: Array.from(accumulatedControls),
         sub_trees: Array.from(attackSubTrees),

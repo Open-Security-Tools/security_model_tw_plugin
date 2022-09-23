@@ -2,7 +2,7 @@
     {
         "created": "20220909060141968",
         "title": "Another created risk",
-        "modified": "20220923212653703",
+        "modified": "20220923220153857",
         "tags": "[[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "attack_tree": "* <<leaf \"cabbage\">>\n* <<attack \"Another attack\">>",
@@ -20,6 +20,7 @@
         "controls": "",
         "accumulated_controls": "[[A simple control]]",
         "sub_trees": "[[Another attack]]",
-        "accumulated_sub_trees": "[[Another attack]]"
+        "accumulated_sub_trees": "[[Another attack]]",
+        "node_count": "3"
     }
 ]
