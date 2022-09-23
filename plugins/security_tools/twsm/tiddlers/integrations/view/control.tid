@@ -13,6 +13,4 @@ type: text/vnd.tiddlywiki
 
 {{||$:/plugins/security_tools/twsm/components/context/control/vulnerabilities}}
 
-{{||$:/plugins/security_tools/twsm/components/context/control/assurance_activities}}
-
 </$list>
