@@ -1,0 +1,18 @@
+created: 20220923102526012
+due: 20220923120000000
+modified: 20220923103032532
+priority: 
+tags: Backlog todo done
+title: Fix external link escaping
+type: text/vnd.tiddlywiki
+
+\define doIt()
+<$list filter="[title<uri>encodeuri[]]">
+<<currentTiddler>>
+</$list>
+\end
+
+<$set name="uri" value="http://localhost:8081/#:[twsm_id[1002]]">
+<<doIt>>
+</$set>
+

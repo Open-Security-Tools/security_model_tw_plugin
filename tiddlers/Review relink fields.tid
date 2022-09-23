@@ -1,0 +1,15 @@
+created: 20220923054943298
+due: 20220923120000000
+modified: 20220923071002231
+priority: 
+tags: Backlog todo done
+title: Review relink fields
+type: text/vnd.tiddlywiki
+
+From the actions.js file:
+
+* controls: utils.twListify(attackTree.controls),
+* accumulated_controls: utils.twListify(attackTree.accumulated_controls),
+* sub_trees: utils.twListify(attackTree.sub_trees),
+* accumulated_sub_trees: utils.twListify(attackTree.accumulated_sub_trees),
+

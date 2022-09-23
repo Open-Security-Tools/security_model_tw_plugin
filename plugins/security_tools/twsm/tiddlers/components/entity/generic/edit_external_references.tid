@@ -30,14 +30,14 @@ You can use these links for external references:
 
 <ul>
 <$list filter="[title<targetTiddler>get[twsm_id]]" variable=twsmId>
-<$list filter="[title<twsmId>lowercase[]addprefix<twsmidPrefix>addprefix<fqdnBase>addsuffix<searchSuffix>]" variable=renderedUri>
+<$list filter="[title<twsmId>lowercase[]addprefix<twsmidPrefix>addprefix<fqdnBase>addsuffix<searchSuffix>encodeuri[]]" variable=renderedUri>
 <li>
 Unique entity identifier: <a href=<<renderedUri>>>#<<twsmId>></a>
 </li>
 </$list>
 </$list>
 <$list filter="[title<targetTiddler>get[external_references]uppercase[]split[ ]unique[]sort[]]" variable=externalReference>
-<$list filter="[title<externalReference>lowercase[]addprefix<searchPrefix>addprefix<fqdnBase>addsuffix<searchSuffix>]" variable=renderedUri>
+<$list filter="[title<externalReference>lowercase[]addprefix<searchPrefix>addprefix<fqdnBase>addsuffix<searchSuffix>encodeuri[]]" variable=renderedUri>
 <li>
 <a href=<<renderedUri>>><<externalReference>></a>
 </li>
