@@ -487,7 +487,7 @@ function parse_attack_tree(attack_tree) {
 
     var lines = "";
     if (attack_tree !== undefined) {
-        attack_tree.split('\n');
+        lines = attack_tree.split('\n');
     }
     var error = "";
     var lineNo = 1;
