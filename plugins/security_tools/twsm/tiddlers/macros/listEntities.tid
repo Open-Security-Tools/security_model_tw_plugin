@@ -1,0 +1,18 @@
+created: 20180821095049685
+modified: 20210817080308813
+tags: $:/tags/Macro
+title: $:/plugins/security_tools/twsm/macros/listEntities
+type: text/vnd.tiddlywiki
+
+\define listEntities(entities)
+<div class="py-todos">
+<$list filter="[title<__entities__>enlist-input[]]">
+<$list filter="[all[current]listed[twsm_id]count[]compare:number:eq[0]]" variable=ignore>
+{{||$:/plugins/security_tools/twsm/components/entity/generic/missing_row}}
+</$list>
+<$list filter="[all[current]listed[twsm_id]]">
+{{||$:/plugins/security_tools/twsm/components/entity/generic/row}}
+</$list>
+</$list>
+</div>
+\end

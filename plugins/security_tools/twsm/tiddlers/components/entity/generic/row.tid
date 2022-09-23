@@ -1,0 +1,18 @@
+created: 20220831214144308
+modified: 20220831225133585
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/generic/row
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]twsm_class[risk]]" variable=ignore>
+{{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
+</$list>
+<$list filter="[all[current]twsm_class[control]]" variable=ignore>
+{{||$:/plugins/security_tools/twsm/components/entity/control/row}}
+</$list>
+<$list filter="[all[current]twsm_class[attack]]" variable=ignore>
+{{||$:/plugins/security_tools/twsm/components/entity/attack/row}}
+</$list>
+<$list filter="[all[current]has[twsm_class]filter<provides_assurance>]" variable=ignore>
+{{||$:/plugins/security_tools/twsm/components/entity/assurance_activity/row}}
+</$list>
