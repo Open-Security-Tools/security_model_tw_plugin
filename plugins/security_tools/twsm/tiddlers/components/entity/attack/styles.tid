@@ -180,3 +180,15 @@ div.attack_tree > ul {
   list-style: none;
   padding-left: 0px;
 }
+
+div.attack_tree_node_comments {
+  padding-left: 25px;
+  padding-bottom: 10px;
+  font-size: 13px;
+  color: #707070;
+}
+
+div.attack_tree_root_comments {
+  font-size: 13px;
+  color: #707070;
+}

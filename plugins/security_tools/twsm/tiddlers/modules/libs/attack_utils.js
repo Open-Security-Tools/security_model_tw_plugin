@@ -131,7 +131,7 @@ class Node {
         // Comments added as additional lines
         var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
         if (comments.length > 0) {
-            s.push("\"\"\"<br>" + comments + "\"\"\"");
+            s.push("<div class=\"attack_tree_node_comments\">" + comments + "</div>");
         }
         return [s.join(" ")];
     }
@@ -204,6 +204,11 @@ class OrBranch extends Branch {
     render() {
         var lines = [];
         lines.push("<div class=\"attack_tree\">");
+
+        var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
+        if (comments.length > 0) {
+            lines.push("<div class=\"attack_tree_root_comments\">" + comments + "</div>");
+        }
         lines.push(...this.renderStart());
         lines.push(...this.renderEnd());
         lines.push("</div>");
@@ -394,95 +399,90 @@ function parse_attack_tree(attack_tree) {
     var hueDelta = 75;
     hue += hueDelta;
     var currentBranch = root;
+    var currentNode = currentBranch;
+
+    var branchFunction = function(indent, args) {
+        var branchName = args[0];
+        var operator = (args[1] || "OR").toUpperCase();
+        var branchFactory = branchFactoryLookup[operator];
+        if (!branchFactory) {
+            throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
+        }
+        var branch = branchFactory(currentBranch, branchName, indent, hue);
+        hue += hueDelta;
+        currentBranch.children.push(branch);
+        currentBranch = branch;
+        currentNode = currentBranch;
+    }
+
+    var andFunction = function(indent, args) {
+        var branchName = args[0];
+        var branchFactory = branchFactoryLookup["AND"];
+        var branch = branchFactory(currentBranch, branchName, indent, hue);
+        hue += hueDelta;
+        currentBranch.children.push(branch);
+        currentBranch = branch;
+        currentNode = branch;
+    }
+
+    var orFunction = function(indent, args) {
+        var branchName = args[0];
+        var branchFactory = branchFactoryLookup["OR"];
+        var branch = branchFactory(currentBranch, branchName, indent, hue);
+        hue += hueDelta;
+        currentBranch.children.push(branch);
+        currentBranch = branch;
+        currentNode = branch;
+    }
+
+    var taskFunction = function(indent, args) {
+        var leafName = args[0];
+        var probability = args[1];
+        var leaf = new Leaf(currentBranch, leafName, indent, probability);
+        if (leaf.indent !== (currentBranch.indent + 1)) {
+            throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
+        }
+        currentBranch.children.push(leaf);
+        currentNode = leaf;
+    }
+
+    var controlFunction = function(indent, args) {
+        var controlName = args[0];
+        var control = new Control(currentBranch, controlName, indent);
+        currentBranch.children.push(control);
+        controls.add(controlName);
+        accumulatedControls.add(controlName);
+        currentNode = control;
+    }
+
+    var attackFunction = function(indent, args) {
+        var refName = args[0];
+        var ref = new Ref(currentBranch, refName, indent);
+        currentBranch.children.push(ref);
+        attackSubTrees.add(refName);
+        accumulatedAttackSubTrees.add(refName);
+        currentNode = ref;
+        
+        // Also pull in the controls and attack trees referenced in this sub tree
+        var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
+        for (let c of accumControls) {
+            accumulatedControls.add(c);
+        }
+        var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
+        for (let s of accumSubTrees) {
+            accumulatedAttackSubTrees.add(s);
+        }
+    }
 
     var ops = {
-        "branch": function(indent, args) {
-            var branchName = args[0];
-            var operator = (args[1] || "OR").toUpperCase();
-            var branchFactory = branchFactoryLookup[operator];
-            if (!branchFactory) {
-                throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
-            }
-            var branch = branchFactory(currentBranch, branchName, indent, hue);
-            hue += hueDelta;
-            currentBranch.children.push(branch);
-            currentBranch = branch;
-        },
-        "and": function(indent, args) {
-            var branchName = args[0];
-            var branchFactory = branchFactoryLookup["AND"];
-            var branch = branchFactory(currentBranch, branchName, indent, hue);
-            hue += hueDelta;
-            currentBranch.children.push(branch);
-            currentBranch = branch;
-        },
-        "or": function(indent, args) {
-            var branchName = args[0];
-            var branchFactory = branchFactoryLookup["OR"];
-            var branch = branchFactory(currentBranch, branchName, indent, hue);
-            hue += hueDelta;
-            currentBranch.children.push(branch);
-            currentBranch = branch;
-        },
-        "leaf": function(indent, args) {
-            var leafName = args[0];
-            var probability = args[1];
-            var leaf = new Leaf(currentBranch, leafName, indent, probability);
-            if (leaf.indent !== (currentBranch.indent + 1)) {
-                throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
-            }
-            currentBranch.children.push(leaf);
-        },
-        "task": function(indent, args) {
-            var leafName = args[0];
-            var probability = args[1];
-            var leaf = new Leaf(currentBranch, leafName, indent, probability);
-            if (leaf.indent !== (currentBranch.indent + 1)) {
-                throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
-            }
-            currentBranch.children.push(leaf);
-        },
-        "control": function(indent, args) {
-            var controlName = args[0];
-            var control = new Control(currentBranch, controlName, indent);
-            currentBranch.children.push(control);
-            controls.add(controlName);
-            accumulatedControls.add(controlName);
-        },
-        "ref": function(indent, args) {
-            var refName = args[0];
-            var ref = new Ref(currentBranch, refName, indent);
-            currentBranch.children.push(ref);
-            attackSubTrees.add(refName);
-            accumulatedAttackSubTrees.add(refName);
-            
-            // Also pull in the controls and attack trees referenced in this sub tree
-            var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
-            for (let c of accumControls) {
-                accumulatedControls.add(c);
-            }
-            var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
-            for (let s of accumSubTrees) {
-                accumulatedAttackSubTrees.add(s);
-            }
-        },
-        "attack": function(indent, args) {
-            var refName = args[0];
-            var ref = new Ref(currentBranch, refName, indent);
-            currentBranch.children.push(ref);
-            attackSubTrees.add(refName);
-            accumulatedAttackSubTrees.add(refName);
-
-            // Also pull in the controls and attack trees referenced in this sub tree
-            var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
-            for (let c of accumControls) {
-                accumulatedControls.add(c);
-            }
-            var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
-            for (let s of accumSubTrees) {
-                accumulatedAttackSubTrees.add(s);
-            }
-        }
+        "branch": branchFunction,
+        "and": andFunction,
+        "or": orFunction,
+        "leaf": taskFunction,
+        "task": taskFunction,
+        "control": controlFunction,
+        "ref": attackFunction,
+        "attack": attackFunction,
     }
 
     var lines = "";
@@ -499,7 +499,7 @@ function parse_attack_tree(attack_tree) {
                 var t = lstrip(l, "*")
                 var indent = l.length - t.length;
                 if (!indent) {
-                    currentBranch.comments.push(t);
+                    currentNode.comments.push(t);
                 }
                 if (indent) {
                     if (indent > (currentBranch.indent + 1)) {
@@ -521,9 +521,6 @@ function parse_attack_tree(attack_tree) {
                     if (opFunc) {
                         opFunc(indent, macroArgs.slice(1,));
                     }
-        
-                    // var prefix = new Array(indent + 1).join("*");
-                    // newLines.push(prefix + " Indent " + indent + " " + t + " ADDED");
                 }
             } catch (objError) {
                 if (objError instanceof AttackTreeSyntaxError) {
