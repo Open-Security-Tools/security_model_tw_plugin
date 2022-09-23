@@ -1,0 +1,9 @@
+created: 20220923071021005
+due: 20220923120000000
+modified: 20220923071051830
+priority: 
+tags: Backlog todo
+title: Switch TWSM entity manipulation to actions
+type: text/vnd.tiddlywiki
+
+Required to provide 'new risk', 'new control' and 'new attack' functionality. 
