@@ -3,7 +3,7 @@
         "created": "20220913112007189",
         "text": "<ul>\n<$list filter=\"[all[current]listed[accumulated_sub_trees]twsm_class[risk]]\">\n<li><<currentTiddler>></li>\n</$list>\n</ul>",
         "title": "A sample attack",
-        "modified": "20220923114435321",
+        "modified": "20220924203323557",
         "tags": "",
         "type": "text/vnd.tiddlywiki",
         "draft_impact": "",
@@ -19,6 +19,8 @@
         "treated_likelihood_lower": "0",
         "treated_likelihood_upper": "0",
         "accumulated_controls": "",
-        "accumulated_sub_trees": ""
+        "accumulated_sub_trees": "",
+        "draft_attack_tree": "* <<and \"hello\">>\n** <<control \"Another Control\">>\n** <<attack \"Another attack\">>\n",
+        "edit_attack_tree": "yes"
     }
 ]

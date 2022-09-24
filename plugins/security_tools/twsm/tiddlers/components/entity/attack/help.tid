@@ -1,0 +1,34 @@
+created: 20210725062610580
+list-after: $:/core/ui/ViewTemplate/tags
+modified: 20220224114642344
+title: $:/plugins/security_tools/twsm/components/entity/attack/help
+type: text/vnd.tiddlywiki
+
+Attacks are standalone attack trees deriving an assessment of likelihood.
+See [[attacks|$:/plugins/security_tools/twsm/help/Attacks]] for more details. 
+
+<$list filter="[all[current]has[edit_attack_tree]]" variable=ignore>
+
+Likelihood scale:
+
+* Remote Chance (rc)
+* Highly Unlikely (hu)
+* Unlikely (u)
+* Realistic Possibility (rp)
+* Likely (l)
+* Highly Likely (hl)
+* Almost Certain (ac)
+
+Syntax:
+
+```text
+Use '*' to indent nodes in the tree
+* <<and "Branch name">>
+* <<or "Branch name">>
+* <<task "Task description" Likelihood>>
+* <<control "Control description">>
+* <<attack "Attack description">>
+```
+
+
+</$list>

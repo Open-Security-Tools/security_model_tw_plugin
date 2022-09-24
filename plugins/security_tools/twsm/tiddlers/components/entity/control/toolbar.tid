@@ -6,6 +6,7 @@ type: text/vnd.tiddlywiki
 
 <div class="twsm_entity_toolbar">
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_id}}
+{{||$:/plugins/security_tools/twsm/components/entity/generic/btn_help}}
 {{||$:/plugins/security_tools/twsm/components/entity/control/btn_failure_likelihood}}
 {{||$:/plugins/security_tools/twsm/components/entity/control/btn_risks}}
 {{||$:/plugins/security_tools/twsm/components/entity/control/btn_sub_trees}}

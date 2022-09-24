@@ -1,5 +1,5 @@
 created: 20210729063900595
-list-after: $:/core/ui/ViewTemplate/tags
+list-after: $:/plugins/security_tools/twsm/components/entity/generic/help
 modified: 20220216214208984
 tags: $:/tags/ViewTemplate
 title: $:/plugins/security_tools/twsm/integrations/view/assurance_activity

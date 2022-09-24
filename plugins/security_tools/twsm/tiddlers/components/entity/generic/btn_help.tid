@@ -9,4 +9,10 @@ type: text/vnd.tiddlywiki
 	tooltip="Toggle help display"
 >
 <i class="fas fa-question-circle toolbar_icon"/>
+<$list filter="[title[$:/state/twsm/help]show_help[yes]]" variable=ignore>
+<$action-deletefield $tiddler="$:/state/twsm/help" show_help/>
+</$list>
+<$list filter="[title[$:/state/twsm/help]!show_help[yes]]" variable=ignore>
+<$action-setfield $tiddler="$:/state/twsm/help" show_help=yes/>
+</$list>
 </$button>

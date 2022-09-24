@@ -17,3 +17,11 @@ i.toolbar_icon {
 i.toolbar_dropdown {
   color: #909090;
 }
+
+div.twsm_help {
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #fcfcfc;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
