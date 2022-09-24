@@ -3,4 +3,6 @@ modified: 20220224114642344
 title: $:/plugins/security_tools/twsm/components/entity/risk/help
 type: text/vnd.tiddlywiki
 
-Risk help
+Risks combine impact and likelihood to represent a score.
+See [[risks|$:/plugins/security_tools/twsm/help/Risks]] for more details. 
+

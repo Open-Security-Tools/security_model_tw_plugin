@@ -92,6 +92,8 @@ function processTheme(cf, nf) {
 }
 
 function processAttack(cf, nf) {
+	nf["hide-body"] = "yes";
+
 	return nf;
 }
 

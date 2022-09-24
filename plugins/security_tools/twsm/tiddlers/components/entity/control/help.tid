@@ -3,18 +3,6 @@ modified: 20220224114642344
 title: $:/plugins/security_tools/twsm/components/entity/control/help
 type: text/vnd.tiddlywiki
 
-Controls are denoted with the <i class="fas fa-shield-alt"/> icon.
-They describe aspects of the system which reduce the likelihood of attack.
+Controls describe aspects of the system which reduce the likelihood of attack.
+See [[controls|$:/plugins/security_tools/twsm/help/Controls]] for more details. 
 
-Properties:
-
-* ''Characteristic Class''. A mutually exclusive characterisation of the control.
-** Technical. 
-** Procedural
-** Policy
-** Physical 
-* ''Temporal Class''. When does this control apply?
-** Preventative
-** Detection
-** Correction
-* ''Failure Likelihood''

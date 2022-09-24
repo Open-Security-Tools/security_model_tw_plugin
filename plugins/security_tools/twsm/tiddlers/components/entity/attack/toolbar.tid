@@ -8,10 +8,6 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_id}}
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_help}}
 {{||$:/plugins/security_tools/twsm/components/entity/attack/btn_redacted}}
-<$list filter="[all[current]!has[edit_attack_tree]]" variable=ignore>
-{{||$:/plugins/security_tools/twsm/components/entity/attack/btn_controls}}
-{{||$:/plugins/security_tools/twsm/components/entity/attack/btn_risks}}
-</$list>
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_assurance_activities}}
 {{||$:/plugins/security_tools/twsm/components/entity/generic/btn_actions}}
 </div>

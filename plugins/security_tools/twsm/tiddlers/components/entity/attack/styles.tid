@@ -192,3 +192,15 @@ div.attack_tree_root_comments {
   font-size: 13px;
   color: #707070;
 }
+
+div.edit-attack-tree-container {
+    display: flex;
+}
+
+div.edit-attack-tree-container div.flex-child {
+    flex: 1;
+}
+
+div.edit-attack-tree-container div.flex-child:first-child {
+    margin-right: 20px;
+}

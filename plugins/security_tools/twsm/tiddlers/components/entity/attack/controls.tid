@@ -1,0 +1,19 @@
+created: 20220901083317704
+modified: 20220901092843125
+caption: Controls
+tags: $:/plugins/security_tools/twsm/components/entity/attack/tabs
+title: $:/plugins/security_tools/twsm/components/entity/attack/controls
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]get[accumulated_controls]enlist-input[]unique[]get[twsm_characteristic_class]unique[]sort[]]" variable=characteristic>
+
+!! <<characteristic>>
+<$vars disable_characteristic_prefix=yes>
+<div class="py-todos">
+<$list filter="[all[current]get[accumulated_controls]enlist-input[]unique[]twsm_class[control]twsm_characteristic_class<characteristic>sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/control/row}}
+</$list>
+</div>
+</$vars>
+</$list>
+

@@ -11,9 +11,9 @@ type: text/vnd.tiddlywiki
 
 {{||$:/plugins/security_tools/twsm/components/entity/attack/actual_assessment}}
 
-<hr>
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/risk/actual/tree" mode=block/>
-<hr>
+<$vars tabState=<<qualify "$:/state/twsm/theme-tabs">> >
+{{||$:/plugins/security_tools/twsm/components/entity/attack/tabs}}
+</$vars>
 </$list>
 <$list filter="[all[current]edit_attack_tree[yes]]" variable=ignore>
 <$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/attack/edit_form" mode="block"/>

@@ -1,0 +1,12 @@
+created: 20220901083317704
+modified: 20220901092843125
+caption: Risks
+tags: $:/plugins/security_tools/twsm/components/entity/attack/tabs
+title: $:/plugins/security_tools/twsm/components/entity/attack/risks
+type: text/vnd.tiddlywiki
+
+<div class="py-todos">
+<$list filter="[all[current]listed[accumulated_sub_trees]twsm_class[risk]sort[]]" emptyMessage="None!">
+{{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
+</$list>
+</div>
