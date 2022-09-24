@@ -201,7 +201,6 @@ function get_generic_actions(tiddler, title, options) {
     }
 
     var result = [];
-    result.push("edit_external_references");
     return result;
 }
 

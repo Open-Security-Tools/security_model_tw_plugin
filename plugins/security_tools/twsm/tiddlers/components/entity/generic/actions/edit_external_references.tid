@@ -1,9 +1,0 @@
-action_name: Edit external references
-action_type: discretionary
-created: 20220729125843346
-modified: 20220808074647730
-title: $:/plugins/security_tools/twsm/components/entity/generic/actions/edit_external_references
-type: text/vnd.tiddlywiki
-
-<$action-setfield $tiddler="$:/state/twsm/edit_external_references" target_tiddler=<<currentTiddler>>/>
-<$action-sendmessage $message="tm-modal" $param="$:/plugins/security_tools/twsm/components/context/entity/generic/edit_external_references"/>

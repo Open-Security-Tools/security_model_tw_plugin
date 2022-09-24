@@ -10,3 +10,10 @@ span.twsm_title_icon {
   color: #909090;
 }
 
+i.toolbar_icon {
+  color: #909090;
+}
+
+i.toolbar_dropdown {
+  color: #909090;
+}
