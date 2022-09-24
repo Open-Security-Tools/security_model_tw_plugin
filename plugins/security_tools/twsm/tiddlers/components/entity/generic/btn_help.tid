@@ -1,0 +1,12 @@
+created: 20220831222252830
+modified: 20220831222610100
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/generic/btn_help
+type: text/vnd.tiddlywiki
+
+<$button
+	class="py-btn btn-small"
+	tooltip="Toggle help display"
+>
+<i class="fas fa-question-circle toolbar_icon"/>
+</$button>

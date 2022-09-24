@@ -6,7 +6,7 @@ type: text/vnd.tiddlywiki
 
 \define themeLink()
 <$link><span data-theme-name="$(theme)$" class="theme_link">
-<i class="fas fa-cubes"/>
+<i class="fas fa-cubes toolbar_icon"/>
 <$view field=title/></span></$link>
 \end
 
@@ -18,7 +18,7 @@ type: text/vnd.tiddlywiki
 	popup=<<popupTiddler>>
 	tooltip="Themes"
 >
-<i class="fas fa-cubes"/> <<themeCount>> <i class="fas fa-caret-down"/>
+<i class="fas fa-cubes toolbar_icon"/> <<themeCount>> <i class="fas fa-caret-down"/>
 </$button>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
 <$list filter="[all[current]tags[]twsm_class[theme]] -[title<hideTheme>] +[sort[]]">

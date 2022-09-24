@@ -3,7 +3,7 @@
         "created": "20220312223810074",
         "text": "",
         "title": "A sample risk",
-        "modified": "20220923114435322",
+        "modified": "20220924172105639",
         "tags": "[[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -28,6 +28,8 @@
         "sub_trees": "",
         "rendered_attack_tree": "<div class=\"attack_tree\">\n</div>",
         "accumulated_controls": "",
-        "accumulated_sub_trees": ""
+        "accumulated_sub_trees": "",
+        "draft_attack_tree": "* <<and \"Branch 1\">>\n** <<or \"Branch 1.1\">>\n*** <<and \"Branch 1.1.1\">>\n**** <<task \"Carrots\">>\n**** <<control \"A preventative procedural control with bells\">>\n** <<and \"Branch 1.2\">>\n*** <<task \"Carrot\" ac>>\n*** <<ref \"A sample attack\">>\n\n",
+        "draft_impact": "Extreme/Catastrophic"
     }
 ]
