@@ -8,7 +8,6 @@ type: text/vnd.tiddlywiki
 <$list filter="[all[current]get[draft_attack_tree]else[]twsm_render_attack[]]" variable=complex>
 {{||$:/plugins/security_tools/twsm/components/entity/attack/preview_assessment}}
 </$list>
-
 <div class="edit-attack-tree-container">
   <div class="flex-child attack_tree_edit_container">
 {{||$:/plugins/security_tools/twsm/components/context/risk/text_area_edit_draft_tree}}
