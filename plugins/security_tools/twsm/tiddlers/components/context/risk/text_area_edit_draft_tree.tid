@@ -4,4 +4,63 @@ tags:
 title: $:/plugins/security_tools/twsm/components/context/risk/text_area_edit_draft_tree
 type: text/vnd.tiddlywiki
 
-<$edit-text field=draft_attack_tree tag=textarea minHeight=10 autoHeight=yes class=edit_attack_tree placeholder="Enter an attack tree here..."/>
+<$edit-text field=draft_attack_tree tag=textarea minHeight=10 autoHeight=yes class=edit_attack_tree placeholder="Enter an attack tree here...">
+<div class="twsm_entity_toolbar">
+<$button
+  class="py-btn btn-small"
+>
+AND
+<$action-sendmessage
+	$message="tm-edit-text-operation"
+	$param="insert-text"
+	text='* <<and "BranchDescription">>
+'
+/>
+</$button>
+<$button
+  class="py-btn btn-small"
+>
+OR
+<$action-sendmessage
+	$message="tm-edit-text-operation"
+	$param="insert-text"
+	text='* <<or "BranchDescription">>
+'
+/>
+</$button>
+<$button
+  class="py-btn btn-small"
+>
+Task
+<$action-sendmessage
+	$message="tm-edit-text-operation"
+	$param="insert-text"
+	text='* <<task "TaskDescription" "Realistic Possibility">>
+'
+/>
+</$button>
+<$button
+  class="py-btn btn-small"
+>
+Control
+<$action-sendmessage
+	$message="tm-edit-text-operation"
+	$param="insert-text"
+	text='* <<control "ControlName">>
+'
+/>
+</$button>
+<$button
+  class="py-btn btn-small"
+>
+Attack
+<$action-sendmessage
+	$message="tm-edit-text-operation"
+	$param="insert-text"
+	text='* <<attack "AttackName">>
+'
+/>
+</$button>
+
+</div>
+</$edit-text>

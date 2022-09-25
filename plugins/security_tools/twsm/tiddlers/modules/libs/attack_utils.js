@@ -283,7 +283,7 @@ class OrBranch extends Branch {
         var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
 
         var l = [];
-        l.push(utils.generateMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
+        l.push(utils.generateMetric("", "Treated Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
         l.push(utils.generateMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
         return {
             rendered_summary: l.join(""),
@@ -299,6 +299,11 @@ class AndBranch extends Branch {
 
     }
     calculateBranchProbability() {
+        if (this.children.length == 0) {
+            // If no children, then task is impossible!
+            return new likelihood_utils.ComplexLikelihood(new likelihood_utils.Likelihood(0.0, 0.0), new likelihood_utils.Likelihood(0.0, 0.0));
+        }
+
         var runningUntreatedLower = 1.0, runningUntreatedUpper = 1.0, runningTreatedLower = 1.0, runningTreatedUpper = 1.0;
         for (let c of this.children) {
             runningUntreatedLower = runningUntreatedLower * c.likelihood.untreated.lower;

@@ -5,7 +5,5 @@ title: $:/plugins/security_tools/twsm/components/context/risk/preview/tree
 type: text/vnd.tiddlywiki
 
 <$list filter="[title<complex>twsm_json_field:attack_tree[]]" variable=renderedAttackTree>
-
 <<renderedAttackTree>>
-
 </$list>

@@ -3,7 +3,7 @@
         "created": "20220913112007189",
         "text": "<ul>\n<$list filter=\"[all[current]listed[accumulated_sub_trees]twsm_class[risk]]\">\n<li><<currentTiddler>></li>\n</$list>\n</ul>",
         "title": "A sample attack",
-        "modified": "20220924211541487",
+        "modified": "20220925140314922",
         "tags": "",
         "type": "text/vnd.tiddlywiki",
         "draft_impact": "",
@@ -21,6 +21,8 @@
         "accumulated_controls": "[[Another Control]] [[A simple control]]",
         "accumulated_sub_trees": "[[Another attack]]",
         "node_count": "4",
-        "hide-body": "yes"
+        "hide-body": "yes",
+        "draft_attack_tree": "Header for attack tree.\n\n* <<task \"TaskDescription\" \"Realistic Possibility\">>\n* <<or \"BranchDescription\">>\n* <<and \"BranchDescription\">>\n* <<or \"OrBranchDescription\">>\n** <<task \"TaskDescription\" rp>>\nHello\n* <<and \"BranchDescription\">>\n",
+        "edit_attack_tree": "yes"
     }
 ]

@@ -4,6 +4,8 @@ tags:
 title: $:/plugins/security_tools/twsm/components/context/risk/preview/error
 type: text/vnd.tiddlywiki
 
+<div class="attack_tree_preview_error">
 <$list filter="[title<complex>twsm_json_field:error[]]" variable=error>
 <span style="color: red;"><<error>></span>
 </$list>
+</div>

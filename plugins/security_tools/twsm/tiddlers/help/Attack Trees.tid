@@ -1,0 +1,29 @@
+created: 20210718194743575
+modified: 20210718195030312
+tags: 
+title: $:/plugins/security_tools/twsm/help/Attack Trees
+type: text/vnd.tiddlywiki
+
+Attack Trees are used in Risks and Attacks.
+
+Likelihood scale:
+
+* Remote Chance (rc)
+* Highly Unlikely (hu)
+* Unlikely (u)
+* Realistic Possibility (rp)
+* Likely (l)
+* Highly Likely (hl)
+* Almost Certain (ac)
+
+Syntax:
+
+```text
+Use '*' to indent nodes in the tree
+* <<and "Branch name">>
+* <<or "Branch name">>
+* <<task "Task description" Likelihood>>
+* <<control "Control description">>
+* <<attack "Attack description">>
+```
+
