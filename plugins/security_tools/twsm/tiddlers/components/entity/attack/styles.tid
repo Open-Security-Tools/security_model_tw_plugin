@@ -212,3 +212,15 @@ div.attack_tree_edit_container iframe {
 div.attack_tree_preview_error {
   height: 40px;
 }
+
+div.twsm_entity_toolbar span div button.tc-btn-invisible {
+  border: none;
+  margin: 0px;
+  padding: 10px;
+}
+
+input.edit_attack_search_toolbar {
+  font-size: .9em;
+  padding: .2em .8em;
+  margin: 0px;
+}

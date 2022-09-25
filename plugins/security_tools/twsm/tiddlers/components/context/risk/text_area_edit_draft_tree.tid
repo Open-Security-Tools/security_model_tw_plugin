@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki
 <$edit-text field=draft_attack_tree tag=textarea minHeight=10 autoHeight=yes class=edit_attack_tree placeholder="Enter an attack tree here...">
 <div class="twsm_entity_toolbar">
 <$list filter="[title[$:/plugins/security_tools/twsm/components/entity/attack_tree/edit/toolbar]tagging[]]" variable=btn>
-<$transclude tiddler=<<btn>>/>
+<$transclude tiddler=<<btn>> mode=inline/>
 </$list>
 </div>
 </$edit-text>

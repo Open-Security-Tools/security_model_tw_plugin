@@ -4,14 +4,45 @@ tags: $:/plugins/security_tools/twsm/components/entity/attack_tree/edit/toolbar
 title: $:/plugins/security_tools/twsm/components/entity/attack_tree/edit/toolbar_buttons/insert_control
 type: text/vnd.tiddlywiki
 
-<$button
-  class="py-btn btn-small"
->
-Control
+\define actionInsertText()
 <$action-sendmessage
 	$message="tm-edit-text-operation"
 	$param="insert-text"
-	text='* <<control "ControlName">>
+	text='* <<control "$(controlName)$">>
 '
 />
+\end
+<$vars popupTiddler=<<qualify "$:/state/twsm/edit-attack-search-control">> >
+<$edit-text 
+  tiddler="$:/state/twsm/edit-attack-search-control" 
+  tag="input" 
+  placeholder="Insert Control"
+  default=""
+  focusPopup=<<popupTiddler>> 
+  class="tc-popup-handle edit_attack_search_toolbar"
+/>
+<$reveal 
+  state=<<popupTiddler>> 
+  type="popup" 
+  position="below" 
+  animate="yes" 
+  class="tc-drop-down pyd-drop-down"
+>
+<$set name=controlSearch tiddler="$:/state/twsm/edit-attack-search-control" field=text>
+<$list filter="[title<controlSearch>length[]compare:number:lt[3]]">
+Search too short
+</$list>
+<$list filter="[title<controlSearch>length[]compare:number:gt[2]]" variable=ignore>
+<$list filter="[all[]twsm_class[control]search:title,twsm_id<controlSearch>]">
+<div class="tc-menu-list-item">
+<$button class="tc-btn-invisible">
+<$view field="twsm_id"/>: <$view field="title"/>
+<$set name=controlName value={{!!title}}>
+<<actionInsertText>>
+</$set>
 </$button>
+</div>
+</$list>
+</$list>
+</$set>
+</$reveal>
