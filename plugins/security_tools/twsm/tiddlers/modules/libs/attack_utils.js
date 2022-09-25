@@ -353,7 +353,7 @@ class Ref extends Node {
     constructor(parent, nodeName, indent) {
         super(parent, nodeName, indent, "reference_node", "fas fa-link");
         if (!is_ref(nodeName)) {
-            throw new AttackTreeSyntaxError("Not a ref!");
+            throw new AttackTreeSyntaxError("Not an attack!");
         }
         this.likelihood = get_attack_treated_likelihood(nodeName);
     }

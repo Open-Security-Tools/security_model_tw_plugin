@@ -3,7 +3,7 @@
         "created": "20220913112007189",
         "text": "<ul>\n<$list filter=\"[all[current]listed[accumulated_sub_trees]twsm_class[risk]]\">\n<li><<currentTiddler>></li>\n</$list>\n</ul>",
         "title": "A sample attack",
-        "modified": "20220925140314922",
+        "modified": "20220925190530427",
         "tags": "",
         "type": "text/vnd.tiddlywiki",
         "draft_impact": "",

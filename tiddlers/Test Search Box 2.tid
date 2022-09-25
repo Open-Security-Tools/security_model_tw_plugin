@@ -1,0 +1,35 @@
+created: 20220925201030571
+modified: 20220925202816295
+myField: 
+tags: 
+title: Test Search Box 2
+type: text/vnd.tiddlywiki
+
+<$vars popupTiddler=<<qualify "$:/state/twsm/edit-attack-search-control">> >
+
+<$edit-text 
+  tiddler="$:/state/twsm/edit-attack-search-control" 
+  tag="input" 
+  placeholder="Insert Control"
+  default=""
+  focusPopup=<<popupTiddler>> 
+  class="tc-popup-handle"
+/>
+<$reveal state=<<popupTiddler>> type="nomatch" text="" default="" class="tc-drop-down pys-drop-down">
+<div class="tc-block-dropdown">
+<$set name=controlSearch tiddler="$:/state/twsm/edit-attack-search-control" field=text>
+<$list filter="[title<controlSearch>length[]compare:number:lt[3]]">
+<div class='tc-search-results'>
+Search too short
+</div>
+</$list>
+<$list filter="[title<controlSearch>length[]compare:number:gt[2]]" variable=ignore>
+<$list filter="[all[]twsm_class[control]search:title,twsm_id<controlSearch>]">
+<$button class="tc-btn-invisible">
+<$view field="twsm_id"/>: <$view field="title"/>
+</$button>
+</$list>
+</$list>
+</$set>
+</div>
+</$reveal>
