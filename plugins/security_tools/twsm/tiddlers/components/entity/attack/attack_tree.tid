@@ -5,4 +5,4 @@ tags: $:/plugins/security_tools/twsm/components/entity/attack/tabs
 title: $:/plugins/security_tools/twsm/components/entity/attack/attack_tree
 type: text/vnd.tiddlywiki
 
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/risk/actual/tree" mode=block/>
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/attack_tree/tree" mode=block/>
