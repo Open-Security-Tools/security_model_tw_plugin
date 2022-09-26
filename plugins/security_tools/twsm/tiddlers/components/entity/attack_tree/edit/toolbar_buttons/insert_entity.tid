@@ -25,8 +25,9 @@ type: text/vnd.tiddlywiki
 <$vars popupTiddler=<<qualify "$:/state/twsm/edit-attack-search">> >
 <$edit-text 
   tiddler="$:/state/twsm/edit-attack-search" 
-  tag="input" 
-  placeholder="Insert..."
+  tag="input"
+  size=40
+  placeholder="Insert attack or control..."
   default=""
   focusPopup=<<popupTiddler>> 
   class="tc-popup-handle edit_attack_search_toolbar"
@@ -40,7 +41,7 @@ type: text/vnd.tiddlywiki
 >
 <$set name=entitySearch tiddler="$:/state/twsm/edit-attack-search" field=text>
 <$list filter="[title<entitySearch>length[]compare:number:lt[3]]">
-Search too short
+Enter minimum of 3 characters...
 </$list>
 <$list filter="[title<entitySearch>length[]compare:number:gt[2]]" variable=ignore>
 <$list filter="[all[]twsm_class[control]search:title,twsm_id<entitySearch>] [all[]twsm_class[attack]search:title,twsm_id<entitySearch>]">
