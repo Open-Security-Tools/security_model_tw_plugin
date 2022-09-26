@@ -1,6 +1,7 @@
 class_name: Assurance Activity
 class_name_plural: Assurance Activities
 created: 20210729063520466
+help: $:/plugins/security_tools/twsm/components/entity/assurance_activity/help
 family: fas
 glyph: fa-hiking
 has_endtime: yes

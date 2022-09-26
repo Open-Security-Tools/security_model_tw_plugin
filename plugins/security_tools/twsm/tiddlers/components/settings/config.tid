@@ -1,0 +1,18 @@
+caption: Config
+created: 20211113212016075
+modified: 20211113213100775
+tags: $:/plugins/security_tools/twsm/components/context/settings/settings
+title: $:/plugins/security_tools/twsm/components/context/settings/config
+type: text/vnd.tiddlywiki
+
+<table>
+<$list filter="[title[$:/plugins/security_tools/twsm/components/context/settings/config]tagging[]]">
+<tr>
+<td>{{!!caption}}</td>
+<td>{{!!text}}</td>
+</tr>
+</$list>
+</table>
+
+
+

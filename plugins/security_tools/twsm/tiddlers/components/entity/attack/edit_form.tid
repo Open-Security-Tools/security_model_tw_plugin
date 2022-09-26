@@ -8,19 +8,16 @@ type: text/vnd.tiddlywiki
 <$list filter="[all[current]get[draft_attack_tree]else[]twsm_render_attack[]]" variable=complex>
 {{||$:/plugins/security_tools/twsm/components/entity/attack/preview_assessment}}
 </$list>
-
-<hr>
-
-{{||$:/plugins/security_tools/twsm/components/context/risk/text_area_edit_draft_tree}}
-
+<div class="edit-attack-tree-container">
+  <div class="flex-child attack_tree_edit_container">
+{{||$:/plugins/security_tools/twsm/components/entity/attack_tree/edit/text_area_edit_draft_tree}}
+  </div>  
+  <div class="flex-child attack_tree_preview_container">
 <$set name=draftImpact tiddler=<<currentTiddler>> field=draft_impact>
 <$list filter="[all[current]get[draft_attack_tree]twsm_render_attack<draftImpact>]" variable=complex>
-
-{{||$:/plugins/security_tools/twsm/components/context/risk/preview/error}}
-
-{{||$:/plugins/security_tools/twsm/components/context/risk/preview/tree}}
-
-<hr>
-
+{{||$:/plugins/security_tools/twsm/components/entity/attack_tree/edit/error}}
+{{||$:/plugins/security_tools/twsm/components/entity/attack_tree/edit/tree}}
 </$list>
 </$set>
+  </div>  
+</div>

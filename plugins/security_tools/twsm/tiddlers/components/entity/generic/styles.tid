@@ -1,0 +1,47 @@
+created: 20210717221739761
+creator: paul
+modified: 20210717221847021
+modifier: paul
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/components/entity/generic/styles
+type: text/css
+
+span.twsm_title_icon {
+  color: #909090;
+}
+
+i.toolbar_icon {
+  color: #909090;
+}
+
+i.toolbar_dropdown {
+  color: #909090;
+}
+
+div.twsm_help {
+    border-left: 4px solid #e1e1e8;
+    margin-left: 3em;
+    padding-left: 0.3em;
+    position: relative;
+}
+
+ 
+div.twsm_help_icon {
+    position: absolute;
+    font-size: 1em;
+    left: -1.8em;
+    top: 0.1em;
+}
+
+div.twsm_help_icon i {
+    color: #808080;
+}
+
+
+button.twsm-help-enabled i {
+  color: black!important;
+}
+
+button.twsm-help-disabled i {
+  color: #808080!important;
+}

@@ -1,0 +1,16 @@
+created: 20210725062610580
+list-after: $:/plugins/security_tools/twsm/components/entity/generic/help
+modified: 20220224114642344
+tags: $:/tags/ViewTemplate
+title: $:/plugins/security_tools/twsm/components/entity/control/view
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]field:twsm_class[control]]">
+
+{{||$:/plugins/security_tools/twsm/components/entity/control/toolbar}}
+
+{{||$:/plugins/security_tools/twsm/components/entity/control/header}}
+
+{{||$:/plugins/security_tools/twsm/components/context/control/vulnerabilities}}
+
+</$list>

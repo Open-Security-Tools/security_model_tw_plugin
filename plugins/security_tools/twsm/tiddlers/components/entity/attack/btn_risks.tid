@@ -10,9 +10,9 @@ type: text/vnd.tiddlywiki
 <$button
 	class="py-btn btn-small"
 	popup=<<popupTiddler>>
-	tooltip="Risks"
+	tooltip="Risks which include this attack"
 >
-<i class="fas fa-balance-scale"/>
+<i class="fas fa-balance-scale toolbar_icon"/>
 <<riskCount>>
 <i class="fas fa-caret-down"/>
 </$button>

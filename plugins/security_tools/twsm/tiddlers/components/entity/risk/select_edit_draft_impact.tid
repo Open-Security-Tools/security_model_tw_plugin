@@ -1,0 +1,12 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/risk/select_edit_draft_impact
+type: text/vnd.tiddlywiki
+
+Impact: 
+<$select field='draft_impact'>
+<$list filter="[all[current]get[draft_impact]] Unknown Insignificant Minor Moderate Major Extreme/Catastrophic" variable=fv>
+<option><$action-setfield draft_impact/><<fv>></option>
+</$list>
+</$select>

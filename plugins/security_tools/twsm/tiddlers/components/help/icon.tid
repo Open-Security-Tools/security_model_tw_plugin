@@ -1,0 +1,7 @@
+created: 20220831222252830
+modified: 20220831222610100
+title: $:/plugins/security_tools/twsm/components/help/icon
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+<i class="fas fa-question-circle"/>

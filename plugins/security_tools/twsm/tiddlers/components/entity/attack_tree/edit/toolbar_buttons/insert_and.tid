@@ -1,0 +1,17 @@
+created: 20220901083427664
+modified: 20220901083544062
+tags: $:/plugins/security_tools/twsm/components/entity/attack_tree/edit/toolbar
+title: $:/plugins/security_tools/twsm/components/entity/attack_tree/edit/toolbar_buttons/insert_and
+type: text/vnd.tiddlywiki
+
+<$button
+  class="py-btn btn-small"
+>
+AND
+<$action-sendmessage
+	$message="tm-edit-text-operation"
+	$param="insert-text"
+	text='* <<and "BranchDescription">>
+'
+/>
+</$button>

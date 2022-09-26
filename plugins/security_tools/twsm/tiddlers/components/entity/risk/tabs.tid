@@ -1,0 +1,14 @@
+created: 20211110125402059
+modified: 20211116101349878
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/risk/tabs
+type: text/vnd.tiddlywiki
+
+<$macrocall
+  $name="tabs"
+  tabsList="[all[tiddlers+shadows]tag[$:/plugins/security_tools/twsm/components/entity/risk/tabs]]"
+  default="$:/plugins/security_tools/twsm/components/entity/risk/attack_tree"
+  explicitState=<<tabState>>
+  class="py-tabs"
+/>
+

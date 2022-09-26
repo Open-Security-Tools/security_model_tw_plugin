@@ -1,0 +1,12 @@
+created: 20210719210518325
+list-after: $:/plugins/security_tools/twsm/components/entity/generic/help
+modified: 20211113161321628
+tags: $:/tags/ViewTemplate
+title: $:/plugins/security_tools/twsm/components/entity/attack/view
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]field:twsm_class[attack]]">
+
+{{||$:/plugins/security_tools/twsm/components/entity/attack/body}}
+
+</$list>

@@ -1,0 +1,8 @@
+created: 20220901083317704
+modified: 20220901092843125
+caption: <i class="fas fa-biohazard"/> Attack Tree
+tags: $:/plugins/security_tools/twsm/components/entity/risk/tabs
+title: $:/plugins/security_tools/twsm/components/entity/risk/attack_tree
+type: text/vnd.tiddlywiki
+
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/attack_tree/tree" mode=block/>

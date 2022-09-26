@@ -1,0 +1,8 @@
+action_name: Not redacted
+action_type: discretionary
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/remove_mark_attack_redacted
+type: text/vnd.tiddlywiki
+
+<$action-deletefield redacted/>

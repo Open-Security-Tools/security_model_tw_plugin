@@ -1,0 +1,11 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/attack_tree/edit/error
+type: text/vnd.tiddlywiki
+
+<div class="attack_tree_preview_error">
+<$list filter="[title<complex>twsm_json_field:error[]]" variable=error>
+<span style="color: red;"><<error>></span>
+</$list>
+</div>

@@ -1,0 +1,10 @@
+created: 20210719223437656
+modified: 20211113161328872
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/attack_tree/tree
+type: text/vnd.tiddlywiki
+
+<$transclude field=rendered_attack_tree/>
+<$list filter="[all[current]!has[rendered_attack_tree]]">
+No attack tree!
+</$list>

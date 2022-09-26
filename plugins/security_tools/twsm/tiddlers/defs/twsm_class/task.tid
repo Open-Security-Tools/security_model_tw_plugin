@@ -1,6 +1,7 @@
 class_name: Task
 class_name_plural: Tasks
 created: 20220214163058684
+help: $:/plugins/security_tools/twsm/components/entity/assurance_activity/help
 family: fas
 glyph: fa-tasks
 has_endtime: yes

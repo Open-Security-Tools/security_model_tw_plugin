@@ -13,6 +13,19 @@ See <<twsmid "$xref$">>.
 </div>
 \end
 
+\define helpLink(tiddlerSuffix, displayName)
+<$list filter="[title<__tiddlerSuffix__>addprefix[$:/plugins/security_tools/twsm/help/]has[text]]">
+<$button class="tc-btn-invisible tc-tiddlylink">
+<$action-navigate $to=<<currentTiddler>>/>
+$displayName$
+</$button>
+</$list>
+<$list filter="[title<__tiddlerSuffix__>addprefix[$:/plugins/security_tools/twsm/help/]!has[text]]">
+Error Linking to <<__tiddlerSuffix__>>!
+</$list>
+
+\end
+
 \define alert-leftbar(type:"primary" src:"", width:"100%", class:"")
 <div class="alert alert-$type$ bg-transparent leftbar border-$type$ $class$" style="width:$width$;">
 $src$

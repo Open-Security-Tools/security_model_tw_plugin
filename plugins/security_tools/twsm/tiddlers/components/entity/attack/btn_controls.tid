@@ -10,9 +10,9 @@ type: text/vnd.tiddlywiki
 <$button
 	class="py-btn btn-small"
 	popup=<<popupTiddler>>
-	tooltip="Controls"
+	tooltip="Controls which are encountered by this attack"
 >
-<i class="fas fa-shield-alt"/>
+<i class="fas fa-shield-alt toolbar_icon"/>
 <<controlCount>>
 <i class="fas fa-caret-down"/>
 </$button>

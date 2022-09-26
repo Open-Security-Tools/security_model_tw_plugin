@@ -201,7 +201,6 @@ function get_generic_actions(tiddler, title, options) {
     }
 
     var result = [];
-    result.push("edit_external_references");
     return result;
 }
 
@@ -313,6 +312,15 @@ function get_attack_actions(tiddler, title, options) {
         result.push("cancel_edit_attack");
     } else {
         result.push("edit_attack");
+    }
+
+    if (tiddler.fields.redacted === "yes") {
+        result.push("remove_mark_attack_redacted");
+        if (tiddler.fields.node_count > 1) {
+            result.push("attack_needs_redacting");
+        }
+    } else {
+        result.push("mark_attack_redacted");
     }
 
     // Attacks should not be linked to themes
