@@ -66,6 +66,10 @@ class Node {
         this.criticalPath = false;
     }
 
+    get nodeCount() {
+        return 1;
+    }
+
     resolve() {}
 
     markCriticalPath() {
@@ -131,7 +135,7 @@ class Node {
         // Comments added as additional lines
         var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
         if (comments.length > 0) {
-            s.push("\"\"\"<br>" + comments + "\"\"\"");
+            s.push("<div class=\"attack_tree_node_comments\">" + comments + "</div>");
         }
         return [s.join(" ")];
     }
@@ -153,6 +157,14 @@ class Branch extends Node {
         this.operator = operator;
         this.hue = hue;
         this.children = [];
+    }
+
+    get nodeCount() {
+        var count = 1;
+        for (let c of this.children) {
+            count += c.nodeCount;
+        }
+        return count;
     }
 
     nodeCircleColour() {
@@ -204,6 +216,11 @@ class OrBranch extends Branch {
     render() {
         var lines = [];
         lines.push("<div class=\"attack_tree\">");
+
+        var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
+        if (comments.length > 0) {
+            lines.push("<div class=\"attack_tree_root_comments\">" + comments + "</div>");
+        }
         lines.push(...this.renderStart());
         lines.push(...this.renderEnd());
         lines.push("</div>");
@@ -266,7 +283,7 @@ class OrBranch extends Branch {
         var untreatedBackgroundStyle = this.likelihood.untreated.buildLikelihoodBackgroundStyle();
 
         var l = [];
-        l.push(utils.generateMetric("", "Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
+        l.push(utils.generateMetric("", "Treated Likelihood", treatedBand, this.likelihood.treated.phia, treatedBackgroundStyle));
         l.push(utils.generateMetric("", "Untreated Likelihood", untreatedBand, this.likelihood.untreated.phia, untreatedBackgroundStyle));
         return {
             rendered_summary: l.join(""),
@@ -282,6 +299,11 @@ class AndBranch extends Branch {
 
     }
     calculateBranchProbability() {
+        if (this.children.length == 0) {
+            // If no children, then task is impossible!
+            return new likelihood_utils.ComplexLikelihood(new likelihood_utils.Likelihood(0.0, 0.0), new likelihood_utils.Likelihood(0.0, 0.0));
+        }
+
         var runningUntreatedLower = 1.0, runningUntreatedUpper = 1.0, runningTreatedLower = 1.0, runningTreatedUpper = 1.0;
         for (let c of this.children) {
             runningUntreatedLower = runningUntreatedLower * c.likelihood.untreated.lower;
@@ -331,7 +353,7 @@ class Ref extends Node {
     constructor(parent, nodeName, indent) {
         super(parent, nodeName, indent, "reference_node", "fas fa-link");
         if (!is_ref(nodeName)) {
-            throw new AttackTreeSyntaxError("Not a ref!");
+            throw new AttackTreeSyntaxError("Not an attack!");
         }
         this.likelihood = get_attack_treated_likelihood(nodeName);
     }
@@ -394,98 +416,96 @@ function parse_attack_tree(attack_tree) {
     var hueDelta = 75;
     hue += hueDelta;
     var currentBranch = root;
+    var currentNode = currentBranch;
 
-    var ops = {
-        "branch": function(indent, args) {
-            var branchName = args[0];
-            var operator = (args[1] || "OR").toUpperCase();
-            var branchFactory = branchFactoryLookup[operator];
-            if (!branchFactory) {
-                throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
-            }
-            var branch = branchFactory(currentBranch, branchName, indent, hue);
-            hue += hueDelta;
-            currentBranch.children.push(branch);
-            currentBranch = branch;
-        },
-        "and": function(indent, args) {
-            var branchName = args[0];
-            var branchFactory = branchFactoryLookup["AND"];
-            var branch = branchFactory(currentBranch, branchName, indent, hue);
-            hue += hueDelta;
-            currentBranch.children.push(branch);
-            currentBranch = branch;
-        },
-        "or": function(indent, args) {
-            var branchName = args[0];
-            var branchFactory = branchFactoryLookup["OR"];
-            var branch = branchFactory(currentBranch, branchName, indent, hue);
-            hue += hueDelta;
-            currentBranch.children.push(branch);
-            currentBranch = branch;
-        },
-        "leaf": function(indent, args) {
-            var leafName = args[0];
-            var probability = args[1];
-            var leaf = new Leaf(currentBranch, leafName, indent, probability);
-            if (leaf.indent !== (currentBranch.indent + 1)) {
-                throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
-            }
-            currentBranch.children.push(leaf);
-        },
-        "task": function(indent, args) {
-            var leafName = args[0];
-            var probability = args[1];
-            var leaf = new Leaf(currentBranch, leafName, indent, probability);
-            if (leaf.indent !== (currentBranch.indent + 1)) {
-                throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
-            }
-            currentBranch.children.push(leaf);
-        },
-        "control": function(indent, args) {
-            var controlName = args[0];
-            var control = new Control(currentBranch, controlName, indent);
-            currentBranch.children.push(control);
-            controls.add(controlName);
-            accumulatedControls.add(controlName);
-        },
-        "ref": function(indent, args) {
-            var refName = args[0];
-            var ref = new Ref(currentBranch, refName, indent);
-            currentBranch.children.push(ref);
-            attackSubTrees.add(refName);
-            accumulatedAttackSubTrees.add(refName);
-            
-            // Also pull in the controls and attack trees referenced in this sub tree
-            var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
-            for (let c of accumControls) {
-                accumulatedControls.add(c);
-            }
-            var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
-            for (let s of accumSubTrees) {
-                accumulatedAttackSubTrees.add(s);
-            }
-        },
-        "attack": function(indent, args) {
-            var refName = args[0];
-            var ref = new Ref(currentBranch, refName, indent);
-            currentBranch.children.push(ref);
-            attackSubTrees.add(refName);
-            accumulatedAttackSubTrees.add(refName);
+    var branchFunction = function(indent, args) {
+        var branchName = args[0];
+        var operator = (args[1] || "OR").toUpperCase();
+        var branchFactory = branchFactoryLookup[operator];
+        if (!branchFactory) {
+            throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
+        }
+        var branch = branchFactory(currentBranch, branchName, indent, hue);
+        hue += hueDelta;
+        currentBranch.children.push(branch);
+        currentBranch = branch;
+        currentNode = currentBranch;
+    }
 
-            // Also pull in the controls and attack trees referenced in this sub tree
-            var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
-            for (let c of accumControls) {
-                accumulatedControls.add(c);
-            }
-            var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
-            for (let s of accumSubTrees) {
-                accumulatedAttackSubTrees.add(s);
-            }
+    var andFunction = function(indent, args) {
+        var branchName = args[0];
+        var branchFactory = branchFactoryLookup["AND"];
+        var branch = branchFactory(currentBranch, branchName, indent, hue);
+        hue += hueDelta;
+        currentBranch.children.push(branch);
+        currentBranch = branch;
+        currentNode = branch;
+    }
+
+    var orFunction = function(indent, args) {
+        var branchName = args[0];
+        var branchFactory = branchFactoryLookup["OR"];
+        var branch = branchFactory(currentBranch, branchName, indent, hue);
+        hue += hueDelta;
+        currentBranch.children.push(branch);
+        currentBranch = branch;
+        currentNode = branch;
+    }
+
+    var taskFunction = function(indent, args) {
+        var leafName = args[0];
+        var probability = args[1];
+        var leaf = new Leaf(currentBranch, leafName, indent, probability);
+        if (leaf.indent !== (currentBranch.indent + 1)) {
+            throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
+        }
+        currentBranch.children.push(leaf);
+        currentNode = leaf;
+    }
+
+    var controlFunction = function(indent, args) {
+        var controlName = args[0];
+        var control = new Control(currentBranch, controlName, indent);
+        currentBranch.children.push(control);
+        controls.add(controlName);
+        accumulatedControls.add(controlName);
+        currentNode = control;
+    }
+
+    var attackFunction = function(indent, args) {
+        var refName = args[0];
+        var ref = new Ref(currentBranch, refName, indent);
+        currentBranch.children.push(ref);
+        attackSubTrees.add(refName);
+        accumulatedAttackSubTrees.add(refName);
+        currentNode = ref;
+        
+        // Also pull in the controls and attack trees referenced in this sub tree
+        var accumControls = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_controls]enlist-input[]]");
+        for (let c of accumControls) {
+            accumulatedControls.add(c);
+        }
+        var accumSubTrees = $tw.wiki.filterTiddlers("[title[" + refName + "]get[accumulated_sub_trees]enlist-input[]]");
+        for (let s of accumSubTrees) {
+            accumulatedAttackSubTrees.add(s);
         }
     }
 
-    var lines = attack_tree.split('\n');
+    var ops = {
+        "branch": branchFunction,
+        "and": andFunction,
+        "or": orFunction,
+        "leaf": taskFunction,
+        "task": taskFunction,
+        "control": controlFunction,
+        "ref": attackFunction,
+        "attack": attackFunction,
+    }
+
+    var lines = "";
+    if (attack_tree !== undefined) {
+        lines = attack_tree.split('\n');
+    }
     var error = "";
     var lineNo = 1;
 
@@ -496,7 +516,7 @@ function parse_attack_tree(attack_tree) {
                 var t = lstrip(l, "*")
                 var indent = l.length - t.length;
                 if (!indent) {
-                    currentBranch.comments.push(t);
+                    currentNode.comments.push(t);
                 }
                 if (indent) {
                     if (indent > (currentBranch.indent + 1)) {
@@ -518,9 +538,6 @@ function parse_attack_tree(attack_tree) {
                     if (opFunc) {
                         opFunc(indent, macroArgs.slice(1,));
                     }
-        
-                    // var prefix = new Array(indent + 1).join("*");
-                    // newLines.push(prefix + " Indent " + indent + " " + t + " ADDED");
                 }
             } catch (objError) {
                 if (objError instanceof AttackTreeSyntaxError) {
@@ -550,6 +567,7 @@ function parse_attack_tree(attack_tree) {
         renderer: 2,
         error: error,
         root: root,
+        node_count: root.nodeCount,
         controls: Array.from(controls),
         accumulated_controls: Array.from(accumulatedControls),
         sub_trees: Array.from(attackSubTrees),

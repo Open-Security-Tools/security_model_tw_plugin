@@ -1,5 +1,5 @@
 action_name: Commit risk
-action_type: error
+action_type: warning
 created: 20220729125843346
 modified: 20220808074647730
 title: $:/plugins/security_tools/twsm/components/entity/generic/actions/commit_risk

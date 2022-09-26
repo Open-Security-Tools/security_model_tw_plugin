@@ -1,0 +1,26 @@
+created: 20210718194743575
+modified: 20210718195030312
+tags: 
+title: $:/plugins/security_tools/twsm/help/Risks
+type: text/vnd.tiddlywiki
+
+Risks are presented in a non-technical language, but can represent highly complex and technical information.
+
+!! Naming Conventions
+
+If the traditional approach of Confidentiality, Integrity and Availability works for you, then use //Risk to confidentiality of... // as a risk template. 
+However, anything which manifests impact at a business level is fine. For example //Risk to reputation...//. 
+Make sure that the risk makes sense to the risk owner.
+They need to be able to quantify the impact of the risk manifesting.
+
+!! Scoring
+
+A risk is built from two components:
+
+# An assessment of ''Impact''. This model uses a scale of  Minimal, Minor,  Moderate, Major, Severe.
+# A calculation of ''Likelihood''. This is derived from an attack tree, where the risk is the root objective, and any degree of complexity can be used to describe methods of attack. The attack references controls, which are incorporated into the attack tree with an assessment of failure likelihood. This allows the automatic calculation of "Treated" and "Untreated" likelihood (and hence risk).
+
+The risk score (incorporating impact and likelihood) is normalised as a number from 0 to 10 (with 10 being the highest risk).
+
+To edit a Risk's <<helpLink "Attack Trees" "attack tree">>, use the action button and select "Edit". 
+

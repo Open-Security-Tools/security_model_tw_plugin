@@ -1,0 +1,61 @@
+created: 20220901083427664
+modified: 20220901083544062
+tags: $:/plugins/security_tools/twsm/components/entity/attack_tree/edit/toolbar
+title: $:/plugins/security_tools/twsm/components/entity/attack_tree/edit/toolbar_buttons/insert_entity
+type: text/vnd.tiddlywiki
+
+\define actionInsertControl()
+<i class="fas fa-shield-alt"/> <$view field="twsm_id"/>: <$view field="title"/>
+<$action-sendmessage
+	$message="tm-edit-text-operation"
+	$param="insert-text"
+	text='* <<control "$(entityName)$">>
+'
+/>
+\end
+\define actionInsertAttack()
+<i class="fas fa-biohazard"/> <$view field="twsm_id"/>: <$view field="title"/>
+<$action-sendmessage
+	$message="tm-edit-text-operation"
+	$param="insert-text"
+	text='* <<attack "$(entityName)$">>
+'
+/>
+\end
+<$vars popupTiddler=<<qualify "$:/state/twsm/edit-attack-search">> >
+<$edit-text 
+  tiddler="$:/state/twsm/edit-attack-search" 
+  tag="input"
+  size=40
+  placeholder="Insert attack or control..."
+  default=""
+  focusPopup=<<popupTiddler>> 
+  class="tc-popup-handle edit_attack_search_toolbar"
+/>
+<$reveal 
+  state=<<popupTiddler>> 
+  type="popup" 
+  position="below" 
+  animate="yes" 
+  class="tc-drop-down pyd-drop-down"
+>
+<$set name=entitySearch tiddler="$:/state/twsm/edit-attack-search" field=text>
+<$list filter="[title<entitySearch>length[]compare:number:lt[3]]">
+Enter minimum of 3 characters...
+</$list>
+<$list filter="[title<entitySearch>length[]compare:number:gt[2]]" variable=ignore>
+<$list filter="[all[]twsm_class[control]search:title,twsm_id<entitySearch>] [all[]twsm_class[attack]search:title,twsm_id<entitySearch>]">
+<div class="tc-menu-list-item">
+<$button class="tc-btn-invisible">
+<$list filter="[all[current]twsm_class[control]]" variable=entityName>
+<<actionInsertControl>>
+</$list>
+<$list filter="[all[current]twsm_class[attack]]" variable=entityName>
+<<actionInsertAttack>>
+</$list>
+</$button>
+</div>
+</$list>
+</$list>
+</$set>
+</$reveal>

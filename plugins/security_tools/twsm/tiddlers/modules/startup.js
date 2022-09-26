@@ -68,6 +68,7 @@ function processRisk(cf, nf) {
 		impact = "Unknown"
 		nf["twsm_impact"] = impact;
 	}
+	nf["hide-body"] = "yes";
 	return nf;
 }
 
@@ -92,6 +93,8 @@ function processTheme(cf, nf) {
 }
 
 function processAttack(cf, nf) {
+	nf["hide-body"] = "yes";
+
 	return nf;
 }
 

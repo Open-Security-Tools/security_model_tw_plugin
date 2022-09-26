@@ -62,6 +62,9 @@ class Likelihood {
 
 const likelihood_calibration = [
     {
+        band: new Likelihood(0.0, 0.0, "Impossible"),
+        names: ["impossible"],
+    }, {
         band: new Likelihood(0.0, 0.075, "Remote Chance"),
         names: ["remote chance", "rc", "remote"],
     }, {
@@ -146,7 +149,7 @@ function phia2Likelihood(phia) {
  * @returns {String}
  */
 function probability2Phia(probability) {
-    var c = "Remote Chance";
+    var c = "Impossible";
     for (const b of likelihood_calibration) {
         if ((probability > b.band.lower) && (probability <= b.band.upper)) {
             c = b.band.phia;

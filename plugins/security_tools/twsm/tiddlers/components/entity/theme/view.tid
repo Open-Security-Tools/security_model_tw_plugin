@@ -1,0 +1,10 @@
+created: 20210723222102559
+list-before: $:/core/ui/ViewTemplate/body
+modified: 20220214221630244
+tags: $:/tags/ViewTemplate
+title: $:/plugins/security_tools/twsm/components/entity/theme/view
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]field:twsm_class[theme]]">
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/theme/header" mode="block"/>
+</$list>

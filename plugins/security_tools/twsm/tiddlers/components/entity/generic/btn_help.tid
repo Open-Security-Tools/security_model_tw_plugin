@@ -1,0 +1,35 @@
+created: 20220831222252830
+modified: 20220831222610100
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/generic/btn_help
+type: text/vnd.tiddlywiki
+
+\define showHelpButton()
+<$button
+	class="py-btn btn-small $(helpClass)$"
+	tooltip="Toggle help display"
+>
+<i class="fas fa-question-circle toolbar_icon"/>
+<$list filter="[title[$:/state/twsm/help]!has[show_help]]" variable=ignore>
+<$list filter="[title[$:/config/twsm/settings]show_help_default[yes]then[no]else[yes]]" variable="invertHelp">
+<$action-setfield $tiddler="$:/state/twsm/help" show_help=<<invertHelp>>/>
+</$list>
+</$list>
+<$list filter="[title[$:/state/twsm/help]has[show_help]]" variable=ignore>
+<$list filter="[title[$:/state/twsm/help]show_help[yes]]" variable=ignore>
+<$action-setfield $tiddler="$:/state/twsm/help" show_help=no/>
+</$list>
+<$list filter="[title[$:/state/twsm/help]!show_help[yes]]" variable=ignore>
+<$action-setfield $tiddler="$:/state/twsm/help" show_help=yes/>
+</$list>
+</$list>
+</$button>
+\end
+
+<$list filter="[title[$:/config/twsm/settings]show_help_default[yes]then[yes]else[no]]" variable="showHelpDefault">
+<$list filter="[title[$:/state/twsm/help]get[show_help]else<showHelpDefault>]" variable="showHelp">
+<$list filter="[title<showHelp>compare:string:eq[yes]then[twsm-help-enabled]else[twsm-help-disabled]]" variable=helpClass>
+<<showHelpButton>>
+</$list>
+</$list>
+</$list>

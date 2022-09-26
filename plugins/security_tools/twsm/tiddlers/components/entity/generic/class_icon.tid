@@ -1,0 +1,11 @@
+created: 20220831214144308
+modified: 20220831225133585
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/generic/class_icon
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<$list filter="[all[current]get[twsm_class]addprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]]">
+<span title={{!!class_name}} class="twsm_title_icon">{{||$:/plugins/security_tools/twsm/templates/class_inline_icon}}</span>
+</$list>

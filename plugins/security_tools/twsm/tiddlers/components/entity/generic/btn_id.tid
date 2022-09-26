@@ -4,13 +4,83 @@ tags:
 title: $:/plugins/security_tools/twsm/components/entity/generic/btn_id
 type: text/vnd.tiddlywiki
 
-<$list filter="[all[current]get[external_references]uppercase[]addprefix[External References: ]else[No external references!]]" variable=tooltip>
+\define toolbarButtonText()
+<i class="fas fa-hashtag toolbar_icon"/>
+<$view field=twsm_id/>
+<i class="fas fa-caret-down toolbar_dropdown"/>
+\end
+
+\define menuItemClass() tc-btn-invisible
+
+\define searchPrefix()
+#:[search:external_references[
+\end
+
+\define twsmidPrefix()
+#:[twsm_id[
+\end
+
+\define searchSuffix()
+]]
+\end
+
+\define menuItemUniqueLink()
+<$list filter="[all[current]get[twsm_id]lowercase[]addprefix<twsmidPrefix>addprefix<fqdnBase>addsuffix<searchSuffix>encodeuri[]]" variable=renderedUri>
 <$button
-	class="py-btn btn-small"
-	tooltip=<<tooltip>>
+	class=<<menuItemClass>>
+	tooltip="Copy URL uniquely identifying this security model entity"
+	message="tm-copy-to-clipboard" 
+	param=<<renderedUri>>
 >
-<i class="fas fa-hashtag"/> <$view field=twsm_id/>
+<i class="fas fa-link"/> Copy unique link
+</$button>
+</$list>
+\end
+
+\define menuItemTagLink()
+<$button
+	class=<<menuItemClass>>
+	tooltip="Copy URL linking to tag $(externalReference)$"
+	message="tm-copy-to-clipboard" 
+	param=<<renderedUri>>
+>
+<i class="fas fa-link"/> Copy link to ''$(externalReference)$''
+</$button>
+\end
+
+\define menuItemEditTags()
+<$button
+	class=<<menuItemClass>>
+	tooltip="Edit the tags used to for external references"
+>
+<i class="far fa-edit"/> Edit tags
 <$action-setfield $tiddler="$:/state/twsm/edit_external_references" target_tiddler=<<currentTiddler>>/>
 <$action-sendmessage $message="tm-modal" $param="$:/plugins/security_tools/twsm/components/context/entity/generic/edit_external_references"/>
 </$button>
+\end
+
+<$vars popupTiddler=<<qualify "$:/state/twsm/entity-twsmid-button">>>
+<$button
+	class="py-btn btn-small"
+	popup=<<popupTiddler>>
+	tooltip="Security model identifier and external references"
+>
+<<toolbarButtonText>>
+</$button>
+<$reveal
+	state=<<popupTiddler>>
+	type="popup"
+	animate="yes"
+	class="tc-drop-down py-drop-down py-todo-actions-drop-down"
+>
+<$list filter="[title[$:/config/twsm/settings]get[fqdn_base]]" variable=fqdnBase>
+<<menuItemUniqueLink>>
+<$list filter="[all[current]get[external_references]uppercase[]split[ ]unique[]sort[]]" variable=externalReference>
+<$list filter="[title<externalReference>lowercase[]addprefix<searchPrefix>addprefix<fqdnBase>addsuffix<searchSuffix>encodeuri[]]" variable=renderedUri>
+<<menuItemTagLink>>
 </$list>
+</$list>
+</$list>
+<<menuItemEditTags>>
+</$reveal>
+</$vars>

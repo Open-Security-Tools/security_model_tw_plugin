@@ -1,0 +1,20 @@
+caption: Reference Index
+created: 20211113212016075
+modified: 20211113213100775
+tags: $:/plugins/security_tools/twsm/components/context/settings/settings
+title: $:/plugins/security_tools/twsm/components/context/settings/external_references
+type: text/vnd.tiddlywiki
+
+Index:
+
+<ul>
+<$list filter="[all[]get[external_references]uppercase[]split[ ]unique[]sort[]]" variable=externalReference>
+<li><<externalReference>>
+<ul>
+<$list filter="[all[]search:external_references<externalReference>]">
+<li><$link><$view field=title/></$link></li>
+</$list>
+</ul>
+</li>
+</$list>
+</ul>

@@ -1,0 +1,10 @@
+created: 20211113181827643
+modified: 20211207183028157
+caption: Security Model
+tags: $:/tags/ControlPanel
+title: $:/plugins/security_tools/twsm/components/context/settings/settings
+type: text/vnd.tiddlywiki
+
+These settings let you customise the behaviour of this [[security model|$:/plugins/security_tools/twsm]].
+
+<<tabs "[title[$:/plugins/security_tools/twsm/components/context/settings/settings]tagging[]]" "$:/plugins/security_tools/twsm/components/context/settings/config" "$:/state/twsm_settings_tab">>

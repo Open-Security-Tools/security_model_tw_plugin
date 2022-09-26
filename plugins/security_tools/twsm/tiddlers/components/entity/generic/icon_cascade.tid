@@ -1,0 +1,8 @@
+created: 20220831222252830
+modified: 20220831222610100
+tags: $:/tags/TiddlerIconFilter
+title: $:/plugins/security_tools/twsm/components/entity/generic/icon_cascade
+list-before: $:/config/TiddlerIconFilters/default
+type: text/vnd.tiddlywiki
+
+[has[twsm_class]then[$:/plugins/security_tools/twsm/components/entity/generic/class_icon]] 

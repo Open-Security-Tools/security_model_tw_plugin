@@ -1,6 +1,7 @@
 class_name: Control
 class_name_plural: Controls
 created: 20210717135746983
+help: $:/plugins/security_tools/twsm/components/entity/control/help
 family: fas
 glyph: fa-shield-alt
 modified: 20220215203255563

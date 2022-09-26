@@ -1,5 +1,6 @@
 created: 20220922190000340
 fqdn_base: https://open-security-tools.github.io/security_model_tw_plugin/
-modified: 20220922190000340
+modified: 20220926171304705
+show_help_default: yes
 title: $:/config/twsm/settings
 type: text/vnd.tiddlywiki

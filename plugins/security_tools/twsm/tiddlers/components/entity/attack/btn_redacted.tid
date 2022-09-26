@@ -1,0 +1,13 @@
+created: 20220901083427664
+modified: 20220901083544062
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/attack/btn_redacted
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]redacted[yes]]" variable=ignore>
+<$button
+	class="py-btn btn-small btn-danger"
+	tooltip="This attack contains redacted content"
+>
+Redacted
+</$button>

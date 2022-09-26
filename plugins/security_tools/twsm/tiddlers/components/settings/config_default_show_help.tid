@@ -1,0 +1,14 @@
+caption: Show Help by Default
+created: 20211113212016075
+modified: 20211113213100775
+tags: $:/plugins/security_tools/twsm/components/context/settings/config
+title: $:/plugins/security_tools/twsm/components/context/settings/config_default_show_help
+type: text/vnd.tiddlywiki
+
+<$select tiddler="$:/config/twsm/settings" field=show_help_default default="no">
+<option value="yes">Yes</option>
+<option value="no">No</option>
+</$select>
+
+
+
