@@ -4,9 +4,17 @@ tags:
 title: $:/plugins/security_tools/twsm/help/Attack Trees
 type: text/vnd.tiddlywiki
 
+
 Attack Trees are used by <<helpLink "Risks" "risks">> and <<helpLink "Attacks" "attacks">> components of the security model.
 
-They are presented from the perspective of an attacker, and derive a <<helpLink "Likelihood" "likelihood">> of successful attack.
+The concept of attack trees stems from systems engineering failure mode analysis. 
+Within this security model, they are used as a method to bride non-technical risks with highly technical system design.
+
+The attack trees are written in a simple markup language.
+
+There is nothing stopping anyone from editing attack trees - but they are expected to be authored by engineers close to the system design and operation.
+ 
+Attack trees are presented from the perspective of an attacker, and derive a <<helpLink "Likelihood" "likelihood">> of successful attack.
 
 Syntax:
 

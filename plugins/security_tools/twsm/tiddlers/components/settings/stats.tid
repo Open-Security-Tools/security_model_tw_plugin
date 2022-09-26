@@ -1,8 +1,8 @@
 caption: Model Statistics
 created: 20211113213730895
 modified: 20211113213749794
-tags: 
-title: $:/plugins/security_tools/twsm/components/context/none/settings_tabs/stats
+tags: $:/plugins/security_tools/twsm/components/context/settings/settings
+title: $:/plugins/security_tools/twsm/components/context/settings/stats
 type: text/vnd.tiddlywiki
 
 <ul>

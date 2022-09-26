@@ -5,22 +5,14 @@ tags: $:/tags/ViewTemplate
 title: $:/plugins/security_tools/twsm/components/entity/generic/help
 type: text/vnd.tiddlywiki
 
-<$list filter="[title[$:/state/twsm/help]show_help[yes]]" variable=ignore>
+<$list filter="[title[$:/config/twsm/settings]show_help_default[yes]then[yes]else[no]]" variable="showHelpDefault">
+<$list filter="[title[$:/state/twsm/help]get[show_help]else<showHelpDefault>]" variable="showHelp">
+<$list filter="[title<showHelp>compare:string:eq[yes]]" variable=ignore>
+<$list filter="[all[current]get[twsm_class]addprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]get[help]]" variable=helpTiddler>
 <div class="twsm_help">
-<$list filter="[all[current]twsm_class[control]]" variable=ignore>
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/control/help" mode="block"/>
-</$list>
-<$list filter="[all[current]twsm_class[risk]]" variable=ignore>
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/risk/help" mode="block"/>
-</$list>
-<$list filter="[all[current]twsm_class[attack]]" variable=ignore>
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/attack/help" mode="block"/>
-</$list>
-<$list filter="[all[current]twsm_class[theme]]" variable=ignore>
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/theme/help" mode="block"/>
-</$list>
-<$list filter="[all[current]has[twsm_class]filter<provides_assurance>]" variable=ignore>
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/assurance_activity/help" mode="block"/>
-</$list>
+<div class="twsm_help_icon"><i class="fas fa-question-circle"/></div>
+<$transclude tiddler=<<helpTiddler>> mode="block"/>
 </div>
+</$list>
+</$list>
 </$list>

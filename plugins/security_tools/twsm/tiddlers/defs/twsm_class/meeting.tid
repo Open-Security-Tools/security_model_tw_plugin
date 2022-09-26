@@ -3,6 +3,7 @@ class_name_plural: Meetings
 created: 20220214163158059
 family: fas
 glyph: fa-handshake
+help: $:/plugins/security_tools/twsm/components/entity/assurance_activity/help
 has_endtime: yes
 modified: 20220216085644319
 prefix: 

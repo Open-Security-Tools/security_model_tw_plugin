@@ -1,6 +1,7 @@
 class_name: Attack
 class_name_plural: Attacks
 created: 20210717223608768
+help: $:/plugins/security_tools/twsm/components/entity/attack/help
 family: fas
 glyph: fa-biohazard
 modified: 20220216085716124

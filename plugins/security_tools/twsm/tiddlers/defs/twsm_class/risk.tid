@@ -1,6 +1,7 @@
 class_name: Risk
 class_name_plural: Risks
 created: 20210717223608768
+help: $:/plugins/security_tools/twsm/components/entity/risk/help
 family: fas
 glyph: fa-balance-scale
 modified: 20220216085716124

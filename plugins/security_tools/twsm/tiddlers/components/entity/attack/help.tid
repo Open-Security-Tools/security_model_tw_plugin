@@ -4,6 +4,5 @@ modified: 20220224114642344
 title: $:/plugins/security_tools/twsm/components/entity/attack/help
 type: text/vnd.tiddlywiki
 
-Attacks are standalone attack trees deriving an assessment of likelihood.
-See [[attacks|$:/plugins/security_tools/twsm/help/Attacks]] for more details. 
+<<helpLink Attacks Attacks>> are standalone <<helpLink "Attack Trees" "attack trees">> deriving an assessment of <<helpLink Likelihood likelihood>>.
 
