@@ -1,7 +1,7 @@
 created: 20210725062648082
 modified: 20211113161234599
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/control/header
+title: $:/plugins/security_tools/twsm/components/entity/control/header
 type: text/vnd.tiddlywiki
 
 <div class="control-header">

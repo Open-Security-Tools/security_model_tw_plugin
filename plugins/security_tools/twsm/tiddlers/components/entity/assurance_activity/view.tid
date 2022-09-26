@@ -2,7 +2,7 @@ created: 20210729063900595
 list-after: $:/plugins/security_tools/twsm/components/entity/generic/help
 modified: 20220216214208984
 tags: $:/tags/ViewTemplate
-title: $:/plugins/security_tools/twsm/integrations/view/assurance_activity
+title: $:/plugins/security_tools/twsm/components/entity/assurance_activity/view
 type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]has[twsm_class]filter<provides_assurance>]">
