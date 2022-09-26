@@ -2,7 +2,7 @@ caption: Controls
 created: 20210719223437656
 modified: 20211113161328872
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/risk/edit_form
+title: $:/plugins/security_tools/twsm/components/entity/risk/edit_form
 type: text/vnd.tiddlywiki
 
 
@@ -14,16 +14,11 @@ type: text/vnd.tiddlywiki
 
 <hr>
 
-{{||$:/plugins/security_tools/twsm/components/context/risk/debug/old_links}}
+
+{{||$:/plugins/security_tools/twsm/components/entity/risk/select_edit_draft_impact}}
 
 
-{{||$:/plugins/security_tools/twsm/components/context/risk/debug/old_properties}}
-
-
-{{||$:/plugins/security_tools/twsm/components/context/risk/select_edit_draft_impact}}
-
-
-{{||$:/plugins/security_tools/twsm/components/context/risk/text_area_edit_draft_tree}}
+{{||$:/plugins/security_tools/twsm/components/entity/attack_tree/edit/text_area_edit_draft_tree}}
 
 <$set name=draftImpact tiddler=<<currentTiddler>> field=draft_impact>
 <$list filter="[all[current]get[draft_attack_tree]twsm_render_attack<draftImpact>]" variable=complex>

@@ -2,7 +2,7 @@ caption: Controls
 created: 20210719223437656
 modified: 20211113161328872
 tags: 
-title: $:/plugins/security_tools/twsm/components/context/risk/body
+title: $:/plugins/security_tools/twsm/components/entity/risk/body
 type: text/vnd.tiddlywiki
 
 {{||$:/plugins/security_tools/twsm/components/entity/risk/toolbar}}
@@ -15,6 +15,6 @@ type: text/vnd.tiddlywiki
 <hr>
 </$list>
 <$list filter="[all[current]edit_attack_tree[yes]]" variable=ignore>
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/context/risk/edit_form" mode="block"/>
+<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/risk/edit_form" mode="block"/>
 </$list>
 
