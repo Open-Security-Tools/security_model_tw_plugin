@@ -1,6 +1,7 @@
 created: 20220901083317704
 modified: 20220901092843125
 caption: Risks
+tooltip: Risks which incorporate this attack
 tags: $:/plugins/security_tools/twsm/components/entity/attack/tabs
 title: $:/plugins/security_tools/twsm/components/entity/attack/risks
 type: text/vnd.tiddlywiki

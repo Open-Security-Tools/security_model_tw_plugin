@@ -6,6 +6,6 @@ type: text/vnd.tiddlywiki
 
 Attacks are denoted with the <i class="fas fa-biohazard"/> icon.
 
-They hold attack trees which can be incorporated into multiple risks.
+They hold <<helpLink "Attack Trees" "attack trees">> which can be incorporated into multiple risks.
 
-The attack tree derives treated and untreated likelihood ranges.
+The attack tree derives treated and untreated <<helpLink "Likelihood" "likelihood">> ranges.

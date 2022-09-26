@@ -4,17 +4,9 @@ tags:
 title: $:/plugins/security_tools/twsm/help/Attack Trees
 type: text/vnd.tiddlywiki
 
-Attack Trees are used in Risks and Attacks.
+Attack Trees are used by <<helpLink "Risks" "risks">> and <<helpLink "Attacks" "attacks">> components of the security model.
 
-Likelihood scale:
-
-* Remote Chance (rc)
-* Highly Unlikely (hu)
-* Unlikely (u)
-* Realistic Possibility (rp)
-* Likely (l)
-* Highly Likely (hl)
-* Almost Certain (ac)
+They are presented from the perspective of an attacker, and derive a <<helpLink "Likelihood" "likelihood">> of successful attack.
 
 Syntax:
 
