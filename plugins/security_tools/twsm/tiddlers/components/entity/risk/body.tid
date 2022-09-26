@@ -10,9 +10,10 @@ type: text/vnd.tiddlywiki
 <$list filter="[all[current]!edit_attack_tree[yes]]" variable=ignore>
 
 {{||$:/plugins/security_tools/twsm/components/entity/risk/assessment}}
-<hr>
-<$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/attack_tree/tree" mode=block/>
-<hr>
+
+<$vars tabState=<<qualify "$:/state/twsm/risk-tabs">> >
+{{||$:/plugins/security_tools/twsm/components/entity/risk/tabs}}
+</$vars>
 </$list>
 <$list filter="[all[current]edit_attack_tree[yes]]" variable=ignore>
 <$transclude tiddler="$:/plugins/security_tools/twsm/components/entity/risk/edit_form" mode="block"/>

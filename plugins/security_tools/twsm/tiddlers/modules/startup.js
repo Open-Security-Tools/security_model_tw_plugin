@@ -68,6 +68,7 @@ function processRisk(cf, nf) {
 		impact = "Unknown"
 		nf["twsm_impact"] = impact;
 	}
+	nf["hide-body"] = "yes";
 	return nf;
 }
 
