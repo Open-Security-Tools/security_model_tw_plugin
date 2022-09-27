@@ -1,0 +1,14 @@
+created: 20220901083317704
+modified: 20220901092843125
+caption: <i class="fas fa-biohazard"/> Sub-Attacks
+tooltip: Attacks incorporated into this attack
+tags: $:/plugins/security_tools/twsm/components/entity/attack/tabs
+title: $:/plugins/security_tools/twsm/components/entity/attack/sub_trees
+type: text/vnd.tiddlywiki
+
+<div class="py-todos">
+<$list filter="[all[current]get[accumulated_sub_trees]enlist-input[]unique[]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/attack/row}}
+</$list>
+</div>
+

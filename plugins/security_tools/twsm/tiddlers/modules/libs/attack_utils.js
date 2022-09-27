@@ -114,7 +114,7 @@ class Node {
     }
 
     nodeCircleColour() {
-        return "grey";
+        return this.parent.nodeCircleColour();
     }
 
     renderStart() {
@@ -127,8 +127,13 @@ class Node {
         s.push(this.customCircle());
         
         // AND/OR node
-        var criticalPathStyle = this.criticalPath ? " critical_path" : "";
-        s.push("<span class=\"attack_tree_branch_type" + criticalPathStyle + "\">" + this.parent.operator + "</span>");
+        // var criticalPathStyle = this.criticalPath ? " critical_path" : "";
+        if (this.criticalPath) {
+            s.push("<i style=\"color: #A0A000; \" class=\"fas fa-star\"/>");
+        }
+        if (this.parent.children.length > 1) {
+            s.push("<span class=\"attack_tree_branch_type\">" + this.parent.operator + "</span>");
+        }
 
         s.push(this.description());
 
@@ -155,8 +160,20 @@ class Branch extends Node {
 
         // Handle any case for operator name resolution.
         this.operator = operator;
-        this.hue = hue;
+        this.rawHue = hue;
         this.children = [];
+    }
+
+    get hue() {
+        if (this.parent === null) {
+            return this.rawHue;
+        } else {
+            if (this.parent.children.length > 1) {
+                return this.rawHue;
+            } else {
+                return this.parent.hue;
+            }
+        }
     }
 
     get nodeCount() {
@@ -168,11 +185,7 @@ class Branch extends Node {
     }
 
     nodeCircleColour() {
-        if (this.parent === null) {
-            return "grey";
-        } else {
-            return "hsl(" + this.hue + ", 50%, 50%)";
-        }
+        return "hsl(" + this.hue + ", 50%, 50%)";
     }
 
     calculateBranchProbability() {
@@ -405,7 +418,7 @@ const branchFactoryLookup = {
     },
 }
 
-function parse_attack_tree(attack_tree) {
+function parse_attack_tree(attack_tree, redacted) {
 
     var controls = new Set();
     var accumulatedControls = new Set();
@@ -417,6 +430,16 @@ function parse_attack_tree(attack_tree) {
     hue += hueDelta;
     var currentBranch = root;
     var currentNode = currentBranch;
+    var nodeCount = 0;
+
+    var incrementNodeCount = function() {
+        nodeCount += 1;
+        if (redacted === "yes") {
+            if (nodeCount > 1) {
+                throw new AttackTreeSyntaxError("Remove redacted content");
+            }
+        }
+    }
 
     var branchFunction = function(indent, args) {
         var branchName = args[0];
@@ -426,6 +449,7 @@ function parse_attack_tree(attack_tree) {
             throw new AttackTreeSyntaxError("Unsupported operator (" + operator + ")");
         }
         var branch = branchFactory(currentBranch, branchName, indent, hue);
+        incrementNodeCount();
         hue += hueDelta;
         currentBranch.children.push(branch);
         currentBranch = branch;
@@ -436,6 +460,7 @@ function parse_attack_tree(attack_tree) {
         var branchName = args[0];
         var branchFactory = branchFactoryLookup["AND"];
         var branch = branchFactory(currentBranch, branchName, indent, hue);
+        incrementNodeCount();
         hue += hueDelta;
         currentBranch.children.push(branch);
         currentBranch = branch;
@@ -446,6 +471,7 @@ function parse_attack_tree(attack_tree) {
         var branchName = args[0];
         var branchFactory = branchFactoryLookup["OR"];
         var branch = branchFactory(currentBranch, branchName, indent, hue);
+        incrementNodeCount();
         hue += hueDelta;
         currentBranch.children.push(branch);
         currentBranch = branch;
@@ -456,6 +482,7 @@ function parse_attack_tree(attack_tree) {
         var leafName = args[0];
         var probability = args[1];
         var leaf = new Leaf(currentBranch, leafName, indent, probability);
+        incrementNodeCount();
         if (leaf.indent !== (currentBranch.indent + 1)) {
             throw new Error("Mismatch! Leaf is " + leaf.indent + " and parent branch is " + currentBranch.indent);
         }
@@ -466,6 +493,7 @@ function parse_attack_tree(attack_tree) {
     var controlFunction = function(indent, args) {
         var controlName = args[0];
         var control = new Control(currentBranch, controlName, indent);
+        incrementNodeCount();
         currentBranch.children.push(control);
         controls.add(controlName);
         accumulatedControls.add(controlName);
@@ -475,6 +503,7 @@ function parse_attack_tree(attack_tree) {
     var attackFunction = function(indent, args) {
         var refName = args[0];
         var ref = new Ref(currentBranch, refName, indent);
+        incrementNodeCount();
         currentBranch.children.push(ref);
         attackSubTrees.add(refName);
         accumulatedAttackSubTrees.add(refName);
@@ -567,7 +596,7 @@ function parse_attack_tree(attack_tree) {
         renderer: 2,
         error: error,
         root: root,
-        node_count: root.nodeCount,
+        node_count: root.nodeCount - 1,  // We do not count the root node.
         controls: Array.from(controls),
         accumulated_controls: Array.from(accumulatedControls),
         sub_trees: Array.from(attackSubTrees),

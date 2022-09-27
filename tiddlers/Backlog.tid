@@ -1,8 +1,8 @@
 category: 
 created: 20220831213451024
 description: 
-list: [[Edit attack tree - have preview optional on side]] [[Migrate impact to score field (with name lookup)]] [[Set risk score balancing configuration]] [[edit risk description as part of rest of edit page]] [[Remove vulnerabilities]] [[Add a mechanism for simple shared attacks]] [[Switch TWSM entity manipulation to actions]] [[Add feedback icon for risks, controls, attacks and assurance activities]]
-modified: 20220924130322481
+list: [[Edit attack tree - have preview optional on side]] [[Migrate impact to score field (with name lookup)]] [[Set risk score balancing configuration]] [[edit risk description as part of rest of edit page]] [[Remove vulnerabilities]] [[Add a mechanism for simple shared attacks]] [[Switch TWSM entity manipulation to actions]] [[Simplify attack tree view by removing unneccessary logic gates]] [[Add feedback icon for risks, controls, attacks and assurance activities]] [[Fix redacted logic]]
+modified: 20220927144148644
 tags: Project
 title: Backlog
 type: text/vnd.tiddlywiki
