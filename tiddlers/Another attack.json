@@ -4,7 +4,7 @@
         "text": "",
         "tags": "",
         "title": "Another attack",
-        "modified": "20220924180903725",
+        "modified": "20220927145533856",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "attack",
         "twsm_id": "1017",
@@ -22,6 +22,7 @@
         "accumulated_sub_trees": "",
         "node_count": "4",
         "draft_attack_tree": "Hello this is an attack.\n\n* <<and \"do something\">>\nThis is a comment ''hello''.\nI am a fish.\n** <<control \"A simple control\">>\nI am a fish\n\n\n** <<task \"fix this\" hl>>\nI am a fish\n",
-        "external_references": "MOO FOO"
+        "external_references": "MOO FOO",
+        "edit_attack_tree": "yes"
     }
 ]
