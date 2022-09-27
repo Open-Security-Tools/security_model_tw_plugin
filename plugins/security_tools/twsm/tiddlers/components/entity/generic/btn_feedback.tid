@@ -1,0 +1,30 @@
+created: 20220831222252830
+modified: 20220831222610100
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/generic/btn_feedback
+type: text/vnd.tiddlywiki
+
+\define showFeedbackButton()
+<$button
+	class="py-btn btn-small"
+	tooltip="Email feedback about this security model item"
+>
+<i class="far fa-envelope toolbar_icon"/>
+<$action-sendmessage 
+  $message="tm-open-external-window"
+  $param="https://mail.google.com/mail/?view=cm&fs=1&to=$(feedbackEmail)$&su=$(subject)$&body=ENTER_FEEDACK"
+/>
+</$button>
+\end
+
+<$list filter="[title[$:/config/twsm/settings]get[feedback_email]]" variable="feedbackEmail">
+<$list filter="[all[current]get[twsm_class]addprefix[$:/plugins/security_tools/twsm/defs/twsm_class/]get[class_name]]" variable="entityType">
+<$list filter="[all[current]get[twsm_id]]" variable="entityId">
+<$set name="entityPrefix" value=" ">
+<$list filter="[title[Security Model Feedback for ]addsuffix<entityType>addsuffix<entityPrefix>addsuffix<entityId>encodeuri[]]" variable=subject>
+<<showFeedbackButton>>
+</$list>
+</$set>
+</$list>
+</$list>
+</$list>
