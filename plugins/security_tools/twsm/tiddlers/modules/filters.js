@@ -20,10 +20,12 @@ var utils = require("$:/plugins/security_tools/twsm/utils.js");
 
 exports.twsm_render_attack = function(source, operator, options) {
     var result = [],
-        impactOperand = (operator.operand || "").toLowerCase();
+        impactOperand = (operator.operand || "").toLowerCase(),
+        suffixes = operator.suffixes || [],
+        isRedacted = ((suffixes[0] || [])[0] === "redacted");
 
     source (function(tiddler, title) {
-        var rendered = attack_utils.parse_attack_tree(title);
+        var rendered = attack_utils.parse_attack_tree(title, isRedacted ? "yes" : "");
         var ret = {};
         ret.renderer = rendered.renderer;
         ret.attack_tree = rendered.root.render();

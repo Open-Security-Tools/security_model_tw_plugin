@@ -5,7 +5,8 @@ tags:
 title: $:/plugins/security_tools/twsm/components/entity/attack/edit_form
 type: text/vnd.tiddlywiki
 
-<$list filter="[all[current]get[draft_attack_tree]else[]twsm_render_attack[]]" variable=complex>
+\define editForm()
+<$list filter="[all[current]get[draft_attack_tree]else[]twsm_render_attack:$(isRedacted)$[]]" variable=complex>
 {{||$:/plugins/security_tools/twsm/components/entity/attack/preview_assessment}}
 </$list>
 <div class="edit-attack-tree-container">
@@ -13,11 +14,14 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/components/entity/attack_tree/edit/text_area_edit_draft_tree}}
   </div>  
   <div class="flex-child attack_tree_preview_container">
-<$set name=draftImpact tiddler=<<currentTiddler>> field=draft_impact>
-<$list filter="[all[current]get[draft_attack_tree]twsm_render_attack<draftImpact>]" variable=complex>
+<$list filter="[all[current]get[draft_attack_tree]twsm_render_attack:$(isRedacted)$[]]" variable=complex>
 {{||$:/plugins/security_tools/twsm/components/entity/attack_tree/edit/error}}
 {{||$:/plugins/security_tools/twsm/components/entity/attack_tree/edit/tree}}
 </$list>
-</$set>
   </div>  
 </div>
+\end
+
+<$list filter="[all[current]redacted[yes]then[redacted]else[ ]]" variable=isRedacted>
+<<editForm>>
+</$list>

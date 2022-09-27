@@ -2,7 +2,7 @@
     {
         "created": "20220922075601906",
         "title": "Yet another attack",
-        "modified": "20220927145901591",
+        "modified": "20220927152055329",
         "tags": "",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "attack",
@@ -19,9 +19,9 @@
         "untreated_likelihood_upper": "1",
         "treated_likelihood_lower": "0.925",
         "treated_likelihood_upper": "1",
-        "redacted": "yes",
         "node_count": "2",
-        "draft_attack_tree": "* <<leaf \"something\">>\n* <<leaf \"something\">>\n",
-        "edit_attack_tree": "yes"
+        "draft_attack_tree": "* <<leaf \"something\">>\n",
+        "edit_attack_tree": "yes",
+        "redacted": "yes"
     }
 ]
