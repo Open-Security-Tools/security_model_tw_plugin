@@ -114,7 +114,7 @@ class Node {
     }
 
     nodeCircleColour() {
-        return "grey";
+        return this.parent.nodeCircleColour();
     }
 
     renderStart() {
@@ -127,8 +127,13 @@ class Node {
         s.push(this.customCircle());
         
         // AND/OR node
-        var criticalPathStyle = this.criticalPath ? " critical_path" : "";
-        s.push("<span class=\"attack_tree_branch_type" + criticalPathStyle + "\">" + this.parent.operator + "</span>");
+        // var criticalPathStyle = this.criticalPath ? " critical_path" : "";
+        if (this.criticalPath) {
+            s.push("<i style=\"color: #A0A000; \" class=\"fas fa-star\"/>");
+        }
+        if (this.parent.children.length > 1) {
+            s.push("<span class=\"attack_tree_branch_type\">" + this.parent.operator + "</span>");
+        }
 
         s.push(this.description());
 
@@ -155,8 +160,20 @@ class Branch extends Node {
 
         // Handle any case for operator name resolution.
         this.operator = operator;
-        this.hue = hue;
+        this.rawHue = hue;
         this.children = [];
+    }
+
+    get hue() {
+        if (this.parent === null) {
+            return this.rawHue;
+        } else {
+            if (this.parent.children.length > 1) {
+                return this.rawHue;
+            } else {
+                return this.parent.hue;
+            }
+        }
     }
 
     get nodeCount() {
@@ -168,11 +185,7 @@ class Branch extends Node {
     }
 
     nodeCircleColour() {
-        if (this.parent === null) {
-            return "grey";
-        } else {
-            return "hsl(" + this.hue + ", 50%, 50%)";
-        }
+        return "hsl(" + this.hue + ", 50%, 50%)";
     }
 
     calculateBranchProbability() {
