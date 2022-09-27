@@ -1,0 +1,12 @@
+created: 20220927072415236
+due: 
+modified: 20220927072605804
+priority: 
+tags: Backlog todo
+title: Simplify attack tree view by removing unneccessary logic gates
+type: text/vnd.tiddlywiki
+
+* If there are no siblings in a branch, then do not need to specify AND/OR.
+* In addition, there is no need to change the hue colour of the branch from the parent.
+* Need an alternative way of showing critical path.
+** Perhaps highlight the probability with a red border?
