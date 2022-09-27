@@ -20,10 +20,12 @@ var utils = require("$:/plugins/security_tools/twsm/utils.js");
 
 exports.twsm_render_attack = function(source, operator, options) {
     var result = [],
-        impactOperand = (operator.operand || "").toLowerCase();
+        impactOperand = (operator.operand || "").toLowerCase(),
+        suffixes = operator.suffixes || [],
+        isRedacted = ((suffixes[0] || [])[0] === "redacted");
 
     source (function(tiddler, title) {
-        var rendered = attack_utils.parse_attack_tree(title);
+        var rendered = attack_utils.parse_attack_tree(title, isRedacted ? "yes" : "");
         var ret = {};
         ret.renderer = rendered.renderer;
         ret.attack_tree = rendered.root.render();
@@ -316,9 +318,14 @@ function get_attack_actions(tiddler, title, options) {
 
     if (tiddler.fields.redacted === "yes") {
         result.push("remove_mark_attack_redacted");
-        if (tiddler.fields.node_count > 1) {
-            result.push("attack_needs_redacting");
+
+        // Only show errors about the redaction status if in edit
+        if (tiddler.fields.edit_attack_tree !== "yes") {
+            if (tiddler.fields.node_count > 1) {
+                result.push("attack_needs_redacting");
+            }
         }
+
     } else {
         result.push("mark_attack_redacted");
     }
