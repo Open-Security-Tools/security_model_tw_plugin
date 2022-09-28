@@ -5,12 +5,12 @@ tags: $:/plugins/security_tools/twsm/components/entity/theme/tabs
 title: $:/plugins/security_tools/twsm/components/entity/theme/controls
 type: text/vnd.tiddlywiki
 
-<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]get[twsm_characteristic_class]unique[]sort[]]" variable=characteristic>
+<$list filter="[all[current]tagging[]twsm_class[risk]get[accumulated_controls]enlist-input[]unique[]get[twsm_characteristic_class]unique[]sort[]]" variable=characteristic>
 
 !! <<characteristic>>
 <$vars disable_characteristic_prefix=yes>
 <div class="py-todos">
-<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]twsm_class[control]twsm_characteristic_class<characteristic>sort[]]">
+<$list filter="[all[current]tagging[]twsm_class[risk]get[accumulated_controls]enlist-input[]unique[]twsm_class[control]twsm_characteristic_class<characteristic>sort[]]">
 {{||$:/plugins/security_tools/twsm/components/entity/control/row}}
 </$list>
 </div>

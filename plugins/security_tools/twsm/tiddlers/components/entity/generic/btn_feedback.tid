@@ -12,7 +12,7 @@ type: text/vnd.tiddlywiki
 <i class="far fa-envelope toolbar_icon"/>
 <$action-sendmessage 
   $message="tm-open-external-window"
-  $param="https://mail.google.com/mail/?view=cm&fs=1&to=$(feedbackEmail)$&su=$(subject)$&body=ENTER_FEEDACK"
+  $param="https://mail.google.com/mail/?view=cm&fs=1&to=$(feedbackEmail)$&su=$(subject)$&body=ENTER_FEEDBACK"
 />
 </$button>
 \end
