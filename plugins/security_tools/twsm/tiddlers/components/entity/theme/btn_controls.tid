@@ -4,9 +4,9 @@ tags:
 title: $:/plugins/security_tools/twsm/components/entity/theme/btn_controls
 type: text/vnd.tiddlywiki
 
-<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]first[]]" variable=ignore>
+<$list filter="[all[current]tagging[]twsm_class[risk]get[accumulated_controls]enlist-input[]unique[]first[]]" variable=ignore>
 <$vars popupTiddler=<<qualify "$:/state/twsm/controls-button-dropdown">> >
-<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]count[]]" variable=controlCount>
+<$list filter="[all[current]tagging[]twsm_class[risk]get[accumulated_controls]enlist-input[]unique[]count[]]" variable=controlCount>
 <$button
 	class="py-btn btn-small"
 	popup=<<popupTiddler>>
@@ -18,7 +18,7 @@ type: text/vnd.tiddlywiki
 </$button>
 </$list>
 <$reveal state=<<popupTiddler>> type="popup" position="below" animate="yes" class="tc-drop-down apy-drop-down">
-<$list filter="[all[current]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]sort[]]">
+<$list filter="[all[current]tagging[]twsm_class[risk]get[accumulated_controls]enlist-input[]unique[]sort[]]">
 <$link>
 <$list filter="[all[current]is_idea[yes]]">
 <span style="color: red;"><i class="far fa-lightbulb"/></span>
