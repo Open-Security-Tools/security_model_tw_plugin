@@ -9,13 +9,15 @@ type: text/vnd.tiddlywiki
 	class="residual_risk_button py-btn btn-small $(class)$"
 	tooltip="Residual risk"
 >
-$(name)$
+<i class="fas fa-thermometer-half"/> $(score)$
 </$button>
 \end
 <$list filter="[all[current]twsm_risk_assessment:treatedName[]compare:string:ne[Unknown]]" variable=ignore>
 <$list filter="[all[current]twsm_risk_assessment:treatedName[]]" variable=name>
+<$list filter="[all[current]twsm_risk_assessment:treatedRisk[]]" variable=score>
 <$list filter="[all[current]twsm_risk_assessment:treatedClass[]]" variable=class>
 <<button>>
+</$list>
 </$list>
 </$list>
 </$list>

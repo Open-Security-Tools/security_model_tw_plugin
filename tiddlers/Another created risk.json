@@ -2,15 +2,15 @@
     {
         "created": "20220909060141968",
         "title": "Another created risk",
-        "modified": "20220923220153857",
+        "modified": "20220929210812269",
         "tags": "[[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "attack_tree": "* <<leaf \"cabbage\">>\n* <<attack \"Another attack\">>",
-        "rendered_attack_tree": "<div class=\"attack_tree\">\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"grey\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">OR</span> cabbage <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> Almost Certain</span>\n</li>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"grey\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type\">OR</span> <<attack_tree_attack_reference \"Another attack\">> <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-biohazard\"/> Likely</span>\n</li>\n</ul>\n</div>",
+        "rendered_attack_tree": "<div class=\"attack_tree\">\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(200, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"hsl(200, 50%, 50%)\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <i style=\"color: #A0A000; \" class=\"fas fa-star\"/> <span class=\"attack_tree_branch_type\">OR</span> cabbage <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> Almost Certain</span>\n</li>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(200, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"hsl(200, 50%, 50%)\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type\">OR</span> <<attack_tree_attack_reference \"Another attack\">> <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-biohazard\"/> Likely</span>\n</li>\n</ul>\n</div>",
         "renderer": "2",
         "treated_likelihood_lower": "0.925",
         "treated_likelihood_upper": "1",
-        "treated_risk": "2",
+        "treated_risk": "2.0",
         "twsm_class": "risk",
         "twsm_id": "1010",
         "twsm_impact": "Insignificant",
@@ -21,6 +21,6 @@
         "accumulated_controls": "[[A simple control]]",
         "sub_trees": "[[Another attack]]",
         "accumulated_sub_trees": "[[Another attack]]",
-        "node_count": "3"
+        "node_count": "2"
     }
 ]

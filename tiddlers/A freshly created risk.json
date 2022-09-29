@@ -3,7 +3,7 @@
         "created": "20220909060012729",
         "text": "",
         "title": "A freshly created risk",
-        "modified": "20220926073407817",
+        "modified": "20220929210812271",
         "tags": "[[A sample theme]]",
         "type": "text/vnd.tiddlywiki",
         "twsm_class": "risk",
@@ -13,13 +13,15 @@
         "controls": "",
         "sub_trees": "[[A sample attack]]",
         "renderer": "2",
-        "rendered_attack_tree": "<div class=\"attack_tree\">\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"grey\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type critical_path\">OR</span> something <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> Almost Certain</span>\n</li>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"grey\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"grey\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type\">OR</span> <<attack_tree_attack_reference \"A sample attack\">> <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-biohazard\"/> Likely</span>\n</li>\n</ul>\n</div>",
+        "rendered_attack_tree": "<div class=\"attack_tree\">\n<ul>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(200, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"hsl(200, 50%, 50%)\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <i style=\"color: #A0A000; \" class=\"fas fa-star\"/> <span class=\"attack_tree_branch_type\">OR</span> something <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-leaf\"/> Almost Certain</span>\n</li>\n<li> <svg viewBox=\"0 0 6.3 4\" width=\"19\"><path transform=\"translate(0 0)\" fill=\"hsl(200, 50%, 50%)\" d=\"M 3 0 A 3 2 0 0 0 3 4 Z\"/><path transform=\"translate(3.2 0)\" fill=\"hsl(200, 50%, 50%)\"  d=\"M  0 0 A 3 2 0 0 1  0 4 Z\"/></svg> <span class=\"attack_tree_branch_type\">OR</span> <<attack_tree_attack_reference \"A sample attack\">> <span class=\"attack_tree_node_likelihood\"><i class=\"fas fa-biohazard\"/> Likely</span>\n</li>\n</ul>\n</div>",
         "untreated_likelihood_lower": "1",
         "untreated_likelihood_upper": "1",
         "treated_likelihood_lower": "0.925",
         "treated_likelihood_upper": "1",
         "accumulated_controls": "[[A simple control]]",
         "accumulated_sub_trees": "[[A sample attack]]",
-        "node_count": "3"
+        "node_count": "2",
+        "cabbage": "hello",
+        "treated_risk": "2.0"
     }
 ]

@@ -13,6 +13,7 @@ Action widget to update dependent risks of a control.
 "use strict";
 
 var attack_utils = require("$:/plugins/security_tools/twsm/attack_utils.js");
+var risk_utils = require("$:/plugins/security_tools/twsm/risk_utils.js");
 var Widget = require("$:/core/modules/widgets/widget.js").widget;
 var utils = require("$:/plugins/security_tools/twsm/utils.js");
 
@@ -57,6 +58,17 @@ class ModelIntegrity {
         console.log("Updating risk '" + title + "'");
         this._processAttackTree(tiddler, title);
         // Nothing else to do. Rest of risk is dynamically calculated.
+
+        var tiddler = $tw.wiki.getTiddler(title);
+        var assessment = new risk_utils.RiskAssessment(tiddler.fields);
+
+        var setFields = {
+            treated_risk: String(assessment.treatedRisk)
+        }
+
+        for (const [key, value] of Object.entries(setFields)) {
+            $tw.wiki.setText(title, key, undefined, value, {});
+        }
     }
 
     updateAttack(tiddler, title) {

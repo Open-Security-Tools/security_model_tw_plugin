@@ -8,7 +8,7 @@ type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]twsm_class[theme]]" variable=hideTheme>
 <div class="py-todos">
-<$list filter="[all[current]tagging[]twsm_class[risk]sort[]]" emptyMessage="None!">
+<$list filter="[all[current]tagging[]twsm_class[risk]!nsort[treated_risk]]" emptyMessage="None!">
 {{||$:/plugins/security_tools/twsm/components/entity/risk/row}}
 </$list>
 </div>
