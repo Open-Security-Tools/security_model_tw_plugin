@@ -1,0 +1,10 @@
+created: 20220929173403934
+due: 20220929120000000
+modified: 20220929173553270
+priority: 
+tags: Backlog todo
+title: Provide better highlight of 'Idea' controls
+type: text/vnd.tiddlywiki
+
+No need to provide a warning action on idea controls - there is nothing wrong with them.
+
