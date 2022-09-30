@@ -1,0 +1,28 @@
+created: 20220929210758821
+due: 
+modified: 20220929210805320
+priority: 
+tags: Backlog todo
+title: Update model integrity
+type: text/vnd.tiddlywiki
+
+<$button>
+Run update against all risks
+<$list filter="[all[]twsm_class[risk]]">
+<$action-updatemodel/>
+</$list>
+</$button>
+
+<$button>
+Run update against all attacks
+<$list filter="[all[]twsm_class[attack]]">
+<$action-updatemodel/>
+</$list>
+</$button>
+
+<$button>
+Run update against all controls
+<$list filter="[all[]twsm_class[control]]">
+<$action-updatemodel/>
+</$list>
+</$button>

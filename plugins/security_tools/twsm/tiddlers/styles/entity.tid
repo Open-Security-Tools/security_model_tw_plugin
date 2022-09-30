@@ -9,16 +9,19 @@ div.py-todo label i {
 }
 
 button.residual_risk_button.twsm_risk_high {
-  color: red;
+  background-color: red;
+  color: black;
 	border-color: red;
 }
 
 button.residual_risk_button.twsm_risk_medium {
-  color: orange;
+  background-color: orange;
+  color: black;
 	border-color: orange;
 }
 
 button.residual_risk_button.twsm_risk_low {
-  color: #d9e000;
+  background-color: #d9e000;
+  color: black;
 	border-color: #d9e000;
 }

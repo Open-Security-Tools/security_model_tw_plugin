@@ -1,0 +1,34 @@
+created: 20220929165921269
+due: 20220929120000000
+modified: 20220929173954436
+priority: 
+tags: Backlog todo
+title: Update metric displays
+type: text/vnd.tiddlywiki
+
+The metric views are getting cluttered.
+
+List of themes. Per theme:
+
+* Score -> Links to score tab
+* Maximum Residual Risk -> Links to risks tab
+* Risk POC
+* Risk Count -> Links to risks tab
+* Control Count -> Links to control tab
+
+List of risks. Per risk:
+
+* Residual Risk Score (Number, Colour Coded) -> To Risk
+* Impact -> Details Tab
+* Likelihood -> Attack Tree Tab
+* Attack Tree Complexity -> Attack Tree Tab
+* Number of Controls -> Control Tab
+
+List of controls. Per control:
+
+* Idea?
+* Usage (rather than risk and attack breakdown)
+** Show direct parents, or inclusive parents?
+*** If inclusive, then how to visually distinguish?
+*** Draw the parent tree, but indented?
+

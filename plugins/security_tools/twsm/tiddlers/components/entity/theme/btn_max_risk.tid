@@ -7,15 +7,17 @@ type: text/vnd.tiddlywiki
 \define button()
 <$button
 	class="residual_risk_button py-btn btn-small $(class)$"
-	tooltip="Residual risk"
+	tooltip="$(name)$ risk"
 >
-$(name)$
+<i class="fas fa-thermometer-half"/> $(score)$
 </$button>
 \end
 <$list filter="[all[current]twsm_security_score[]]" variable=result>
 <$list filter="[title<result>twsm_json_field:max_risk_name[]]" variable=name>
+<$list filter="[title<result>twsm_json_field:max_risk_score[]]" variable=score>
 <$list filter="[title<result>twsm_json_field:max_risk_class[]]" variable=class>
 <<button>>
+</$list>
 </$list>
 </$list>
 </$list>
