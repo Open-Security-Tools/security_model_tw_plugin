@@ -1,0 +1,9 @@
+created: 20221001054639012
+modified: 20221001203903351
+tags: 
+title: EChart Example
+type: text/vnd.tiddlywiki
+
+See [[PolarThemeData]]
+
+<$echarts $tiddler=PolarThemeData/>

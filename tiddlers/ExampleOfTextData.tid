@@ -1,0 +1,27 @@
+created: 20220105134946222
+echarts-refresh-trigger: [twsm_class[theme]twsm_security_score[]twsm_json_field:score[]]
+modified: 20221001203629928
+tags: ECharts
+title: ExampleOfTextData
+type: text/vnd.tiddlywiki
+
+\define stringDelim() "
+
+{
+  "xAxis": {
+    "type": "category",
+    "data": [<$list filter="[twsm_class[theme]addprefix<stringDelim>addsuffix<stringDelim>join[,]]">
+<<currentTiddler>></$list>]
+  },
+  "yAxis": {
+    "type": "value"
+  },
+  "series": [
+    {
+      "data": [<$list filter="[twsm_class[theme]twsm_security_score[]twsm_json_field:score[]join[,]]">
+<<currentTiddler>>
+</$list>],
+      "type": "bar"
+    }
+  ]
+}
