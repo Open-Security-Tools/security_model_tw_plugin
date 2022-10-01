@@ -1,9 +1,7 @@
 created: 20221001054639012
-modified: 20221001203903351
+modified: 20221001210324701
 tags: 
 title: EChart Example
 type: text/vnd.tiddlywiki
 
-See [[PolarThemeData]]
-
-<$echarts $tiddler=PolarThemeData/>
+<$echarts $tiddler="$:/plugins/security_tools/twsm/test_data"/>
