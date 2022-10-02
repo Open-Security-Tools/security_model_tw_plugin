@@ -1,7 +1,7 @@
 created: 20221001054639012
-modified: 20221001210324701
+modified: 20221002094527137
 tags: 
 title: EChart Example
 type: text/vnd.tiddlywiki
 
-<$echarts $tiddler="$:/plugins/security_tools/twsm/test_data"/>
+<$echarts $tiddler="$:/plugins/security_tools/twsm/test_data" $height="600px"/>

@@ -3,60 +3,27 @@ modified: 20211113160847552
 tags: 
 title: $:/plugins/security_tools/twsm/test_data
 type: text/vnd.tiddlywiki
+echarts-refresh-trigger: [twsm_class[theme]twsm_security_score[]twsm_json_field:score[]]
+
+\define indicatorPrefix() { "text": "
+\define indicatorSuffix() ", "max": 100}
 
 {
-  "color": ["#67F9D8", "#00E434", "#56A3F1", "#FF917C"],
-  "title": {
-    "text": "Customized Radar Chart"
+"legend": {
+    "right": "10%",
+    "top": "3%"
   },
-  "legend": {},
+  "color": ["#0000FF"],
   "radar": [
     {
-      "indicator": [
-        { "text": "Indicator1" },
-        { "text": "Indicator2" },
-        { "text": "Indicator3" },
-        { "text": "Indicator4" },
-        { "text": "Indicator5" }
-      ],
-      "center": ["25%", "50%"],
-      "radius": 120,
-      "startAngle": 90,
-      "splitNumber": 4,
       "shape": "circle",
-      "axisName": {
-        "formatter": "【{value}】",
-        "color": "#428BD4"
-      },
-      "splitArea": {
-        "areaStyle": {
-          "color": ["#77EADF", "#26C3BE", "#64AFE9", "#428BD4"],
-          "shadowColor": "rgba(0, 0, 0, 0.2)",
-          "shadowBlur": 100
-        }
-      },
-      "axisLine": {
-        "lineStyle": {
-          "color": "rgba(211, 253, 250, 0.8)"
-        }
-      },
-      "splitLine": {
-        "lineStyle": {
-          "color": "rgba(211, 253, 250, 0.8)"
-        }
-      }
-    },
-    {
       "indicator": [
-        { "text": "Indicator1", "max": 150 },
-        { "text": "Indicator2", "max": 150 },
-        { "text": "Indicator3", "max": 150 },
-        { "text": "Indicator4", "max": 120 },
-        { "text": "Indicator5", "max": 150 },
-        { "text": "Indicator6", "max": 72 }
+<$list filter="[twsm_class[theme]addprefix<indicatorPrefix>addsuffix<indicatorSuffix>join[,]]">
+<<currentTiddler>>
+</$list>        
       ],
-      "center": ["75%", "50%"],
-      "radius": 140,
+      "center": ["50%", "50%"],
+      "radius": 190,
       "axisName": {
         "color": "#fff",
         "backgroundColor": "#666",
@@ -68,46 +35,24 @@ type: text/vnd.tiddlywiki
   "series": [
     {
       "type": "radar",
-      "emphasis": {
-        "lineStyle": {
-          "width": 4
-        }
-      },
       "data": [
         {
-          "value": [100, 8, 0.4, -80, 2000],
-          "name": "Data A"
-        },
-        {
-          "value": [60, 5, 0.3, -100, 1500],
-          "name": "Data B",
-          "areaStyle": {
-            "color": "rgba(255, 228, 52, 0.6)"
-          }
-        }
-      ]
-    },
-    {
-      "type": "radar",
-      "radarIndex": 1,
-      "data": [
-        {
-          "value": [120, 118, 130, 100, 99, 70],
-          "name": "Data C",
-          "symbol": "rect",
+          "value": [
+<$list filter="[twsm_class[theme]twsm_security_score[]twsm_json_field:score[]join[,]]">
+<<currentTiddler>>
+</$list>
+            ],
+          "name": "Score (0 = bad, 100 = good)",
+          "symbol": "circle",
           "symbolSize": 12,
           "lineStyle": {
             "type": "dashed"
           },
+          "areaStyle": {
+            "color": "#A0A0CAA0"
+          },
           "label": {
             "show": true
-          }
-        },
-        {
-          "value": [100, 93, 50, 90, 70, 60],
-          "name": "Data D",
-          "areaStyle": {
-            "color": "#FF0000"
           }
         }
       ]
