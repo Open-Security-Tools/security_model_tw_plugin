@@ -1,12 +1,14 @@
 attack_coverage_assessment: 40
-attack_coverage_checked: 20221003195923400
+attack_coverage_checked: 20221003211838417
+attack_coverage_likelihood: Unlikely
 control_coverage_assessment: 90
 control_coverage_checked: 20221003152106142
 created: 20221001203020663
 hide-body: yes
-modified: 20221003195923401
+modified: 20221003211838417
 risk_coverage_assessment: 80
-risk_coverage_checked: 20221003151436848
+risk_coverage_checked: 20221003211834908
+risk_coverage_likelihood: Realistic Possibility
 tags: 
 title: Theme Fish
 twsm_class: theme

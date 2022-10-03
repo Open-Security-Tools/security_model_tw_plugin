@@ -1,8 +1,12 @@
+attack_coverage_checked: 20221003211413457
+attack_coverage_likelihood: Highly Likely
 control_coverage_assessment: 30
 control_coverage_checked: 20221003161806640
 created: 20221001203635455
 hide-body: yes
-modified: 20221003161806640
+modified: 20221003211413457
+risk_coverage_checked: 20221003211409460
+risk_coverage_likelihood: Realistic Possibility
 tags: 
 title: An extra theme
 twsm_class: theme

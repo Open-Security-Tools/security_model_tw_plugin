@@ -605,8 +605,6 @@ function calculate_security_score(tiddler, title) {
     }
 }
 
-
-
 exports.twsm_security_score = function (source, operator, options) {
     var result = [];
     source(function(tiddler, title) {

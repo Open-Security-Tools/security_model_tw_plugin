@@ -5,7 +5,7 @@ tags:
 title: $:/plugins/security_tools/twsm/charts/radar_themes
 type: application/javascript
 module-type: echarts-component
-echarts-refresh-trigger: [twsm_class[theme]twsm_security_score[]twsm_json_field:score[]]
+echarts-refresh-trigger: [twsm_class[theme]twsm_security_score[]]
 \*/
 
 JSON.safeStringify = (obj, indent = 2) => {
@@ -56,7 +56,7 @@ exports.onUpdate = function (echart) {
   var themeScores = [];
   $tw.utils.each(
     $tw.wiki.filterTiddlers(
-      "[twsm_class[theme]twsm_security_score[]twsm_json_field:score[]]"
+      "[twsm_class[theme]sort[]twsm_security_score[]twsm_json_field:score[]]"
     ),
     function (score) {
       themeScores.push(score);
@@ -66,7 +66,7 @@ exports.onUpdate = function (echart) {
   var themeRiskCoverage = [];
   $tw.utils.each(
     $tw.wiki.filterTiddlers(
-      "[twsm_class[theme]twsm_security_score[]twsm_json_field:risk_coverage[]]"
+      "[twsm_class[theme]sort[]twsm_security_score[]twsm_json_field:risk_coverage[]]"
     ),
     function (riskCoverage) {
       themeRiskCoverage.push(riskCoverage);
@@ -76,7 +76,7 @@ exports.onUpdate = function (echart) {
   var themeAttackCoverage = [];
   $tw.utils.each(
     $tw.wiki.filterTiddlers(
-      "[twsm_class[theme]twsm_security_score[]twsm_json_field:attack_coverage[]]"
+      "[twsm_class[theme]sort[]twsm_security_score[]twsm_json_field:attack_coverage[]]"
     ),
     function (attackCoverage) {
       themeAttackCoverage.push(attackCoverage);
@@ -86,7 +86,7 @@ exports.onUpdate = function (echart) {
   var themeRisks = [];
   $tw.utils.each(
     $tw.wiki.filterTiddlers(
-      "[twsm_class[theme]twsm_security_score[]twsm_json_field:max_risk_score[]]"
+      "[twsm_class[theme]sort[]twsm_security_score[]twsm_json_field:max_risk_score[]]"
     ),
     function (score) {
       // We normalise
@@ -97,7 +97,7 @@ exports.onUpdate = function (echart) {
   var themeImpacts = [];
   $tw.utils.each(
     $tw.wiki.filterTiddlers(
-      "[twsm_class[theme]twsm_security_score[]twsm_json_field:max_impact[]]"
+      "[twsm_class[theme]sort[]twsm_security_score[]twsm_json_field:max_impact[]]"
     ),
     function (score) {
       // We normalise
