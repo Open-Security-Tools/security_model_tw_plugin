@@ -63,6 +63,26 @@ exports.onUpdate = function (echart) {
     }
   );
 
+  var themeRiskCoverage = [];
+  $tw.utils.each(
+    $tw.wiki.filterTiddlers(
+      "[twsm_class[theme]twsm_security_score[]twsm_json_field:risk_coverage[]]"
+    ),
+    function (riskCoverage) {
+      themeRiskCoverage.push(riskCoverage);
+    }
+  );
+
+  var themeAttackCoverage = [];
+  $tw.utils.each(
+    $tw.wiki.filterTiddlers(
+      "[twsm_class[theme]twsm_security_score[]twsm_json_field:attack_coverage[]]"
+    ),
+    function (attackCoverage) {
+      themeAttackCoverage.push(attackCoverage);
+    }
+  );
+
   var themeRisks = [];
   $tw.utils.each(
     $tw.wiki.filterTiddlers(
@@ -90,17 +110,17 @@ exports.onUpdate = function (echart) {
     data: [
       {
         value: themeScores,
-        name: "Score (0 = bad, 100 = good)",
+        name: "Score",
         symbol: "circle",
         symbolSize: 12,
         lineStyle: {
-          type: "dashed",
+          type: "solid",
         },
         areaStyle: {
           color: "#A0A0CAA0",
         },
         label: {
-          show: true,
+          show: false,
           formatter: function (p) {
             // console.log(JSON.safeStringify(p));
               return p.value;
@@ -109,22 +129,60 @@ exports.onUpdate = function (echart) {
       },
     ],
   }
+
+  var riskCoverageSeries = {
+    type: "radar",
+    data: [
+      {
+        value: themeRiskCoverage,
+        name: "Risk Coverage",
+        symbol: "square",
+        symbolSize: 12,
+        lineStyle: {
+          type: "dashed",
+        },
+        label: {
+          show: false,
+        },
+      },
+    ],
+  }
+
+  var attackCoverageSeries = {
+    type: "radar",
+    data: [
+      {
+        value: themeAttackCoverage,
+        name: "Attack Coverage",
+        symbol: "square",
+        symbolSize: 12,
+        lineStyle: {
+          type: "dashed",
+        },
+        label: {
+          show: false,
+        },
+      },
+    ],
+  }
+
+
   var riskSeries = {
     type: "radar",
     data: [
       {
         value: themeRisks,
-        name: "Maximum risk (0 = good, 10 = bad)",
+        name: "Maximum Risk",
         symbol: "circle",
         symbolSize: 12,
         lineStyle: {
-          type: "dashed",
+          type: "solid",
         },
         areaStyle: {
-          color: "#C0A0A0A0",
+          color: "#d3540080",
         },
         label: {
-          show: true,
+          show: false,
           formatter: function (p) {
             // console.log(JSON.safeStringify(p));
               return p.value / 10;
@@ -138,17 +196,17 @@ exports.onUpdate = function (echart) {
     data: [
       {
         value: themeImpacts,
-        name: "Maximum impact (0 -> 5)",
+        name: "Maximum Impact",
         symbol: "circle",
         symbolSize: 12,
         lineStyle: {
-          type: "dashed",
+          type: "solid",
         },
         areaStyle: {
-          color: "#A0C0A0A0",
+          color: "#FDDA0D80",
         },
         label: {
-          show: true,
+          show: false,
           formatter: function (p) {
             // console.log(JSON.safeStringify(p));
               return p.value / 20;
@@ -167,7 +225,7 @@ exports.onUpdate = function (echart) {
       right: "10%",
       top: "3%",
     },
-    color: ["#00FF00", "#FF0000", "#0000FF"],
+    color: ["#FDDA0D", "#FF0000", "#0000FF", "#80F0F0D0", "#F07080D0"],
     radar: [
       {
         triggerEvent: true,
@@ -184,7 +242,7 @@ exports.onUpdate = function (echart) {
       },
     ],
     series: [
-      impactSeries, riskSeries, scoreSeries,
+      impactSeries, riskSeries, scoreSeries, riskCoverageSeries, attackCoverageSeries, 
     ],
   });
 };

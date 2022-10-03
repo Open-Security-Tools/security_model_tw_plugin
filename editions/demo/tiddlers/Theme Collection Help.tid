@@ -9,7 +9,7 @@ The list below shows <<helpLink Themes themes>> in this security model.
 
 This view shows the following information:
 
-* A ''score'' - points awarded for having low treated risk and assessment of risk and control coverage.
+* A ''score'' - points awarded for having low treated risk and assessment of risk and attack coverage.
 * The maximum ''treated risk''. For each risk this is determined by a combination of impact assessment and attack likelihood.
 * The risks associated with this theme.
 * The controls associated with this theme. A control reduces the likelihood of attack and is characterisded as physical, procedural, technical or policy.

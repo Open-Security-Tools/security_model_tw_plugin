@@ -51,7 +51,8 @@ class Likelihood {
     }
 
     toBandSimplePercentageDescription() {
-        return (this.lower * 100).toFixed() + "<i class=\"fas fa-arrows-alt-h\"/>" + (this.upper * 100).toFixed();
+        return (this.lower * 100).toFixed() + "-" + (this.upper * 100).toFixed() + "%";
+        // return (this.lower * 100).toFixed() + "<i class=\"fas fa-arrows-alt-h\"/>" + (this.upper * 100).toFixed();
     }
 
     buildLikelihoodBackgroundStyle() {
