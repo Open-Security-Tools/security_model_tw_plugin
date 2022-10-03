@@ -449,15 +449,19 @@ function addScoreCoverageMetric(name, original, decayed, days) {
         return utils.generateMetric("", name, "?", "", "");
     }
 
+    // phia
+    var originalPhia = likelihood_utils.probability2Phia(original);
+    var decayedPhia = likelihood_utils.probability2Phia(decayed);
+
     // Convert to fixed point percentages
     original = (original * 100).toFixed();
     decayed = (decayed * 100).toFixed();
 
-    if (original === decayed) {
-        return utils.generateMetric("", name, original + "%", "Current", "")
+    if (originalPhia === decayedPhia) {
+        return utils.generateMetric("", name, original + "%", originalPhia, "")
     }
     
-    return utils.generateMetric("", name, decayed + "%", original + "% (" + daysPlural(days) + " ago)", "")
+    return utils.generateMetric("", name, original + "%", originalPhia + "% (" + daysPlural(days) + " old)", "")
 }
 
 function calculate_security_score(tiddler, title) {
@@ -487,7 +491,11 @@ function calculate_security_score(tiddler, title) {
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Risk coverage scale
-    var riskCoverageMultiplier = (tiddler.fields.risk_coverage_assessment || 0) / 100;
+    var riskCoverageMultiplier = 0.0;
+    if (tiddler.fields.risk_coverage_likelihood !== undefined) {
+        riskCoverageMultiplier = likelihood_utils.phia2Likelihood(tiddler.fields.risk_coverage_likelihood).upper;
+    }
+
     updatePoints(
         Number(((riskCoverageMultiplier * ATTACK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
         "Risk coverage of " + (riskCoverageMultiplier * 100).toFixed() + "%",
@@ -498,7 +506,6 @@ function calculate_security_score(tiddler, title) {
     if (daysSinceRiskCoverageAssessment !== undefined) {
         riskCoveragePenaltyMultiplier = 1 - Math.pow(Math.min((daysSinceRiskCoverageAssessment / ASSESSMENT_LIMIT_DAYS), 1), ASSESSMENT_POWER_ROLLOFF);
     }
-    var riskCoverageMultiplier = (tiddler.fields.risk_coverage_assessment || 0) / 100;
     updatePoints(
         Number(((riskCoverageMultiplier * riskCoveragePenaltyMultiplier * ATTACK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
         "Reduced risk coverage confidence (" + daysSinceRiskCoverageAssessment + " days elapsed)",
@@ -508,7 +515,10 @@ function calculate_security_score(tiddler, title) {
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Attack coverage adds to this
     var cachedPoints = points;
-    var attackCoverageMultiplier = (tiddler.fields.attack_coverage_assessment || 0) / 100;
+    var attackCoverageMultiplier = 0.0;
+    if (tiddler.fields.attack_coverage_likelihood !== undefined) {
+        attackCoverageMultiplier = likelihood_utils.phia2Likelihood(tiddler.fields.attack_coverage_likelihood).upper;
+    }
     updatePoints(
         cachedPoints + (Number(((attackCoverageMultiplier * ATTACK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed())),
         "Attack coverage of " + (attackCoverageMultiplier * 100).toFixed() + "%",
@@ -550,11 +560,25 @@ function calculate_security_score(tiddler, title) {
     l.push("</$button>");
     l.push("<$button class=\"tc-btn-invisible\">");
     l.push("{{||$:/plugins/security_tools/twsm/components/entity/generic/actions/edit_theme_risk_coverage}}");
-    l.push(addScoreCoverageMetric("Risk Coverage <i class=\"fas fa-balance-scale\"/>", riskCoverageMultiplier, riskCoverageMultiplier * riskCoveragePenaltyMultiplier, daysSinceRiskCoverageAssessment));
+    l.push(
+        addScoreCoverageMetric(
+            "Risk Coverage <i class=\"fas fa-balance-scale\"/>",
+            riskCoverageMultiplier,
+            riskCoverageMultiplier * riskCoveragePenaltyMultiplier,
+            daysSinceRiskCoverageAssessment
+        )
+    );
     l.push("</$button>");
     l.push("<$button class=\"tc-btn-invisible\">");
     l.push("{{||$:/plugins/security_tools/twsm/components/entity/generic/actions/edit_theme_attack_coverage}}");
-    l.push(addScoreCoverageMetric("Attack Coverage <i class=\"fas fa-shield-alt\"/>", attackCoverageMultiplier, attackCoverageMultiplier * attackCoveragePenaltyMultiplier, daysSinceAttackCoverageAssessment));
+    l.push(
+        addScoreCoverageMetric(
+            "Attack Coverage <i class=\"fas fa-shield-alt\"/>", 
+            attackCoverageMultiplier,
+            attackCoverageMultiplier * attackCoveragePenaltyMultiplier,
+            daysSinceAttackCoverageAssessment
+        )
+    );
     l.push("</$button>");
 
     var renderedHeader = l.join("");
