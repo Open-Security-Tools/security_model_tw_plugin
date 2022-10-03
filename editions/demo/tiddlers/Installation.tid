@@ -1,5 +1,5 @@
 created: 20220922175531522
-modified: 20220922175544633
+modified: 20221003163052634
 tags: 
 title: Installation
 type: text/vnd.tiddlywiki
@@ -10,6 +10,7 @@ To create your own security model start with an [[empty tiddlywiki|https://tiddl
 * [[$:/plugins/flibbles/relink]]
 * [[$:/plugins/tobibeer/appear]]
 * [[$:/plugins/nico/projectify]]
+* [[$:/plugins/Gk0Wk/echarts]] (optional, for chart displays)
 * [[$:/plugins/security_tools/twsm]]
 
 !! Upgrading

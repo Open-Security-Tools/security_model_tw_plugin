@@ -1,5 +1,5 @@
 created: 20220312215441379
-modified: 20220926174738742
+modified: 20221003163408153
 title: Welcome
 type: text/vnd.tiddlywiki
 
@@ -8,20 +8,13 @@ TWSM is extends a wiki to provide security modelling functionality.
 
 The source code is available on [[GitHub|https://github.com/Open-Security-Tools/security_model_tw_plugin]] and published under the [[MIT License|$:/plugins/security_tools/twsm/license]].
 
-<$list filter="[title[$:/plugins/security_tools/twsm]get[version]]">
-<div class="versionblock">The latest TWSM plug version is <span class="versionnumber"><<currentTiddler>></span>
-</div>
-</$list>
+{{$:/plugins/security_tools/twsm||$:/core/ui/Components/plugin-info}}
+
+Instructions for how to [[create your own security model|Installation]].
 
 This website is a wiki with the TWSM plugin installed.
 So, you can explore the TWSM functionality immediately (your changes won't be persisted). 
-Start with a look at some themes:
+Start with a look at some [[themes|Themes]]:
 
+<$echarts $tiddler="$:/plugins/security_tools/twsm/charts/radar_themes" $height="600px"/>
 
-<div class="py-todos">
-<$list filter="[twsm_class[theme]sort[]]">
-{{||$:/plugins/security_tools/twsm/components/entity/theme/row}}
-</$list>
-</div>
-
-Alternatively, you can [[create your own security model|Installation]].
