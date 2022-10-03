@@ -353,7 +353,7 @@ function get_theme_actions(tiddler, title, options) {
 
     var result = [];
     result.push("edit_theme_risk_coverage");
-    result.push("edit_theme_control_coverage");
+    result.push("edit_theme_attack_coverage");
     result.push("edit_theme_poc");
     return result;
 }
@@ -468,8 +468,8 @@ function calculate_security_score(tiddler, title) {
     // Balancing data...
     const ASSESSMENT_LIMIT_DAYS = 90;
     const RESIDUAL_RISK_COMPONENT_WEIGHTING = 1;
-    const CONTROL_COMPONENT_WEIGHTING = 1;
-    const WEIGHT_DIVISOR = RESIDUAL_RISK_COMPONENT_WEIGHTING + CONTROL_COMPONENT_WEIGHTING;
+    const ATTACK_COMPONENT_WEIGHTING = 1;
+    const WEIGHT_DIVISOR = RESIDUAL_RISK_COMPONENT_WEIGHTING + ATTACK_COMPONENT_WEIGHTING;
     const ASSESSMENT_POWER_ROLLOFF = 2
 
     // Keep track
@@ -518,23 +518,23 @@ function calculate_security_score(tiddler, title) {
     )
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Control coverage adds to this
+    // Attack coverage adds to this
     var riskPoints = points;
-    var controlCoverageMultiplier = (tiddler.fields.control_coverage_assessment || 0) / 100;
+    var attackCoverageMultiplier = (tiddler.fields.attack_coverage_assessment || 0) / 100;
     updatePoints(
-        riskPoints + Number(((controlCoverageMultiplier * CONTROL_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
-        (controlCoverageMultiplier * 100).toFixed() + "% coverage of controls",
+        riskPoints + Number(((attackCoverageMultiplier * ATTACK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        (attackCoverageMultiplier * 100).toFixed() + "% coverage of attacks",
     )
 
-    var daysSinceControlCoverageAssessment = utils.daysSince(tiddler.fields.control_coverage_checked);
-    var controlCoveragePenaltyMultiplier = 0;
-    if (daysSinceControlCoverageAssessment !== undefined) {
-        controlCoveragePenaltyMultiplier = 1 - Math.pow(Math.min((daysSinceControlCoverageAssessment / ASSESSMENT_LIMIT_DAYS), 1), ASSESSMENT_POWER_ROLLOFF);
+    var daysSinceAttackCoverageAssessment = utils.daysSince(tiddler.fields.attack_coverage_checked);
+    var attackCoveragePenaltyMultiplier = 0;
+    if (daysSinceAttackCoverageAssessment !== undefined) {
+        attackCoveragePenaltyMultiplier = 1 - Math.pow(Math.min((daysSinceAttackCoverageAssessment / ASSESSMENT_LIMIT_DAYS), 1), ASSESSMENT_POWER_ROLLOFF);
     }
 
     updatePoints(
-        riskPoints + Number(((controlCoverageMultiplier * controlCoveragePenaltyMultiplier * CONTROL_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
-        "Penalty due to control coverage assessment age (" + daysSinceControlCoverageAssessment + " days ago)",
+        riskPoints + Number(((attackCoverageMultiplier * attackCoveragePenaltyMultiplier * ATTACK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        "Penalty due to attack coverage assessment age (" + daysSinceAttackCoverageAssessment + " days ago)",
     )
 
     var score = points;
@@ -554,7 +554,7 @@ function calculate_security_score(tiddler, title) {
     l.push("</$button>");
     l.push("<$button class=\"tc-btn-invisible\">");
     l.push("<$action-setfield $tiddler=<<tabState>> text=\"$:/plugins/security_tools/twsm/components/entity/theme/controls\"/>");
-    l.push(addScoreCoverageMetric("Control Coverage <i class=\"fas fa-shield-alt\"/>", controlCoverageMultiplier, controlCoverageMultiplier * controlCoveragePenaltyMultiplier, daysSinceControlCoverageAssessment));
+    l.push(addScoreCoverageMetric("Attack Coverage <i class=\"fas fa-shield-alt\"/>", attackCoverageMultiplier, attackCoverageMultiplier * attackCoveragePenaltyMultiplier, daysSinceAttackCoverageAssessment));
     l.push("</$button>");
 
     var renderedHeader = l.join("");
@@ -574,7 +574,7 @@ function calculate_security_score(tiddler, title) {
         max_risk_name: risk_utils.score2Name(maxRiskScore, false),
         control_count: controlCount,
         risk_coverage: (riskCoverageMultiplier * riskCoveragePenaltyMultiplier * 100).toFixed(),
-        control_coverage: (controlCoverageMultiplier * controlCoveragePenaltyMultiplier * 100).toFixed(),
+        attack_coverage: (attackCoverageMultiplier * attackCoveragePenaltyMultiplier * 100).toFixed(),
         score: score,
         rendered_header: renderedHeader,
         score_calculations: utils.twListify(scoreCalculations),
