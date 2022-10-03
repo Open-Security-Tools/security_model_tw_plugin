@@ -1,7 +1,7 @@
 created: 20221001054639012
-modified: 20221003082238950
+modified: 20221003200916994
 tags: 
-title: EChart Example
+title: Theme Diagram
 type: text/vnd.tiddlywiki
 
 <$echarts $tiddler="$:/plugins/security_tools/twsm/charts/radar_themes" $height="600px"/>
