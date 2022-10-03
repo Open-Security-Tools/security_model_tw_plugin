@@ -2,7 +2,7 @@
 created: 20210805211811349
 modified: 20211113160847552
 tags: 
-title: $:/plugins/security_tools/twsm/test_data2
+title: $:/plugins/security_tools/twsm/charts/radar_themes
 type: application/javascript
 module-type: echarts-component
 echarts-refresh-trigger: [twsm_class[theme]twsm_security_score[]twsm_json_field:score[]]
@@ -102,7 +102,7 @@ exports.onUpdate = function (echart) {
         label: {
           show: true,
           formatter: function (p) {
-            console.log(JSON.safeStringify(p));
+            // console.log(JSON.safeStringify(p));
               return p.value;
           }
         },
@@ -126,7 +126,7 @@ exports.onUpdate = function (echart) {
         label: {
           show: true,
           formatter: function (p) {
-            console.log(JSON.safeStringify(p));
+            // console.log(JSON.safeStringify(p));
               return p.value / 10;
           }
         },
@@ -150,7 +150,7 @@ exports.onUpdate = function (echart) {
         label: {
           show: true,
           formatter: function (p) {
-            console.log(JSON.safeStringify(p));
+            // console.log(JSON.safeStringify(p));
               return p.value / 20;
           }
         },
