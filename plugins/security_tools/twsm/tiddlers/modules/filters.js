@@ -465,83 +465,79 @@ function calculate_security_score(tiddler, title) {
         return;
     }
 
-    // Maximum risk score
-    // Maximum risk class
-    // Maximum risk name
-    // Risk coverage score
-    // Risk coverage assessment date
-    // Control coverage score
-    // Control coverage assessment date
+    // Balancing data...
+    const ASSESSMENT_LIMIT_DAYS = 90;
+    const RESIDUAL_RISK_COMPONENT_WEIGHTING = 1;
+    const CONTROL_COMPONENT_WEIGHTING = 1;
+    const WEIGHT_DIVISOR = RESIDUAL_RISK_COMPONENT_WEIGHTING + CONTROL_COMPONENT_WEIGHTING;
+    const ASSESSMENT_POWER_ROLLOFF = 2
 
-    var riskCount = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]count[]]")[0];
+    // Keep track
+    var scoreCalculations = [];
+    var points = 0;
+    function updatePoints(newPoints, description) {
+        if (newPoints > points) {
+            scoreCalculations.push(description + ": <span style=\"color: green;\">+" + (newPoints - points) + " points</span>");
+        } else if (points > newPoints) {
+            scoreCalculations.push(description + ": <span style=\"color: red;\">-" + (points - newPoints) + " points</span>");
+        }
+        points = newPoints;
+    }
+
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // We start with the maximum risk.
+    // We want a scale where 0 represents a high residual risk, and 1 represents a low residual risk.
     var maxRiskScore = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]maxall[]]")[0];
     if (maxRiskScore == -Infinity) {
         maxRiskScore = 0;
     }
-    var maxImpact = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]twsm_risk_assessment:impact[]maxall[]]")[0];
-    if (maxImpact == -Infinity) {
-        maxImpact = 0;
-    }
     var risk = 1 - (maxRiskScore / 10.0);
+    // updatePoints(
+    //     Number(((risk * RISK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+    //     "Max residual risk of " + Number(maxRiskScore).toFixed(1),
+    // )
 
-    var controlCount = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]count[]]")[0];
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Risk coverage scale
+    var riskCoverageMultiplier = (tiddler.fields.risk_coverage_assessment || 0) / 100;
+    updatePoints(
+        Number(((risk * riskCoverageMultiplier * RESIDUAL_RISK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        (riskCoverageMultiplier * 100).toFixed() + "% coverage for maximum residual risk of " + Number(maxRiskScore).toFixed(1),
+    )
 
-    // Balancing data...
-    const assessmentLimit = 90;
-    const maxRiskWeighting = 2
-    const riskCoverageWeighting = 2
-    const controlCoverageWeighting = 1
-    const weightingDivisor = riskCoverageWeighting + controlCoverageWeighting + maxRiskWeighting;
-    const powerRollOff = 2
+    var daysSinceRiskCoverageAssessment = utils.daysSince(tiddler.fields.risk_coverage_checked);
+    var riskCoveragePenaltyMultiplier = 0;
+    if (daysSinceRiskCoverageAssessment !== undefined) {
+        riskCoveragePenaltyMultiplier = 1 - Math.pow(Math.min((daysSinceRiskCoverageAssessment / ASSESSMENT_LIMIT_DAYS), 1), ASSESSMENT_POWER_ROLLOFF);
+    }
+    var riskCoverageMultiplier = (tiddler.fields.risk_coverage_assessment || 0) / 100;
+    updatePoints(
+        Number(((risk * riskCoverageMultiplier * riskCoveragePenaltyMultiplier * RESIDUAL_RISK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        "Penalty because of risk coverage assessment age (" + daysSinceRiskCoverageAssessment + " days ago)",
+    )
 
-    var scoreCalculations = [];
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Control coverage adds to this
+    var riskPoints = points;
+    var controlCoverageMultiplier = (tiddler.fields.control_coverage_assessment || 0) / 100;
+    updatePoints(
+        riskPoints + Number(((controlCoverageMultiplier * CONTROL_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        (controlCoverageMultiplier * 100).toFixed() + "% coverage of controls",
+    )
 
-    var riskPoints = Number(((risk * maxRiskWeighting * 100) / weightingDivisor).toFixed());
-
-    if (riskPoints != 0) {
-        scoreCalculations.push("Max risk of " + Number(maxRiskScore).toFixed(1) + " = <span style=\"color: green;\">" + riskPoints + " points</span>");
+    var daysSinceControlCoverageAssessment = utils.daysSince(tiddler.fields.control_coverage_checked);
+    var controlCoveragePenaltyMultiplier = 0;
+    if (daysSinceControlCoverageAssessment !== undefined) {
+        controlCoveragePenaltyMultiplier = 1 - Math.pow(Math.min((daysSinceControlCoverageAssessment / ASSESSMENT_LIMIT_DAYS), 1), ASSESSMENT_POWER_ROLLOFF);
     }
 
-    // Risk coverage assessment gets aged
-    var originalRiskCoverage = (tiddler.fields.risk_coverage_assessment || 0) / 100;
-    var daysSinceRiskCoverage = utils.daysSince(tiddler.fields.risk_coverage_checked);
-    var riskCoverageDecay = 0;
-    if (daysSinceRiskCoverage !== undefined) {
-        riskCoverageDecay = 1 - Math.pow(Math.min((daysSinceRiskCoverage / assessmentLimit), 1), powerRollOff);
-    }
-    var riskCoverage = originalRiskCoverage * riskCoverageDecay;
-    var riskCoveragePoints = Number(((originalRiskCoverage * riskCoverageWeighting * 100) / weightingDivisor).toFixed());
-    var riskCoveragePointPenalty = Number(((originalRiskCoverage * riskCoverageDecay * riskCoverageWeighting * 100) / weightingDivisor).toFixed()) - riskCoveragePoints;
+    updatePoints(
+        riskPoints + Number(((controlCoverageMultiplier * controlCoveragePenaltyMultiplier * CONTROL_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        "Penalty due to control coverage assessment age (" + daysSinceControlCoverageAssessment + " days ago)",
+    )
 
-    if (riskCoveragePoints != 0) {
-        scoreCalculations.push("Risk coverage assessment of " + (originalRiskCoverage * 100).toFixed() + "% = <span style=\"color: green;\">" + riskCoveragePoints + " points</span>");
-    }
-
-    if (riskCoveragePointPenalty != 0) {
-        scoreCalculations.push("Risk coverage assessment age (" + daysSinceRiskCoverage + " days) penalty = <span style=\"color: red;\">" + riskCoveragePointPenalty + " points</span>");
-    }
-
-    // Control coverage assessment gets aged
-    var originalControlCoverage = (tiddler.fields.control_coverage_assessment || 0) / 100;
-    var daysSinceControlCoverage = utils.daysSince(tiddler.fields.control_coverage_checked);
-    var controlCoverageDecay = 0;
-    if (daysSinceControlCoverage !== undefined) {
-        controlCoverageDecay = 1 - Math.pow(Math.min((daysSinceControlCoverage / assessmentLimit), 1), powerRollOff);
-    }
-    var controlCoverage = originalControlCoverage * controlCoverageDecay;
-
-    var controlCoveragePoints = Number(((originalControlCoverage * controlCoverageWeighting * 100) / weightingDivisor).toFixed());
-    var controlCoveragePointPenalty = Number(((originalControlCoverage * controlCoverageDecay * controlCoverageWeighting * 100) / weightingDivisor).toFixed()) - controlCoveragePoints;
-
-    if (controlCoveragePoints != 0) {
-        scoreCalculations.push("Control coverage assessment of " + (originalControlCoverage * 100).toFixed() + "% = <span style=\"color: green;\">" + controlCoveragePoints + " points</span>");
-    }
-
-    if (controlCoveragePointPenalty != 0) {
-        scoreCalculations.push("Control coverage assessment age (" + daysSinceControlCoverage + " days) penalty = <span style=\"color: red;\">" + controlCoveragePointPenalty + " points</span>");
-    }
-
-    var score = riskPoints + riskCoveragePoints + riskCoveragePointPenalty + controlCoveragePoints + controlCoveragePointPenalty;
+    var score = points;
     
     var l = [];
     l.push("<$button class=\"tc-btn-invisible\">");
@@ -554,15 +550,22 @@ function calculate_security_score(tiddler, title) {
     l.push("</$button>");
     l.push("<$button class=\"tc-btn-invisible\">");
     l.push("<$action-setfield $tiddler=<<tabState>> text=\"$:/plugins/security_tools/twsm/components/entity/theme/risks\"/>");
-    l.push(addScoreCoverageMetric("Risk Coverage <i class=\"fas fa-balance-scale\"/>", originalRiskCoverage, originalRiskCoverage * riskCoverageDecay, daysSinceRiskCoverage));
+    l.push(addScoreCoverageMetric("Risk Coverage <i class=\"fas fa-balance-scale\"/>", riskCoverageMultiplier, riskCoverageMultiplier * riskCoveragePenaltyMultiplier, daysSinceRiskCoverageAssessment));
     l.push("</$button>");
     l.push("<$button class=\"tc-btn-invisible\">");
     l.push("<$action-setfield $tiddler=<<tabState>> text=\"$:/plugins/security_tools/twsm/components/entity/theme/controls\"/>");
-    l.push(addScoreCoverageMetric("Control Coverage <i class=\"fas fa-shield-alt\"/>", originalControlCoverage, originalControlCoverage * controlCoverageDecay, daysSinceControlCoverage));
+    l.push(addScoreCoverageMetric("Control Coverage <i class=\"fas fa-shield-alt\"/>", controlCoverageMultiplier, controlCoverageMultiplier * controlCoveragePenaltyMultiplier, daysSinceControlCoverageAssessment));
     l.push("</$button>");
 
     var renderedHeader = l.join("");
     
+    var riskCount = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]count[]]")[0];
+    var maxImpact = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]twsm_risk_assessment:impact[]maxall[]]")[0];
+    if (maxImpact == -Infinity) {
+        maxImpact = 0;
+    }
+    var controlCount = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]count[]]")[0];
+
     return {
         risk_count: riskCount,
         max_impact: maxImpact,
@@ -570,14 +573,8 @@ function calculate_security_score(tiddler, title) {
         max_risk_class: risk_utils.score2Class(maxRiskScore, false),
         max_risk_name: risk_utils.score2Name(maxRiskScore, false),
         control_count: controlCount,
-        risk_coverage_original: (originalRiskCoverage * 100).toFixed(),
-        risk_coverage_age: daysSinceRiskCoverage,
-        risk_coverage_age_penalty: ((1 - riskCoverageDecay) * 100).toFixed(),
-        risk_coverage: (riskCoverage * 100).toFixed(),
-        control_coverage_original: (originalControlCoverage * 100).toFixed(),
-        control_coverage_age: daysSinceControlCoverage,
-        control_coverage_penalty: ((1 - controlCoverageDecay) * 100).toFixed(),
-        control_coverage: (controlCoverage * 100).toFixed(),
+        risk_coverage: (riskCoverageMultiplier * riskCoveragePenaltyMultiplier * 100).toFixed(),
+        control_coverage: (controlCoverageMultiplier * controlCoveragePenaltyMultiplier * 100).toFixed(),
         score: score,
         rendered_header: renderedHeader,
         score_calculations: utils.twListify(scoreCalculations),
