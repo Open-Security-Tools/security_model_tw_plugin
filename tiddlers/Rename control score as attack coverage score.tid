@@ -1,6 +1,7 @@
 created: 20220929171959444
-modified: 20220930120324656
+due: 20221003120000000
+modified: 20221003164928070
 priority: 
-tags: Backlog todo
+tags: Backlog todo done
 title: Rename control score as attack coverage score
 type: text/vnd.tiddlywiki

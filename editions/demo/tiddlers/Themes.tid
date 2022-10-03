@@ -1,0 +1,11 @@
+created: 20221003163316851
+modified: 20221003163322529
+tags: 
+title: Themes
+type: text/vnd.tiddlywiki
+
+<div class="py-todos">
+<$list filter="[twsm_class[theme]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/theme/row}}
+</$list>
+</div>
