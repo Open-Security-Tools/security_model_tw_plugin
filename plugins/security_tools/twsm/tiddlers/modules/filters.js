@@ -478,6 +478,10 @@ function calculate_security_score(tiddler, title) {
     if (maxRiskScore == -Infinity) {
         maxRiskScore = 0;
     }
+    var maxImpact = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]twsm_risk_assessment:impact[]maxall[]]")[0];
+    if (maxImpact == -Infinity) {
+        maxImpact = 0;
+    }
     var risk = 1 - (maxRiskScore / 10.0);
 
     var controlCount = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]get[controls]enlist-input[]unique[]count[]]")[0];
@@ -561,6 +565,7 @@ function calculate_security_score(tiddler, title) {
     
     return {
         risk_count: riskCount,
+        max_impact: maxImpact,
         max_risk_score: Number(maxRiskScore).toFixed(1),
         max_risk_class: risk_utils.score2Class(maxRiskScore, false),
         max_risk_name: risk_utils.score2Name(maxRiskScore, false),

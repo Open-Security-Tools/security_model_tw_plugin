@@ -1,0 +1,7 @@
+created: 20221001054639012
+modified: 20221003074247010
+tags: 
+title: EChart Example
+type: text/vnd.tiddlywiki
+
+<$echarts $tiddler="$:/plugins/security_tools/twsm/charts/radar_themes" $height="600px"/>
