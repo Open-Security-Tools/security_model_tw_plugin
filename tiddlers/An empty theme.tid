@@ -1,9 +1,13 @@
+attack_coverage_assessment: 50
+attack_coverage_checked: 20221003205532848
+attack_coverage_likelihood: Realistic Possibility
 control_coverage_assessment: 50
 control_coverage_checked: 20220913165959590
 created: 20220913141133534
-modified: 20220913165959590
+modified: 20221003210948440
 risk_coverage_assessment: 10
-risk_coverage_checked: 20220913165521848
+risk_coverage_checked: 20221003210948439
+risk_coverage_likelihood: Realistic Possibility
 tags: 
 title: An empty theme
 twsm_class: theme

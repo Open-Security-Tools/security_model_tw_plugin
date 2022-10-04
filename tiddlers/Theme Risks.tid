@@ -1,0 +1,7 @@
+created: 20221003213531865
+modified: 20221003214057228
+tags: 
+title: Theme Risks
+type: text/vnd.tiddlywiki
+
+<$echarts $tiddler="$:/plugins/security_tools/twsm/charts/theme_risks" $height="600px"/>

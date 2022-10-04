@@ -449,15 +449,19 @@ function addScoreCoverageMetric(name, original, decayed, days) {
         return utils.generateMetric("", name, "?", "", "");
     }
 
+    // phia
+    var originalPhia = likelihood_utils.probability2Phia(original);
+    var decayedPhia = likelihood_utils.probability2Phia(decayed);
+
     // Convert to fixed point percentages
     original = (original * 100).toFixed();
     decayed = (decayed * 100).toFixed();
 
-    if (original === decayed) {
-        return utils.generateMetric("", name, original + "%", "Current", "")
+    if (originalPhia === decayedPhia) {
+        return utils.generateMetric("", name, original + "%", originalPhia, "")
     }
     
-    return utils.generateMetric("", name, decayed + "%", original + "% (" + daysPlural(days) + " ago)", "")
+    return utils.generateMetric("", name, original + "%", originalPhia + "% (" + daysPlural(days) + " old)", "")
 }
 
 function calculate_security_score(tiddler, title) {
@@ -467,9 +471,10 @@ function calculate_security_score(tiddler, title) {
 
     // Balancing data...
     const ASSESSMENT_LIMIT_DAYS = 90;
-    const RESIDUAL_RISK_COMPONENT_WEIGHTING = 1;
-    const ATTACK_COMPONENT_WEIGHTING = 1;
-    const WEIGHT_DIVISOR = RESIDUAL_RISK_COMPONENT_WEIGHTING + ATTACK_COMPONENT_WEIGHTING;
+    const RESIDUAL_RISK_WEIGHTING = 3;
+    const ATTACK_COVERAGE_WEIGHTING = 2;
+    const RISK_COVERAGE_WEIGHTING = 2;
+    const WEIGHT_DIVISOR = RESIDUAL_RISK_WEIGHTING + ATTACK_COVERAGE_WEIGHTING + RISK_COVERAGE_WEIGHTING;
     const ASSESSMENT_POWER_ROLLOFF = 2
 
     // Keep track
@@ -484,26 +489,16 @@ function calculate_security_score(tiddler, title) {
         points = newPoints;
     }
 
-
-    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // We start with the maximum risk.
-    // We want a scale where 0 represents a high residual risk, and 1 represents a low residual risk.
-    var maxRiskScore = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]maxall[]]")[0];
-    if (maxRiskScore == -Infinity) {
-        maxRiskScore = 0;
-    }
-    var risk = 1 - (maxRiskScore / 10.0);
-    // updatePoints(
-    //     Number(((risk * RISK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
-    //     "Max residual risk of " + Number(maxRiskScore).toFixed(1),
-    // )
-
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Risk coverage scale
-    var riskCoverageMultiplier = (tiddler.fields.risk_coverage_assessment || 0) / 100;
+    var riskCoverageMultiplier = 0.0;
+    if (tiddler.fields.risk_coverage_likelihood !== undefined) {
+        riskCoverageMultiplier = likelihood_utils.phia2Likelihood(tiddler.fields.risk_coverage_likelihood).upper;
+    }
+
     updatePoints(
-        Number(((risk * riskCoverageMultiplier * RESIDUAL_RISK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
-        (riskCoverageMultiplier * 100).toFixed() + "% coverage for maximum residual risk of " + Number(maxRiskScore).toFixed(1),
+        Number(((riskCoverageMultiplier * ATTACK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        "Risk coverage of " + (riskCoverageMultiplier * 100).toFixed() + "%",
     )
 
     var daysSinceRiskCoverageAssessment = utils.daysSince(tiddler.fields.risk_coverage_checked);
@@ -511,19 +506,22 @@ function calculate_security_score(tiddler, title) {
     if (daysSinceRiskCoverageAssessment !== undefined) {
         riskCoveragePenaltyMultiplier = 1 - Math.pow(Math.min((daysSinceRiskCoverageAssessment / ASSESSMENT_LIMIT_DAYS), 1), ASSESSMENT_POWER_ROLLOFF);
     }
-    var riskCoverageMultiplier = (tiddler.fields.risk_coverage_assessment || 0) / 100;
     updatePoints(
-        Number(((risk * riskCoverageMultiplier * riskCoveragePenaltyMultiplier * RESIDUAL_RISK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
-        "Penalty because of risk coverage assessment age (" + daysSinceRiskCoverageAssessment + " days ago)",
+        Number(((riskCoverageMultiplier * riskCoveragePenaltyMultiplier * ATTACK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        "Reduced risk coverage confidence (" + daysSinceRiskCoverageAssessment + " days elapsed)",
     )
+
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Attack coverage adds to this
-    var riskPoints = points;
-    var attackCoverageMultiplier = (tiddler.fields.attack_coverage_assessment || 0) / 100;
+    var cachedPoints = points;
+    var attackCoverageMultiplier = 0.0;
+    if (tiddler.fields.attack_coverage_likelihood !== undefined) {
+        attackCoverageMultiplier = likelihood_utils.phia2Likelihood(tiddler.fields.attack_coverage_likelihood).upper;
+    }
     updatePoints(
-        riskPoints + Number(((attackCoverageMultiplier * ATTACK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
-        (attackCoverageMultiplier * 100).toFixed() + "% coverage of attacks",
+        cachedPoints + (Number(((attackCoverageMultiplier * ATTACK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed())),
+        "Attack coverage of " + (attackCoverageMultiplier * 100).toFixed() + "%",
     )
 
     var daysSinceAttackCoverageAssessment = utils.daysSince(tiddler.fields.attack_coverage_checked);
@@ -531,10 +529,22 @@ function calculate_security_score(tiddler, title) {
     if (daysSinceAttackCoverageAssessment !== undefined) {
         attackCoveragePenaltyMultiplier = 1 - Math.pow(Math.min((daysSinceAttackCoverageAssessment / ASSESSMENT_LIMIT_DAYS), 1), ASSESSMENT_POWER_ROLLOFF);
     }
-
     updatePoints(
-        riskPoints + Number(((attackCoverageMultiplier * attackCoveragePenaltyMultiplier * ATTACK_COMPONENT_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
-        "Penalty due to attack coverage assessment age (" + daysSinceAttackCoverageAssessment + " days ago)",
+        cachedPoints + (Number(((attackCoverageMultiplier * attackCoveragePenaltyMultiplier * ATTACK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed())),
+        "Reduced risk coverage confidence (" + daysSinceAttackCoverageAssessment + " days elapsed)",
+    )
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // We want a scale where 0 represents a high residual risk, and 1 represents a low residual risk.
+    var cachedPoints = points;
+    var maxRiskScore = $tw.wiki.filterTiddlers("[title[" + title + "]tagging[]twsm_class[risk]twsm_risk_assessment:treatedRiskForCalculations[]maxall[]]")[0];
+    if (maxRiskScore == -Infinity) {
+        maxRiskScore = 0;
+    }
+    var risk = 1 - (maxRiskScore / 10.0);
+    updatePoints(
+        cachedPoints + (Number(((risk * RESIDUAL_RISK_WEIGHTING * attackCoverageMultiplier * attackCoveragePenaltyMultiplier * riskCoverageMultiplier * riskCoveragePenaltyMultiplier *  100) / WEIGHT_DIVISOR).toFixed())),
+        "Max residual risk of " + Number(maxRiskScore).toFixed(1),
     )
 
     var score = points;
@@ -549,12 +559,26 @@ function calculate_security_score(tiddler, title) {
     l.push(utils.generateMetric(risk_utils.score2Class(maxRiskScore, false), "Max Risk <i class=\"fas fa-balance-scale\"/>", Number(maxRiskScore).toFixed(1), risk_utils.score2Name(maxRiskScore, false), ""));
     l.push("</$button>");
     l.push("<$button class=\"tc-btn-invisible\">");
-    l.push("<$action-setfield $tiddler=<<tabState>> text=\"$:/plugins/security_tools/twsm/components/entity/theme/risks\"/>");
-    l.push(addScoreCoverageMetric("Risk Coverage <i class=\"fas fa-balance-scale\"/>", riskCoverageMultiplier, riskCoverageMultiplier * riskCoveragePenaltyMultiplier, daysSinceRiskCoverageAssessment));
+    l.push("{{||$:/plugins/security_tools/twsm/components/entity/generic/actions/edit_theme_risk_coverage}}");
+    l.push(
+        addScoreCoverageMetric(
+            "Risk Coverage <i class=\"fas fa-balance-scale\"/>",
+            riskCoverageMultiplier,
+            riskCoverageMultiplier * riskCoveragePenaltyMultiplier,
+            daysSinceRiskCoverageAssessment
+        )
+    );
     l.push("</$button>");
     l.push("<$button class=\"tc-btn-invisible\">");
-    l.push("<$action-setfield $tiddler=<<tabState>> text=\"$:/plugins/security_tools/twsm/components/entity/theme/controls\"/>");
-    l.push(addScoreCoverageMetric("Attack Coverage <i class=\"fas fa-shield-alt\"/>", attackCoverageMultiplier, attackCoverageMultiplier * attackCoveragePenaltyMultiplier, daysSinceAttackCoverageAssessment));
+    l.push("{{||$:/plugins/security_tools/twsm/components/entity/generic/actions/edit_theme_attack_coverage}}");
+    l.push(
+        addScoreCoverageMetric(
+            "Attack Coverage <i class=\"fas fa-shield-alt\"/>", 
+            attackCoverageMultiplier,
+            attackCoverageMultiplier * attackCoveragePenaltyMultiplier,
+            daysSinceAttackCoverageAssessment
+        )
+    );
     l.push("</$button>");
 
     var renderedHeader = l.join("");
@@ -580,8 +604,6 @@ function calculate_security_score(tiddler, title) {
         score_calculations: utils.twListify(scoreCalculations),
     }
 }
-
-
 
 exports.twsm_security_score = function (source, operator, options) {
     var result = [];

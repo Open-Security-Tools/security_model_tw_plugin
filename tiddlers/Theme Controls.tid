@@ -1,0 +1,7 @@
+created: 20221003214349366
+modified: 20221003214400863
+tags: 
+title: Theme Controls
+type: text/vnd.tiddlywiki
+
+<$echarts $tiddler="$:/plugins/security_tools/twsm/charts/theme_controls" $height="600px"/>

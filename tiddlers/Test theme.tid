@@ -1,12 +1,14 @@
 attack_coverage_assessment: 90
-attack_coverage_checked: 20221003164720928
+attack_coverage_checked: 20221003211505756
+attack_coverage_likelihood: Realistic Possibility
 control_coverage_assessment: 50
 control_coverage_checked: 20220913165959590
 created: 20221001055015238
 hide-body: yes
-modified: 20221003164720928
+modified: 20221003211505756
 risk_coverage_assessment: 80
-risk_coverage_checked: 20221003152047129
+risk_coverage_checked: 20221003211502239
+risk_coverage_likelihood: Highly Unlikely
 tags: 
 title: Test theme
 twsm_class: theme
