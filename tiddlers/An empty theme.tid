@@ -4,7 +4,8 @@ attack_coverage_likelihood: Realistic Possibility
 control_coverage_assessment: 50
 control_coverage_checked: 20220913165959590
 created: 20220913141133534
-modified: 20221003210948440
+hide-body: yes
+modified: 20221004190322182
 risk_coverage_assessment: 10
 risk_coverage_checked: 20221003210948439
 risk_coverage_likelihood: Realistic Possibility
@@ -14,3 +15,5 @@ twsm_class: theme
 twsm_hue: 2
 twsm_id: 1014
 type: text/vnd.tiddlywiki
+
+A description

@@ -47,7 +47,7 @@ span.attack_tree_path_prefix {
 }
 
 div.twsm_risk_metric {
-  width: 160px;
+  width: 180px;
 	height: 120px;
 	text-align: center;
 	margin-bottom: 20px;

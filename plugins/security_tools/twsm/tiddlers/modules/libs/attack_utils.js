@@ -127,15 +127,14 @@ class Node {
         s.push(this.customCircle());
         
         // AND/OR node
-        // var criticalPathStyle = this.criticalPath ? " critical_path" : "";
-        if (this.criticalPath) {
-            s.push("<i style=\"color: #A0A000; \" class=\"fas fa-star\"/>");
-        }
         if (this.parent.children.length > 1) {
             s.push("<span class=\"attack_tree_branch_type\">" + this.parent.operator + "</span>");
         }
 
         s.push(this.description());
+        if (this.criticalPath) {
+            s.push("<i style=\"color: #A0A000; \" class=\"fas fa-star\"/>");
+        }
 
         // Comments added as additional lines
         var comments = this.comments.join("\n").trim().replaceAll("\n", "<br>");
