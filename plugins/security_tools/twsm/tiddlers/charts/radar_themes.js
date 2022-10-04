@@ -44,7 +44,7 @@ exports.shouldUpdate = function (_, changedTiddlers) {
 exports.onUpdate = function (echart) {
   var indicatorDefinitions = [];
   $tw.utils.each(
-    $tw.wiki.filterTiddlers("[twsm_class[theme]]"),
+    $tw.wiki.filterTiddlers("[twsm_class[theme]sort[]]"),
     function (theme) {
       indicatorDefinitions.push({
         text: theme,
