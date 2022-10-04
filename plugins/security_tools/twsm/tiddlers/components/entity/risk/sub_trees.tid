@@ -1,6 +1,6 @@
 created: 20220901083317704
 modified: 20220901092843125
-caption: <i class="fas fa-biohazard"/> Sub-Attacks
+caption: <i class="fas fa-biohazard"/> Shared Attacks
 tooltip: Attacks incorporated into this risk
 tags: $:/plugins/security_tools/twsm/components/entity/risk/tabs
 title: $:/plugins/security_tools/twsm/components/entity/risk/sub_trees

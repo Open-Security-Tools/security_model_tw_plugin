@@ -6,7 +6,7 @@ type: text/vnd.tiddlywiki
 
 <$macrocall
   $name="tabs"
-  tabsList="[all[tiddlers+shadows]tag[$:/plugins/security_tools/twsm/components/entity/risk/tabs]]"
+  tabsList="[all[tiddlers+shadows]tag[$:/plugins/security_tools/twsm/components/entity/risk/tabs]] -[all[current]!has[text]then[$:/plugins/security_tools/twsm/components/entity/risk/details]]"
   default="$:/plugins/security_tools/twsm/components/entity/risk/attack_tree"
   explicitState=<<tabState>>
   class="py-tabs"
