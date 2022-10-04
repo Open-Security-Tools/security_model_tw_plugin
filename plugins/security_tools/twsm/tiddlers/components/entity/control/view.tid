@@ -11,6 +11,8 @@ type: text/vnd.tiddlywiki
 
 {{||$:/plugins/security_tools/twsm/components/entity/control/header}}
 
+{{||$:/plugins/security_tools/twsm/components/context/control/usage}}
+
 {{||$:/plugins/security_tools/twsm/components/context/control/vulnerabilities}}
 
 </$list>

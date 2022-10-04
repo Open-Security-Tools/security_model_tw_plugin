@@ -1,0 +1,11 @@
+created: 20220224114649766
+modified: 20220224114838771
+tags: 
+title: $:/plugins/security_tools/twsm/components/context/control/usage
+type: text/vnd.tiddlywiki
+
+<div class="py-todos">
+<$list filter="[all[current]listed[accumulated_controls]unique[]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/generic/row}}
+</$list>
+</div>
