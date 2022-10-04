@@ -1,7 +1,10 @@
 created: 20220912075616126
 feedback_email: 
 fqdn_base: http://localhost:8081/
-modified: 20220927175640304
+modified: 20221004082906316
+security_score_attack_coverage_weighting: 4
+security_score_residual_risk_weighting: 1
+security_score_risk_coverage_weighting: 2
 show_help_default: no
 title: $:/config/twsm/settings
 type: text/vnd.tiddlywiki

@@ -1,8 +1,7 @@
 created: 20201130170713469
-modified: 20221003214406436
+modified: 20221004074346382
 title: $:/DefaultTiddlers
 type: text/vnd.tiddlywiki
 
-[[Theme Controls]]
-[[Theme Risks]]
+[[$:/plugins/security_tools/twsm/components/context/settings/settings]]
 [[Theme Diagram]]

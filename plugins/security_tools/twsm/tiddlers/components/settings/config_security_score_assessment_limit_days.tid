@@ -1,0 +1,8 @@
+caption: Security Score Assessment Limit (days)
+created: 20211113212016075
+modified: 20211113213100775
+tags: $:/plugins/security_tools/twsm/components/context/settings/config
+title: $:/plugins/security_tools/twsm/components/context/settings/config_security_score_assessment_limit_days
+type: text/vnd.tiddlywiki
+
+<$edit-text tiddler="$:/config/twsm/settings" field=security_score_assessment_limit_days type=number size=5 default=90/>

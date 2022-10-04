@@ -469,13 +469,16 @@ function calculate_security_score(tiddler, title) {
         return;
     }
 
+    var settings = $tw.wiki.getTiddler("$:/config/twsm/settings").fields || {};
+
     // Balancing data...
-    const ASSESSMENT_LIMIT_DAYS = 90;
-    const RESIDUAL_RISK_WEIGHTING = 3;
-    const ATTACK_COVERAGE_WEIGHTING = 2;
-    const RISK_COVERAGE_WEIGHTING = 2;
+    const ASSESSMENT_LIMIT_DAYS = Number(settings.security_score_assessment_limit_days || 90);
+    const RESIDUAL_RISK_WEIGHTING = Number(settings.security_score_residual_risk_weighting || 1);
+    const ATTACK_COVERAGE_WEIGHTING = Number(settings.security_score_attack_coverage_weighting || 1);
+    const RISK_COVERAGE_WEIGHTING = Number(settings.security_score_risk_coverage_weighting || 1);
+    const ASSESSMENT_POWER_ROLLOFF = Number(settings.security_score_assessment_power_rolloff || 2);
+
     const WEIGHT_DIVISOR = RESIDUAL_RISK_WEIGHTING + ATTACK_COVERAGE_WEIGHTING + RISK_COVERAGE_WEIGHTING;
-    const ASSESSMENT_POWER_ROLLOFF = 2
 
     // Keep track
     var scoreCalculations = [];
@@ -497,7 +500,7 @@ function calculate_security_score(tiddler, title) {
     }
 
     updatePoints(
-        Number(((riskCoverageMultiplier * ATTACK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        Number(((riskCoverageMultiplier * RISK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
         "Risk coverage of " + (riskCoverageMultiplier * 100).toFixed() + "%",
     )
 
@@ -507,7 +510,7 @@ function calculate_security_score(tiddler, title) {
         riskCoveragePenaltyMultiplier = 1 - Math.pow(Math.min((daysSinceRiskCoverageAssessment / ASSESSMENT_LIMIT_DAYS), 1), ASSESSMENT_POWER_ROLLOFF);
     }
     updatePoints(
-        Number(((riskCoverageMultiplier * riskCoveragePenaltyMultiplier * ATTACK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
+        Number(((riskCoverageMultiplier * riskCoveragePenaltyMultiplier * RISK_COVERAGE_WEIGHTING * 100) / WEIGHT_DIVISOR).toFixed()),
         "Reduced risk coverage confidence (" + daysSinceRiskCoverageAssessment + " days elapsed)",
     )
 
