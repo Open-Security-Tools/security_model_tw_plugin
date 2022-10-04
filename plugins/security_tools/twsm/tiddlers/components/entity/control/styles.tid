@@ -1,0 +1,9 @@
+created: 20180820171551129
+modified: 20210808172126448
+tags: $:/tags/Stylesheet
+title: $:/plugins/security_tools/twsm/components/entity/control/styles
+type: text/css
+
+button.control_idea_button {
+  background: yellow;
+}
