@@ -4,9 +4,23 @@ modified: 20211114195923750
 tags: 
 title: $:/plugins/security_tools/twsm/components/context/entity/theme/edit_attack_coverage
 subtitle: Edit Attack Coverage
-footer: <$button>Cancel<$action-sendmessage $message="tm-close-tiddler"/></$button> <$button>Update<$action-sendmessage $message="tm-close-tiddler"/><$action-setfield $tiddler={{$:/state/twsm/edit_attack_coverage!!target_tiddler}} attack_coverage_assessment={{$:/state/twsm/edit_attack_coverage!!attack_coverage_assessment}} attack_coverage_checked=<<now "[UTC]YYYY0MM0DD0hh0mm0ssXXX">>/></$button>
+footer: <$button>Cancel<$action-sendmessage $message="tm-close-tiddler"/></$button> <$button>Update<$action-sendmessage $message="tm-close-tiddler"/><$action-setfield $tiddler={{$:/state/twsm/edit_attack_coverage!!target_tiddler}} attack_coverage_likelihood={{$:/state/twsm/edit_attack_coverage!!attack_coverage_likelihood}} attack_coverage_checked=<<now "[UTC]YYYY0MM0DD0hh0mm0ssXXX">>/></$button>
 type: text/vnd.tiddlywiki
 
 <b><$view tiddler="$:/state/twsm/edit_attack_coverage" field=target_tiddler/></b>
 
-Attack coverage (%): <$edit-text type=number size=4 tiddler="$:/state/twsm/edit_attack_coverage" field="attack_coverage_assessment"/>
+Attack coverage (%): 
+<$select
+    tiddler="$:/state/twsm/edit_attack_coverage",
+    field="attack_coverage_likelihood"
+>
+<option value="Remote Chance">Remote Chance</option>
+<option value="Highly Unlikely">Highly Unlikely</option>
+<option value="Unlikely">Unlikely</option>
+<option value="Realistic Possibility">Realistic Possibility</option>
+<option value="Likely">Likely</option>
+<option value="Highly Likely">Highly Likely</option>
+<option value="Almost Certain">Almost Certain</option>
+</$select>
+
+

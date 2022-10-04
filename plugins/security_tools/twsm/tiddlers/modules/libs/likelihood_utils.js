@@ -182,6 +182,7 @@ function calculateControlFailureLikelihood(failureLikelihood, isIdea) {
 
 exports.calculateControlFailureLikelihood = calculateControlFailureLikelihood;
 exports.phia2Likelihood = phia2Likelihood;
+exports.probability2Phia = probability2Phia;
 exports.Likelihood = Likelihood;
 exports.ComplexLikelihood = ComplexLikelihood;
 exports.NULL_COMPLEX_LIKELIHOOD = NULL_COMPLEX_LIKELIHOOD;

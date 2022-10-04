@@ -6,5 +6,5 @@ title: $:/plugins/security_tools/twsm/components/entity/generic/actions/edit_the
 type: text/vnd.tiddlywiki
 
 <$action-setfield $tiddler="$:/state/twsm/edit_risk_coverage" target_tiddler=<<currentTiddler>>/>
-<$action-setfield $tiddler="$:/state/twsm/edit_risk_coverage" risk_coverage_assessment={{!!risk_coverage_assessment}}/>
+<$action-setfield $tiddler="$:/state/twsm/edit_risk_coverage" risk_coverage_likelihood={{!!risk_coverage_likelihood}}/>
 <$action-sendmessage $message="tm-modal" $param="$:/plugins/security_tools/twsm/components/context/entity/theme/edit_risk_coverage"/>
