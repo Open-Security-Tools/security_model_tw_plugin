@@ -7,8 +7,8 @@ type: text/vnd.tiddlywiki
 
 <$macrocall
   $name="tabs"
-  tabsList="[all[tiddlers+shadows]tag[$:/plugins/security_tools/twsm/components/entity/theme/tabs]]"
-  default="$:/plugins/security_tools/twsm/components/entity/theme/risks"
+  tabsList="[[score]] [all[current]tagging[]twsm_class[risk]first[]then[risks]] [all[current]tagging[]twsm_class[risk]get[accumulated_controls]enlist-input[]first[]then[controls]] [all[current]tagging[]twsm_class[risk]get[accumulated_sub_trees]enlist-input[]first[]then[shared_attacks]] [all[current]get[text]then[details]] +[addprefix[$:/plugins/security_tools/twsm/components/entity/theme/]]"
+  default="$:/plugins/security_tools/twsm/components/entity/theme/score"
   explicitState=<<tabState>>
   class="py-tabs"
 />

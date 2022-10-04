@@ -15,10 +15,10 @@ $title$
 \end
 
 \define attack_tree_control_reference(control)
-<$link to="$control$">
-<$list filter="[title[$control$]get[twsm_characteristic_class]]">
+<$list filter="[title[$control$]get[twsm_characteristic_class]addprefix[$:/plugins/security_tools/twsm/defs/control_characteristic/]get[attack_tree_prefix]]">
 <<currentTiddler>>:
 </$list>
+<$link to="$control$">
 <$view tiddler="$control$" field=title/> (#<$view tiddler="$control$" field=twsm_id/>)</$link>
 <$tiddler tiddler="$control$">
 {{||$:/plugins/security_tools/twsm/components/entity/control/btn_attack_tree_failure_likelihood}}
@@ -26,6 +26,7 @@ $title$
 \end
 
 \define attack_tree_attack_reference(attack)
+Shared Attack: 
 <$link to="$attack$">
 <$view tiddler="$attack$" field=title/> (#<$view tiddler="$attack$" field=twsm_id/>)
 </$link>
