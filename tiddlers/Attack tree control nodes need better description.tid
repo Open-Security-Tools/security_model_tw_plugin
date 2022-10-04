@@ -1,0 +1,14 @@
+created: 20221004162922660
+due: 20221004120000000
+modified: 20221004163044548
+priority: 
+tags: Backlog todo
+title: Attack tree control nodes need better description
+type: text/vnd.tiddlywiki
+
+* Procedural
+** "Procedural Failure"
+* Technical
+** "Technical Failure"
+* Policy
+** "Policy Failure"
