@@ -263,7 +263,7 @@ function get_assurance_actions(tiddler, title, options) {
     }
 
     // Every assurance activity needs a control or risk
-    var riskOrControlCount = $tw.wiki.filterTiddlers("[title[" + title + "]tags[]twsm_class[risk]] [title[" + title + "]tags[]twsm_class[control]]" + " +[count[]]")[0];
+    var riskOrControlCount = $tw.wiki.filterTiddlers("[title[" + title + "]tags[]twsm_class[risk]] [title[" + title + "]tags[]twsm_class[control]] [title[" + title + "]tags[]twsm_class[attack]]" + " +[count[]]")[0];
     if (riskOrControlCount == 0) {
         result.push("add_assurance_activity_to_risk_or_control");
     }
