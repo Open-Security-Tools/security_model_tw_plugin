@@ -10,7 +10,7 @@ type: text/vnd.tiddlywiki
 !! Related
 
 <div class="py-todos">
-<$list filter="[all[current]tags[]twsm_class[control]] [all[current]tags[]twsm_class[risk]] [all[current]tags[]twsm_class[attack]] [all[current]tags[]twsm_class[attack]get[accumulated_sub_trees]enlist-input[]] [all[current]tags[]twsm_class[attack]get[accumulated_risks]enlist-input[]] +[unique[]sort[]]">
+<$list filter="[all[current]tags[]twsm_class[control]] [all[current]tags[]twsm_class[control]listed[accumulated_controls]] [all[current]tags[]twsm_class[risk]] [all[current]tags[]twsm_class[attack]] [all[current]tags[]twsm_class[attack]get[accumulated_sub_trees]enlist-input[]] [all[current]tags[]twsm_class[attack]listed[accumulated_sub_trees]] +[unique[]sort[]]">
 {{||$:/plugins/security_tools/twsm/components/entity/generic/row}}
 </$list>
 </div>
