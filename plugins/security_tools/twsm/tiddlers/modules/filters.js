@@ -217,18 +217,25 @@ function get_control_actions(tiddler, title, options) {
     } else {
         result.push("set_control_idea_status");
     }
-    var characteristics = ["Physical", "Policy", "Procedural", "Technical"];
-    for (let c of characteristics) {
-        if (c !== tiddler.fields.twsm_characteristic_class) {
-            result.push("set_control_characteristic_" + c.toLowerCase());
-        }
+    if (tiddler.fields.twsm_characteristic_class === undefined) {
+        result.push("set_control_characteristic");
     }
-    var temporal = ["Preventative", "Detective", "Corrective"]
-    for (let t of temporal) {
-        if (t !== tiddler.fields.twsm_temporal_class) {
-            result.push("set_control_temporal_" + t.toLowerCase());
-        }
+    if (tiddler.fields.twsm_temporal_class === undefined) {
+        result.push("set_control_temporal");
     }
+
+    // var characteristics = ["Physical", "Policy", "Procedural", "Technical"];
+    // for (let c of characteristics) {
+    //     if (c !== tiddler.fields.twsm_characteristic_class) {
+    //         result.push("set_control_characteristic_" + c.toLowerCase());
+    //     }
+    // }
+    // var temporal = ["Preventative", "Detective", "Corrective"]
+    // for (let t of temporal) {
+    //     if (t !== tiddler.fields.twsm_temporal_class) {
+    //         result.push("set_control_temporal_" + t.toLowerCase());
+    //     }
+    // }
     
     // Controls should not be linked to themes
     var themeCount = $tw.wiki.filterTiddlers("[title[" + title + "]tags[]twsm_class[theme]count[]]")[0];

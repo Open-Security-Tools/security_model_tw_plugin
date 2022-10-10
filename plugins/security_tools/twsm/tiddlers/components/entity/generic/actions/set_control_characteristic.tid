@@ -1,0 +1,14 @@
+action_name: Set the ''Characteristic'' class
+action_type: warning
+created: 20220729125843346
+modified: 20220808074647730
+title: $:/plugins/security_tools/twsm/components/entity/generic/actions/set_control_characteristic
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]!has[twsm_characteristic_class]]">
+<$action-setfield twsm_characteristic_class=""/>
+</$list>
+<$list filter="[all[current]!has[twsm_temporal_class]]">
+<$action-setfield twsm_temporal_class=""/>
+</$list>
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<currentTiddler>>/>
