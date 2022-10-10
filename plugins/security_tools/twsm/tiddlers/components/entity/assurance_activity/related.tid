@@ -1,0 +1,18 @@
+caption: Mitigation
+created: 20210729064308510
+modified: 20220216215450108
+tags: 
+title: $:/plugins/security_tools/twsm/components/entity/assurance_activity/related
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tags[]twsm_class[control]] [all[current]tags[]twsm_class[risk]] [all[current]tags[]twsm_class[attack]] +[first[]]" variable="ignore01">
+
+!! Related
+
+<div class="py-todos">
+<$list filter="[all[current]tags[]twsm_class[control]] [all[current]tags[]twsm_class[risk]] [all[current]tags[]twsm_class[attack]] [all[current]tags[]twsm_class[attack]get[accumulated_sub_trees]enlist-input[]] [all[current]tags[]twsm_class[attack]get[accumulated_risks]enlist-input[]] +[unique[]sort[]]">
+{{||$:/plugins/security_tools/twsm/components/entity/generic/row}}
+</$list>
+</div>
+
+</$list>
