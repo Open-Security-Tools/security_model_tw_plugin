@@ -1,4 +1,4 @@
-action_name: Add assurance activity to risk or control
+action_name: Add assurance activity to a risk, control or attack
 action_type: warning
 created: 20220729125843346
 modified: 20220808074647730
