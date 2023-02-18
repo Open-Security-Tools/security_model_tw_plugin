@@ -1,0 +1,44 @@
+name: BuildWebsite
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build_website:
+    name: BuildWebsite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Inject version
+        run: |
+          python inject_version.py
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm install
+      - run: npm run build
+      - name: Check output
+        run: |
+          ls -la output
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: website
+      - name: Strip off the git history
+        run: |
+          rm -rf website/.git
+      - name: Update the index.html page
+        run: |
+          cp output/index.html website/index.html
+      - name: Check that we got the website!
+        run: |
+          ls -laR website
+      - name: Deploy
+        uses: Open-Security-Tools/github-pages-deploy-action@v4
+        with:
+          folder: website
