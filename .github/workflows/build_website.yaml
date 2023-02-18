@@ -23,7 +23,7 @@ jobs:
       - run: npm run build
       - name: Check output
         run: |
-          ls -la output
+          ls -la editions/demo/output
       - name: Checkout gh-pages branch
         uses: actions/checkout@v3
         with:
@@ -34,8 +34,8 @@ jobs:
           rm -rf website/.git
       - name: Update the index.html page
         run: |
-          cp output/index.html website/index.html
-      - name: Check that we got the website!
+          cp editions/demo/output/demo.html website/index.html
+      - name: Check the contents of the website
         run: |
           ls -laR website
       - name: Deploy
