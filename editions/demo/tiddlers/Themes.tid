@@ -1,5 +1,5 @@
 created: 20221003163316851
-modified: 20221003163322529
+modified: 20230218182657433
 tags: 
 title: Themes
 type: text/vnd.tiddlywiki
@@ -9,3 +9,8 @@ type: text/vnd.tiddlywiki
 {{||$:/plugins/security_tools/twsm/components/entity/theme/row}}
 </$list>
 </div>
+
+Here's a graphical view of themes:
+
+<$echarts $tiddler="$:/plugins/security_tools/twsm/charts/radar_themes" $height="600px"/>
+
